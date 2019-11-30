@@ -7,5 +7,6 @@ addons:
 
 script:
   - sonar-scanner
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t mixeway/frontend:0.9 .
   - docker push mixeway/frontend:0.9
