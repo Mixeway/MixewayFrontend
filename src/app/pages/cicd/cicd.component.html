@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-md-8">
+    <nb-card>
+      <nb-card-header>{{constants.CICD_HTML_FREQUENCY}}</nb-card-header>
+      <nb-card-body>
+        <ngx-citrend-chart-line></ngx-citrend-chart-line>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-4">
+    <nb-card>
+      <nb-card-header>{{constants.CICD_HTML_RESULT}}</nb-card-header>
+      <nb-card-body>
+        <ngx-ciresult-chart-pie></ngx-ciresult-chart-pie>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <ng2-smart-table [settings]="settings" [source]="sourcesData" ></ng2-smart-table>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<nb-card class="col-md-12 col-lg-12 col-xxxl-12">
+  <nb-card-header>
+    <h4>It looks like this is first login into Mixeway. Please create password for 'admin' User</h4>
+  </nb-card-header>
+  <nb-card-body>
+    <p>First Login</p>
+    <p>Create passwsowrd for 'admin' user</p>
+    <div>
+      <form [formGroup]="initForm" (ngSubmit)="saveInit(initForm.value)" >
+        <div class="form-group">
+          <label for="password" class="label"></label>
+          <input type="password" nbInput fullWidth id="password" placeholder="Password" formControlName="password">
+        </div>
+        <button type="submit" nbButton status="danger">Save</button>
+      </form>
+    </div>
+  </nb-card-body>
+</nb-card>
+

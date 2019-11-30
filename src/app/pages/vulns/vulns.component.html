@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <button status="primary" nbButton hero (click)="showInfra()" [disabled]="showingInfra">
+      <nb-icon icon="hard-drive-outline" [nbTooltip]="constants.VULNS_BUTTON_TOOLTIP_INFRA" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+      {{constants.VULNS_BUTTON_INFRA}}
+    </button> &nbsp;
+    <button status="primary" nbButton hero (click)="showWebApp()" [disabled]="showingWebApps">
+      <nb-icon icon="browser-outline" [nbTooltip]="constants.VULNS_BUTTON_TOOLTIP_WEBAPP" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+        {{constants.VULNS_BUTTON_WEBAPP}}
+    </button>&nbsp;
+    <button status="primary" nbButton hero (click)="showCode()" [disabled]="showingCodes" >
+      <nb-icon icon="code-outline" [nbTooltip]="constants.VULNS_BUTTON_TOOLTIP_CODE" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+      {{constants.VULNS_BUTTON_CODE}}
+    </button>
+  </div>
+</div>
+<br/>
+<div class="row">
+  <div class="col-md-6">
+    <nb-card>
+      <nb-card-header>
+        {{constants.VULNS_PER_VULN}}
+      </nb-card-header>
+      <nb-card-body>
+        <div *ngIf="vulns?.length > 0" echarts [options]="optionsVulns" class="echart"></div>
+        <nb-alert status="info" *ngIf="vulns?.length == 0">{{constants.VULNS_NODATA}}</nb-alert>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-6">
+    <nb-card>
+      <nb-card-header>
+        {{constants.VULNS_PER_CODE}}
+      </nb-card-header>
+      <nb-card-body>
+        <div *ngIf="targets?.length > 0" echarts [options]="optionsTargets" class="echart"></div>
+        <nb-alert status="info" *ngIf="targets?.length == 0">{{constants.VULNS_NODATA}}</nb-alert>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+

@@ -1,0 +1,12 @@
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  height: 40px;
+}
+
+:host /deep/ .badge{ text-align: center; }
+.descriptionCard {
+  white-space: pre-wrap;
+}

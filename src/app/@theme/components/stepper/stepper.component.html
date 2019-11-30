@@ -1,0 +1,55 @@
+<nb-card class="col-md-12 col-lg-12 col-xxxl-12">
+  <nb-card-header>
+    <h3>Nowy Mixer - przegląd funkcjonalności</h3>
+  </nb-card-header>
+  <nb-card-body>
+    <nb-stepper orientation="horizontal">
+      <nb-step [label]="labelOne">
+        <ng-template #labelOne>Projekty</ng-template>
+        <h3>Tworzenie i edycja projektów</h3>
+        <div>
+          <img style="max-width: 800px" src="assets/images/createproject.gif">
+        </div>
+        <button nbButton disabled nbStepperNext>prev</button>
+        <button nbButton nbStepperNext>next</button>
+      </nb-step>
+      <nb-step [label]="labelTwo">
+        <ng-template #labelTwo>Zasoby</ng-template>
+        <h3>Tworzenie i edycja zasobów</h3>
+        <div>
+          <img style="max-width: 800px" src="assets/images/createassets.gif">
+        </div>
+        <button nbButton nbStepperPrevious>prev</button>
+        <button nbButton nbStepperNext>next</button>
+      </nb-step>
+      <nb-step [label]="labelThree">
+        <ng-template #labelThree>Skany</ng-template>
+        <h3>Wykonywanie skanów</h3>
+        <div>
+          <img style="max-width: 800px" src="assets/images/createscan.gif">
+        </div>
+        <button nbButton nbStepperPrevious>prev</button>
+        <button nbButton nbStepperNext>next</button>
+      </nb-step>
+      <nb-step [label]="labelFour">
+        <ng-template #labelFour>Wyniki</ng-template>
+        <h3>Przeglądanie wyników</h3>
+        <div>
+          <img style="max-width: 800px" src="assets/images/scandetails.gif">
+        </div>
+        <button nbButton nbStepperPrevious>prev</button>
+        <button nbButton nbStepperNext>next</button>
+      </nb-step>
+      <nb-step [label]="labelFive">
+        <ng-template #labelFive>Statystyki</ng-template>
+        <h3>Przeglądanie statystyk</h3>
+        <div>
+          <img style="max-width: 800px" src="assets/images/statistic.gif">
+        </div>
+        <button nbButton nbStepperPrevious>prev</button>
+        <button nbButton disabled nbStepperNext>next</button>
+      </nb-step>
+    </nb-stepper>
+  </nb-card-body>
+</nb-card>
+

@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>
+      <h3 style="text-align: center; padding-top: 5px;">{{constants.SEARCH_TITLE}} {{ searchingFor }}</h3>
+    </nb-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12" *ngIf="searchingFor.length < 5">
+    <nb-alert status="danger" style="text-align: center">{{constants.SEARCH_WARRNING}}</nb-alert>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12" *ngIf="searchResponse?.assets.length > 0">
+    <nb-card>
+      <nb-card-header>
+        {{constants.SEARCH_ASSET_1}} <b>{{searchResponse.assets.length}} </b>{{constants.SEARCH_ASSET_2}}
+      </nb-card-header>
+      <nb-card-body>
+        <nb-list>
+          <nb-list-item *ngFor="let asset of searchResponse.assets">
+            <a href="/pages/show/project/{{asset.project.id}}">{{constants.SEARCH_TO_PROJECT}}</a> {{ asset.ipAddress + ' [' + asset.hostname +']' }}
+          </nb-list-item>
+        </nb-list>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12" *ngIf="searchResponse?.webApps.length > 0">
+    <nb-card>
+      <nb-card-header>
+        {{constants.SEARCH_WEBAPP_1}}<b>{{searchResponse.webApps.length}}</b>{{constants.SEARCH_WEBAPP_2}}
+      </nb-card-header>
+      <nb-card-body>
+        <nb-list>
+          <nb-list-item *ngFor="let asset of searchResponse.webApps">
+            <a href="/pages/show/project/{{asset.project.id}}">{{constants.SEARCH_TO_PROJECT}}</a> {{ asset.url }}
+          </nb-list-item>
+        </nb-list>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12" *ngIf="searchResponse?.codeProjects.length > 0">
+    <nb-card>
+      <nb-card-header>
+        {{constants.SEARCH_CODE_1}}<b>{{searchResponse.codeProjects.length}}</b>{{constants.SEARCH_CODE_2}}
+      </nb-card-header>
+      <nb-card-body>
+        <nb-list>
+          <nb-list-item *ngFor="let asset of searchResponse.codeProjects">
+            <a href="/pages/show/project/{{asset.codeGroup.project.id}}">{{constants.SEARCH_TO_PROJECT}}</a> {{ asset.name + ' [' + asset.codeGroup.name + ']' }}
+          </nb-list-item>
+        </nb-list>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12" *ngIf="searchResponse?.vulns.length > 0">
+    <nb-card>
+      <nb-card-header>
+        {{constants.SEARCH_VULN_1}}<b>{{searchResponse.vulns.length}}</b>{{constants.SEARCH_VULN_2}}
+      </nb-card-header>
+      <nb-card-body>
+        <nb-list>
+          <nb-list-item *ngFor="let vuln of searchResponse.vulns">
+            <a href="/pages/show/project/{{vuln.projectId}}">{{constants.SEARCH_TO_PROJECT}}</a> {{ vuln.name }} <br/>{{ vuln.location + ' [' + vuln.source + ']' }}
+          </nb-list-item>
+        </nb-list>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

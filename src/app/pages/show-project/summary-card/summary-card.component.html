@@ -1,0 +1,14 @@
+<nb-card>
+  <nb-card-header>
+    {{ cardDetails?.name }}
+  </nb-card-header>
+  <nb-card-body>
+    <div class="chart-info">
+      <div>{{ cardDetails?.inventoryName }}: {{ cardDetails?.inventoryCount }}</div>
+      <div class="time-period caption">Ryzyko:</div>
+      <div class="h6">{{ cardDetails?.risk }}%</div>
+    </div>
+    <ngx-gauge-chart [risk]=cardDetails?.risk>
+    </ngx-gauge-chart>
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,16 @@
+@import '../../@theme/styles/themes';
+
+@include nb-install-component() {
+  ngx-trend-chart-line,
+  ngx-vuln-type-chart-pie {
+    display: block;
+    height: nb-theme(card-height-small);
+    width: 100%;
+
+    ::ng-deep chart {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  }
+}

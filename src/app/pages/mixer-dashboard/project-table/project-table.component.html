@@ -1,0 +1,11 @@
+<nb-card>
+  <nb-card-header>
+    {{constants.DASHBOARD_OPERATION_PROJECT_TABLE_TITLE}}
+  </nb-card-header>
+
+  <nb-card-body>
+    <div style="padding-top: 20px;padding-bottom: 20px;" *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="giant">Loading Please Wait..</div>
+    <ng2-smart-table *ngIf="!loading" [settings]="settings" [source]="projects" (custom)="onCustom($event)" (deleteConfirm)="onDeleteConfirm($event)" (createConfirm)="onCreateConfirm($event)" (editConfirm)="onEditConfirm($event)">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

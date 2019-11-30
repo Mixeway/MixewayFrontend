@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-md-8">
+    <nb-card>
+      <nb-card-header>{{constants.DASHBOARD_CHART_TREND_TITLE}}</nb-card-header>
+      <nb-card-body>
+        <ngx-trend-chart-line></ngx-trend-chart-line>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-4">
+    <nb-card>
+      <nb-card-header>{{constants.DASHBOARD_CHART_SOURCE_TITLE}}</nb-card-header>
+      <nb-card-body>
+        <ngx-vuln-type-chart-pie></ngx-vuln-type-chart-pie>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <ngx-project-table></ngx-project-table>
+  </div>
+</div>

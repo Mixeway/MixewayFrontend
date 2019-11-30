@@ -1,0 +1,109 @@
+<br/>
+<button [disabled]="codeScanRunSelectedButton" nbButton status="primary" (click)="startSelectedAssets()" hero >
+  {{constants.PROJECT_CODE_BUTTON_RUN_SELECTED}}
+</button>&nbsp;
+<button *ngIf="!codeAutomaticScanButton" nbButton status="success" hero (click)="enableAutoScan()">
+  {{constants.PROJECT_CODE_BUTTON_AUTO}}
+</button>&nbsp;
+<button *ngIf="codeAutomaticScanButton" nbButton status="danger" hero (click)="disableAutoScan()">
+  {{constants.PROJECT_SCAN_DISABLE_AUTO_SCAN}}
+</button>&nbsp;
+
+<button nbButton status="warning" hero (click)="refresh()" [nbTooltip]="constants.PROJECT_CODE_TOOLTIP_REFRESH">
+  <nb-icon icon="refresh" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+</button>
+<br/>
+<div class="buttons-row">
+  <button status="primary" (click)="openCreateApiDialog(addCodeGroup)" nbButton ghost>
+    {{constants.PROJECT_CODE_BUTTON_GROUP_ADD}}
+  </button>
+  <button status="info" (click)="openCreateApiDialog(addCodeProject)" nbButton ghost [disabled]="codeGroups.length<=0" >
+    {{constants.PROJECT_CODE_BUTTON_PROJECT_ADD}}
+  </button>
+</div>
+<br/>
+<nb-alert status="info" *ngIf="numberOfRunningTest > 0" >
+  {{constants.PROJECT_CODE_SCAN_STATUS_1}} <b><u>{{ numberOfRunningTest }} </u></b>{{constants.PROJECT_CODE_SCAN_STATUS_2}}
+</nb-alert>
+<div style="padding-top: 20px;padding-bottom: 20px;" *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="giant">Loading Please Wait..</div>
+<ng2-smart-table *ngIf="!loading" [settings]="settings" (custom)="runTestSingle($event)" [source]="codes?.codeModels" (userRowSelect)="onAssetSelect($event)" >
+</ng2-smart-table>
+
+<ng-template #addCodeGroup let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>{{constants.PROJECT_CODE_GROUP_TITLE}}</nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="codeGroupForm" (ngSubmit)="saveCodeGroup(codeGroupForm.value,ref)" >
+        <div class="form-group">
+          <label for="codeGroupName" class="label">{{constants.PROJECT_CODE_GROUP_NAME}}</label>
+          <input type="text" nbInput fullWidth id="codeGroupName" [placeholder]="constants.PROJECT_CODE_GROUP_NAME_1" formControlName="codeGroupName">
+        </div>
+        <div class="form-group">
+          <label for="versionIdAll" class="label">{{constants.PROJECT_CODE_GROUP_VERSIONIDALL}}</label>
+          <input type="text" nbInput fullWidth id="versionIdAll" [placeholder]="constants.PROJECT_CODE_GROUP_VERSIONIDALL" formControlName="versionIdAll">
+        </div>
+        <div class="form-group">
+          <label for="versionIdSingle" class="label">{{constants.PROJECT_CODE_GROUP_VERSIONIDSINGLE}}</label>
+          <input type="text" nbInput fullWidth id="versionIdSingle" [placeholder]="constants.PROJECT_CODE_GROUP_VERSIONIDSINGLE" formControlName="versionIdSingle">
+        </div>
+        <div class="form-group">
+          <label for="giturl" class="label">{{constants.PROJECT_CODE_GROUP_GITURL}}</label>
+          <input type="text" nbInput fullWidth id="giturl" [placeholder]="constants.PROJECT_CODE_GROUP_GITURL" formControlName="giturl">
+        </div>
+        <div class="form-group">
+          <label for="gitusername" class="label">{{constants.PROJECT_CODE_GROUP_GITUSERNAME}}</label>
+          <input type="text" nbInput fullWidth id="gitusername" [placeholder]="constants.PROJECT_CODE_GROUP_GITUSERNAME" formControlName="gitusername">
+        </div>
+        <div class="form-group">
+          <label for="gitpassword" class="label">{{constants.PROJECT_CODE_GROUP_GITPASSWORD}}</label>
+          <input type="password" nbInput fullWidth id="gitpassword" [placeholder]="constants.PROJECT_CODE_GROUP_GITPASSWORD" formControlName="gitpassword">
+        </div>
+        <div class="form-group">
+          <label for="tech" class="label">{{constants.PROJECT_CODE_GROUP_TECH}}</label>
+          <input type="text" nbInput fullWidth id="tech" [placeholder]="constants.PROJECT_CODE_GROUP_TECH_1" formControlName="tech">
+        </div>
+        <div class="form-group">
+          <nb-checkbox formControlName="childs">{{constants.PROJECT_CODE_GROUP_CHILDS}}?</nb-checkbox>
+        </div>
+        <button type="submit" nbButton status="danger">{{constants.PROJECT_SAVE}}</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+<ng-template #addCodeProject let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>{{constants.PROJECT_CODE_PROJECT_TITLE}}</nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="codeProjectForm" (ngSubmit)="saveCodeProject(codeProjectForm.value,ref)" >
+        <div class="form-group">
+          <label for="codeGroupForProject" class="label">{{constants.PROJECT_CODE_PROJECT_GROUP}}</label>
+          <nb-select id="codeGroupForProject" fullWidth formControlName="codeGroup">
+            <nb-option *ngFor="let cg of codeGroups" [value]="cg.id">{{ cg.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="form-group">
+          <label for="codeProjectName" class="label">{{constants.PROJECT_CODE_PROJECT_NAME}}</label>
+          <input type="text" nbInput fullWidth id="codeProjectName" [placeholder]="constants.PROJECT_CODE_PROJECT_NAME" formControlName="codeProjectName">
+        </div>
+        <div class="form-group">
+          <label for="projectGiturl" class="label">{{constants.PROJECT_CODE_PROJECT_GITURL}}</label>
+          <input type="text" nbInput fullWidth id="projectGiturl" [placeholder]="constants.PROJECT_CODE_PROJECT_GITURL" formControlName="projectGiturl">
+        </div>
+        <div class="form-group">
+          <label for="projectBranch" class="label">{{constants.PROJECT_CODE_PROJECT_BRANCH}}</label>
+          <input type="text" nbInput fullWidth id="projectBranch" placeholder="master" formControlName="projectBranch">
+        </div>
+        <div class="form-group">
+          <label for="projectTech" class="label">{{constants.PROJECT_CODE_PROJECT_TECH}}</label>
+          <input type="text" nbInput fullWidth id="projectTech" [placeholder]="constants.PROJECT_CODE_GROUP_TECH_1" formControlName="projectTech">
+        </div>
+        <div class="form-group">
+          <label for="additionalPath" class="label">{{constants.PROJECT_CODE_PROJECT_PATH}}</label>
+          <input type="text" nbInput fullWidth id="additionalPath" [placeholder]="constants.PROJECT_CODE_PROJECT_PATH" formControlName="additionalPath">
+        </div>
+        <button type="submit" nbButton status="danger">{{constants.PROJECT_SAVE}}</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</ng-template>

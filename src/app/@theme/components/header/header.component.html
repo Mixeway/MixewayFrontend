@@ -1,0 +1,31 @@
+<div class="header-container">
+  <div class="logo-container">
+    <a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
+      <nb-icon icon="menu-2-outline"></nb-icon>
+    </a>
+    <a class="logo" href="/pages/dashboard" (click)="navigateHome()">
+      <img src="./assets/images/logo_dashboard.png" style="width:200px; height:80px" title="White flower" alt="Flower">
+    </a>
+  </div>
+</div>
+
+<div class="header-container">
+  <nb-actions size="small">
+    <nb-action class="control-item">
+      <nb-icon icon="book-open-outline" pack="eva" [options]="{ animation: { type: 'pulse' } }" (click)="showSwaggerDoc()"
+               nbTooltip="Dokumentacja API"></nb-icon>
+    </nb-action>
+    <nb-action class="control-item">
+      <nb-icon icon="question-mark-circle-outline" pack="eva" [options]="{ animation: { type: 'pulse' } }" (click)="showTutorialWizzard()" nbTooltip="Tutorial"></nb-icon>
+    </nb-action>
+    <nb-action class="control-item">
+      <nb-search type="rotate-layout" nbTooltip="Wyszukaj"></nb-search>
+    </nb-action>
+    <nb-action class="user-action" *nbIsGranted="['view', 'user','admin']" >
+      <nb-user [nbContextMenu]="userMenu"
+               [name]="user?.name"
+               >
+      </nb-user>
+    </nb-action>
+  </nb-actions>
+</div>

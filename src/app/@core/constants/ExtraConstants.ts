@@ -1,0 +1,11 @@
+export class ExtraConstants {
+    TOOLTIP_RUNONCE = 'Start Scan';
+    TOOLTIP_DELETE_PROJECT = 'Delete';
+    SUCCESS = 'Success';
+    FAILURE = 'Failure';
+    FAILURE_TEXT = 'Operation failed';
+    CODE_OPERATION_CODE_DELETE = 'Project is deleted successfully';
+    OPERATION_RUNONCE = 'Scan is launched';
+    ASSET_OPERATION_DELETE = 'Asset is successfully deleted';
+    WEBAPP_OPERATION_DELETE = 'WebApp is successfully deleted';
+}

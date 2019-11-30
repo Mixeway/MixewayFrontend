@@ -1,0 +1,54 @@
+<br/>
+<button [disabled]="webScanRunSelectedButton" nbButton status="primary" hero (click)="startSelectedScan()">
+  {{constants.PROJECT_SCAN_RUN_SELECTED}}
+</button>&nbsp;
+<button [disabled]="webRunAllScanButton" nbButton status="primary" hero (click)="runAllScan()">
+  {{constants.PROJECT_SCAN_RUN_ALL}}
+</button>&nbsp;
+<button *ngIf="!webAutomaticScanButton" nbButton status="success" hero (click)="enableAutoScan()">
+  {{constants.PROJECT_SCAN_CONFIGURE_AUTO}}
+</button>&nbsp;
+<button *ngIf="webAutomaticScanButton" nbButton status="danger" hero (click)="disableAutoScan()">
+  {{constants.PROJECT_SCAN_DISABLE_AUTO_SCAN}}
+</button>&nbsp;
+<button [disabled]="!canEdit" nbButton status="success" hero (click)="onAdd()" [nbTooltip]="constants.PROJECT_WEBAPP_ADD">
+  <nb-icon icon="plus" pack="eva" [options]="{ animation: { type: 'shake' } }"></nb-icon>
+</button>
+&nbsp;
+<button nbButton status="warning" hero (click)="refresh()" [nbTooltip]="constants.PROJECT_CODE_TOOLTIP_REFRESH">
+  <nb-icon icon="refresh" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+</button>
+<br/>
+<nb-alert status="info" *ngIf="numberOfRunningTest > 0" >
+  {{constants.PROJECT_WEBAPP_RUNNING}} {{ numberOfRunningTest}}
+</nb-alert>
+<div style="padding-top: 20px;padding-bottom: 20px;" *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="giant">Loading Please Wait..</div>
+<ng2-smart-table (userRowSelect)="onRowSelected($event)" *ngIf="!loading" [settings]="settings" (create)="onAdd()" (custom)="runTestSingle($event)" [source]="webApps?.webAppModels" (userRowSelect)="onAssetSelect($event)">
+</ng2-smart-table>
+
+<ng-template #addWebApp let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>{{constants.PROJECT_WEBAPP_ADD_FORM}}</nb-card-header>
+    <nb-card-body>
+      {{ webAppForm.valid | json }}
+      <form [formGroup]="webAppForm" (ngSubmit)="saveWebApp(webAppForm.value, ref)">
+        <div class="form-group">
+          <label for="webAppUrl" class="label">{{constants.PROJECT_WEBAPP_ADD_URL}}</label>
+          <input type="text" nbInput fullWidth id="webAppUrl" [placeholder]="constants.PROJECT_WEBAPP_ADD_URL" formControlName="webAppUrl">
+        </div>
+        <div class="form-group">
+          <label for="webAppHeaders" class="label">{{constants.PROJECT_WEBAPP_HEADER_1}}</label>
+          <textarea rows="5" nbInput fullWidth shape="round" id="webAppHeaders" [placeholder]="constants.PROJECT_WEBAPP_HEADER_2" formControlName="webAppHeaders"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="public" class="label">{{constants.PROJECT_WEBAPP_PUBLIC_FORM}}</label>
+          <nb-select id="public" selected="1" formControlName="isPublic">
+            <nb-option value="1">Tak</nb-option>
+            <nb-option value="2">Nie</nb-option>
+          </nb-select>
+        </div>
+        <button type="submit" nbButton status="danger">{{constants.PROJECT_SAVE}}</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</ng-template>

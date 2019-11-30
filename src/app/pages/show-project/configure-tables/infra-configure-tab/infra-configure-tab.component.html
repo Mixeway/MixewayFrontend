@@ -1,0 +1,129 @@
+<nb-accordion class="col-md-6 offset-md-3">
+  <nb-accordion-item #item>
+    <nb-accordion-item-header>
+      {{constants.PROJECT_IAAS_TITLE}}
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+      <nb-card>
+        <button [disabled]="iaasApiAdd" (click)="openCreateApiDialog(addIaasApi)" nbButton status="primary" hero>
+          {{constants.PROJECT_IAAS_API_ADD}}
+        </button>
+      </nb-card>
+      <nb-alert [outline]="iaasApis?.enabled ? 'success' : 'danger'">
+        {{constants.PROJECT_IAAS_IAM}} {{ iaasApis?.iam }}<br/>
+        {{constants.PROJECT_IAAS_SERVICE}} {{ iaasApis?.service }}<br/>
+        {{constants.PROJECT_IAAS_NETWORK}} {{ iaasApis?.network }}<br/>
+        {{constants.PROJECT_IAAS_PROJECT}} {{ iaasApis?.project }}<br/>
+      </nb-alert>
+      <div class="buttons-row">
+        <button status="info" nbButton ghost *ngIf="!iaasApis?.enabled" (click)="testIaasApi()">
+          {{constants.PROJECT_IAAS_TEST}}
+        </button>
+        <button status="warning" nbButton ghost *ngIf="iaasApis?.auto" (click)="disableIaasApi()">
+          {{constants.PROJECT_IAAS_DISABLE_SYNCHRO}}
+        </button>
+        <button status="success" nbButton ghost *ngIf="!iaasApis?.auto" (click)="enableIaasApi()">
+          {{constants.PROJECT_IAAS_ENABLE_SYNCHRO}}
+        </button>
+        <button status="danger" nbButton ghost (click)="deleteIaasApi()">
+          {{constants.PROJECT_IAAS_DELETE}}
+        </button>
+      </div>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+</nb-accordion>
+<br/>
+
+<button [disabled]="!infraScanRunSelectedButton" nbButton status="primary" hero (click)="startSelectedAssets()">
+  {{constants.PROJECT_SCAN_RUN_SELECTED}}
+</button>&nbsp;
+<button [disabled]="!canScanAll || !canEdit" nbButton status="primary" hero (click)="runAllScan()">
+  {{ canScanAll ? constants.PROJECT_SCAN_RUN_ALL : constants.PROJECT_SCAN_RUN_ALL_RUNNING  }}
+</button>&nbsp;
+<button *ngIf="!assets?.autoInfraScan" nbButton status="success" hero (click)="enableAutoScan()">
+  {{ constants.PROJECT_SCAN_CONFIGURE_AUTO}}
+</button>&nbsp;
+<button *ngIf="assets?.autoInfraScan" nbButton status="danger" hero (click)="disableAutoScan()">
+  {{ constants.PROJECT_SCAN_DISABLE_AUTO_SCAN }}
+</button>&nbsp;
+
+<button [disabled]="!canEdit" nbButton [nbTooltip]="constants.PROJECT_TOOLTIP_ADD_ASSET" status="success" hero (click)="onAdd()">
+  <nb-icon icon="plus" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+</button>&nbsp;
+<button nbButton status="warning" hero (click)="refresh()" [nbTooltip]="constants.PROJECT_CODE_TOOLTIP_REFRESH">
+  <nb-icon icon="refresh" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+</button>
+<button status="primary" nbButton hero (click)="downloadCSV()" class="right">
+  <nb-icon icon="cloud-download-outline" [nbTooltip]="constants.PROJECT_TOOLTIP_EXPORT_CSV" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+</button>&nbsp;
+<nb-alert status="info" *ngIf="numberOfRunningTest > 0" >
+  {{constants.PROJECT_RUNNING_TESTS}} {{ numberOfRunningTest}}
+</nb-alert>
+
+<div style="padding-top: 20px;padding-bottom: 20px;" *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="giant">Loading Please Wait..</div>
+<ng2-smart-table *ngIf="!loading" [settings]="settings" (custom)="runTestSingle($event)" [source]="assets?.assets" (userRowSelect)="onAssetSelect($event)" >
+</ng2-smart-table>
+<ng-template #addIaasApi let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>{{constants.PROJECT_IAAS_ADD}}</nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="iaasApiForm" (ngSubmit)="iaasApiSubmit(ref)">
+        <div class="form-group">
+          <label for="iamApi" class="label">{{constants.PROJECT_IAAS_IAM_URL}}</label>
+          <input type="text" nbInput fullWidth id="iamApi" [placeholder]="constants.PROJECT_IAAS_IAM_URL" formControlName="iamApi" required="true">
+        </div>
+        <div class="form-group">
+          <label for="serviceApi" class="label">{{constants.PROJECT_IAAS_SERVICE_URL}}</label>
+          <input type="text" nbInput fullWidth id="serviceApi" [placeholder]="constants.PROJECT_IAAS_SERVICE_URL" formControlName="serviceApi">
+        </div>
+        <div class="form-group">
+          <label for="networkApi" class="label">{{constants.PROJECT_IAAS_NETWORK_URL}}</label>
+          <input type="text" nbInput fullWidth id="networkApi" [placeholder]="constants.PROJECT_IAAS_NETWORK_URL" formControlName="networkApi">
+        </div>
+        <div class="form-group">
+          <label for="projectid" class="label">{{constants.PROJECT_IAAS_PROJECTID}}</label>
+          <input type="text" nbInput fullWidth id="projectid" [placeholder]="constants.PROJECT_IAAS_PROJECTID" formControlName="projectid">
+        </div>
+        <div class="form-group">
+          <label for="username" class="label">{{constants.PROJECT_IAAS_USERNAME}}</label>
+          <input type="text" nbInput fullWidth id="username" [placeholder]="constants.PROJECT_IAAS_USERNAME" formControlName="username">
+        </div>
+        <div class="form-group">
+          <label for="password" class="label">{{constants.PROJECT_IAAS_PASSWORD}}</label>
+          <input type="password" nbInput fullWidth id="password" [placeholder]="constants.PROJECT_IAAS_PASSWORD" formControlName="password">
+        </div>
+        <div class="form-group">
+          <label for="routingDomainForIaasApi" class="label">{{constants.PROJECT_INFRA_TABLE_ROUTINGDOMAIN}}</label>
+          <nb-select id="routingDomainForIaasApi" fullWidth formControlName="routingDomainForIaasApi">
+            <nb-option *ngFor="let rd of routingDomains" [value]="rd.id">{{ rd.name }}</nb-option>
+          </nb-select>
+        </div>
+        <button type="submit" nbButton status="danger">{{constants.PROJECT_SAVE}}</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+<ng-template #addAsset let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>{{constants.PROJECT_ASSET_ADD}}</nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="assetForm" (ngSubmit)="saveAsset(assetForm.value, ref)" >
+        <div class="form-group">
+          <label for="assetName" class="label">{{constants.PROJECT_ASSET_NAME}}</label>
+          <input type="text" nbInput fullWidth id="assetName" [placeholder]="constants.PROJECT_ASSET_NAME" formControlName="assetName">
+        </div>
+        <div class="form-group">
+          <label for="ipAddresses" class="label">{{constants.PROJECT_ASSET_IPS}}</label>
+          <textarea rows="5" nbInput fullWidth shape="round" id="ipAddresses" [placeholder]="constants.PROJECT_ASSET_IPS_2" formControlName="ipAddresses"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="routingDomainForAsset" class="label">{{constants.PROJECT_INFRA_TABLE_ROUTINGDOMAIN}}</label>
+          <nb-select id="routingDomainForAsset" formControlName="routingDomainForAsset" [fullWidth]="true">
+            <nb-option *ngFor="let rd of routingDomains" [value]="rd.id">{{ rd.name }}</nb-option>
+          </nb-select>
+        </div>
+        <button type="submit" nbButton status="danger">{{constants.PROJECT_SAVE}}</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</ng-template>

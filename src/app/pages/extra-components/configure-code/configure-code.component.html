@@ -1,0 +1,8 @@
+<button nbButton status="primary" size="large" (click)="playOnceScan()" [nbTooltip]="constants.TOOLTIP_RUNONCE" [disabled]="rowData.running"
+          [nbSpinner]="rowData.running" nbSpinnerStatus="primary" nbSpinnerSize="medium" nbSpinnerMessage="">
+  <nb-icon icon="play-circle-outline" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+</button>&nbsp;
+<button nbButton status="danger" size="medium" (click)="deleteWebApp()" [nbTooltip]="constants.TOOLTIP_DELETE_PROJECT" >
+  <nb-icon icon="trash" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+</button>
+

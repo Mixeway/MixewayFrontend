@@ -1,0 +1,40 @@
+@import '../../../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+
+@include nb-install-component() {
+  ngx-gauge-chart,
+  .chart-info {
+    flex: 1;
+  }
+
+  .chart-info {
+    padding-top: 0.7rem;
+  }
+
+  .time-period {
+    margin-top: 1.5rem;
+  }
+
+  .value {
+    margin-top: 0.2rem;
+  }
+
+  .echart {
+    position: absolute;
+    width: calc(50%);
+    height: calc(120%);
+  }
+
+  @include media-breakpoint-between(xl, xl) {
+    ngx-gauge-chart {
+      flex: 2;
+    }
+  }
+
+  @include media-breakpoint-between(sm, sm) {
+    ngx-gauge-chart {
+      flex: 2;
+    }
+  }
+}

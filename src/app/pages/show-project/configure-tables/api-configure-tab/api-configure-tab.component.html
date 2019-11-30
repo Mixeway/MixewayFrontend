@@ -1,0 +1,124 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        {{constants.PROJECT_JIRA}} &nbsp;
+        <button status="success" nbButton hero (click)="openDialog(addJira,null)">
+          <i class="ion-plus"></i>&nbsp; {{constants.PROJECT_JIRA_ADD_BUTTON}}
+        </button>
+      </nb-card-header>
+      <nb-card-body>
+        <nb-list>
+          <nb-list-item *ngFor="let bugTracker of bugTracker">
+            <button status="danger" nbButton hero (click)="null" size="tiny">
+              <nb-icon icon="trash" [nbTooltip]="constants.PROJECT_TOOLTIP_DELETE" pack="eva" [options]="{ animation: { type: 'pulse' } }" (click)="deleteBugTracker(bugTracker.id)"></nb-icon>
+            </button>&nbsp; {{bugTracker.url  }} - {{bugTracker.projectId}} - {{bugTracker.autoStrategy===constants.PROJECT_JIRA_MANUAL ? constants.PROJECT_JIRA_MANUAL : constants.PROJECT_JIRA_AUTO + bugTracker.autoStrategy}}
+          </nb-list-item>
+        </nb-list>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+<div class="row accordion-container col-md-12">
+  <div *ngIf="role == 'ROLE_ADMIN'" >
+    <div>{{constants.PROJECT_APIKEY_TITLE}}</div><br/>
+    <div class="api-inline">
+      <input type="text" nbInput id="apiKey" placeholder="apiKey" [value]='apiKey? apiKey : null' [disabled]="true" class="apiKey"> &nbsp;
+      <button status="primary" nbButton hero (click)="copyApiKey()">
+        <nb-icon icon="clipboard-outline" [nbTooltip]="constants.PROJECT_APIKEY_TOOLTIP_COPY" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+      </button>&nbsp;&nbsp;
+      <button status="warning" nbButton hero (click)="null">
+        <nb-icon icon="refresh" [nbTooltip]="constants.PROJECT_APIKEY_TOOLTIP_GEN" pack="eva" [options]="{ animation: { type: 'pulse' } }" (click)="generateApiKey()"></nb-icon>
+      </button>&nbsp;&nbsp;
+      <button status="danger" nbButton hero (click)="null">
+        <nb-icon icon="trash" [nbTooltip]="constants.PROJECT_APIKEY_TOOLTIP_DELETE" pack="eva" [options]="{ animation: { type: 'pulse' } }" (click)="deleteApiKey()"></nb-icon>
+      </button>&nbsp;
+    </div>
+  </div><br/>
+</div>
+<div class="row">
+  <div class="accordion-container col-md-12" fullWidth="true">
+    <nb-accordion multi>
+      <nb-accordion-item>
+        <nb-accordion-item-header>
+          {{constants.PROJECT_CONTACTLIST_TITLE}}
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <form [formGroup]="contactListForm" (ngSubmit)="saveContactList(contactListForm.value)" >
+            <div class="form-group">
+              <label for="contactList" class="label">{{constants.PROJECT_CONTACTLIST_ADDRESSES}}</label>
+              <input type="text" nbInput fullWidth id="contactList" placeholder="jan@kowalski.pl,jan@nowak.pl"
+                     [value]='contactList? contactList : null' formControlName="contactList">
+            </div>
+            <button type="submit" nbButton status="danger">{{constants.PROJECT_CONTACTLIST_BUTTON}}</button>
+          </form>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </div>
+</div>
+<ng-template #addJira let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>{{constants.PROJECT_JIRA_FORM_TITLE}}</nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="bugForm" (ngSubmit)="saveBugTracker(bugForm.value,ref)" >
+        <div class="form-group">
+          <label for="bugUrl" class="label">{{constants.PROJECT_JIRA_URL}}</label>
+          <input type="text" nbInput fullWidth id="bugUrl" [placeholder]="constants.PROJECT_JIRA_URL" formControlName="url">
+        </div>
+        <div class="form-group">
+          <label for="bugUsername" class="label">{{constants.PROJECT_JIRA_USERNAME}}</label>
+          <input type="text" nbInput fullWidth id="bugUsername" [placeholder]="constants.PROJECT_JIRA_USERNAME" formControlName="username">
+        </div>
+        <div class="form-group">
+          <label for="bugPassword" class="label">{{constants.PROJECT_JIRA_PASSWORD}}</label>
+          <input type="password" nbInput fullWidth id="bugPassword" [placeholder]="constants.PROJECT_JIRA_PASSWORD" formControlName="password">
+        </div>
+        <div class="form-group">
+          <label for="bugTrackerType" class="label">{{constants.PROJECT_JIRA_BUG_TYPE}}</label>
+          <nb-select id="bugTrackerType" fullWidth formControlName="bugTrackerType">
+            <nb-option *ngFor="let type of bugTrackingTypes" [value]="type.id">{{ type.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="form-group">
+          <label for="bugProjectId" class="label">{{constants.PROJECT_JIRA_PROJECTID}}</label>
+          <input type="text" nbInput fullWidth id="bugProjectId" [placeholder]="constants.PROJECT_JIRA_PROJECTID" formControlName="projectId">
+        </div>
+        <div class="form-group">
+          <label for="bugIssueType" class="label">{{constants.PROJECT_JIRA_ISSUE_TYPE}}</label>
+          <input type="text" nbInput fullWidth id="bugIssueType" [placeholder]="constants.PROJECT_JIRA_ISSUE_TYPE" formControlName="issueType">
+        </div>
+        <div class="form-group">
+          <label for="asignee" class="label">{{constants.PROJECT_JIRA_ASIGNEE}}</label>
+          <input type="text" nbInput fullWidth id="asignee" [placeholder]="constants.PROJECT_JIRA_ASIGNEE" formControlName="asignee">
+        </div>
+        <div class="form-group">
+          <label for="proxy" class="label">{{constants.ADMIN_FORM_PROXY}}</label>
+          <nb-select id="proxy" fullWidth formControlName="proxies">
+            <nb-option value="0">{{constants.ADMIN_FORM_PROXY_NONE}}</nb-option>
+            <nb-option *ngFor="let prox of proxies" [value]="prox.id">{{ prox.description }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="form-group">
+          <label for="autoStrategy" class="label">{{constants.PROJECT_JIRA_AUTO_STRAGETY}}</label>
+          <nb-select id="autoStrategy" fullWidth formControlName="autoStrategy">
+            <nb-option value="Manual">{{constants.PROJECT_JIRA_STRATEGY_MANUAL}}</nb-option>
+            <nb-option value="High">{{constants.PROJECT_JIRA_STRATEGY_HIGH}}</nb-option>
+            <nb-option value="Medium">{{constants.PROJECT_JIRA_STRATEGY_MEDIUM}}</nb-option>
+            <nb-option value="Low">{{constants.PROJECT_JIRA_STRATEGY_LOW}}</nb-option>
+          </nb-select>
+        </div>
+        <div class="form-group">
+          <label for="vulns" class="label">{{constants.PROJECT_JIRA_VULNS}}</label>
+          <nb-select id="vulns" fullWidth formControlName="vulns">
+            <nb-option value="infra">{{constants.PROJECT_JIRA_VULNS_INFRA}}</nb-option>
+            <nb-option value="webapp">{{constants.PROJECT_JIRA_VULNS_WEBAPP}}</nb-option>
+            <nb-option value="code">{{constants.PROJECT_JIRA_VULNS_CODE}}</nb-option>
+            <nb-option value="opensource">{{constants.PROJECT_JIRA_VULNS_OPENSOURCE}}</nb-option>
+          </nb-select>
+        </div>
+        <button type="submit" nbButton status="danger">{{constants.PROJECT_SAVE}}</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</ng-template>

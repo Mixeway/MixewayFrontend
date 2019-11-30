@@ -1,0 +1,77 @@
+import {Component, OnInit} from '@angular/core';
+import {Risk} from '../../@core/Model/Risk';
+import {ShowProjectService} from '../../@core/service/ShowProjectService';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CookieService} from 'ngx-cookie-service';
+import {ProjectConstants} from '../../@core/constants/ProjectConstants';
+
+@Component({
+  selector: 'ngx-show-project',
+  templateUrl: './show-project.component.html',
+  styleUrls: ['./show-project.component.scss'],
+})
+export class ShowProjectComponent implements OnInit {
+  risk: Risk;
+  infraRiskCard: any;
+  codeRiskCard: any;
+  webAppRiskCard: any;
+  auditRiskCard: any;
+  _entityId: any;
+  showConfigTemplate: boolean;
+  showDetailsTemplate: boolean;
+  role: string;
+  constants: ProjectConstants = new ProjectConstants();
+  constructor(private showProjectService: ShowProjectService, private _route: ActivatedRoute, private router: Router,
+              private cookieService: CookieService) {
+    this._entityId = +this._route.snapshot.paramMap.get('projectid');
+    if (!this._entityId) {
+      this.router.navigate(['/pages/dashboard']);
+    }
+    this.drawRiskCards(this._entityId);
+  }
+
+  drawRiskCards(id) {
+    return this.showProjectService.getRiskCards(id).subscribe(data => {
+      this.risk = data;
+      this.infraRiskCard = this.riskCardBuilder(this.constants.PROJECT_CARD_INFRAP_TITLE,
+        this.constants.PROJECT_CARD_INFRAP_TEXT,
+        this.risk.assetNumber, this.risk.assetRisk);
+      this.webAppRiskCard = this.riskCardBuilder(this.constants.PROJECT_CARD_WEBAPP_TITLE,
+        this.constants.PROJECT_CARD_WEBAPP_TEXT,
+        this.risk.webAppNumber, this.risk.webAppRisk);
+      this.codeRiskCard = this.riskCardBuilder(this.constants.PROJECT_CARD_CODE_TITLE,
+        this.constants.PROJECT_CARD_CODE_TEXT,
+        this.risk.codeRepoNumber, this.risk.codeRisk);
+      this.auditRiskCard = this.riskCardBuilder(this.constants.PROJECT_CARD_AUDIT_TITLE,
+        this.constants.PROJECT_CARD_AUDIT_TEXT,
+        this.risk.audit, this.risk.auditRisk);
+    });
+  }
+
+  ngOnInit() {
+    this.role = this.cookieService.get('role');
+    if (this.role !== 'ROLE_ADMIN' && this.role !== 'ROLE_EDITOR_RUNNER') {
+      this.showConfigTemplate = true;
+    } else {
+      this.showConfigTemplate = false;
+    }
+    this.showDetailsTemplate = true;
+  }
+
+  showConfig() {
+    this.showConfigTemplate = true;
+    this.showDetailsTemplate = false;
+  }
+  showDetails() {
+    this.showDetailsTemplate = true;
+    this.showConfigTemplate = false;
+  }
+  riskCardBuilder (name, inventoryName, inventoryCount, risk) {
+    return {
+      name: name,
+      inventoryName: inventoryName,
+      inventoryCount: inventoryCount,
+      risk: risk,
+    };
+  }
+}
