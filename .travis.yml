@@ -1,4 +1,11 @@
 services: docker
+addons:
+  sonarcloud:
+    organization: "mixeway"
+    token:
+      secure: "bbab3bb23b30f741b6f061722d8b9995a6a942eb"
+
 script:
+  - sonar-scanner
   - docker build -t mixeway/frontend:0.9 .
   - docker push mixeway/frontend:0.9
