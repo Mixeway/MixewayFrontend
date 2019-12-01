@@ -3,7 +3,7 @@ addons:
   sonarcloud:
     organization: "mixeway"
     token:
-      secure: "bbab3bb23b30f741b6f061722d8b9995a6a942eb"
+      secure: $SONAR_TOKEN
 
 script:
   - sonar-scanner
