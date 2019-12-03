@@ -1,20 +1,20 @@
 export class AdminConstants {
   // ADMIN PAGE
   OPERATION_SUCCESS_SMTP_UPDATE: string = 'SMTP Settings successfully saved. ' +
-    'You have to restart server in order to make changes work.';
+    'You have to restart the server to make changes work.';
   OPERATION_FAILED: string = 'Operation failed';
   OPERATION_FAILED_SMTP: string = 'Make sure all fields are filled out.';
-  OPERATION_SUCCES_PROXY_SAVE: string = 'Proxy setting is successfully saved';
+  OPERATION_SUCCES_PROXY_SAVE: string = 'The proxy setting is successfully saved\n';
   OPERATION_FAILED_ROUTINGDOMAIN_ADD = 'Operation failed';
   OPERATION_SUCCESS_ROUTINGDOMAIN_ADD = 'Routing Domain is successfully saved';
-  OPERATION_SUCCESS_PROXY_ADD = 'Proxy Setting is successfully saved';
+  OPERATION_SUCCESS_PROXY_ADD = 'The Proxy Setting is successfully saved';
   OPERATION_SUCCESS_ROUTINGDOMAIN_DELETE = 'Routing Domain is deleted';
   OPERATION_FAILED_ROUTINGDOMAIN_DELETE = 'You have to remove all dependent object ' +
-    'before proceedingw with deletion.';
+    'before proceeding with deletion.';
   OPERATION_SUCCESS_COPY = 'Copied..';
   OPERATION_SUCCESS_COPY_TEXT = 'ApiKey is copied';
   OPERATION_SUCCESS_APIKEY_GENERATE = 'ApiKey is generated successfully';
-  OPERATION_FAILED_AUTH = 'At least one authorization option have to be picked';
+  OPERATION_FAILED_AUTH = 'At least one authorization option has to be picked';
   OPERATION_SUCCESS_AUTH = 'Authorization settings are saved';
   OPERATION_SUCCESS_PASSWORD_CHANGE = 'Password is successfully changed';
   OPERATION_SUCCESS_SCANNER_TEST = 'Test passed';
@@ -44,7 +44,7 @@ export class AdminConstants {
       'id': 'ROLE_EDITOR_RUNNER',
     },
   ];
-  OPERATION_SUCCESS_PROXY_DELETE: string = 'Proxy is successfully deleted.';
+  OPERATION_SUCCESS_PROXY_DELETE: string = 'The Proxy is successfully deleted.';
   ADMIN_PAGE_TITLE: string = 'Admin panel';
   ADMIN_TAB_USERS: string = 'Users';
   ADMIN_TAB_SCANNERS: string = 'Scanners';
@@ -89,7 +89,7 @@ export class AdminConstants {
   ADMIN_TOOLTIP_DELETE_APIKEY = 'Delete ApiKey';
   ADMIN_STRATEGY_ONCE_PER_RD = 'One Scanner in Routing Domain';
   ADMIN_STRATEGY_N_PER_RD = 'Multiple Scanners in Routing Domain';
-  ADMIN_STRATEGY_ALL_RD_SCAN = 'Scan performed on each avaliable scanners';
+  ADMIN_STRATEGY_ALL_RD_SCAN = 'Scan performed on each available scanners';
   ADMIN_STRATEGY_ONE_RD_SCAN = '';
   ADMIN_ADD_ROUTINGDOMAIN = 'Add Routing Domain';
   ADMIN_ADD_PROXY = 'Add Proxy';
@@ -129,5 +129,5 @@ export class AdminConstants {
   ADMIN_FORM_PROXY_DESC = 'Description';
   ADMIN_FORM_PROXY_USERNAME = 'Username';
   ADMIN_FORM_PROXY_PASSWORD = 'Password';
-  OPERATION_SUCCESS_APIKEY_DELETE = 'ApiKey is successfully delated, access is revoked';
+  OPERATION_SUCCESS_APIKEY_DELETE = 'ApiKey is successfully deleted, access is revoked';
 }

@@ -3,7 +3,7 @@ export class CicdConstants {
   CICD_TABLE_VULN_NUMBER = 'Vulnerability No.';
   CICD_TABLE_SCORE = 'Score';
   CICD_TABLE_INSERTED = 'Added';
-  CICD_HTML_FREQUENCY = 'Frequency of security quality gateway request';
+  CICD_HTML_FREQUENCY = 'Frequency of security quality gateway requests';
   CICD_HTML_RESULT = 'Security quality gateway results';
   CICD_CHART_NODATA = 'Not enough data to show statistics';
   CICD_CHART_SUCCESS = 'Success';

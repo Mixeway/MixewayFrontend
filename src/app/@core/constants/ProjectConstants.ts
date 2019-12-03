@@ -132,13 +132,13 @@ export class ProjectConstants {
   PROJECT_DETAILS_DETAILS_TITLE = 'Detected Vulnerabilities';
   PROJECT_DETAILS_TOOLTIP_EXPORT = 'Export to CSV';
   PROJECT_DETAILS_NODATA = 'In order to load vulnerabilities, configure scanner and client or scope. ' +
-    'More details in docummentation';
+    'More details in documentation';
   PROJECT_CHARTS_TREND = 'Vulnerabilities detected in last 14 days';
   PROJECT_CHARTS_TREND_NODATA = 'In order to load vulnerabilities, configure scanner and client or scope. ' +
-    'More details in docummentation';
+    'More details in documentation';
   PROJECT_CHARTS_SEVERITY = 'Vulnerabilities by severity';
   PROJECT_CHARTS_SEVERITY_TITLE = 'Severities';
-  PROJECT_OPERATION_RUNSCAN_AUTO_DISABLE_SUCCESS = 'Automatic tests are disavbled';
+  PROJECT_OPERATION_RUNSCAN_AUTO_DISABLE_SUCCESS = 'Automatic tests are disabled';
   PROJECT_JIRA = 'Add BugTracker';
   PROJECT_JIRA_ADD_BUTTON = 'Add';
   PROJECT_TOOLTIP_DELETE = 'Delete';
@@ -153,7 +153,7 @@ export class ProjectConstants {
   PROJECT_JIRA_BUG_TYPE = 'Bug Tracker Type';
   PROJECT_JIRA_PROJECTID = 'Project ID';
   PROJECT_JIRA_ISSUE_TYPE = 'Issue Type';
-  PROJECT_JIRA_ASIGNEE = 'Default asignee';
+  PROJECT_JIRA_ASIGNEE = 'Default assignee';
   PROJECT_JIRA_AUTO_STRAGETY = 'Automatic Issue creation for at least:';
   PROJECT_JIRA_STRATEGY_MANUAL = 'Manual';
   PROJECT_JIRA_STRATEGY_HIGH = 'Automatic for severity > High';
@@ -169,5 +169,5 @@ export class ProjectConstants {
   PROJECT_ISSUE_TICKET = 'Bug Tracking';
   PROJECT_CARD_CONFIG_TITLE = 'Settings';
   PROJECT_JIRA_TICKET_ISSUED = 'Issue is successfully created';
-  PROJECT_JIRA_TICKET_ISSUED_FAILURE = 'Operation failed, make sure BugTracker is configured propetly';
+  PROJECT_JIRA_TICKET_ISSUED_FAILURE = 'Operation failed, make sure BugTracker is configured properly';
 }

@@ -21,7 +21,7 @@ export class DashboardConstants {
   DASHBOARD_OPERATION_PROJECT_TABLE_TITLE = 'Defined projects';
   DASHBOARD_CHART_TREND_NODATA = 'Not enough data to draw charts. Add project, ' +
     'start testing. You will see vulnerability trends here.';
-  DASHBOARD_CHART_TREND_VULNS = 'Number of deletected vulnerabilities';
+  DASHBOARD_CHART_TREND_VULNS = 'Number of detected vulnerabilities';
   DASHBOARD_CHART_SOURCE_AUDIT = 'Audit';
   DASHBOARD_CHART_SOURCE_WEBAPP = 'WebApps';
   DASHBOARD_CHART_SOURCE_INFRA = 'Infrastructure';
