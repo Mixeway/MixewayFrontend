@@ -6,12 +6,12 @@
 # Mixeway User Interface <img src="https://mixeway.github.io/img/logo_dashboard.png" height="60px">
 
 ### Disclaimer:
->Current version of Mixaway (0.9) is considered as beta. It contains number of bugs and vulnerabilities. Every fix
-is put on the board and proceed in order to make sure version 1.0 will be vulnerability and bug free. 
+> The current version of Mixaway (0.9) is considered as beta. It contains several bugs and vulnerabilities. Every fix
+is put on the board and proceed to make sure version 1.0 will be vulnerability and bug-free. 
 
 
 ### About Mixeway:
-Mixeway is a OpenSource software which is ment to simplify process of security assurance of projects which are implememnted using CICD procedures. **Mixawey is not another vulnerability scanning
+Mixeway is an OpenSource software that is meant to simplify the process of security assurance of projects which are implemented using CICD procedures. **Mixawey is not another vulnerability scanning
 software - it is security orchestration tool**.
 
 With number of plugins for Vulnerability Scanners :
@@ -24,20 +24,20 @@ With number of plugins for Vulnerability Scanners :
 <img src="https://mixeway.github.io/img/jenkins.jpg" height="50px">
 <img src="https://mixeway.github.io/img/jira.jpg" height="50px">
 
-With all this avaliable, Mixeway provide functionalitiesto:
+With all this available, Mixeway provides functionalities to:
 - Automatic service discovery (IaaS Plugin for assets and network scans for services)
-- Automatic Vulnerability Scan Configuration (Based on most racent configuration) - hands free !
-- Automatic and on demand Vulnerability scan execution (based on policy and executed via REST API call)
+- Automatic Vulnerability Scan Configuration (Based on most recent configuration) - hands-free!
+- Automatic and on-demand Vulnerability scan execution (based on policy and executed via a REST API call)
 - One Vulnerability Database for all type of sources - SAST, DAST, OpenSource and Infrastructure vulnerabilities in one place
-- Customizable Security Quality Gateway - reliable piece of information for CICD to decide if job should pass or not.
-- REST API which enable integration with already used Vulnerability Management systems used within organization.
+- Customizable Security Quality Gateway - a reliable piece of information for CICD to decide if a job should pass or not.
+- REST API enables integration with already used Vulnerability Management systems used within the organization.
 
 Elements of a system:
-- Backend - Spring Boot REST API
-- Frontend - Angular 8 application 
-- DB - postgres database
-- Vault - password store
-- MixewayHub - parent project which contain docker-compose and one click instalation 
+- <a href="https://github.com/Mixeway/MixewayBackend">Backend - Spring Boot REST API</a>
+- <a href="https://github.com/Mixeway/MixewayFrontend">Frontend - Angular 8 application </a>
+- <a href="https://hub.docker.com/repository/docker/mixeway/db">DB - postgres database</a>
+- <a href="https://hub.docker.com/repository/docker/mixeway/vault">Vault - password store</a>
+- <a href="https://github.com/Mixeway/MixewayHub">MixewayHub - parent project which contain docker-compose and one click instalation </a>
 
 ###### Mixeway User Interface Description:
 Mixeway User Interface is simple Angular 8 application based on <a href="https://github.com/akveo/ngx-admin">Ngx-admin template</a>.
@@ -58,4 +58,3 @@ High level description can be found at <a href="https://mixeway.io">mixeway.io</
 ###### Running in development mode:
 `ng serve "--proxy-config=proxy.conf.json" "--configuration=dev" "--ssl" "--ssl-cert=/etc/pki/cert.pem" "--ssl-key=/etc/pki/key2.pem"
 `
-
