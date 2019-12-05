@@ -79,14 +79,14 @@ export class ApiConfigureTabComponent implements OnInit {
           this.constants.PROJECT_OPERATION_APIKEY_GENERATE_SUCCESS);
         this.apiKey = data.apiKey;
       },
-      error => {
+      () => {
         this.toast.showToast('danger', this.constants.PROJECT_OPERATION_FAILURE,
           this.constants.PROJECT_OPERATION_FAILURES);
       });
   }
   ngOnInit() {
   }
-  saveContactList(contactList) {}
+  saveContactList() {}
   copyApiKey() {
     document.addEventListener('copy', (e: ClipboardEvent) => {
       e.clipboardData.setData('text/plain', (this.apiKey));
@@ -130,7 +130,11 @@ export class ApiConfigureTabComponent implements OnInit {
   saveBugTracker(value: any, ref) {
     if (this.bugForm.valid) {
       value.bugTrackerType = {id: value.bugTrackerType};
-      value.proxies = {id: value.proxies};
+      if (value.proxies > 0) {
+        value.proxies = {id: value.proxies};
+      } else {
+        value.proxies = null;
+      }
       return this.bugTrackingService.saveBugTracker(this._entityId, value).subscribe(() => {
           this.toast.showToast('success', this.constants.PROJECT_OPERATION_SUCCESS,
             this.constants.PROJECT_OPERATION_JIRA_SAVE_SUCCESS);
