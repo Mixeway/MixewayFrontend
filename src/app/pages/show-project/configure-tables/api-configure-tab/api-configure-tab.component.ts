@@ -87,7 +87,8 @@ export class ApiConfigureTabComponent implements OnInit {
   ngOnInit() {
   }
   saveContactList(contactList) {
-    this.contactList = contactList;}
+    this.contactList = contactList;
+  }
   copyApiKey() {
     document.addEventListener('copy', (e: ClipboardEvent) => {
       e.clipboardData.setData('text/plain', (this.apiKey));
