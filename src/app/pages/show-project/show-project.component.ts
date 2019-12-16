@@ -18,6 +18,7 @@ export class ShowProjectComponent implements OnInit {
   auditRiskCard: any;
   _entityId: any;
   showConfigTemplate: boolean;
+  showConfigTableTemplate: boolean = false;
   showDetailsTemplate: boolean;
   role: string;
   constants: ProjectConstants = new ProjectConstants();
@@ -50,19 +51,17 @@ export class ShowProjectComponent implements OnInit {
 
   ngOnInit() {
     this.role = this.cookieService.get('role');
-    if (this.role !== 'ROLE_ADMIN' && this.role !== 'ROLE_EDITOR_RUNNER') {
-      this.showConfigTemplate = true;
-    } else {
-      this.showConfigTemplate = false;
-    }
+    this.showConfigTemplate = this.role !== 'ROLE_ADMIN' && this.role !== 'ROLE_EDITOR_RUNNER';
     this.showDetailsTemplate = true;
   }
 
   showConfig() {
+    this.showConfigTableTemplate = true;
     this.showConfigTemplate = true;
     this.showDetailsTemplate = false;
   }
   showDetails() {
+    this.showConfigTableTemplate = false;
     this.showDetailsTemplate = true;
     this.showConfigTemplate = false;
   }

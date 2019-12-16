@@ -187,7 +187,8 @@ export class DetailsTablesComponent implements OnInit {
           type: 'date',
           width: '15%',
         },
-        ...(this.bugTrackers.filter(bt => bt.vulns === 'infra').length > 0 ? {bug: bugTracking} : {}),
+        ...((this.bugTrackers.filter(bt => bt.vulns === 'infra').length > 0) && (this.role !== 'ROLE_USER')
+          ? {bug: bugTracking} : {}),
       },
     };
     this.softSettings = {
@@ -230,7 +231,8 @@ export class DetailsTablesComponent implements OnInit {
           type: 'date',
           width: '15%',
         },
-        ...(this.bugTrackers.filter(bt => bt.vulns === 'opensource').length > 0 ? {bug: bugTracking} : {}),
+        ...((this.bugTrackers.filter(bt => bt.vulns === 'opensource').length > 0) && (this.role !== 'ROLE_USER')
+          ? {bug: bugTracking} : {}),
       },
     };
     this.codeSettings = {
@@ -281,7 +283,8 @@ export class DetailsTablesComponent implements OnInit {
           type: 'date',
           width: '15%',
         },
-        ...(this.bugTrackers.filter(bt => bt.vulns === 'code').length > 0 ? {bug: bugTracking} : {}),
+        ...((this.bugTrackers.filter(bt => bt.vulns === 'code').length > 0) && (this.role !== 'ROLE_USER')
+          ? {bug: bugTracking} : {}),
       },
     };
     this.webAppSettings = {
@@ -325,7 +328,8 @@ export class DetailsTablesComponent implements OnInit {
           type: 'date',
           width: '15%',
         },
-        ...(this.bugTrackers.filter(bt => bt.vulns === 'webapp').length > 0 ? {bug: bugTracking} : {}),
+        ...((this.bugTrackers.filter(bt => bt.vulns === 'webapp').length > 0) && (this.role !== 'ROLE_USER')
+          ? {bug: bugTracking} : {}),
       },
     };
     this.auditSettings = {
