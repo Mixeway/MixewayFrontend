@@ -45,7 +45,7 @@ export class WebConfigureTabComponent implements OnInit {
     this.webAppForm = this.formBuilder.group({
       webAppUrl:  ['', Validators.required],
       webAppHeaders: '',
-      isPublic:  ['', Validators.required],
+      scanPublic:  ['', Validators.required],
     });
   }
   loadWebApps() {
@@ -122,6 +122,7 @@ export class WebConfigureTabComponent implements OnInit {
   }
   saveWebApp(webApp, ref) {
     if (this.webAppForm.valid) {
+      this.webAppForm.value.scanPublic = parseInt(this.webAppForm.value.scanPublic, 10) === 1;
       return this.showProjectService.saveWebApp(this._entityId, this.webAppForm.value).subscribe(() => {
           this.toast.showToast('success', this.constants.PROJECT_OPERATION_SUCCESS,
             this.constants.PROJECT_WEBAPP_SAVE);
