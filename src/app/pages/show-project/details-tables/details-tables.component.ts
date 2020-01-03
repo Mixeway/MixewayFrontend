@@ -44,7 +44,7 @@ export class DetailsTablesComponent implements OnInit {
   infraSource: any;
   _entityId: number;
   role: string;
-  bugTrackers: BugTracker[];
+  bugTrackers: BugTracker[] = [];
   activeTab: number;
   constants: ProjectConstants = new ProjectConstants();
   constructor( private showProjectService: ShowProjectService, private _route: ActivatedRoute, private router: Router,
@@ -54,13 +54,15 @@ export class DetailsTablesComponent implements OnInit {
     if (!this._entityId) {
       this.router.navigate(['/pages/dashboard']);
     }
-    this.loadBugTrackers();
-
+    if (this.role !== 'ROLE_USER') {
+      this.loadBugTrackers();
+    }
     this.loadInfraVulns();
     this.loadWebApps();
     this.loadCodeVulns();
     this.loadAudit();
     this.loadSoftVulns();
+    this.createTableSettings();
   }
   loadAudit() {
     return this.showProjectService.getAuditVulns(this._entityId).subscribe(data => {
@@ -76,7 +78,6 @@ export class DetailsTablesComponent implements OnInit {
   loadBugTrackers() {
     return this.bugTrackerService.getBugTrackers(this._entityId).subscribe(data => {
       this.bugTrackers = data;
-      this.createTableSettings();
     });
   }
   loadInfraVulns() {
@@ -107,7 +108,8 @@ export class DetailsTablesComponent implements OnInit {
       if (data.length > 0 ) {
         this.softTabShow = true;
       }
-      if (data.filter(soft => soft.status.name === this.constants.PROJECT_DETAILS_STATUS_NEW).length > 0) {
+      if (data.filter(soft =>
+          soft.softwarePacketVulnerability.status.name === this.constants.PROJECT_DETAILS_STATUS_NEW).length > 0) {
         this.softNewVulns = true;
       }
     });

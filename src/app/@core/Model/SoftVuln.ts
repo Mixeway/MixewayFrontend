@@ -13,6 +13,7 @@ class SoftwarePacketVulnerability {
   softwarepacket: SoftwarePacket;
   type: string = 'opensource';
   ticketId: number;
+  status: Status;
 }
 
 export class SoftVuln {
