@@ -152,7 +152,7 @@ export class ShowProjectService {
       errorMessage = error.error.message;
     } else {
       // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      errorMessage = `${error.status}`;
     }
     return throwError(errorMessage);
   }

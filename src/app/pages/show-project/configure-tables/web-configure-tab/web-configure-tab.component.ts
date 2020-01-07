@@ -129,9 +129,14 @@ export class WebConfigureTabComponent implements OnInit {
           this.loadWebApps();
           ref.close();
         },
-        () => {
-          this.toast.showToast('danger', this.constants.PROJECT_OPERATION_FAILURE,
-            this.constants.PROJECT_OPERATION_FAILURES_EXTENDED);
+        (error) => {
+          if (error === '409') {
+            this.toast.showToast('danger', this.constants.PROJECT_OPERATION_FAILURE,
+              this.constants.PROJECT_OPERATION_FAILURES_DUPLICATE);
+          } else {
+            this.toast.showToast('danger', this.constants.PROJECT_OPERATION_FAILURE,
+              this.constants.PROJECT_OPERATION_FAILURES_EXTENDED);
+          }
         });
     } else {
       this.toast.showToast('danger', this.constants.PROJECT_OPERATION_FAILURE,

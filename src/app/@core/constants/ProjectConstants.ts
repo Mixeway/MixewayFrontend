@@ -170,4 +170,5 @@ export class ProjectConstants {
   PROJECT_CARD_CONFIG_TITLE = 'Settings';
   PROJECT_JIRA_TICKET_ISSUED = 'Issue is successfully created';
   PROJECT_JIRA_TICKET_ISSUED_FAILURE = 'Operation failed, make sure BugTracker is configured properly';
+  PROJECT_OPERATION_FAILURES_DUPLICATE = 'Given URL seems like duplicate. Make sure to not save same URL twice.';
 }
