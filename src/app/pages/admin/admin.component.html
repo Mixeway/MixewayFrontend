@@ -205,6 +205,53 @@
                 </nb-card>
               </div>
             </div>
+            <div class="row">
+              <nb-card>
+                <nb-card-header>
+                  <p><b>{{constants.ADMIN_TAB_AUTOINFRA}}</b></p>
+                  <p><small [innerHTML]="constants.ADMIN_TAB_AUTOSCAN_DESC"></small></p>
+                </nb-card-header>
+                <nb-card-body>
+                  <form [formGroup]="autoInfraScanForm" (ngSubmit)="updateAutoInfraScan(autoInfraScanForm.value)" >
+                    <div class="form-group">
+                      <label for="autoInfraScan" class="label">{{constants.ADMIN_FORM_CRON_EXPRESSION}}</label>
+                      <input type="text" nbInput fullWidth id="autoInfraScan" [placeholder]="constants.ADMIN_FORM_CRON_EXPRESSION" formControlName="expression">
+                    </div>
+                    <button type="submit" nbButton status="danger">{{constants.ADMIN_FORM_SAVE}}</button>
+                  </form>
+                </nb-card-body>
+              </nb-card>
+              <nb-card>
+                <nb-card-header>
+                  <p><b>{{constants.ADMIN_TAB_AUTOWEB}}</b></p>
+                  <p><small [innerHTML]="constants.ADMIN_TAB_AUTOSCAN_DESC"></small></p>
+                </nb-card-header>
+                <nb-card-body>
+                  <form [formGroup]="autoWebAppScanForm" (ngSubmit)="updateAutoWebAppScan(autoWebAppScanForm.value)" >
+                    <div class="form-group">
+                      <label for="autoWebAppScan" class="label">{{constants.ADMIN_FORM_CRON_EXPRESSION}}</label>
+                      <input type="text" nbInput fullWidth id="autoWebAppScan" [placeholder]="constants.ADMIN_FORM_CRON_EXPRESSION" formControlName="expression">
+                    </div>
+                    <button type="submit" nbButton status="danger">{{constants.ADMIN_FORM_SAVE}}</button>
+                  </form>
+                </nb-card-body>
+              </nb-card>
+              <nb-card>
+                <nb-card-header>
+                  <p><b>{{constants.ADMIN_TAB_AUTOCODE}}</b></p>
+                  <p><small [innerHTML]="constants.ADMIN_TAB_AUTOSCAN_DESC"></small></p>
+                </nb-card-header>
+                <nb-card-body>
+                  <form [formGroup]="autoCodeScanForm" (ngSubmit)="updateAutoCodeScan(autoCodeScanForm.value)" >
+                    <div class="form-group">
+                      <label for="autoCodeScan" class="label">{{constants.ADMIN_FORM_CRON_EXPRESSION}}</label>
+                      <input type="text" nbInput fullWidth id="autoCodeScan" [placeholder]="constants.ADMIN_FORM_CRON_EXPRESSION" formControlName="expression">
+                    </div>
+                    <button type="submit" nbButton status="danger">{{constants.ADMIN_FORM_SAVE}}</button>
+                  </form>
+                </nb-card-body>
+              </nb-card>
+            </div>
           </nb-tab>
         </nb-tabset>
       </nb-card-body>

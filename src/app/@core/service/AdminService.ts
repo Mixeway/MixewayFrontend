@@ -170,6 +170,27 @@ export class AdminService {
         catchError(this.errorHandl),
       );
   }
+  updateInfraCron(expression): Observable<string> {
+    return this.http.patch<string>(environment.backend + '/admin/settings/infracron', expression)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  updateWebAppCron(expression): Observable<string> {
+    return this.http.patch<string>(environment.backend + '/admin/settings/webappcron', expression)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  updateCodeCron(expression): Observable<string> {
+    return this.http.patch<string>(environment.backend + '/admin/settings/codecron', expression)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
 
   showErrorOnDelete() {
     return throwError(null);
@@ -181,7 +202,7 @@ export class AdminService {
       errorMessage = error.error.message;
     } else {
       // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      errorMessage = error.error.status;
     }
     return throwError(errorMessage);
   }

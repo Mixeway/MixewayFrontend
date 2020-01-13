@@ -130,4 +130,11 @@ export class AdminConstants {
   ADMIN_FORM_PROXY_USERNAME = 'Username';
   ADMIN_FORM_PROXY_PASSWORD = 'Password';
   OPERATION_SUCCESS_APIKEY_DELETE = 'ApiKey is successfully deleted, access is revoked';
+  ADMIN_TAB_AUTOINFRA = 'Scheduler for automiatic Infrastructure scanning';
+  ADMIN_TAB_AUTOWEB = 'Scheduler for automatic Web Application scanning';
+  ADMIN_TAB_AUTOCODE = 'Scheduler for automatic Code scanning';
+  ADMIN_TAB_AUTOSCAN_DESC = 'Scheduler can be described in CRON expression format. You can check format ' +
+    'using <a href="https://crontab.guru/">https://crontab.guru/</a>';
+  ADMIN_FORM_CRON_EXPRESSION = 'Cron Expression';
+  OPERATION_SUCCESS_SCHEDULERUPDATE = 'Scheduler settings updated.';
 }

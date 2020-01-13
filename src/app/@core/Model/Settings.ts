@@ -9,4 +9,7 @@ export class Settings {
   passwordAuth: string;
   certificateAuth: boolean;
   masterApiKey: string;
+  infraAutoCron: string;
+  webAppAutoCron: string;
+  codeAutoCron: string;
 }

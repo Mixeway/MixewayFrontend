@@ -45,6 +45,9 @@ export class AdminComponent implements OnInit {
   authForm;
   proxyForm;
   routingDomainForm;
+  autoInfraScanForm;
+  autoWebAppScanForm;
+  autoCodeScanForm;
   isAdmin: boolean = false;
   constants: AdminConstants = new AdminConstants();
 
@@ -109,12 +112,21 @@ export class AdminComponent implements OnInit {
       smtpUsername: ['', Validators.required],
       smtpPassword: ['**************', Validators.required],
     });
+    this.autoInfraScanForm = this.formBuilder.group({
+      expression: ['', Validators.required],
+    });
+    this.autoWebAppScanForm = this.formBuilder.group({
+      expression: ['', Validators.required],
+    });
+    this.autoCodeScanForm = this.formBuilder.group({
+      expression: ['', Validators.required],
+    });
+    this.getSettings();
     this.loadProxies();
     this.loadRoutingService();
     this.loadScannerTypes();
     this.loadUsers();
     this.loadScanners();
-    this.getSettings();
   }
 
   ngOnInit() {
@@ -283,6 +295,15 @@ export class AdminComponent implements OnInit {
   getSettings() {
     return this.adminService.getSettings().subscribe(data => {
         this.settings = data;
+        this.autoInfraScanForm.patchValue({
+          expression: this.settings.infraAutoCron,
+        });
+      this.autoWebAppScanForm.patchValue({
+        expression: this.settings.webAppAutoCron,
+      });
+      this.autoCodeScanForm.patchValue({
+        expression: this.settings.codeAutoCron,
+      });
         this.auth = data.smtpAuth;
       });
   }
@@ -380,5 +401,39 @@ export class AdminComponent implements OnInit {
       error => {
         this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED_SMTP);
       });
+  }
+
+  updateAutoInfraScan(value: any) {
+    return this.adminService.updateInfraCron(value).subscribe(data => {
+        this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_SCHEDULERUPDATE);
+        this.getSettings();
+      },
+      error => {
+        this.toast.showToast('danger', this.constants.TOAST_FAILED, error);
+      });
+    alert(JSON.stringify(value));
+  }
+
+  updateAutoCodeScan(value: any) {
+    return this.adminService.updateCodeCron(value).subscribe(data => {
+        this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_SCHEDULERUPDATE);
+        this.getSettings();
+      },
+      error => {
+        this.toast.showToast('danger', this.constants.TOAST_FAILED, error);
+      });
+    alert(JSON.stringify(value));
+  }
+
+  updateAutoWebAppScan(value: any) {
+    alert(JSON.stringify(value));
+    return this.adminService.updateWebAppCron(value).subscribe(data => {
+        this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_SCHEDULERUPDATE);
+        this.getSettings();
+      },
+      error => {
+        this.toast.showToast('danger', this.constants.TOAST_FAILED, error);
+      });
+    alert(JSON.stringify(value));
   }
 }
