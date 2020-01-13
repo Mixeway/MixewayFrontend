@@ -136,5 +136,5 @@ export class AdminConstants {
   ADMIN_TAB_AUTOSCAN_DESC = 'Scheduler can be described in CRON expression format. You can check format ' +
     'using <a href="https://crontab.guru/">https://crontab.guru/</a>';
   ADMIN_FORM_CRON_EXPRESSION = 'Cron Expression';
-  OPERATION_SUCCESS_SCHEDULERUPDATE = 'Scheduler settings updated.';
+  OPERATION_SUCCESS_SCHEDULERUPDATE = 'Scheduler settings updated. Backend restart is obligatory to make change work.';
 }

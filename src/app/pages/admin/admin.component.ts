@@ -1,8 +1,6 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {
   NbDialogService,
-  NbGlobalPhysicalPosition,
-  NbGlobalPosition,
 } from '@nebular/theme';
 import {ShowProjectService} from '../../@core/service/ShowProjectService';
 import {Router} from '@angular/router';
@@ -32,7 +30,6 @@ export class AdminComponent implements OnInit {
   proxies: Proxies[];
   auth: boolean;
   index = 1;
-  position: NbGlobalPosition = NbGlobalPhysicalPosition.TOP_RIGHT;
   role: string;
   users: User[];
   scanners: Scanner[];
@@ -165,14 +162,6 @@ export class AdminComponent implements OnInit {
       this.basicAuth = true;
     }
   }
-
-  getContent(id) {
-    const obj = this.scannerTypes.filter(function(node) {
-      return node.id === id;
-    });
-
-    return obj.name;
-  }
   loadRoutingService() {
     return this.showProjectService.getRoutingDomains().subscribe(data => {
       this.routingDomains = data;
@@ -202,12 +191,12 @@ export class AdminComponent implements OnInit {
 
   saveRfw(value: any, ref, id) {
     if (this.rfwForm.valid) {
-      return this.adminService.addRfw(id, this.rfwForm.value).subscribe(data => {
+      return this.adminService.addRfw(id, this.rfwForm.value).subscribe(() => {
           this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_RFW_SAVE);
           this.loadUsers();
           ref.close();
         },
-        error => {
+        () => {
           this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED);
         });
     }
@@ -215,12 +204,12 @@ export class AdminComponent implements OnInit {
 
   saveScanner(value: any, ref) {
     if (this.scannerForm.valid) {
-      return this.adminService.addScanner(this.scannerForm.value).subscribe(data => {
+      return this.adminService.addScanner(this.scannerForm.value).subscribe(() => {
           this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_SCANNER_SAVE);
           this.loadScanners();
           ref.close();
         },
-        error => {
+        () => {
           this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED);
         });
     }
@@ -228,66 +217,66 @@ export class AdminComponent implements OnInit {
 
   saveUser(value: any, ref) {
     if (this.userForm.valid) {
-      return this.adminService.addUser(this.userForm.value).subscribe(data => {
+      return this.adminService.addUser(this.userForm.value).subscribe(() => {
           this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_USER_SAVE);
           this.loadUsers();
           ref.close();
         },
-        error => {
+        () => {
           this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED);
         });
     }
   }
 
   enableUser(id: number) {
-    return this.adminService.enableUser(id).subscribe(data => {
+    return this.adminService.enableUser(id).subscribe(() => {
         this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_USER_UNBLOCK);
         this.loadUsers();
       },
-      error => {
+      () => {
         this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED);
       });
   }
 
   disableUser(id: number) {
-    return this.adminService.disableUser(id).subscribe(data => {
+    return this.adminService.disableUser(id).subscribe(() => {
         this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_USER_BLOCK);
         this.loadUsers();
       },
-      error => {
+      () => {
         this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED);
       });
   }
 
   deleteScanner(id: number) {
-    return this.adminService.deleteScanner(id).subscribe(data => {
+    return this.adminService.deleteScanner(id).subscribe(() => {
         this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_SCANNER_DELETE);
         this.loadScanners();
       },
-      error => {
+      () => {
         this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED);
       });
   }
 
   testScanner(id: number) {
-    return this.adminService.testScanner(id).subscribe(data => {
+    return this.adminService.testScanner(id).subscribe(() => {
         this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_SCANNER_TEST);
         this.loadScanners();
       },
-      error => {
+      () => {
         this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED);
       });
   }
 
   changePassowordSubmit(value: any, ref, id) {
     if (this.changePasswordForm.valid) {
-      return this.adminService.changePassword(id, this.changePasswordForm.value).subscribe(data => {
+      return this.adminService.changePassword(id, this.changePasswordForm.value).subscribe(() => {
           this.toast.showToast('success', this.constants.TOAST_SUCCESS,
             this.constants.OPERATION_SUCCESS_PASSWORD_CHANGE);
           this.loadUsers();
           ref.close();
         },
-        error => {
+        () => {
           this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED);
         });
     }
@@ -309,32 +298,32 @@ export class AdminComponent implements OnInit {
   }
 
   saveAuth(value: any) {
-    return this.adminService.updateAuth(value).subscribe(data => {
+    return this.adminService.updateAuth(value).subscribe(() => {
         this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_AUTH);
         this.getSettings();
       },
-      error => {
+      () => {
         this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED_AUTH);
         this.getSettings();
       });
   }
 
   deleteApiKey() {
-    return this.adminService.removeApiKey().subscribe(data => {
+    return this.adminService.removeApiKey().subscribe(() => {
         this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_APIKEY_DELETE);
         this.getSettings();
       },
-      error => {
+      () => {
         this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED);
       });
   }
 
   generateApiKey() {
-    return this.adminService.generateApiKey().subscribe(data => {
+    return this.adminService.generateApiKey().subscribe(() => {
         this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_APIKEY_GENERATE);
         this.getSettings();
       },
-      error => {
+      () => {
         this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED);
       });
   }
@@ -350,90 +339,87 @@ export class AdminComponent implements OnInit {
   }
 
   deleteRoutingDomain(id: number) {
-    return this.adminService.deleteRoutingDomain(id).subscribe(data => {
+    return this.adminService.deleteRoutingDomain(id).subscribe(() => {
         this.toast.showToast('success', this.constants.TOAST_SUCCESS,
           this.constants.OPERATION_SUCCESS_ROUTINGDOMAIN_DELETE);
         this.loadRoutingService();
       },
-      error => {
+      () => {
         this.toast.showToast('danger', this.constants.TOAST_FAILED,
           this.constants.OPERATION_FAILED_ROUTINGDOMAIN_DELETE);
       });
   }
 
   deleteProxy(id: any) {
-    return this.adminService.deleteProxy(id).subscribe(data => {
+    return this.adminService.deleteProxy(id).subscribe(() => {
         this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_PROXY_DELETE);
         this.loadProxies();
       },
-      error => {
+      () => {
         this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED);
       });
   }
 
   addNewRoutingDomain(value: any, ref) {
-    return this.adminService.createRoutingDomain(value).subscribe(data => {
+    return this.adminService.createRoutingDomain(value).subscribe(() => {
         this.toast.showToast('success', this.constants.TOAST_SUCCESS,
           this.constants.OPERATION_SUCCESS_ROUTINGDOMAIN_ADD);
         this.loadRoutingService();
         ref.close();
       },
-      error => {
+      () => {
         this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED_ROUTINGDOMAIN_ADD);
       });
   }
 
   addProxies(value: any, ref) {
-    return this.adminService.createProxy(value).subscribe(data => {
+    return this.adminService.createProxy(value).subscribe(() => {
         this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_PROXY_ADD);
         this.loadProxies();
         ref.close();
       },
-      error => {
+      () => {
         this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED);
       });
   }
 
   saveSmtp(value: any) {
-    return this.adminService.updateSmtp(value).subscribe(data => {
+    return this.adminService.updateSmtp(value).subscribe(() => {
         this.toast.showToast('primary', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_SMTP_UPDATE);
       },
-      error => {
+      () => {
         this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED_SMTP);
       });
   }
 
   updateAutoInfraScan(value: any) {
-    return this.adminService.updateInfraCron(value).subscribe(data => {
+    return this.adminService.updateInfraCron(value).subscribe(() => {
         this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_SCHEDULERUPDATE);
         this.getSettings();
       },
       error => {
         this.toast.showToast('danger', this.constants.TOAST_FAILED, error);
       });
-    alert(JSON.stringify(value));
   }
 
   updateAutoCodeScan(value: any) {
-    return this.adminService.updateCodeCron(value).subscribe(data => {
+    return this.adminService.updateCodeCron(value).subscribe(() => {
         this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_SCHEDULERUPDATE);
         this.getSettings();
       },
       error => {
         this.toast.showToast('danger', this.constants.TOAST_FAILED, error);
       });
-    alert(JSON.stringify(value));
   }
 
   updateAutoWebAppScan(value: any) {
     alert(JSON.stringify(value));
-    return this.adminService.updateWebAppCron(value).subscribe(data => {
+    return this.adminService.updateWebAppCron(value).subscribe(() => {
         this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_SCHEDULERUPDATE);
         this.getSettings();
       },
       error => {
         this.toast.showToast('danger', this.constants.TOAST_FAILED, error);
       });
-    alert(JSON.stringify(value));
   }
 }
