@@ -62,7 +62,7 @@ export class DetailsTablesComponent implements OnInit {
     this.loadCodeVulns();
     this.loadAudit();
     this.loadSoftVulns();
-    this.createTableSettings();
+
   }
   loadAudit() {
     return this.showProjectService.getAuditVulns(this._entityId).subscribe(data => {
@@ -78,6 +78,7 @@ export class DetailsTablesComponent implements OnInit {
   loadBugTrackers() {
     return this.bugTrackerService.getBugTrackers(this._entityId).subscribe(data => {
       this.bugTrackers = data;
+      this.createTableSettings();
     });
   }
   loadInfraVulns() {
@@ -134,6 +135,7 @@ export class DetailsTablesComponent implements OnInit {
       title: this.constants.PROJECT_ISSUE_TICKET,
       type: 'custom',
       width: '15%',
+      filter: false,
       renderComponent: BugComponent,
       onComponentInitFunction(instance) {
         instance.refresh.subscribe((row) => {

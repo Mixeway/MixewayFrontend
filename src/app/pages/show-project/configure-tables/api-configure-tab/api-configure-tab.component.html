@@ -62,60 +62,90 @@
     <nb-card-header>{{constants.PROJECT_JIRA_FORM_TITLE}}</nb-card-header>
     <nb-card-body>
       <form [formGroup]="bugForm" (ngSubmit)="saveBugTracker(bugForm.value,ref)" >
-        <div class="form-group">
-          <label for="bugUrl" class="label">{{constants.PROJECT_JIRA_URL}}</label>
-          <input type="text" nbInput fullWidth id="bugUrl" [placeholder]="constants.PROJECT_JIRA_URL" formControlName="url">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="bugUrl" class="label">{{constants.PROJECT_JIRA_URL}}</label>
+              <input type="text" nbInput fullWidth id="bugUrl" [placeholder]="constants.PROJECT_JIRA_URL" formControlName="url">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="bugTrackerType" class="label">{{constants.PROJECT_JIRA_BUG_TYPE}}</label>
+              <nb-select id="bugTrackerType" fullWidth formControlName="bugTrackerType">
+                <nb-option *ngFor="let type of bugTrackingTypes" [value]="type.id">{{ type.name }}</nb-option>
+              </nb-select>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="bugUsername" class="label">{{constants.PROJECT_JIRA_USERNAME}}</label>
-          <input type="text" nbInput fullWidth id="bugUsername" [placeholder]="constants.PROJECT_JIRA_USERNAME" formControlName="username">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="bugUsername" class="label">{{constants.PROJECT_JIRA_USERNAME}}</label>
+              <input type="text" nbInput fullWidth id="bugUsername" [placeholder]="constants.PROJECT_JIRA_USERNAME" formControlName="username">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="bugPassword" class="label">{{constants.PROJECT_JIRA_PASSWORD}}</label>
+              <input type="password" nbInput fullWidth id="bugPassword" [placeholder]="constants.PROJECT_JIRA_PASSWORD" formControlName="password">
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="bugPassword" class="label">{{constants.PROJECT_JIRA_PASSWORD}}</label>
-          <input type="password" nbInput fullWidth id="bugPassword" [placeholder]="constants.PROJECT_JIRA_PASSWORD" formControlName="password">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="bugProjectId" class="label">{{constants.PROJECT_JIRA_PROJECTID}}</label>
+              <input type="text" nbInput fullWidth id="bugProjectId" [placeholder]="constants.PROJECT_JIRA_PROJECTID" formControlName="projectId">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="bugIssueType" class="label">{{constants.PROJECT_JIRA_ISSUE_TYPE}}</label>
+              <input type="text" nbInput fullWidth id="bugIssueType" [placeholder]="constants.PROJECT_JIRA_ISSUE_TYPE" formControlName="issueType">
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="bugTrackerType" class="label">{{constants.PROJECT_JIRA_BUG_TYPE}}</label>
-          <nb-select id="bugTrackerType" fullWidth formControlName="bugTrackerType">
-            <nb-option *ngFor="let type of bugTrackingTypes" [value]="type.id">{{ type.name }}</nb-option>
-          </nb-select>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="asignee" class="label">{{constants.PROJECT_JIRA_ASIGNEE}}</label>
+              <input type="text" nbInput fullWidth id="asignee" [placeholder]="constants.PROJECT_JIRA_ASIGNEE" formControlName="asignee">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="proxy" class="label">{{constants.ADMIN_FORM_PROXY}}</label>
+              <nb-select id="proxy" fullWidth formControlName="proxies">
+                <nb-option value="0">{{constants.ADMIN_FORM_PROXY_NONE}}</nb-option>
+                <nb-option *ngFor="let prox of proxies" [value]="prox.id">{{ prox.description }}</nb-option>
+              </nb-select>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="bugProjectId" class="label">{{constants.PROJECT_JIRA_PROJECTID}}</label>
-          <input type="text" nbInput fullWidth id="bugProjectId" [placeholder]="constants.PROJECT_JIRA_PROJECTID" formControlName="projectId">
-        </div>
-        <div class="form-group">
-          <label for="bugIssueType" class="label">{{constants.PROJECT_JIRA_ISSUE_TYPE}}</label>
-          <input type="text" nbInput fullWidth id="bugIssueType" [placeholder]="constants.PROJECT_JIRA_ISSUE_TYPE" formControlName="issueType">
-        </div>
-        <div class="form-group">
-          <label for="asignee" class="label">{{constants.PROJECT_JIRA_ASIGNEE}}</label>
-          <input type="text" nbInput fullWidth id="asignee" [placeholder]="constants.PROJECT_JIRA_ASIGNEE" formControlName="asignee">
-        </div>
-        <div class="form-group">
-          <label for="proxy" class="label">{{constants.ADMIN_FORM_PROXY}}</label>
-          <nb-select id="proxy" fullWidth formControlName="proxies">
-            <nb-option value="0">{{constants.ADMIN_FORM_PROXY_NONE}}</nb-option>
-            <nb-option *ngFor="let prox of proxies" [value]="prox.id">{{ prox.description }}</nb-option>
-          </nb-select>
-        </div>
-        <div class="form-group">
-          <label for="autoStrategy" class="label">{{constants.PROJECT_JIRA_AUTO_STRAGETY}}</label>
-          <nb-select id="autoStrategy" fullWidth formControlName="autoStrategy">
-            <nb-option value="Manual">{{constants.PROJECT_JIRA_STRATEGY_MANUAL}}</nb-option>
-            <nb-option value="High">{{constants.PROJECT_JIRA_STRATEGY_HIGH}}</nb-option>
-            <nb-option value="Medium">{{constants.PROJECT_JIRA_STRATEGY_MEDIUM}}</nb-option>
-            <nb-option value="Low">{{constants.PROJECT_JIRA_STRATEGY_LOW}}</nb-option>
-          </nb-select>
-        </div>
-        <div class="form-group">
-          <label for="vulns" class="label">{{constants.PROJECT_JIRA_VULNS}}</label>
-          <nb-select id="vulns" fullWidth formControlName="vulns">
-            <nb-option value="infra">{{constants.PROJECT_JIRA_VULNS_INFRA}}</nb-option>
-            <nb-option value="webapp">{{constants.PROJECT_JIRA_VULNS_WEBAPP}}</nb-option>
-            <nb-option value="code">{{constants.PROJECT_JIRA_VULNS_CODE}}</nb-option>
-            <nb-option value="opensource">{{constants.PROJECT_JIRA_VULNS_OPENSOURCE}}</nb-option>
-          </nb-select>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="autoStrategy" class="label">{{constants.PROJECT_JIRA_AUTO_STRAGETY}}</label>
+              <nb-select id="autoStrategy" fullWidth formControlName="autoStrategy">
+                <nb-option value="Manual">{{constants.PROJECT_JIRA_STRATEGY_MANUAL}}</nb-option>
+                <nb-option value="High">{{constants.PROJECT_JIRA_STRATEGY_HIGH}}</nb-option>
+                <nb-option value="Medium">{{constants.PROJECT_JIRA_STRATEGY_MEDIUM}}</nb-option>
+                <nb-option value="Low">{{constants.PROJECT_JIRA_STRATEGY_LOW}}</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="vulns" class="label">{{constants.PROJECT_JIRA_VULNS}}</label>
+              <nb-select id="vulns" fullWidth formControlName="vulns">
+                <nb-option value="infra">{{constants.PROJECT_JIRA_VULNS_INFRA}}</nb-option>
+                <nb-option value="webapp">{{constants.PROJECT_JIRA_VULNS_WEBAPP}}</nb-option>
+                <nb-option value="code">{{constants.PROJECT_JIRA_VULNS_CODE}}</nb-option>
+                <nb-option value="opensource">{{constants.PROJECT_JIRA_VULNS_OPENSOURCE}}</nb-option>
+              </nb-select>
+            </div>
+          </div>
         </div>
         <button type="submit" nbButton status="danger">{{constants.PROJECT_SAVE}}</button>
       </form>
