@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        {{constants.ADMIN_MASTER_APIKEY}}
+      </nb-card-header>
+      <nb-card-body>
+        <div class="api-inline">
+          <input type="text" nbInput id="masterApiKey" placeholder="apiKey" [value]='settings.masterApiKey? settings.masterApiKey : null' [disabled]="true" class="apiKey"> &nbsp;
+          <button status="primary" nbButton hero (click)="copyApiKey()">
+            <nb-icon icon="clipboard-outline" [nbTooltip]="constants.ADMIN_TOOLTIP_COPY_APIKEY" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+          </button>&nbsp;&nbsp;
+          <button status="warning" nbButton hero (click)="null">
+            <nb-icon icon="refresh" [nbTooltip]="constants.ADMIN_TOOLTIP_GENERATE_APIKEY" pack="eva" [options]="{ animation: { type: 'pulse' } }" (click)="generateApiKey()"></nb-icon>
+          </button>&nbsp;&nbsp;
+          <button status="danger" nbButton hero (click)="null">
+            <nb-icon icon="trash" [nbTooltip]="constants.ADMIN_TOOLTIP_DELETE_APIKEY" pack="eva" [options]="{ animation: { type: 'pulse' } }" (click)="deleteApiKey()"></nb-icon>
+          </button>&nbsp;
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

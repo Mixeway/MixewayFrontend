@@ -1,0 +1,84 @@
+<button status="primary" nbButton hero (click)="openCreateApiDialog(addUser,null)">
+  <i class="ion-plus"></i>&nbsp; {{constants.ADMIN_ADD_USER}}
+</button>
+<table class="table">
+  <thead>
+    <th>{{constants.ADMIN_USERTABLE_COMMONNAME}}</th>
+    <th>{{constants.ADMIN_USERTABLE_USERNAME}}</th>
+    <th>{{constants.ADMIN_USERTABLE_LASTIP}}</th>
+    <th>{{constants.ADMIN_USERTABLE_ACTIVE}}</th>
+    <th>{{constants.ADMIN_USERTABLE_ACTION}}</th>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users">
+    <td>{{user.commonName}}</td>
+    <td>{{user.lastLoggedIp}}</td>
+    <td>{{user.lastLoggedDate}}</td>
+    <td *ngIf="user.enabled">
+      <span class="badge badge-success">{{constants.YES}}</span>
+    </td>
+    <td *ngIf="!user.enabled">
+      <span class="badge badge-danger">{{constants.NO}}</span>
+    </td>
+    <td>
+      <button status="info"  nbButton hero *ngIf="user.enabled" (click)="openCreateApiDialog(changePassoword, user.id)">
+        <nb-icon icon="eye-off-outline" [nbTooltip]="constants.ADMIN_TOOLTIP_CHANGEPASSWORD" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+      </button>
+      <button status="success" [nbTooltip]="constants.ADMIN_TOOLTIP_ACTIVATE_USER" nbButton hero *ngIf="!user.enabled" (click)="enableUser(user.id)">
+        <nb-icon icon="plus" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+      </button>
+      <button status="danger"  nbButton hero *ngIf="user.enabled" (click)="disableUser(user.id)">
+        <nb-icon icon="minus" [nbTooltip]="constants.ADMIN_TOOLTIP_BLOCK_USER" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+      </button>
+
+    </td>
+  </tr>
+  </tbody>
+</table>
+<ng-template #addUser let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>{{constants.ADMIN_FORM_USER_TITLE}}</nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="userForm" (ngSubmit)="saveUser(userForm.value, ref)" >
+        <div class="form-group">
+          <label for="userUsername" class="label">{{constants.ADMIN_FORM_USER_NAME}}</label>
+          <input type="text" nbInput fullWidth id="userUsername" [placeholder]="constants.ADMIN_FORM_USER_NAME" formControlName="userUsername">
+        </div>
+        <div class="form-group">
+          <label for="passwordAuth" class="label">{{constants.ADMIN_FORM_USER_PASSWORD_AUTH}}</label>
+          <nb-checkbox fullWidth id="passwordAuth" formControlName="passwordAuth" ng-model="passwordAuth"></nb-checkbox>
+        </div>
+        <div class="form-group" *ngIf="userForm.get('passwordAuth').value">
+          <label for="userPassword" class="label">{{constants.ADMIN_FORM_USER_PASSWORD}} </label>
+          <input type="password" nbInput fullWidth id="userPassword" [placeholder]="constants.ADMIN_FORM_USER_PASSWORD" formControlName="userPassword">
+        </div>
+        <div class="form-group">
+          <label for="codeGroupForProject" class="label">{{constants.ADMIN_FORM_ROLE}}</label>
+          <nb-select id="codeGroupForProject" fullWidth formControlName="userRole">
+            <nb-option *ngFor="let cg of constants.USER_GROUPS" [value]="cg.id">{{ cg.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="form-group">
+          <label for="cn" class="label">{{constants.ADMIN_FORM_COMMONNAME}}</label>
+          <input type="text" nbInput fullWidth id="cn" [placeholder]="constants.ADMIN_FORM_COMMONNAME_PLACEHOLDER" formControlName="userCN">
+        </div>
+        <button type="submit" nbButton status="danger">{{constants.ADMIN_FORM_SAVE}}</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+<ng-template #changePassoword let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>{{constants.ADMIN_FORM_CHANGEPASSWORD_TITTLE}}</nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="changePasswordForm" (ngSubmit)="changePassowordSubmit(changePasswordForm.value, ref,data)" >
+        <div class="form-group">
+          <label for="newPassword" class="label">{{constants.ADMIN_FORM_CHANGEPASSWORD_NEWPASS}}</label>
+          <input type="password" nbInput fullWidth id="newPassword" [placeholder]="constants.ADMIN_FORM_CHANGEPASSWORD_NEWPASS" formControlName="newPassword">
+        </div>
+        <button type="submit" nbButton status="danger">{{constants.ADMIN_FORM_SAVE}}</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</ng-template>

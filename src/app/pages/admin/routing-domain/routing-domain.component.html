@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        {{constants.ADMIN_ROUTINGDOMAINS}} &nbsp;
+        <button status="success" nbButton hero (click)="openCreateApiDialog(addRoutingDomain,null)">
+          <i class="ion-plus"></i>&nbsp; {{constants.ADMIN_ADD_ROUTINGDOMAIN}}
+        </button>
+      </nb-card-header>
+      <nb-card-body>
+        <nb-list>
+          <nb-list-item *ngFor="let routingDomain of routingDomains">
+            <button status="danger" nbButton hero (click)="null" size="tiny">
+              <nb-icon icon="trash" [nbTooltip]="constants.ADMIN_DELETE_ROUTINGDOMAIN" pack="eva" [options]="{ animation: { type: 'pulse' } }" (click)="deleteRoutingDomain(routingDomain.id)"></nb-icon>
+            </button>&nbsp; {{ routingDomain.name }}
+          </nb-list-item>
+        </nb-list>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+<ng-template #addRoutingDomain let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>{{constants.ADMIN_FORM_ROUTINGDOMAIN_TITLE}}</nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="routingDomainForm" (ngSubmit)="addNewRoutingDomain(routingDomainForm.value,ref)" >
+        <div class="form-group">
+          <label for="routingDomainName" class="label">{{constants.ADMIN_FORM_ROUTINGDOMAIN_NAME}}</label>
+          <input type="text" nbInput fullWidth id="routingDomainName" [placeholder]="constants.ADMIN_FORM_ROUTINGDOMAIN_NAME" formControlName="name">
+        </div>
+        <button type="submit" nbButton status="danger">{{constants.ADMIN_FORM_SAVE}}</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</ng-template>

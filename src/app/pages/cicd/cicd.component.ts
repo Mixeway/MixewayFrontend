@@ -3,6 +3,7 @@ import {CiOpeerationsService} from '../../@core/service/CiOpeerationsService';
 import {CiOperations} from '../../@core/Model/CiOperations';
 import {CiresultColorComponent} from '../extra-components/ciresult-color.component';
 import {CicdConstants} from '../../@core/constants/CicdConstants';
+import {type} from 'os';
 
 @Component({
   selector: 'ngx-cicd',
@@ -28,18 +29,22 @@ export class CicdComponent implements OnInit {
   }
   loadSettings() {
     this.settings = {
-      actions: false,
-      add: false,
-      edit: false,
-      delete: false,
+      actions: {
+        add: false,
+        edit: false,
+        delete: false,
+      },
       columns: {
-        name: {
+        projectName: {
           title: this.constants.CICD_TABLE_PROJECT_NAME,
-          type: 'html',
           valuePrepareFunction: (cell, row) => {
-            return `<b>${row.codeProject ? row.codeProject.name + ' [' +
-              row.codeProject.codeGroup.name + ']' : row.codeGroup.name}</b>`;
+            return row.codeProject ? row.codeProject.name : row.codeGroup.name;
           },
+          filterFunction: (projectName?: any, search?: string) => {
+            alert(projectName);
+            return false;
+          },
+          type: 'string',
         },
         vulnNumber: {
           title: this.constants.CICD_TABLE_VULN_NUMBER,
@@ -52,7 +57,7 @@ export class CicdComponent implements OnInit {
         },
         inserted: {
           title: this.constants.CICD_TABLE_INSERTED,
-          type: 'string',
+          type: 'date',
           sortDirection: 'desc',
         },
       },
