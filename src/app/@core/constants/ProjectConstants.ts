@@ -174,4 +174,5 @@ export class ProjectConstants {
   ADMIN_FORM_PROXY = 'Proxy';
   ADMIN_FORM_PROXY_NONE = 'No Proxy';
   CONFIIRM_BUG_ISSUE = 'Are You sure to Issue a bug?';
+  PROJECT_OPERATION_UPDATE_CONTACTLIST_SUCCESS = 'Contact list updated';
 }
