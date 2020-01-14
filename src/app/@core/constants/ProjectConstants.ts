@@ -173,4 +173,5 @@ export class ProjectConstants {
   PROJECT_OPERATION_FAILURES_DUPLICATE = 'Given URL seems like duplicate. Make sure to not save same URL twice.';
   ADMIN_FORM_PROXY = 'Proxy';
   ADMIN_FORM_PROXY_NONE = 'No Proxy';
+  CONFIIRM_BUG_ISSUE = 'Are You sure to Issue a bug?';
 }

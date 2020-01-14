@@ -21,25 +21,26 @@ export class BugComponent implements ViewCell, OnInit {
   constructor(private bugTrackingService: BugTrackerService, private toast: Toast) {}
 
   issueTicket() {
-
-    let projectId: number;
-    if (this.rowData.type === 'infra') {
-      projectId = this.rowData.intf.asset.project.id;
-    } else if (this.rowData === 'webapp') {
-      projectId = this.rowData.webapp.project.id;
-    } else if (this.rowData === 'code') {
-      projectId = this.rowData.codeGroup.project.id;
-    } else {
-      projectId = this.rowData.codeProject.codeGroup.project.id;
+    if (confirm(this.constants.CONFIIRM_BUG_ISSUE)) {
+      let projectId: number;
+      if (this.rowData.type === 'infra') {
+        projectId = this.rowData.intf.asset.project.id;
+      } else if (this.rowData === 'webapp') {
+        projectId = this.rowData.webapp.project.id;
+      } else if (this.rowData === 'code') {
+        projectId = this.rowData.codeGroup.project.id;
+      } else {
+        projectId = this.rowData.codeProject.codeGroup.project.id;
+      }
+      return this.bugTrackingService.issueTicket(projectId, this.rowData.type,
+        this.rowData.id).subscribe(() => {
+        this.toast.showToast('success', this.constants.PROJECT_OPERATION_SUBMITISSUE,
+          this.constants.PROJECT_JIRA_TICKET_ISSUED);
+        this.refresh.emit(this.rowData);
+      }, () => {
+        this.toast.showToast('danger', this.constants.PROJECT_OPERATION_FAILURE,
+          this.constants.PROJECT_JIRA_TICKET_ISSUED_FAILURE);
+      });
     }
-    return this.bugTrackingService.issueTicket(projectId, this.rowData.type,
-      this.rowData.id).subscribe(() => {
-      this.toast.showToast('success', this.constants.PROJECT_OPERATION_SUBMITISSUE,
-        this.constants.PROJECT_JIRA_TICKET_ISSUED);
-      this.refresh.emit(this.rowData);
-    }, () => {
-      this.toast.showToast('danger', this.constants.PROJECT_OPERATION_FAILURE,
-        this.constants.PROJECT_JIRA_TICKET_ISSUED_FAILURE);
-    });
   }
 }
