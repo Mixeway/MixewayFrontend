@@ -1,0 +1,116 @@
+<button status="primary" nbButton hero (click)="openCreateApiDialog(addScanner,null)">
+  <i class="ion-plus"></i>&nbsp; {{constants.ADMIN_ADD_SCANNER}}
+</button>
+<table class="table">
+  <thead>
+  <th>{{constants.ADMIN_SCANNERTABLE_TYPE}}</th>
+  <th>{{constants.ADMIN_SCANNERTABLE_API_URL}}</th>
+  <th>{{constants.ADMIN_SCANNERTABLE_ROUTINGDOMAIN}}</th>
+  <th>{{constants.ADMIN_SCANNERTABLE_ACTIVE}}</th>
+  <th>{{constants.ADMIN_SCANNERTABLE_ACTION}}</th>
+  </thead>
+  <tbody>
+  <tr *ngFor="let scanner of scanners">
+    <td>{{ scanner.scannerType.name}}</td>
+    <td>{{scanner.apiUrl}}</td>
+    <td>{{scanner.routingDomain?.name}}</td>
+    <td *ngIf="scanner.status"><span class="badge badge-success">{{constants.YES}}</span></td>
+    <td *ngIf="!scanner.status"><span class="badge badge-danger">{{constants.NO}}</span></td>
+    <td>
+      <button status="danger" nbButton hero (click)="deleteScanner(scanner.id)">
+        <nb-icon icon="trash" [nbTooltip]="constants.ADMIN_TOOLTIP_SCANNER_DELETE" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+      </button>&nbsp;
+      <button status="primary" nbButton hero *ngIf="!scanner.status"  (click)="testScanner(scanner.id)">
+        <nb-icon icon="refresh-outline" [nbTooltip]="constants.ADMIN_TOOLTIP_SCANNER_TEST" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+
+      </button>&nbsp;
+      <button status="warning" nbButton hero (click)="openCreateApiDialog(addRfw, scanner.id)" *ngIf="scanner.rfwUrl == null">
+        <nb-icon icon="plus" [nbTooltip]="constants.ADMIN_TOOLTIP_SCANNER_RFW" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<ng-template #addScanner let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>{{constants.ADMIN_FORM_SCANNER_TITLE}}</nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="scannerForm" (ngSubmit)="saveScanner(scannerForm.value, ref)" >
+        <div class="form-group">
+          <label for="scannerType" class="label">{{constants.ADMIN_FORM_SCANNER_TYPE}}</label>
+          <nb-select id="scannerType" fullWidth (selectedChange)="onChange($event)" formControlName="scannerType">
+            <nb-option *ngFor="let st of scannerTypes" [value]="st.name">{{ st.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="form-group">
+          <label for="routingDomain" class="label">{{constants.ADMIN_FORM_SCANNER_ROUTINGDOMAIN}}</label>
+          <nb-select id="routingDomain" fullWidth formControlName="routingDomain">
+            <nb-option *ngFor="let rd of routingDomains" [value]="rd.id">{{ rd.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="form-group">
+          <label for="proxy" class="label">{{constants.ADMIN_FORM_PROXY}}</label>
+          <nb-select id="proxy" fullWidth formControlName="proxy">
+            <nb-option value="0">{{constants.ADMIN_FORM_PROXY_NONE}}</nb-option>
+            <nb-option *ngFor="let prox of proxies" [value]="prox.id">{{ prox.description }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="form-group">
+          <label for="apiUrl" class="label">{{constants.ADMIN_FORM_SCANNER_APIURL}}</label>
+          <input type="text" nbInput fullWidth id="apiUrl" [placeholder]="constants.ADMIN_FORM_SCANNER_APIURL" formControlName="apiUrl">
+        </div>
+        <div class="form-group" *ngIf="basicAuth">
+          <label for="username" class="label">{{constants.ADMIN_FORM_SCANNER_USERNAME}}</label>
+          <input type="text" nbInput fullWidth id="username" [placeholder]="constants.ADMIN_FORM_SCANNER_USERNAME" formControlName="username">
+        </div>
+        <div class="form-group" *ngIf="basicAuth">
+          <label for="password" class="label">{{constants.ADMIN_FORM_SCANNER_PASSWORD}} </label>
+          <input type="password" nbInput fullWidth id="password" [placeholder]="constants.ADMIN_FORM_SCANNER_PASSWORD" formControlName="password">
+        </div>
+        <div class="form-group" *ngIf="showNessus">
+          <label for="accessKey" class="label">{{constants.ADMIN_FORM_SCANNER_ACCESSKEY}}</label>
+          <input type="text" nbInput fullWidth id="accessKey" [placeholder]="constants.ADMIN_FORM_SCANNER_ACCESSKEY" formControlName="accesskey">
+        </div>
+        <div class="form-group" *ngIf="showNessus">
+          <label for="secretKey" class="label">{{constants.ADMIN_FORM_SCANNER_SECRETKEY}}</label>
+          <input type="text" nbInput fullWidth id="secretKey" [placeholder]="constants.ADMIN_FORM_SCANNER_SECRETKEY" formControlName="secretkey">
+        </div>
+        <div class="form-group" *ngIf="showAcunetix">
+          <label for="apiKey" class="label">{{constants.ADMIN_FORM_SCANNER_APIKEY}}</label>
+          <input type="text" nbInput fullWidth id="apiKey" [placeholder]="constants.ADMIN_FORM_SCANNER_APIKEY" formControlName="apiKey">
+        </div>
+        <div class="form-group" *ngIf="showFortifySCA">
+          <label for="cloudCtrlToken" class="label">{{constants.ADMIN_FORM_SCANNER_CLOUDCTRL}}</label>
+          <input type="text" nbInput fullWidth id="cloudCtrlToken" [placeholder]="constants.ADMIN_FORM_SCANNER_CLOUDCTRL" formControlName="cloudCtrlToken">
+        </div>
+        <button type="submit" nbButton status="danger">{{constants.ADMIN_FORM_SAVE}}</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+<ng-template #addRfw let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>{{constants.ADMIN_FORM_RFW_TITLE}}</nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="rfwForm" (ngSubmit)="saveRfw(rfwForm.value, ref,data)" >
+        <div class="form-group">
+          <label for="rfwUrl" class="label">{{constants.ADMIN_FORM_RFW_URL}}</label>
+          <input type="text" nbInput fullWidth id="rfwUrl" [placeholder]="constants.ADMIN_FORM_RFW_URL" formControlName="rfwUrl">
+        </div>
+        <div class="form-group">
+          <label for="rfwScannerIp" class="label">{{constants.ADMIN_FORM_RFW_SCANNER_URL}}</label>
+          <input type="text" nbInput fullWidth id="rfwScannerIp" [placeholder]="constants.ADMIN_FORM_RFW_SCANNER_URL" formControlName="rfwScannerIp">
+        </div>
+        <div class="form-group">
+          <label for="rfwUsername" class="label">{{constants.ADMIN_FORM_RFW_USERNAME}}</label>
+          <input type="text" nbInput fullWidth id="rfwUsername" [placeholder]="constants.ADMIN_FORM_RFW_USERNAME" formControlName="rfwUsername">
+        </div>
+        <div class="form-group" >
+          <label for="rfwPassword" class="label">{{constants.ADMIN_FORM_RFW_PASSWORD}}</label>
+          <input type="password" nbInput fullWidth id="rfwPassword" [placeholder]="constants.ADMIN_FORM_RFW_PASSWORD" formControlName="rfwPassword">
+        </div>
+        <button type="submit" nbButton status="danger">{{constants.ADMIN_FORM_SAVE}}</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</ng-template>

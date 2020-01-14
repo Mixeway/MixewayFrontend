@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        {{constants.ADMIN_AUTHENTICATION}}
+      </nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="authForm" (ngSubmit)="saveAuth(authForm.value)" >
+          <div class="form-group">
+            <nb-checkbox [checked]="settings.passwordAuth" status="basic" nbInput id="passwordAuthentication" formControlName="passwordAuth" >{{constants.ADMIN_AUTHENTICATION_PASSWORD}}</nb-checkbox>
+            <nb-checkbox [checked]="settings.certificateAuth" status="basic" nbInput id="certificateAuthentication" formControlName="certificateAuth" >{{constants.ADMIN_AUTHENTICATION_CERTIFICATE}}</nb-checkbox>
+          </div>
+          <button type="submit" nbButton status="success">{{constants.ADMIN_FORM_SAVE}}</button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

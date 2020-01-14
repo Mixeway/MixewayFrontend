@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-md-6">
+    <nb-card>
+      <nb-card-header>
+        {{constants.ADMIN_PROXXIES}} &nbsp;
+        <button status="success" nbButton hero (click)="openCreateApiDialog(addProxy,null)">
+          <i class="ion-plus"></i>&nbsp; {{constants.ADMIN_ADD_PROXY}}
+        </button>
+      </nb-card-header>
+      <nb-card-body>
+        <nb-list>
+          <nb-list-item *ngFor="let proxy of proxies">
+            <button status="danger" nbButton hero (click)="null" size="small">
+              <nb-icon icon="trash" [nbTooltip]="constants.ADMIN_DELETE_PROXY" pack="eva" [options]="{ animation: { type: 'pulse' } }" (click)="deleteProxy(proxy.id)"></nb-icon>
+            </button>&nbsp;<div style="display:inline-block"><small>{{ proxy.description}}</small><br/>{{proxy.ip}}:{{proxy.port  }}</div>
+          </nb-list-item>
+        </nb-list>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+<ng-template #addProxy let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>{{constants.ADMIN_FORM_PROXY_TITLE}}</nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="proxyForm" (ngSubmit)="addProxies(proxyForm.value,ref)" >
+        <div class="form-group">
+          <label for="proxyIp" class="label">{{constants.ADMIN_FORM_PROXY_IP}}</label>
+          <input type="text" nbInput fullWidth id="proxyIp" [placeholder]="constants.ADMIN_FORM_PROXY_IP" formControlName="ip">
+        </div>
+        <div class="form-group">
+          <label for="proxyPort" class="label">{{constants.ADMIN_FORM_PROXY_PORT}}</label>
+          <input type="text" nbInput fullWidth id="proxyPort" [placeholder]="constants.ADMIN_FORM_PROXY_PORT" formControlName="port">
+        </div>
+        <div class="form-group">
+          <label for="proxyDescription" class="label">{{constants.ADMIN_FORM_PROXY_DESC}}</label>
+          <input type="text" nbInput fullWidth id="proxyDescription" [placeholder]="constants.ADMIN_FORM_PROXY_DESC" formControlName="description">
+        </div>
+        <div class="form-group">
+          <label for="proxyUsername" class="label">{{constants.ADMIN_FORM_PROXY_USERNAME}}</label>
+          <input type="text" nbInput fullWidth id="proxyUsername" [placeholder]="constants.ADMIN_FORM_PROXY_USERNAME" formControlName="username">
+        </div>
+        <div class="form-group">
+          <label for="proxyPassword" class="label">{{constants.ADMIN_FORM_PROXY_PASSWORD}}</label>
+          <input type="password" nbInput fullWidth id="proxyPassword" [placeholder]="constants.ADMIN_FORM_PROXY_PASSWORD" formControlName="password">
+        </div>
+        <button type="submit" nbButton status="danger">{{constants.ADMIN_FORM_SAVE}}</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
