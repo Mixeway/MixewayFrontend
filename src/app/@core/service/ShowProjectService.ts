@@ -20,7 +20,6 @@ import {Severities} from '../Model/Severities';
 import {ApiKey} from '../Model/ApiKey';
 import {Router} from '@angular/router';
 import {SoftVuln} from '../Model/SoftVuln';
-import {BugTracker} from '../Model/BugTracker';
 
 @Injectable({
   providedIn: 'root',
