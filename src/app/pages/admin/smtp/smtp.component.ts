@@ -35,10 +35,10 @@ export class SmtpComponent implements OnInit {
     this.smtpForm = this.formBuilder.group({
       smtpAuth: [true, Validators.required],
       smtpTls: [true, Validators.required],
-      smtpHost: ['', Validators.required],
-      smtpPort: [587, Validators.required],
-      domain: ['', Validators.required],
-      smtpUsername: ['', Validators.required],
+      smtpHost: [this.settings.smtpHost, Validators.required],
+      smtpPort: [this.settings.smtpPort, Validators.required],
+      domain: [this.settings.domain, Validators.required],
+      smtpUsername: [this.settings.smtpUsername, Validators.required],
       smtpPassword: ['**************', Validators.required],
     });
   }
