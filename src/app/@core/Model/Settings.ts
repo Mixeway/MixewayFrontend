@@ -6,6 +6,7 @@ export class Settings {
   smtpPort: number;
   smtpUsername: string;
   smtpPassword: string;
+  domain: string;
   passwordAuth: string;
   certificateAuth: boolean;
   masterApiKey: string;

@@ -2,12 +2,13 @@
   <i class="ion-plus"></i>&nbsp; {{constants.ADMIN_ADD_USER}}
 </button>
 <table class="table">
+  <caption>{{constants.ADMIN_USERTABLE_CAPTION}}</caption>
   <thead>
-    <th>{{constants.ADMIN_USERTABLE_COMMONNAME}}</th>
-    <th>{{constants.ADMIN_USERTABLE_USERNAME}}</th>
-    <th>{{constants.ADMIN_USERTABLE_LASTIP}}</th>
-    <th>{{constants.ADMIN_USERTABLE_ACTIVE}}</th>
-    <th>{{constants.ADMIN_USERTABLE_ACTION}}</th>
+    <th scope="col">{{constants.ADMIN_USERTABLE_COMMONNAME}}</th>
+    <th scope="col">{{constants.ADMIN_USERTABLE_USERNAME}}</th>
+    <th scope="col">{{constants.ADMIN_USERTABLE_LASTIP}}</th>
+    <th scope="col">{{constants.ADMIN_USERTABLE_ACTIVE}}</th>
+    <th scope="col">{{constants.ADMIN_USERTABLE_ACTION}}</th>
   </thead>
   <tbody>
   <tr *ngFor="let user of users">

@@ -137,4 +137,7 @@ export class AdminConstants {
     'using <a href="https://crontab.guru/">https://crontab.guru/</a>';
   ADMIN_FORM_CRON_EXPRESSION = 'Cron Expression';
   OPERATION_SUCCESS_SCHEDULERUPDATE = 'Scheduler settings updated. Backend restart is obligatory to make change work.';
+  ADMIN_SMTP_DOMAIN = 'EMAIL domain';
+  ADMIN_SCANNERTABLE_CAPTION = 'Table containing list of configured vulnerability scanners';
+  ADMIN_USERTABLE_CAPTION = 'Table containing list of users';
 }

@@ -39,6 +39,7 @@ export class SmtpComponent implements OnInit {
       smtpTls: [true, Validators.required],
       smtpHost: ['', Validators.required],
       smtpPort: [587, Validators.required],
+      domain: ['', Validators.required],
       smtpUsername: ['', Validators.required],
       smtpPassword: ['**************', Validators.required],
     });

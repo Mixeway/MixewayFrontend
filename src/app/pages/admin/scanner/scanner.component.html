@@ -1,13 +1,14 @@
 <button status="primary" nbButton hero (click)="openCreateApiDialog(addScanner,null)">
   <i class="ion-plus"></i>&nbsp; {{constants.ADMIN_ADD_SCANNER}}
 </button>
-<table class="table">
+<table class="table" >
+  <caption>{{constants.ADMIN_SCANNERTABLE_CAPTION}}</caption>
   <thead>
-  <th>{{constants.ADMIN_SCANNERTABLE_TYPE}}</th>
-  <th>{{constants.ADMIN_SCANNERTABLE_API_URL}}</th>
-  <th>{{constants.ADMIN_SCANNERTABLE_ROUTINGDOMAIN}}</th>
-  <th>{{constants.ADMIN_SCANNERTABLE_ACTIVE}}</th>
-  <th>{{constants.ADMIN_SCANNERTABLE_ACTION}}</th>
+    <th scope="col">{{constants.ADMIN_SCANNERTABLE_TYPE}}</th>
+    <th scope="col">{{constants.ADMIN_SCANNERTABLE_API_URL}}</th>
+    <th scope="col">{{constants.ADMIN_SCANNERTABLE_ROUTINGDOMAIN}}</th>
+    <th scope="col">{{constants.ADMIN_SCANNERTABLE_ACTIVE}}</th>
+    <th scope="col">{{constants.ADMIN_SCANNERTABLE_ACTION}}</th>
   </thead>
   <tbody>
   <tr *ngFor="let scanner of scanners">

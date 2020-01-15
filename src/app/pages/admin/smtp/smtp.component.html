@@ -22,6 +22,10 @@
             <label for="smtpPassword" class="label">{{constants.ADMIN_SMTP_PASSWORD}}</label>
             <input type="password" nbInput fullWidth id="smtpPassword" [placeholder]="constants.ADMIN_SMTP_PASSWORD" formControlName="smtpPassword">
           </div>
+          <div class="form-group" *ngIf="auth">
+            <label for="domain" class="label">{{constants.ADMIN_SMTP_DOMAIN}}</label>
+            <input type="text" nbInput fullWidth id="domain" [placeholder]="constants.ADMIN_SMTP_DOMAIN" formControlName="domain" [value]="settings.domain">
+          </div>
           <div class="form-group">
             <nb-checkbox [checked]="settings.smtpTls" status="basic" nbInput id="smtpTls" formControlName="smtpTls" >{{constants.ADMIN_SMTP_TLS}}</nb-checkbox>
             <nb-checkbox [checked]="settings.smtpAuth" status="basic" nbInput id="smtpAuth" formControlName="smtpAuth" [(ngModel)]="auth" >{{constants.ADMIN_SMTP_AUTH}}</nb-checkbox>
