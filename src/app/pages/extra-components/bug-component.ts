@@ -25,12 +25,10 @@ export class BugComponent implements ViewCell, OnInit {
       let projectId: number;
       if (this.rowData.type === 'infra') {
         projectId = this.rowData.intf.asset.project.id;
-      } else if (this.rowData === 'webapp') {
+      } else if (this.rowData.type === 'webapp') {
         projectId = this.rowData.webapp.project.id;
-      } else if (this.rowData === 'code') {
+      } else if (this.rowData.type === 'code' ) {
         projectId = this.rowData.codeGroup.project.id;
-      } else {
-        projectId = this.rowData.codeProject.codeGroup.project.id;
       }
       return this.bugTrackingService.issueTicket(projectId, this.rowData.type,
         this.rowData.id).subscribe(() => {
