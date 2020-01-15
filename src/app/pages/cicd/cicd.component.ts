@@ -3,7 +3,6 @@ import {CiOpeerationsService} from '../../@core/service/CiOpeerationsService';
 import {CiOperations} from '../../@core/Model/CiOperations';
 import {CiresultColorComponent} from '../extra-components/ciresult-color.component';
 import {CicdConstants} from '../../@core/constants/CicdConstants';
-import {type} from 'os';
 
 @Component({
   selector: 'ngx-cicd',

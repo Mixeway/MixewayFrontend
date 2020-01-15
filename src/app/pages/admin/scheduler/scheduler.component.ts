@@ -1,11 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {AdminConstants} from '../../../@core/constants/AdminConstants';
-import {NbDialogService} from '@nebular/theme';
 import {Toast} from '../../../@core/utils/Toast';
 import {AdminService} from '../../../@core/service/AdminService';
 import {Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
-import {ShowProjectService} from '../../../@core/service/ShowProjectService';
 import {FormBuilder, Validators} from '@angular/forms';
 import {Settings} from '../../../@core/Model/Settings';
 
@@ -26,9 +24,9 @@ export class SchedulerComponent implements OnInit {
   constants: AdminConstants = new AdminConstants();
 
 
-  constructor(private dialogService: NbDialogService, private toast: Toast,
+  constructor(private toast: Toast,
               private adminService: AdminService, private router: Router,
-              private cookieService: CookieService, private showProjectService: ShowProjectService,
+              private cookieService: CookieService,
               private formBuilder: FormBuilder) {
     this.role = this.cookieService.get('role');
     if (this.role !== 'ROLE_ADMIN') {

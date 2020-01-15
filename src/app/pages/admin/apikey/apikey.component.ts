@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AdminConstants} from '../../../@core/constants/AdminConstants';
-import {NbDialogService} from '@nebular/theme';
 import {Toast} from '../../../@core/utils/Toast';
 import {AdminService} from '../../../@core/service/AdminService';
 import {Router} from '@angular/router';
@@ -21,7 +20,7 @@ export class ApikeyComponent implements OnInit {
   constants: AdminConstants = new AdminConstants();
 
 
-  constructor(private dialogService: NbDialogService, private toast: Toast,
+  constructor(private toast: Toast,
               private adminService: AdminService, private router: Router,
               private cookieService: CookieService) {
     this.role = this.cookieService.get('role');

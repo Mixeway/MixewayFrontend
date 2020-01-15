@@ -7,7 +7,6 @@ import {Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
 import {AdminService} from '../../@core/service/AdminService';
 import {RoutingDomain} from '../../@core/Model/RoutingDomain';
-import {Toast} from '../../@core/utils/Toast';
 import {Proxies} from '../../@core/Model/Proxies';
 import {AdminConstants} from '../../@core/constants/AdminConstants';
 
@@ -27,7 +26,7 @@ export class AdminComponent implements OnInit {
   constants: AdminConstants = new AdminConstants();
 
 
-  constructor(private dialogService: NbDialogService, private toast: Toast,
+  constructor(private dialogService: NbDialogService,
               private adminService: AdminService, private router: Router,
               private cookieService: CookieService, private showProjectService: ShowProjectService) {
     this.role = this.cookieService.get('role');
