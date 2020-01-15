@@ -87,7 +87,15 @@ export class ApiConfigureTabComponent implements OnInit {
   ngOnInit() {
   }
   saveContactList(contactList) {
-    this.contactList = contactList;
+    this.contactList = contactList.value;
+    return this.showProjectService.updateContactList(this._entityId, contactList).subscribe(() => {
+        this.toast.showToast('success', this.constants.PROJECT_OPERATION_SUCCESS,
+          this.constants.PROJECT_OPERATION_UPDATE_CONTACTLIST_SUCCESS);
+      },
+      () => {
+        this.toast.showToast('danger', this.constants.PROJECT_OPERATION_FAILURE,
+          this.constants.PROJECT_OPERATION_FAILURES);
+      });
   }
   copyApiKey() {
     document.addEventListener('copy', (e: ClipboardEvent) => {

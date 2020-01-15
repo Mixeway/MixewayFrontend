@@ -171,4 +171,8 @@ export class ProjectConstants {
   PROJECT_JIRA_TICKET_ISSUED = 'Issue is successfully created';
   PROJECT_JIRA_TICKET_ISSUED_FAILURE = 'Operation failed, make sure BugTracker is configured properly';
   PROJECT_OPERATION_FAILURES_DUPLICATE = 'Given URL seems like duplicate. Make sure to not save same URL twice.';
+  ADMIN_FORM_PROXY = 'Proxy';
+  ADMIN_FORM_PROXY_NONE = 'No Proxy';
+  CONFIIRM_BUG_ISSUE = 'Are You sure to Issue a bug?';
+  PROJECT_OPERATION_UPDATE_CONTACTLIST_SUCCESS = 'Contact list updated';
 }

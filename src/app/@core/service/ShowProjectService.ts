@@ -20,6 +20,7 @@ import {Severities} from '../Model/Severities';
 import {ApiKey} from '../Model/ApiKey';
 import {Router} from '@angular/router';
 import {SoftVuln} from '../Model/SoftVuln';
+import {BugTracker} from '../Model/BugTracker';
 
 @Injectable({
   providedIn: 'root',
@@ -245,6 +246,14 @@ export class ShowProjectService {
   }
   enableWebAppAutoScan(id): Observable<string> {
     return this.http.put<string>(environment.backend + this.showProjectPath + '/' + id + '/webapp/webappautoscan', null)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  updateContactList(id: number, contactList): Observable<string> {
+    return this.http.patch<string>(environment.backend + '/show/project/' + id + '/contactlist',
+      contactList)
       .pipe(
         retry(1),
         catchError(this.errorHandl),
