@@ -4,7 +4,7 @@ import {Toast} from '../../../@core/utils/Toast';
 import {AdminService} from '../../../@core/service/AdminService';
 import {Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Settings} from '../../../@core/Model/Settings';
 
 @Component({
@@ -17,7 +17,7 @@ export class SmtpComponent implements OnInit {
   auth: boolean;
   index = 1;
   role: string;
-  smtpForm;
+  smtpForm: FormGroup;
   isAdmin: boolean = false;
   constants: AdminConstants = new AdminConstants();
 
@@ -32,17 +32,9 @@ export class SmtpComponent implements OnInit {
     } else {
       this.isAdmin = true;
     }
-    this.smtpForm = this.formBuilder.group({
-      smtpAuth: [true, Validators.required],
-      smtpTls: [true, Validators.required],
-      smtpHost: [this.settings.smtpHost, Validators.required],
-      smtpPort: [this.settings.smtpPort, Validators.required],
-      domain: [this.settings.domain, Validators.required],
-      smtpUsername: [this.settings.smtpUsername, Validators.required],
-      smtpPassword: ['**************', Validators.required],
-    });
   }
   saveSmtp(value: any) {
+    alert(JSON.stringify(value));
     return this.adminService.updateSmtp(value).subscribe(() => {
         this.toast.showToast('primary', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_SMTP_UPDATE);
       },
@@ -51,6 +43,15 @@ export class SmtpComponent implements OnInit {
       });
   }
   ngOnInit() {
+    this.smtpForm = this.formBuilder.group({
+      smtpAuth: [this.settings.smtpAuth, Validators.required],
+      smtpTls: [this.settings.smtpTls, Validators.required],
+      smtpHost: [this.settings.smtpHost, Validators.required],
+      smtpPort: [this.settings.smtpPort, Validators.required],
+      domain: [this.settings.domain, Validators.required],
+      smtpUsername: [this.settings.smtpUsername, Validators.required],
+      smtpPassword: ['**************', Validators.required],
+    });
   }
 
 }

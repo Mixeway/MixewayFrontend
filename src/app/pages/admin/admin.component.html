@@ -1,5 +1,5 @@
 <nb-alert status="danger" *ngIf="!isAdmin" xmlns="http://www.w3.org/1999/html">Brak uprawnień!</nb-alert>
-<div class="row" *ngIf="isAdmin">
+<div class="row" *ngIf="isAdmin && settings">
   <div class="col-12">
     <nb-card>
       <nb-card-header>

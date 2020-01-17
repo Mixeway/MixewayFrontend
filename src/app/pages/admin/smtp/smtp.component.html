@@ -8,27 +8,27 @@
         <form [formGroup]="smtpForm" (ngSubmit)="saveSmtp(smtpForm.value)" >
           <div class="form-group">
             <label for="smtpHost" class="label">{{constants.ADMIN_SMTP_HOSTNAME}}</label>
-            <input type="text" nbInput fullWidth id="smtpHost" [placeholder]="constants.ADMIN_SMTP_HOSTNAME" formControlName="smtpHost" [value]="settings.smtpHost">
+            <input type="text" nbInput fullWidth id="smtpHost" [placeholder]="constants.ADMIN_SMTP_HOSTNAME" formControlName="smtpHost">
           </div>
           <div class="form-group">
             <label for="smtpPort" class="label">{{constants.ADMIN_SMTP_PORT}}</label>
-            <input type="text" nbInput fullWidth id="smtpPort" [placeholder]="constants.ADMIN_SMTP_PORT" formControlName="smtpPort" [value]="settings.smtpPort">
+            <input type="text" nbInput fullWidth id="smtpPort" [placeholder]="constants.ADMIN_SMTP_PORT" formControlName="smtpPort">
           </div>
-          <div class="form-group" *ngIf="auth">
+          <div class="form-group" *ngIf="smtpForm.value.smtpAuth">
             <label for="smtpUsername" class="label">{{constants.ADMIN_SMTP_USERNAME}}</label>
-            <input type="text" nbInput fullWidth id="smtpUsername" [placeholder]="constants.ADMIN_SMTP_USERNAME" formControlName="smtpUsername" [value]="settings.smtpUsername">
+            <input type="text" nbInput fullWidth id="smtpUsername" [placeholder]="constants.ADMIN_SMTP_USERNAME" formControlName="smtpUsername">
           </div>
-          <div class="form-group" *ngIf="auth">
+          <div class="form-group" *ngIf="smtpForm.value.smtpAuth">
             <label for="smtpPassword" class="label">{{constants.ADMIN_SMTP_PASSWORD}}</label>
             <input type="password" nbInput fullWidth id="smtpPassword" [placeholder]="constants.ADMIN_SMTP_PASSWORD" formControlName="smtpPassword">
           </div>
-          <div class="form-group" *ngIf="auth">
+          <div class="form-group" *ngIf="smtpForm.value.smtpAuth">
             <label for="domain" class="label">{{constants.ADMIN_SMTP_DOMAIN}}</label>
-            <input type="text" nbInput fullWidth id="domain" [placeholder]="constants.ADMIN_SMTP_DOMAIN" formControlName="domain" [value]="settings.domain">
+            <input type="text" nbInput fullWidth id="domain" [placeholder]="constants.ADMIN_SMTP_DOMAIN" formControlName="domain">
           </div>
           <div class="form-group">
-            <nb-checkbox [checked]="settings.smtpTls" status="basic" nbInput id="smtpTls" formControlName="smtpTls" >{{constants.ADMIN_SMTP_TLS}}</nb-checkbox>
-            <nb-checkbox [checked]="settings.smtpAuth" status="basic" nbInput id="smtpAuth" formControlName="smtpAuth" [(ngModel)]="auth" >{{constants.ADMIN_SMTP_AUTH}}</nb-checkbox>
+            <nb-checkbox status="basic" nbInput id="smtpTls" formControlName="smtpTls" >{{constants.ADMIN_SMTP_TLS}}</nb-checkbox>
+            <nb-checkbox status="basic" nbInput id="smtpAuth" formControlName="smtpAuth">{{constants.ADMIN_SMTP_AUTH}}</nb-checkbox>
           </div>
           <button type="submit" nbButton status="danger">{{constants.ADMIN_FORM_SAVE}}</button>
         </form>

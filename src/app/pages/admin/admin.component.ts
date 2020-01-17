@@ -9,6 +9,7 @@ import {AdminService} from '../../@core/service/AdminService';
 import {RoutingDomain} from '../../@core/Model/RoutingDomain';
 import {Proxies} from '../../@core/Model/Proxies';
 import {AdminConstants} from '../../@core/constants/AdminConstants';
+import {Settings} from '../../@core/Model/Settings';
 
 @Component({
   selector: 'ngx-admin',
@@ -21,7 +22,7 @@ export class AdminComponent implements OnInit {
   auth: boolean;
   index = 1;
   role: string;
-  settings: any = {};
+  settings: Settings;
   isAdmin: boolean = false;
   constants: AdminConstants = new AdminConstants();
 
@@ -36,11 +37,11 @@ export class AdminComponent implements OnInit {
       this.isAdmin = true;
     }
     this.loadRoutingService();
-    this.getSettings();
     this.loadProxies();
   }
 
   ngOnInit() {
+    this.getSettings();
   }
   loadProxies() {
     return this.showProjectService.getProxies().subscribe(data => {
