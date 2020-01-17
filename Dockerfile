@@ -1,7 +1,7 @@
 ### STAGE 1: Build ###
 
 # We label our stage as ‘builder’
-FROM node:10.16.3-jessie as builder
+FROM node:13 as builder
 
 # build-time variables
 # prod|sandbox its value will be come from outside
