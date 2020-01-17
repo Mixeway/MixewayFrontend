@@ -4,7 +4,9 @@ addons:
     organization: "mixeway"
     token:
       secure: $SONAR_TOKEN
-
+env:
+  global:
+    - NODE_OPTIONS="–-max_old_space_size=8192"
 script:
   - sonar-scanner
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
