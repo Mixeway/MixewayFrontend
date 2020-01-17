@@ -56,14 +56,14 @@ export class CodeConfigureTabComponent implements OnInit {
     });
     this.codeGroupForm = this.formBuilder.group({
       codeGroupName: ['', Validators.required],
-      versionIdAll: 0,
+      versionIdAll: [0, Validators.required],
       versionIdSingle: 0,
       giturl: ['', [Validators.pattern('(https?:\\/\\/(?:www\\.' +
         '|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+' +
         '[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]' +
         '{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})')]],
-      gitusername: ['', Validators.required],
-      gitpassword: ['', Validators.required],
+      gitusername: '',
+      gitpassword: '',
       tech: '',
       autoScan: false,
       childs: false,
