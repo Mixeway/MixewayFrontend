@@ -407,7 +407,7 @@ export class DetailsTablesComponent implements OnInit {
   }
   getExportedValuesForInfra() {
     const data = [];
-    for (const row of this.infraSource){
+    for (const row of this.infraSource) {
       data.push({
           interf: row.intf.privateip + '(' + row.intf.asset.name + ')',
           vulnName: row.name,
@@ -420,7 +420,7 @@ export class DetailsTablesComponent implements OnInit {
   }
   getExportedValuesForCode() {
     const data = [];
-    for (const row of this.codeSource){
+    for (const row of this.codeSource) {
       data.push({
         interf: row.codeGroup.name + '(' + row.filePath + ')',
         vulnName: row.name,
@@ -433,7 +433,7 @@ export class DetailsTablesComponent implements OnInit {
   }
   getExportedValuesForWeb() {
     const data = [];
-    for (const row of this.webAppSource){
+    for (const row of this.webAppSource) {
       data.push({
         interf: row.webApp.url,
         vulnName: row.name,

@@ -302,7 +302,7 @@ export class InfraConfigureTabComponent implements OnInit {
   }
   getExportedValuesForInfra() {
     const data = [];
-    for (const row of this.assets.assets){
+    for (const row of this.assets.assets) {
       data.push({
         hostname: row.hostname,
         ip: row.ipAddress,

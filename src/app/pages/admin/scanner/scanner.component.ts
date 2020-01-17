@@ -94,7 +94,7 @@ export class ScannerComponent implements OnInit {
       this.showFortifySCA = true;
       this.showNessus = false;
       this.basicAuth = false;
-    }else {
+    } else {
       this.showAcunetix = false;
       this.showFortifySCA = false;
       this.showNessus = false;
