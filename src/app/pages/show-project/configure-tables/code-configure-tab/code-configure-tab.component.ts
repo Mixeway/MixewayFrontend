@@ -52,6 +52,7 @@ export class CodeConfigureTabComponent implements OnInit {
         '{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})')]],
       projectTech: ['', Validators.required],
       projectBranch: '',
+      dTrackUuid: '',
       additionalPath: '',
     });
     this.codeGroupForm = this.formBuilder.group({
@@ -63,6 +64,7 @@ export class CodeConfigureTabComponent implements OnInit {
         '[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]' +
         '{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})')]],
       gitusername: '',
+      dTrackUuid: '',
       gitpassword: '',
       tech: '',
       autoScan: false,

@@ -35,6 +35,7 @@
 <ng-template #addScanner let-data let-ref="dialogRef">
   <nb-card>
     <nb-card-header>{{constants.ADMIN_FORM_SCANNER_TITLE}}</nb-card-header>
+
     <nb-card-body>
       <form [formGroup]="scannerForm" (ngSubmit)="saveScanner(scannerForm.value, ref)" >
         <div class="form-group">

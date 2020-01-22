@@ -30,6 +30,7 @@ export class AdminConstants {
   SCANNER_TYPE_OPENVAS = 'OpenVAS';
   SCANNER_TYPE_NESSUS = 'Nessus';
   SCANNER_TYPE_ACUNETIX = 'Acunetix';
+  SCANNER_TYPE_DEPENDENCYTRACK = 'OWASP Dependency Track';
   USER_GROUPS: any = [
     {
       'name': 'Admin',
