@@ -94,6 +94,11 @@ export class ScannerComponent implements OnInit {
       this.showFortifySCA = true;
       this.showNessus = false;
       this.basicAuth = false;
+    } else if ( $event === this.constants.SCANNER_TYPE_DEPENDENCYTRACK) {
+      this.showAcunetix = true;
+      this.showFortifySCA = false;
+      this.showNessus = false;
+      this.basicAuth = false;
     } else {
       this.showAcunetix = false;
       this.showFortifySCA = false;

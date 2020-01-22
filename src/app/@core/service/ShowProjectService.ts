@@ -258,6 +258,14 @@ export class ShowProjectService {
         catchError(this.errorHandl),
       );
   }
+  editCodeProject(id: number, editForm): Observable<string> {
+    return this.http.patch<string>(environment.backend + '/show/project/codeproject/' + id ,
+      editForm)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
   runWebAppScanForAll(id): Observable<string> {
     return this.http.put<string>(environment.backend + this.showProjectPath + '/' + id + '/webapp/runall', null)
       .pipe(

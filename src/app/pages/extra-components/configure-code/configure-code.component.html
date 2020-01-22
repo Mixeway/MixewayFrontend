@@ -2,7 +2,24 @@
           [nbSpinner]="rowData.running" nbSpinnerStatus="primary" nbSpinnerSize="medium" nbSpinnerMessage="">
   <nb-icon icon="play-circle-outline" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
 </button>&nbsp;
+<button nbButton status="info" size="medium" (click)="openDialog(editProject)" [nbTooltip]="constants.TOOLTIP_EDIT" >
+  <nb-icon icon="edit-2-outline" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+</button>&nbsp;
 <button nbButton status="danger" size="medium" (click)="deleteWebApp()" [nbTooltip]="constants.TOOLTIP_DELETE_PROJECT" >
   <nb-icon icon="trash" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
 </button>
+<ng-template #editProject let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>{{constants.CODE_PROJECT_EDIT}}</nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="codeProjectForm" (ngSubmit)="saveCodeProject(codeProjectForm.value,ref)" >
+        <div class="form-group">
+          <label for="codeProjectName" class="label">{{constants.PROJECT_CODE_PROJECT_DTRACK}}</label>
+          <input type="text" nbInput fullWidth id="codeProjectName" [placeholder]="constants.PROJECT_CODE_PROJECT_DTRACK" formControlName="dTrackUuid">
+        </div>
+        <button type="submit" nbButton status="danger">{{constants.TOOLTIP_EDIT}}</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
 

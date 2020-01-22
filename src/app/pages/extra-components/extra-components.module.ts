@@ -8,7 +8,7 @@ import {
   NbCalendarRangeModule,
   NbCardModule,
   NbChatModule,
-  NbIconModule,
+  NbIconModule, NbInputModule,
   NbProgressBarModule,
   NbSelectModule,
   NbSpinnerModule,
@@ -41,6 +41,7 @@ import {ConfigureWebComponent} from './configure-web/configure-web.component';
 import {ConfigureCodeComponent} from './configure-code/configure-code.component';
 import {CiresultColorComponent} from './ciresult-color.component';
 import {BugComponent} from './bug-component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 const COMPONENTS = [
   ExtraComponentsComponent,
@@ -87,6 +88,8 @@ const MODULES = [
   imports: [
     ...MODULES,
     NbTooltipModule,
+    ReactiveFormsModule,
+    NbInputModule,
   ],
   declarations: [
     ...COMPONENTS,

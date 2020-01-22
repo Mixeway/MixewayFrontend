@@ -8,4 +8,7 @@ export class ExtraConstants {
     OPERATION_RUNONCE = 'Scan is launched';
     ASSET_OPERATION_DELETE = 'Asset is successfully deleted';
     WEBAPP_OPERATION_DELETE = 'WebApp is successfully deleted';
+    TOOLTIP_EDIT = 'Edit';
+  CODE_PROJECT_EDIT = 'Edit Code Project';
+  PROJECT_CODE_PROJECT_DTRACK = 'OWASP Dependency Track Project UUID';
 }

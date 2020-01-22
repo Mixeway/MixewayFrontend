@@ -63,6 +63,10 @@
           <input type="text" nbInput fullWidth id="tech" [placeholder]="constants.PROJECT_CODE_GROUP_TECH_1" formControlName="tech">
         </div>
         <div class="form-group">
+          <label for="dTrackUuidG" class="label">{{constants.PROJECT_CODE_GROUP_DTRACK}}</label>
+          <input type="text" nbInput fullWidth id="dTrackUuidG" [placeholder]="constants.PROJECT_CODE_GROUP_DTRACK" formControlName="dTrackUuid">
+        </div>
+        <div class="form-group">
           <nb-checkbox formControlName="childs">{{constants.PROJECT_CODE_GROUP_CHILDS}}?</nb-checkbox>
         </div>
         <button type="submit" nbButton status="danger">{{constants.PROJECT_SAVE}}</button>
@@ -101,6 +105,10 @@
         <div class="form-group">
           <label for="additionalPath" class="label">{{constants.PROJECT_CODE_PROJECT_PATH}}</label>
           <input type="text" nbInput fullWidth id="additionalPath" [placeholder]="constants.PROJECT_CODE_PROJECT_PATH" formControlName="additionalPath">
+        </div>
+        <div class="form-group">
+          <label for="dTrackUuidC" class="label">{{constants.PROJECT_CODE_GROUP_DTRACK}}</label>
+          <input type="text" nbInput fullWidth id="dTrackUuidC" [placeholder]="constants.PROJECT_CODE_GROUP_DTRACK" formControlName="dTrackUuid">
         </div>
         <button type="submit" nbButton status="danger">{{constants.PROJECT_SAVE}}</button>
       </form>
