@@ -4,14 +4,18 @@ import {Toast} from '../../../@core/utils/Toast';
 import {ExtraConstants} from '../../../@core/constants/ExtraConstants';
 import {FormBuilder} from '@angular/forms';
 import {NbDialogService} from '@nebular/theme';
+import {DTrackProject} from '../../../@core/Model/DTrackProject';
+import {ViewCell} from 'ng2-smart-table';
 
 @Component({
   selector: 'ngx-configure-code',
   templateUrl: './configure-code.component.html',
   styleUrls: ['./configure-code.component.scss'],
 })
-export class ConfigureCodeComponent implements OnInit {
+export class ConfigureCodeComponent implements OnInit, ViewCell {
+    value: string;
   @Input() rowData: any;
+  @Input() dTrackProjects: DTrackProject[];
   @Output() refresh: EventEmitter<any> = new EventEmitter();
   constants: ExtraConstants = new ExtraConstants();
   codeProjectForm;
@@ -26,6 +30,8 @@ export class ConfigureCodeComponent implements OnInit {
     this.codeProjectForm.patchValue({
       dTrackUuid: this.rowData.dTrackUuid,
     });
+    this.dTrackProjects = <DTrackProject[]><unknown>this.value;
+    alert(JSON.stringify(this.dTrackProjects));
   }
   playOnceScan() {
     return this.showProjectService.runCodeScanForSingle(this.rowData.id).subscribe(() => {
@@ -51,9 +57,7 @@ export class ConfigureCodeComponent implements OnInit {
       });
   }
 
-  editCodeProject() {
 
-  }
 
   saveCodeProject(value: any, ref) {
     return this.showProjectService.editCodeProject(this.rowData.id, value).subscribe(() => {
@@ -72,4 +76,15 @@ export class ConfigureCodeComponent implements OnInit {
       { context: 'this is some additional data passed to dialog' });
   }
 
+  createDTrack(ref) {
+    return this.showProjectService.createDepTrackProject(this.rowData.id).subscribe(() => {
+        this.toast.showToast('success', this.constants.SUCCESS,
+          this.constants.CODE_OPERATION_CODE_DELETE);
+        ref.close();
+      },
+      () => {
+        this.toast.showToast('danger', this.constants.FAILURE,
+          this.constants.FAILURE_TEXT);
+      });
+  }
 }

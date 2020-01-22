@@ -26,6 +26,7 @@
   {{constants.PROJECT_CODE_SCAN_STATUS_1}} <b><u>{{ numberOfRunningTest }} </u></b>{{constants.PROJECT_CODE_SCAN_STATUS_2}}
 </nb-alert>
 <div style="padding-top: 20px;padding-bottom: 20px;" *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="giant">Loading Please Wait..</div>
+<div style="padding-top: 20px;padding-bottom: 20px;" *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="giant">Loading Please Wait..</div>
 <ng2-smart-table *ngIf="!loading" [settings]="settings" (custom)="runTestSingle($event)" [source]="codes?.codeModels" (userRowSelect)="onAssetSelect($event)" >
 </ng2-smart-table>
 

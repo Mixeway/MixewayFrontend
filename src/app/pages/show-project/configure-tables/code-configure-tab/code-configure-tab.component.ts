@@ -9,6 +9,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {Toast} from '../../../../@core/utils/Toast';
 import {ConfigureCodeComponent} from '../../../extra-components/configure-code/configure-code.component';
 import {ProjectConstants} from '../../../../@core/constants/ProjectConstants';
+import {DTrackProject} from '../../../../@core/Model/DTrackProject';
 
 @Component({
   selector: 'ngx-code-configure-tab',
@@ -22,6 +23,7 @@ export class CodeConfigureTabComponent implements OnInit {
   role: any;
   _entityId: number;
   codes: Codes;
+  dTrackProjects: DTrackProject[];
   codeGroups: CodeGroup[] = [];
   codeGroupForm;
   codeProjectForm;
@@ -41,6 +43,7 @@ export class CodeConfigureTabComponent implements OnInit {
       this.router.navigate(['/pages/dashboard']);
     }
     this.loadSettingsTable();
+    this.getDTrackProjects();
     this.loadCodes();
     this.loadCodeGroups();
     this.codeProjectForm = this.formBuilder.group({
@@ -85,6 +88,12 @@ export class CodeConfigureTabComponent implements OnInit {
       this.codeGroups = data;
     });
   }
+  getDTrackProjects() {
+    return this.showProjectService.getDTrackProjects().subscribe(data => {
+      this.dTrackProjects = data;
+      this.loadSettingsTable();
+    });
+  }
 
   runTestSingle(event) {
     window.confirm('running ' + event.data.ipAddress);
@@ -106,6 +115,10 @@ export class CodeConfigureTabComponent implements OnInit {
       editable: false,
       renderComponent: ConfigureCodeComponent,
       filter: false,
+      valuePrepareFunction: (dTrackProjects, row, cell) => {
+        // DATA FROM HERE GOES TO renderComponent
+        return this.dTrackProjects;
+      },
       onComponentInitFunction(instance) {
         instance.refresh.subscribe(() => {
           that.loadCodes();

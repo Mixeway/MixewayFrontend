@@ -15,9 +15,14 @@
       <form [formGroup]="codeProjectForm" (ngSubmit)="saveCodeProject(codeProjectForm.value,ref)" >
         <div class="form-group">
           <label for="codeProjectName" class="label">{{constants.PROJECT_CODE_PROJECT_DTRACK}}</label>
-          <input type="text" nbInput fullWidth id="codeProjectName" [placeholder]="constants.PROJECT_CODE_PROJECT_DTRACK" formControlName="dTrackUuid">
+          <nb-select id="codeProjectName" fullWidth formControlName="dTrackUuid">
+            <nb-option *ngIf="!dTrackProjects">{{constants.PROJECT_DTRAC_PROJECT_EMPTY}}</nb-option>
+            <nb-option *ngFor="let dTrackProject of value" [value]="dTrackProject.uuid">{{ dTrackProject.name }}</nb-option>
+          </nb-select>
         </div>
         <button type="submit" nbButton status="danger">{{constants.TOOLTIP_EDIT}}</button>
+        <button *ngIf="!rowData.dTrackUuid" type="button" nbButton status="primary" (click)="createDTrack(ref)">{{constants.CREATE_DTRACK_PROJECT}}</button>
+
       </form>
     </nb-card-body>
   </nb-card>

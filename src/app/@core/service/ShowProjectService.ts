@@ -8,6 +8,7 @@ import {IaasApi} from '../Model/IaasApi';
 import {Assets} from '../Model/Asset';
 import {RoutingDomain} from '../Model/RoutingDomain';
 import {Proxies} from '../Model/Proxies';
+import {DTrackProject} from '../Model/DTrackProject';
 import {WebApps} from '../Model/WebApps';
 import {CodeGroup, Codes} from '../Model/Codes';
 import {ApiPermission} from '../Model/ApiPermission';
@@ -97,6 +98,13 @@ export class ShowProjectService {
   getVulnTrendChart(id): Observable<VulnTrendChart> {
     return this.http.get<VulnTrendChart>(environment.backend + this.showProjectPath + '/' + id +
       '/vulns/vulntrendchart')
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  getDTrackProjects(): Observable<DTrackProject[]> {
+    return this.http.get<DTrackProject[]>(environment.backend + this.showProjectPath + '/dtrackprojects')
       .pipe(
         retry(1),
         catchError(this.errorHandl),
@@ -261,6 +269,13 @@ export class ShowProjectService {
   editCodeProject(id: number, editForm): Observable<string> {
     return this.http.patch<string>(environment.backend + '/show/project/codeproject/' + id ,
       editForm)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  createDepTrackProject(id: number): Observable<string> {
+    return this.http.get<string>(environment.backend + '/show/project/codeproject/' + id + '/createdtrack')
       .pipe(
         retry(1),
         catchError(this.errorHandl),

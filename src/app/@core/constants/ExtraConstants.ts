@@ -11,4 +11,6 @@ export class ExtraConstants {
     TOOLTIP_EDIT = 'Edit';
   CODE_PROJECT_EDIT = 'Edit Code Project';
   PROJECT_CODE_PROJECT_DTRACK = 'OWASP Dependency Track Project UUID';
+  CREATE_DTRACK_PROJECT = 'Create DTrack Project';
+  PROJECT_DTRAC_PROJECT_EMPTY = 'Cannot find DTrack empty. Integration is configured properly?';
 }
