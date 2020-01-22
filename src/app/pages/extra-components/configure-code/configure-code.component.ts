@@ -31,7 +31,6 @@ export class ConfigureCodeComponent implements OnInit, ViewCell {
       dTrackUuid: this.rowData.dTrackUuid,
     });
     this.dTrackProjects = <DTrackProject[]><unknown>this.value;
-    alert(JSON.stringify(this.dTrackProjects));
   }
   playOnceScan() {
     return this.showProjectService.runCodeScanForSingle(this.rowData.id).subscribe(() => {
