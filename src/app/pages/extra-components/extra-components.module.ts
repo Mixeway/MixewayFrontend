@@ -41,7 +41,7 @@ import {ConfigureWebComponent} from './configure-web/configure-web.component';
 import {ConfigureCodeComponent} from './configure-code/configure-code.component';
 import {CiresultColorComponent} from './ciresult-color.component';
 import {BugComponent} from './bug-component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {ReactiveFormsModule} from '@angular/forms';
 
 const COMPONENTS = [
   ExtraComponentsComponent,

@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angu
 import {ShowProjectService} from '../../../@core/service/ShowProjectService';
 import {Toast} from '../../../@core/utils/Toast';
 import {ExtraConstants} from '../../../@core/constants/ExtraConstants';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {NbDialogService} from '@nebular/theme';
 
 @Component({
