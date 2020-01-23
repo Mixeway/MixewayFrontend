@@ -191,6 +191,13 @@ export class AdminService {
         catchError(this.errorHandl),
       );
   }
+  updateTrendCron(expression): Observable<string> {
+    return this.http.patch<string>(environment.backend + '/admin/settings/trendcron', expression)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
 
   showErrorOnDelete() {
     return throwError(null);

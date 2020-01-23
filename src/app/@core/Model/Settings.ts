@@ -13,4 +13,5 @@ export class Settings {
   infraAutoCron: string;
   webAppAutoCron: string;
   codeAutoCron: string;
+  trendEmailCron: string;
 }

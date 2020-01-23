@@ -141,4 +141,5 @@ export class AdminConstants {
   ADMIN_SMTP_DOMAIN = 'EMAIL domain';
   ADMIN_SCANNERTABLE_CAPTION = 'Table containing list of configured vulnerability scanners';
   ADMIN_USERTABLE_CAPTION = 'Table containing list of users';
+  ADMIN_TAB_AUTOTREND = 'Scheduler for Trend Email';
 }

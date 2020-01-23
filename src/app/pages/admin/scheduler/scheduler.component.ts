@@ -20,6 +20,7 @@ export class SchedulerComponent implements OnInit {
   autoInfraScanForm;
   autoWebAppScanForm;
   autoCodeScanForm;
+  autoTrendForm;
   isAdmin: boolean = false;
   constants: AdminConstants = new AdminConstants();
 
@@ -44,6 +45,9 @@ export class SchedulerComponent implements OnInit {
     this.autoCodeScanForm = this.formBuilder.group({
       expression: ['', Validators.required],
     });
+    this.autoTrendForm = this.formBuilder.group({
+      expression: ['', Validators.required],
+    });
   }
   updateAutoInfraScan(value: any) {
     return this.adminService.updateInfraCron(value).subscribe(() => {
@@ -64,8 +68,15 @@ export class SchedulerComponent implements OnInit {
   }
 
   updateAutoWebAppScan(value: any) {
-    alert(JSON.stringify(value));
     return this.adminService.updateWebAppCron(value).subscribe(() => {
+        this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_SCHEDULERUPDATE);
+      },
+      error => {
+        this.toast.showToast('danger', this.constants.TOAST_FAILED, error);
+      });
+  }
+  updateTrendEmail(value: any) {
+    return this.adminService.updateTrendCron(value).subscribe(() => {
         this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_SCHEDULERUPDATE);
       },
       error => {
@@ -85,6 +96,9 @@ export class SchedulerComponent implements OnInit {
       });
       this.autoInfraScanForm.patchValue({
         expression: this.settings.infraAutoCron,
+      });
+      this.autoTrendForm.patchValue({
+        expression: this.settings.trendEmailCron,
       });
       this.auth = data.smtpAuth;
     });

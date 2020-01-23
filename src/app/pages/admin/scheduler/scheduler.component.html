@@ -44,4 +44,19 @@
       </form>
     </nb-card-body>
   </nb-card>
+  <nb-card>
+    <nb-card-header>
+      <p><strong>{{constants.ADMIN_TAB_AUTOTREND}}</strong></p>
+      <p><small [innerHTML]="constants.ADMIN_TAB_AUTOSCAN_DESC"></small></p>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="autoTrendForm" (ngSubmit)="updateTrendEmail(autoTrendForm.value)" >
+        <div class="form-group">
+          <label for="autoTrend" class="label">{{constants.ADMIN_FORM_CRON_EXPRESSION}}</label>
+          <input type="text" nbInput fullWidth id="autoTrend" [placeholder]="constants.ADMIN_FORM_CRON_EXPRESSION" formControlName="expression">
+        </div>
+        <button type="submit" nbButton status="danger">{{constants.ADMIN_FORM_SAVE}}</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
 </div>
