@@ -209,13 +209,27 @@ export class DetailsTablesComponent implements OnInit {
           filter: false,
           width: '10%',
         },
-        intf: {
-          title: this.constants.PROJECT_DETAILS_LOCATION,
-          valuePrepareFunction: (cell, row) => row.codeProject.name + ' - ' +
-            row.softwarePacketVulnerability.softwarepacket.name,
+        codeProject: {
+          title: this.constants.PROJECT_DETAILS_SOFT_CODEPROJECT,
+          valuePrepareFunction: (cell, row) => row.codeProject.name,
+          filterFunction(cell?: any, search?: string): boolean {
+            const match = cell.name.indexOf(search) > -1;
+            return match || search === '';
+          },
           type: 'string',
           width: '20%',
         },
+        softwarePacketVulnerability: {
+          title: this.constants.PROJECT_DETAILS_LOCATION,
+          valuePrepareFunction: (cell, row) => row.softwarePacketVulnerability.softwarepacket.name,
+          filterFunction(cell?: any, search?: string): boolean {
+            const match = cell.softwarepacket.name.indexOf(search) > -1;
+            return match || search === '';
+          },
+          type: 'string',
+          width: '20%',
+        },
+        // @ts-ignore
         name: {
           title: this.constants.PROJECT_DETAILS_NAME,
           valuePrepareFunction: (cell, row) => row.softwarePacketVulnerability.name,
@@ -253,10 +267,14 @@ export class DetailsTablesComponent implements OnInit {
           filter: false,
           width: '10%',
         },
-        project: {
+        codeProject: {
           title: this.constants.PROJECT_DETAILS_PROJECT,
           valuePrepareFunction: (cell, row) => (row.codeProject ? row.codeProject.name + '[' +
             row.codeProject.codeGroup.name + ']' : row.codeGroup.name),
+          filterFunction(cell?: any, search?: string): boolean {
+            const match = cell.name.indexOf(search) > -1 || cell.codeGroup.name.indexOf(search) > -1;
+            return match || search === '';
+          },
           type: 'string',
           width: '20%',
         },
@@ -418,6 +436,18 @@ export class DetailsTablesComponent implements OnInit {
     }
     return data;
   }
+  onChangeTab($event: any) {
+    if ($event.tabTitle.startsWith('Infra')) {
+      this.activeTab = 1;
+    } else if ($event.tabTitle.startsWith('Web')) {
+      this.activeTab = 2;
+    } else if ($event.tabTitle.startsWith('Kod')) {
+      this.activeTab = 3;
+    } else if ($event.tabTitle.startsWith('Open')) {
+      this.activeTab = 4;
+    }
+  }
+
   getExportedValuesForCode() {
     const data = [];
     for (const row of this.codeSource) {
@@ -444,14 +474,5 @@ export class DetailsTablesComponent implements OnInit {
     }
     return data;
   }
-
-  onChangeTab($event: any) {
-    if ($event.tabTitle.startsWith('Infra')) {
-      this.activeTab = 1;
-    } else if ($event.tabTitle.startsWith('Web')) {
-      this.activeTab = 2;
-    } else if ($event.tabTitle.startsWith('Kod')) {
-      this.activeTab = 3;
-    }
-  }
 }
+// @ts-ignore

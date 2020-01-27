@@ -34,14 +34,14 @@ export class CicdComponent implements OnInit {
         delete: false,
       },
       columns: {
-        projectName: {
+        codeProject: {
           title: this.constants.CICD_TABLE_PROJECT_NAME,
           valuePrepareFunction: (cell, row) => {
             return row.codeProject ? row.codeProject.name : row.codeGroup.name;
           },
-          filterFunction: (projectName?: any, search?: string) => {
-            alert(projectName);
-            return false;
+          filterFunction(cell?: any, search?: string): boolean {
+            const match = cell.name.indexOf(search) > -1;
+            return match || search === '';
           },
           type: 'string',
         },

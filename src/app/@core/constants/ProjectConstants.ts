@@ -176,4 +176,5 @@ export class ProjectConstants {
   CONFIIRM_BUG_ISSUE = 'Are You sure to Issue a bug?';
   PROJECT_OPERATION_UPDATE_CONTACTLIST_SUCCESS = 'Contact list updated';
   PROJECT_CODE_GROUP_DTRACK = 'DependencyTrack Project UUID';
+  PROJECT_DETAILS_SOFT_CODEPROJECT = 'Project';
 }
