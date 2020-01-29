@@ -180,7 +180,7 @@ export class DetailsTablesComponent implements OnInit {
           type: 'string',
           width: '40%',
         },
-        threat: {
+        severity: {
           title: this.constants.PROJECT_DETAILS_SEVERITY,
           type: 'custom',
           width: '15%',
