@@ -12,6 +12,7 @@ import {ProjectConstants} from '../../../@core/constants/ProjectConstants';
 import {BugTracker} from '../../../@core/Model/BugTracker';
 import {BugTrackerService} from '../../../@core/service/BugTrackerService';
 import {BugComponent} from '../../extra-components/bug-component';
+import {SoftVulnPojo} from '../../../@core/Model/SoftVuln';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class DetailsTablesComponent implements OnInit {
   codeNewVulns: boolean = false;
   softSettings: any;
   softSource: any;
+  softVulnsPojo: SoftVulnPojo[] = [];
   softTabShow: boolean = false;
   softNewVulns: boolean = false;
   infraSource: any;
@@ -110,9 +112,19 @@ export class DetailsTablesComponent implements OnInit {
         this.softTabShow = true;
       }
       if (data.filter(soft =>
-          soft.softwarePacketVulnerability.status.name === this.constants.PROJECT_DETAILS_STATUS_NEW).length > 0) {
+        soft.softwarePacketVulnerability.status.name === this.constants.PROJECT_DETAILS_STATUS_NEW).length > 0) {
         this.softNewVulns = true;
       }
+      data.forEach( (v) => {
+        const vuln: SoftVulnPojo = {
+          codeProjectName: v.codeProject.name + ' [' + v.codeProject.codeGroup.name + ']',
+          detected: v.softwarePacketVulnerability.inserted,
+          location: v.softwarePacketVulnerability.softwarepacket.name,
+          name: v.softwarePacketVulnerability.name,
+          severity: v.softwarePacketVulnerability.severity,
+        };
+        this.softVulnsPojo.push(vuln);
+      });
     });
   }
   loadCodeVulns() {
@@ -209,43 +221,30 @@ export class DetailsTablesComponent implements OnInit {
           filter: false,
           width: '10%',
         },
-        codeProject: {
+        codeProjectName: {
           title: this.constants.PROJECT_DETAILS_SOFT_CODEPROJECT,
-          valuePrepareFunction: (cell, row) => row.codeProject.name,
-          filterFunction(cell?: any, search?: string): boolean {
-            const match = cell.name.indexOf(search) > -1;
-            return match || search === '';
-          },
           type: 'string',
           width: '20%',
         },
-        softwarePacketVulnerability: {
+        location: {
           title: this.constants.PROJECT_DETAILS_LOCATION,
-          valuePrepareFunction: (cell, row) => row.softwarePacketVulnerability.softwarepacket.name,
-          filterFunction(cell?: any, search?: string): boolean {
-            const match = cell.softwarepacket.name.indexOf(search) > -1;
-            return match || search === '';
-          },
           type: 'string',
           width: '20%',
         },
         // @ts-ignore
         name: {
           title: this.constants.PROJECT_DETAILS_NAME,
-          valuePrepareFunction: (cell, row) => row.softwarePacketVulnerability.name,
           type: 'string',
           width: '40%',
         },
-        threat: {
+        severity: {
           title: this.constants.PROJECT_DETAILS_SEVERITY,
-          valuePrepareFunction: (cell, row) => row.softwarePacketVulnerability.severity,
           type: 'custom',
           width: '15%',
           renderComponent: AlertColorComponent,
         },
-        inserted: {
+        detected: {
           title: this.constants.PROJECT_DETAILS_LASTSEEN,
-          valuePrepareFunction: (cell, row) => row.softwarePacketVulnerability.inserted,
           type: 'date',
           width: '15%',
         },
@@ -269,7 +268,7 @@ export class DetailsTablesComponent implements OnInit {
         },
         codeProject: {
           title: this.constants.PROJECT_DETAILS_PROJECT,
-          valuePrepareFunction: (cell, row) => (row.codeProject ? row.codeProject.name + '[' +
+          valuePrepareFunction: (cell, row) => (row.codeProject ? row.codeProject.name + ' [' +
             row.codeProject.codeGroup.name + ']' : row.codeGroup.name),
           filterFunction(cell?: any, search?: string): boolean {
             const match = cell.name.indexOf(search) > -1 || cell.codeGroup.name.indexOf(search) > -1;
@@ -427,12 +426,12 @@ export class DetailsTablesComponent implements OnInit {
     const data = [];
     for (const row of this.infraSource) {
       data.push({
-          interf: row.intf.privateip + '(' + row.intf.asset.name + ')',
-          vulnName: row.name,
-          desc: row.description.replace(/(\r\n|\n|\r)/gm, ''),
-          severity: row.threat,
-          inserted: row.inserted,
-        });
+        interf: row.intf.privateip + '(' + row.intf.asset.name + ')',
+        vulnName: row.name,
+        desc: row.description.replace(/(\r\n|\n|\r)/gm, ''),
+        severity: row.threat,
+        inserted: row.inserted,
+      });
     }
     return data;
   }

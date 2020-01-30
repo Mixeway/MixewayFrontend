@@ -19,7 +19,7 @@
             <ng2-smart-table [settings]="codeSettings" [source]="codeSource"></ng2-smart-table>
           </nb-tab>
           <nb-tab [tabTitle]="constants.PROJECT_CARD_OPENSOURCE_TITLE" *ngIf="softTabShow" [badgeText]="softNewVulns ? 'new':null" badgePosition="top right" badgeStatus="success">
-            <ng2-smart-table [settings]="softSettings" [source]="softSource"></ng2-smart-table>
+            <ng2-smart-table [settings]="softSettings" [source]="softVulnsPojo"></ng2-smart-table>
           </nb-tab>
           <nb-tab [tabTitle]="constants.PROJECT_CARD_AUDIT_TITLE" *ngIf="auditTabShow" [badgeText]="auditNewVulns ? 'new':null" badgePosition="top right" badgeStatus="success">
             <ng2-smart-table [settings]="auditSettings" [source]="auditSource"></ng2-smart-table>

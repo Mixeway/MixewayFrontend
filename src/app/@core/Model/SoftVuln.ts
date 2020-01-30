@@ -21,3 +21,10 @@ export class SoftVuln {
   softwarePacketVulnerability: SoftwarePacketVulnerability;
   status: Status;
 }
+export class SoftVulnPojo {
+  codeProjectName: string;
+  location: string;
+  name: string;
+  severity: string;
+  detected: string;
+}
