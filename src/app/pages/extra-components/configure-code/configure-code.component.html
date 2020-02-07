@@ -35,7 +35,7 @@
             <div class="form-group">
               <label for="sastProject" class="label">{{constants.PROJECT_CODE_PROJECT_SAST}} ({{sastScanner}})</label>
               <nb-select id="sastProject" fullWidth formControlName="sastProject">
-                <nb-option *ngIf="!codeHelperModel.sastProjects">{{constants.PROJECT_SAST_PROJECT_EMPTY}}</nb-option>
+                <nb-option *ngIf="codeHelperModel.sastProjects?.length == 0">{{constants.PROJECT_SAST_PROJECT_EMPTY}}</nb-option>
                 <nb-option *ngFor="let sastProject of codeHelperModel.sastProjects" [value]="sastProject.id">{{ sastProject.name }}</nb-option>
               </nb-select>
             </div>
@@ -47,9 +47,9 @@
             </div>
           </div>
         </div>
+        <nb-alert *ngIf="!showOS && !showSast" outline="warning">{{constants.MISSING_INTEGRATIONS}}</nb-alert>
 
-
-        <button type="submit" nbButton status="danger">{{constants.TOOLTIP_EDIT}}</button>
+        <button [disabled]="!showOS && !showSast" type="submit" nbButton status="danger">{{constants.TOOLTIP_EDIT}}</button>
 
       </form>
     </nb-card-body>

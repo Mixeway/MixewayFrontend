@@ -14,6 +14,8 @@ import {DTrackProject} from '../../../../@core/Model/DTrackProject';
 import {SastProject} from '../../../../@core/Model/SastProject';
 import {ScannerType} from '../../../../@core/Model/Scanner';
 import {CodeHelperModel} from '../../../../@core/Model/CodeHelperModel';
+import {CodeScanIntegrationIconComponent} from '../../../extra-components/code-scan-integration-icon.component';
+import {OsScanIntegrationIconComponent} from '../../../extra-components/os-scan-integration-icon.component';
 
 @Component({
   selector: 'ngx-code-configure-tab',
@@ -135,6 +137,7 @@ export class CodeConfigureTabComponent implements OnInit {
       editable: false,
       renderComponent: ConfigureCodeComponent,
       filter: false,
+      width: '30%',
       valuePrepareFunction: (value, row, cell) => {
         // DATA FROM HERE GOES TO renderComponent
         return this.codeHelperModel;
@@ -154,10 +157,24 @@ export class CodeConfigureTabComponent implements OnInit {
         codeGroup: {
           title: this.constants.PROJECT_CODE_GROUP,
           type: 'string',
+          width: '20%',
         },
         codeProject: {
           title: this.constants.PROJECT_CODE_PROJECT,
           type: 'boolean',
+          width: '20%',
+        },
+        sastIntegration: {
+          title: this.constants.PROJECT_CODE_SAST_INTEGRATION,
+          renderComponent: CodeScanIntegrationIconComponent,
+          type: 'custom',
+          width: '5%',
+        },
+        osIntegration: {
+          title: this.constants.PROJECT_CODE_OS_INTEGRATION,
+          renderComponent: OsScanIntegrationIconComponent,
+          type: 'custom',
+          width: '5%',
         },
         risk: {
           title: this.constants.PROJECT_CODE_RISK,
@@ -167,6 +184,7 @@ export class CodeConfigureTabComponent implements OnInit {
           editable: false,
           renderComponent: MixerProgresComponent,
           filter: false,
+          width: '20%',
         },
         action: this.canEdit ? actions : {class: 'd-none', editable: false, filter: false},
       },

@@ -177,4 +177,6 @@ export class ProjectConstants {
   PROJECT_OPERATION_UPDATE_CONTACTLIST_SUCCESS = 'Contact list updated';
   PROJECT_CODE_GROUP_DTRACK = 'DependencyTrack Project UUID';
   PROJECT_DETAILS_SOFT_CODEPROJECT = 'Project';
+  PROJECT_CODE_SAST_INTEGRATION = 'SAST integration';
+  PROJECT_CODE_OS_INTEGRATION = 'OpenSource scan integration';
 }

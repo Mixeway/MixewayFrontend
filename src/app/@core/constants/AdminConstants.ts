@@ -22,7 +22,7 @@ export class AdminConstants {
   OPERATION_SUCCESS_USER_BLOCK = 'User is blocked.';
   OPERATION_SUCCESS_USER_UNBLOCK = 'User is unblocked.';
   OPERATION_SUCCESS_USER_SAVE = 'User created.';
-  OPERATION_SUCCESS_SCANNER_SAVE = 'Scanner is successfully saved.';
+  OPERATION_SUCCESS_SCANNER_SAVE = 'Scanner is successfully saved. You have to test it before first use.';
   OPERATION_SUCCESS_RFW_SAVE = 'RFW configuration is successfully saved.';
   TOAST_SUCCESS: string = 'Success';
   TOAST_FAILED: string = 'Failure';
