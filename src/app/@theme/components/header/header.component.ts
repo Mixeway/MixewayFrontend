@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentTheme = 'Dark';
 
-  userMenu = [ { title: 'Profil' }, { title: 'Wyloguj' } ];
+  userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
@@ -65,11 +65,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
   }
   onItemSelection( title ) {
-    if ( title === 'Wyloguj' ) {
+    if ( title === 'Log out' ) {
       const expires = 'expires=' + new Date().toUTCString();
       document.cookie = `role=;Path=/;expires=${expires}`;
       window.location.reload();
-    } else if ( title === 'Profil' ) {
+    } else if ( title === 'Profile' ) {
       // Do something on Profile
       this.router.navigate(['/pages/profile']);
     }

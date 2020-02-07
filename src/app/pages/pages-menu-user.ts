@@ -7,11 +7,11 @@ export const MENU_ITEMS_USER: NbMenuItem[] = [
     link: '/pages/dashboard',
   },
   {
-    title: 'Statystyki',
+    title: 'Statistics',
     group: true,
   },
   {
-    title: 'Podatności',
+    title: 'Vulnerabilities',
     icon: 'bar-chart-outline',
     link: '/pages/vulns',
   },

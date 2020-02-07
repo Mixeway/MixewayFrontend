@@ -7,11 +7,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/dashboard',
   },
   {
-    title: 'Statystyki',
+    title: 'Statistics',
     group: true,
   },
   {
-    title: 'Podatności',
+    title: 'Vulnerabilities',
     icon: 'bar-chart-outline',
     link: '/pages/vulns',
   },
@@ -21,11 +21,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/cicd',
   },
   {
-    title: 'Ustawienia',
+    title: 'Settings',
     group: true,
   },
   {
-    title: 'Administracja',
+    title: 'Admin Zone',
     icon: 'people-outline',
     link: '/pages/admin',
   },
