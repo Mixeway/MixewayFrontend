@@ -4,10 +4,7 @@ import {Toast} from '../../../@core/utils/Toast';
 import {ExtraConstants} from '../../../@core/constants/ExtraConstants';
 import {FormBuilder} from '@angular/forms';
 import {NbDialogService} from '@nebular/theme';
-import {DTrackProject} from '../../../@core/Model/DTrackProject';
 import {ViewCell} from 'ng2-smart-table';
-import {SastProject} from '../../../@core/Model/SastProject';
-import {ScannerType} from '../../../@core/Model/Scanner';
 import {CodeHelperModel} from '../../../@core/Model/CodeHelperModel';
 import {Router} from '@angular/router';
 
