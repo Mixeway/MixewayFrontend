@@ -15,6 +15,7 @@ export class CodeProject {
   codeGroup: CodeGroup;
   name: string;
   dTrackUuid: string;
+  versionId: number;
 }
 export class CodeGroup {
   name: string;

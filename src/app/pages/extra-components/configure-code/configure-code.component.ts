@@ -6,6 +6,10 @@ import {FormBuilder} from '@angular/forms';
 import {NbDialogService} from '@nebular/theme';
 import {DTrackProject} from '../../../@core/Model/DTrackProject';
 import {ViewCell} from 'ng2-smart-table';
+import {SastProject} from '../../../@core/Model/SastProject';
+import {ScannerType} from '../../../@core/Model/Scanner';
+import {CodeHelperModel} from '../../../@core/Model/CodeHelperModel';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'ngx-configure-code',
@@ -15,22 +19,40 @@ import {ViewCell} from 'ng2-smart-table';
 export class ConfigureCodeComponent implements OnInit, ViewCell {
     value: string;
   @Input() rowData: any;
-  @Input() dTrackProjects: DTrackProject[];
+  showOS: boolean = false;
+  showSast: boolean = false;
+  @Input() codeHelperModel: CodeHelperModel;
   @Output() refresh: EventEmitter<any> = new EventEmitter();
   constants: ExtraConstants = new ExtraConstants();
   codeProjectForm;
+  sastScanner: string;
   constructor(private dialogService: NbDialogService, private showProjectService: ShowProjectService,
-              private toast: Toast, private formBuilder: FormBuilder) {
+              private toast: Toast, private formBuilder: FormBuilder, private router: Router) {
     this.codeProjectForm = this.formBuilder.group({
       dTrackUuid: '',
+      sastProject: 0,
     });
   }
 
   ngOnInit() {
     this.codeProjectForm.patchValue({
       dTrackUuid: this.rowData.dTrackUuid,
+      sastProject: this.rowData.versionId,
     });
-    this.dTrackProjects = <DTrackProject[]><unknown>this.value;
+    this.codeHelperModel = <CodeHelperModel><unknown>this.value;
+    if (this.codeHelperModel.scannerTypes
+      .filter(scannerType => scannerType.name === this.constants.SCANNER_CHECKMARX).length > 0 ) {
+      this.sastScanner = this.constants.SCANNER_CHECKMARX;
+      this.showSast = true;
+    } else  if (this.codeHelperModel.scannerTypes
+      .filter(scannerType => scannerType.name === this.constants.SCANNER_FORTIFY).length > 0) {
+      this.sastScanner = this.constants.SCANNER_FORTIFY;
+      this.showSast = true;
+    }
+    if (this.codeHelperModel.scannerTypes
+      .filter(scannerType => scannerType.name === this.constants.SCANNER_DTRACK).length > 0) {
+      this.showOS = true;
+    }
   }
   playOnceScan() {
     return this.showProjectService.runCodeScanForSingle(this.rowData.id).subscribe(() => {
@@ -77,6 +99,19 @@ export class ConfigureCodeComponent implements OnInit, ViewCell {
 
   createDTrack(ref) {
     return this.showProjectService.createDepTrackProject(this.rowData.id).subscribe(() => {
+        this.toast.showToast('success', this.constants.SUCCESS,
+          this.constants.CODE_OPERATION_CODE_DELETE);
+        ref.close();
+      },
+      () => {
+        this.toast.showToast('danger', this.constants.FAILURE,
+          this.constants.FAILURE_TEXT);
+      });
+  }
+
+  createSast(ref) {
+    return this.showProjectService.putProjectToRemote(+this.router.url.split('/')
+      .reverse()[0], this.rowData.id).subscribe(() => {
         this.toast.showToast('success', this.constants.SUCCESS,
           this.constants.CODE_OPERATION_CODE_DELETE);
         ref.close();

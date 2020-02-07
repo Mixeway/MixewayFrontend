@@ -21,6 +21,8 @@ import {Severities} from '../Model/Severities';
 import {ApiKey} from '../Model/ApiKey';
 import {Router} from '@angular/router';
 import {SoftVuln} from '../Model/SoftVuln';
+import {SastProject} from '../Model/SastProject';
+import {ScannerType} from '../Model/Scanner';
 
 @Injectable({
   providedIn: 'root',
@@ -408,6 +410,28 @@ export class ShowProjectService {
   disableWebAppAutoScan(id: number) {
     return this.http.put<string>(environment.backend + this.showProjectPath + '/' + id +
       '/webapp/webappautoscan/disable', null)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+
+  getPossibleScanners() {
+    return this.http.get<ScannerType[]>(environment.backend + this.showProjectPath + '/scannersavaliable')
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  getCodeProjectFromRemote() {
+    return this.http.get<SastProject[]>(environment.backend + this.showProjectPath + '/codeprojects')
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  putProjectToRemote(projectId: number, codeProjectId: number) {
+    return this.http.put<SastProject[]>(environment.backend + this.showProjectPath + '/' + projectId + '/createremoteproject/' + codeProjectId, null)
       .pipe(
         retry(1),
         catchError(this.errorHandl),
