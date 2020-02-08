@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {NbDialogService} from '@nebular/theme';
 import {MixerProgresComponent} from '../../../extra-components/mixer-progres/mixer-progres.component';
 import {RoutingDomain} from '../../../../@core/Model/RoutingDomain';
@@ -12,6 +12,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {Toast} from '../../../../@core/utils/Toast';
 import {Angular5Csv} from 'angular5-csv/dist/Angular5-csv';
 import {ProjectConstants} from '../../../../@core/constants/ProjectConstants';
+import {ScannerType} from '../../../../@core/Model/Scanner';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class InfraConfigureTabComponent implements OnInit {
   addDialog: TemplateRef<any>;
   // @ts-ignore
   @ViewChild('addIaasApi', { read: TemplateRef })
+  @Input() scannerTypes: ScannerType[];
   iaasDialog: TemplateRef<any>;
   settings: any;
   infraScanRunSelectedButton: boolean = false;

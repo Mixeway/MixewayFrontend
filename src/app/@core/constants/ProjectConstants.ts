@@ -179,4 +179,16 @@ export class ProjectConstants {
   PROJECT_DETAILS_SOFT_CODEPROJECT = 'Project';
   PROJECT_CODE_SAST_INTEGRATION = 'SAST integration';
   PROJECT_CODE_OS_INTEGRATION = 'OpenSource scan integration';
+  SCANNER_INFRA = 'infraScan';
+  SCANNER_WEB = 'webScan';
+  SCANNER_CODE = 'codeScan';
+
+  SCANNER_TYPE_FORTIFYSCA = 'Fortify SCA Rest API';
+  SCANNER_TYPE_FORTIFYSSC = 'Fortify SSC';
+  SCANNER_TYPE_CHECKMARX = 'Checkmarx';
+  SCANNER_TYPE_OPENVAS = 'OpenVAS';
+  SCANNER_TYPE_NESSUS = 'Nessus';
+  SCANNER_TYPE_ACUNETIX = 'Acunetix';
+  SCANNER_TYPE_DEPENDENCYTRACK = 'OWASP Dependency Track';
+  SCANNER_TYPE_OPENVAS_SOCKET = 'OpenVAS Socket';
 }

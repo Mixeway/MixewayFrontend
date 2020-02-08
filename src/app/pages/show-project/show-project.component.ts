@@ -4,6 +4,7 @@ import {ShowProjectService} from '../../@core/service/ShowProjectService';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
 import {ProjectConstants} from '../../@core/constants/ProjectConstants';
+import {ScannerType} from '../../@core/Model/Scanner';
 
 @Component({
   selector: 'ngx-show-project',
@@ -17,6 +18,7 @@ export class ShowProjectComponent implements OnInit {
   webAppRiskCard: any;
   auditRiskCard: any;
   _entityId: any;
+  scannerTypes: ScannerType[];
   showConfigTemplate: boolean;
   showConfigTableTemplate: boolean = false;
   showDetailsTemplate: boolean;
@@ -29,6 +31,7 @@ export class ShowProjectComponent implements OnInit {
       this.router.navigate(['/pages/dashboard']);
     }
     this.drawRiskCards(this._entityId);
+    this.loadScannerTypes();
   }
 
   drawRiskCards(id) {
@@ -49,6 +52,11 @@ export class ShowProjectComponent implements OnInit {
     });
   }
 
+  loadScannerTypes() {
+    return this.showProjectService.getPossibleScanners().subscribe(data => {
+      this.scannerTypes = data;
+    });
+  }
   ngOnInit() {
     this.role = this.cookieService.get('role');
     this.showConfigTemplate = this.role !== 'ROLE_ADMIN' && this.role !== 'ROLE_EDITOR_RUNNER';

@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, Input, OnInit, TemplateRef} from '@angular/core';
 import {NbDialogService} from '@nebular/theme';
 import {MixerProgresComponent} from '../../../extra-components/mixer-progres/mixer-progres.component';
 import {ShowProjectService} from '../../../../@core/service/ShowProjectService';
@@ -31,7 +31,7 @@ export class CodeConfigureTabComponent implements OnInit {
   codes: Codes;
   dTrackProjects: DTrackProject[];
   codeGroups: CodeGroup[] = [];
-  scannerTypes: ScannerType[];
+  @Input() scannerTypes: ScannerType[];
   sastProjects: SastProject[];
   codeHelperModel: CodeHelperModel = {scannerTypes: [], dTrackProjects: [], sastProjects: []};
   codeGroupForm;
@@ -55,9 +55,6 @@ export class CodeConfigureTabComponent implements OnInit {
     this.loadSettingsTable();
     this.loadCodes();
     this.loadCodeGroups();
-    // this.getDTrackProjects();
-    // this.getScannerTypes();
-    // this.loadSastProjectsFromRemote();
     this.loadValuesForProjects();
     this.codeProjectForm = this.formBuilder.group({
       codeGroup: [0, Validators.min(0)],
@@ -104,13 +101,11 @@ export class CodeConfigureTabComponent implements OnInit {
   }
   loadValuesForProjects() {
     forkJoin([this.showProjectService.getCodeProjectFromRemote(),
-      this.showProjectService.getPossibleScanners(),
       this.showProjectService.getDTrackProjects()])
-      .subscribe(([sast, scanners, dTracks]) => {
+      .subscribe(([sast, dTracks]) => {
         this.sastProjects = sast;
         this.codeHelperModel.sastProjects = sast;
-        this.scannerTypes = scanners;
-        this.codeHelperModel.scannerTypes = scanners;
+        this.codeHelperModel.scannerTypes = this.scannerTypes;
         this.dTrackProjects = dTracks;
         this.codeHelperModel.dTrackProjects = dTracks;
         this.loadSettingsTable();
@@ -168,12 +163,14 @@ export class CodeConfigureTabComponent implements OnInit {
           title: this.constants.PROJECT_CODE_SAST_INTEGRATION,
           renderComponent: CodeScanIntegrationIconComponent,
           type: 'custom',
+          filter: false,
           width: '5%',
         },
         osIntegration: {
           title: this.constants.PROJECT_CODE_OS_INTEGRATION,
           renderComponent: OsScanIntegrationIconComponent,
           type: 'custom',
+          filter: false,
           width: '5%',
         },
         risk: {

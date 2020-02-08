@@ -12,6 +12,9 @@
 <button nbButton status="warning" hero (click)="refresh()" [nbTooltip]="constants.PROJECT_CODE_TOOLTIP_REFRESH">
   <nb-icon icon="refresh" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
 </button>
+&nbsp;
+
+<ngx-status-alert *ngIf="scannerTypes" [scannerTypes]="scannerTypes" [statusFor]="constants.SCANNER_CODE" class="statusAlert"></ngx-status-alert>
 <br/>
 <div class="buttons-row">
   <button status="primary" (click)="openCreateApiDialog(addCodeGroup)" nbButton ghost>
@@ -25,7 +28,6 @@
 <nb-alert status="info" *ngIf="numberOfRunningTest > 0" >
   {{constants.PROJECT_CODE_SCAN_STATUS_1}} <b><u>{{ numberOfRunningTest }} </u></b>{{constants.PROJECT_CODE_SCAN_STATUS_2}}
 </nb-alert>
-<div style="padding-top: 20px;padding-bottom: 20px;" *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="giant">Loading Please Wait..</div>
 <div style="padding-top: 20px;padding-bottom: 20px;" *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="giant">Loading Please Wait..</div>
 <ng2-smart-table *ngIf="!loading" [settings]="settings" (custom)="runTestSingle($event)" [source]="codes?.codeModels" (userRowSelect)="onAssetSelect($event)" >
 </ng2-smart-table>

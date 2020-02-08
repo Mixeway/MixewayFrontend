@@ -44,6 +44,7 @@ import {BugComponent} from './bug-component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CodeScanIntegrationIconComponent} from './code-scan-integration-icon.component';
 import {OsScanIntegrationIconComponent} from './os-scan-integration-icon.component';
+import { StatusAlertComponent } from './status-alert/status-alert.component';
 
 const COMPONENTS = [
   ExtraComponentsComponent,
@@ -97,6 +98,7 @@ const MODULES = [
   ],
   declarations: [
     ...COMPONENTS,
+    StatusAlertComponent,
   ],
   entryComponents: [
     MixerProgresComponent,
@@ -114,6 +116,7 @@ const MODULES = [
     ConfigureWebComponent,
     CiresultColorComponent,
     BugComponent,
+    StatusAlertComponent,
   ],
 })
 export class ExtraComponentsModule { }

@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {NbDialogService} from '@nebular/theme';
 import {MixerProgresComponent} from '../../../extra-components/mixer-progres/mixer-progres.component';
 import {ShowProjectService} from '../../../../@core/service/ShowProjectService';
@@ -9,6 +9,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {ConfigureWebComponent} from '../../../extra-components/configure-web/configure-web.component';
 import {Toast} from '../../../../@core/utils/Toast';
 import {ProjectConstants} from '../../../../@core/constants/ProjectConstants';
+import {ScannerType} from '../../../../@core/Model/Scanner';
 @Component({
   selector: 'ngx-web-configure-tab',
   templateUrl: './web-configure-tab.component.html',
@@ -18,6 +19,7 @@ export class WebConfigureTabComponent implements OnInit {
   // @ts-ignore
   @ViewChild('addWebApp')
   addDialog: TemplateRef<any>;
+  @Input() scannerTypes: ScannerType[];
   settings: any;
   webScanRunSelectedButton: boolean = true;
   webAutomaticScanButton: boolean = true;

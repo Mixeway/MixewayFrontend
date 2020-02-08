@@ -40,6 +40,7 @@ import {AuditResultColorComponent} from '../extra-components/audit-result-color.
 import {ShowProjectService} from '../../@core/service/ShowProjectService';
 import {AnalysisColorComponent} from '../extra-components/analysis-color.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {ExtraComponentsModule} from '../extra-components/extra-components.module';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     NbIconModule,
     NbTooltipModule,
     NbListModule,
+    ExtraComponentsModule,
   ],
   providers: [
     ShowProjectService,
