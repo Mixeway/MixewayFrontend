@@ -74,37 +74,11 @@ export class ScannerComponent implements OnInit {
       { context: scanner });
   }
   onChange($event) {
-    if ($event === this.constants.SCANNER_TYPE_ACUNETIX) {
-      this.showAcunetix = true;
-      this.showFortifySCA = false;
-      this.showNessus = false;
-      this.basicAuth = false;
-    } else if ( $event === this.constants.SCANNER_TYPE_NESSUS) {
-      this.showAcunetix = false;
-      this.showFortifySCA = false;
-      this.showNessus = true;
-      this.basicAuth = false;
-    } else if ( $event === this.constants.SCANNER_TYPE_OPENVAS) {
-      this.showAcunetix = false;
-      this.showFortifySCA = false;
-      this.showNessus = false;
-      this.basicAuth = true;
-    } else if ( $event === this.constants.SCANNER_TYPE_FORTIFYSCA) {
-      this.showAcunetix = false;
-      this.showFortifySCA = true;
-      this.showNessus = false;
-      this.basicAuth = false;
-    } else if ( $event === this.constants.SCANNER_TYPE_DEPENDENCYTRACK) {
-      this.showAcunetix = true;
-      this.showFortifySCA = false;
-      this.showNessus = false;
-      this.basicAuth = false;
-    } else {
-      this.showAcunetix = false;
-      this.showFortifySCA = false;
-      this.showNessus = false;
-      this.basicAuth = true;
-    }
+    const scannerType = this.scannerTypes.filter(st => st.name === $event);
+    this.showAcunetix = scannerType[0].authapikey;
+    this.showFortifySCA = scannerType[0].authcloudctrltoken;
+    this.showNessus = scannerType[0].authsecrettoken;
+    this.basicAuth = scannerType[0].authpassword;
   }
   loadScannerTypes() {
     return this.adminService.getScannerTypes().subscribe(data => {

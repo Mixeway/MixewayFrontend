@@ -18,6 +18,9 @@ nb-tabset {
   display: flex;
   flex-direction: column;
 }
+:host ::ng-deep .statusAlert {
+  display: table-cell;
+}
 
 :host ::ng-deep ngx-configure-tables {
   display: block;

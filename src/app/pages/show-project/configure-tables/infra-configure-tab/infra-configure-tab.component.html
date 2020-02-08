@@ -52,13 +52,16 @@
 </button>&nbsp;
 <button nbButton status="warning" hero (click)="refresh()" [nbTooltip]="constants.PROJECT_CODE_TOOLTIP_REFRESH">
   <nb-icon icon="refresh" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
-</button>
+</button> &nbsp;
+
+<ngx-status-alert *ngIf="scannerTypes" [scannerTypes]="scannerTypes" [statusFor]="constants.SCANNER_INFRA" class="statusAlert"></ngx-status-alert>
+&nbsp;
 <button status="primary" nbButton hero (click)="downloadCSV()" class="right">
   <nb-icon icon="cloud-download-outline" [nbTooltip]="constants.PROJECT_TOOLTIP_EXPORT_CSV" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
-</button>&nbsp;
-<nb-alert status="info" *ngIf="numberOfRunningTest > 0" >
+</button>&nbsp;<br/><br/>
+<nb-alert outline="info" *ngIf="numberOfRunningTest > 0" >
   {{constants.PROJECT_RUNNING_TESTS}} {{ numberOfRunningTest}}
-</nb-alert>
+</nb-alert><br/>
 
 <div style="padding-top: 20px;padding-bottom: 20px;" *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="giant">Loading Please Wait..</div>
 <ng2-smart-table *ngIf="!loading" [settings]="settings" (custom)="runTestSingle($event)" [source]="assets?.assets" (userRowSelect)="onAssetSelect($event)" >

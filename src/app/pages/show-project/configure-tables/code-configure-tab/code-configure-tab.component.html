@@ -12,6 +12,9 @@
 <button nbButton status="warning" hero (click)="refresh()" [nbTooltip]="constants.PROJECT_CODE_TOOLTIP_REFRESH">
   <nb-icon icon="refresh" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
 </button>
+&nbsp;
+
+<ngx-status-alert *ngIf="scannerTypes" [scannerTypes]="scannerTypes" [statusFor]="constants.SCANNER_CODE" class="statusAlert"></ngx-status-alert>
 <br/>
 <div class="buttons-row">
   <button status="primary" (click)="openCreateApiDialog(addCodeGroup)" nbButton ghost>
@@ -26,7 +29,6 @@
   {{constants.PROJECT_CODE_SCAN_STATUS_1}} <b><u>{{ numberOfRunningTest }} </u></b>{{constants.PROJECT_CODE_SCAN_STATUS_2}}
 </nb-alert>
 <div style="padding-top: 20px;padding-bottom: 20px;" *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="giant">Loading Please Wait..</div>
-<div style="padding-top: 20px;padding-bottom: 20px;" *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="giant">Loading Please Wait..</div>
 <ng2-smart-table *ngIf="!loading" [settings]="settings" (custom)="runTestSingle($event)" [source]="codes?.codeModels" (userRowSelect)="onAssetSelect($event)" >
 </ng2-smart-table>
 
@@ -38,14 +40,6 @@
         <div class="form-group">
           <label for="codeGroupName" class="label">{{constants.PROJECT_CODE_GROUP_NAME}}</label>
           <input type="text" nbInput fullWidth id="codeGroupName" [placeholder]="constants.PROJECT_CODE_GROUP_NAME_1" formControlName="codeGroupName">
-        </div>
-        <div class="form-group">
-          <label for="versionIdAll" class="label">{{constants.PROJECT_CODE_GROUP_VERSIONIDALL}}</label>
-          <input type="text" nbInput fullWidth id="versionIdAll" [placeholder]="constants.PROJECT_CODE_GROUP_VERSIONIDALL" formControlName="versionIdAll">
-        </div>
-        <div class="form-group">
-          <label for="versionIdSingle" class="label">{{constants.PROJECT_CODE_GROUP_VERSIONIDSINGLE}}</label>
-          <input type="text" nbInput fullWidth id="versionIdSingle" [placeholder]="constants.PROJECT_CODE_GROUP_VERSIONIDSINGLE" formControlName="versionIdSingle">
         </div>
         <div class="form-group">
           <label for="giturl" class="label">{{constants.PROJECT_CODE_GROUP_GITURL}}</label>
@@ -63,10 +57,7 @@
           <label for="tech" class="label">{{constants.PROJECT_CODE_GROUP_TECH}}</label>
           <input type="text" nbInput fullWidth id="tech" [placeholder]="constants.PROJECT_CODE_GROUP_TECH_1" formControlName="tech">
         </div>
-        <div class="form-group">
-          <label for="dTrackUuidG" class="label">{{constants.PROJECT_CODE_GROUP_DTRACK}}</label>
-          <input type="text" nbInput fullWidth id="dTrackUuidG" [placeholder]="constants.PROJECT_CODE_GROUP_DTRACK" formControlName="dTrackUuid">
-        </div>
+
         <div class="form-group">
           <nb-checkbox formControlName="childs">{{constants.PROJECT_CODE_GROUP_CHILDS}}?</nb-checkbox>
         </div>

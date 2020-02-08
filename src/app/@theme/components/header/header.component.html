@@ -13,13 +13,13 @@
   <nb-actions size="small">
     <nb-action class="control-item">
       <nb-icon icon="book-open-outline" pack="eva" [options]="{ animation: { type: 'pulse' } }" (click)="showSwaggerDoc()"
-               nbTooltip="Dokumentacja API"></nb-icon>
+               nbTooltip="Swagger API REST"></nb-icon>
     </nb-action>
     <nb-action class="control-item">
       <nb-icon icon="question-mark-circle-outline" pack="eva" [options]="{ animation: { type: 'pulse' } }" (click)="showTutorialWizzard()" nbTooltip="Tutorial"></nb-icon>
     </nb-action>
     <nb-action class="control-item">
-      <nb-search type="rotate-layout" nbTooltip="Wyszukaj"></nb-search>
+      <nb-search type="rotate-layout" nbTooltip="Look for..."></nb-search>
     </nb-action>
     <nb-action class="user-action" *nbIsGranted="['view', 'user','admin']" >
       <nb-user [nbContextMenu]="userMenu"

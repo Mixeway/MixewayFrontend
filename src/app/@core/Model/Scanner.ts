@@ -12,4 +12,10 @@ export class Scanner {
 export class ScannerType {
   id: number;
   name: string;
+  authsecrettoken: boolean;
+  authaccesstoken: boolean;
+  authusername: boolean;
+  authpassword: boolean;
+  authcloudctrltoken: boolean;
+  authapikey: boolean;
 }

@@ -18,6 +18,9 @@
 <button nbButton status="warning" hero (click)="refresh()" [nbTooltip]="constants.PROJECT_CODE_TOOLTIP_REFRESH">
   <nb-icon icon="refresh" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
 </button>
+&nbsp;
+<ngx-status-alert *ngIf="scannerTypes" [scannerTypes]="scannerTypes" [statusFor]="constants.SCANNER_WEB" class="statusAlert"></ngx-status-alert>
+
 <br/>
 <nb-alert status="info" *ngIf="numberOfRunningTest > 0" >
   {{constants.PROJECT_WEBAPP_RUNNING}} {{ numberOfRunningTest}}

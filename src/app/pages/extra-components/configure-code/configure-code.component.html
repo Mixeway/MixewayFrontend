@@ -3,7 +3,7 @@
   <nb-icon icon="play-circle-outline" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
 </button>&nbsp;
 <button nbButton status="info" size="medium" (click)="openDialog(editProject)" [nbTooltip]="constants.TOOLTIP_EDIT" >
-  <nb-icon icon="edit-2-outline" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+  <nb-icon icon="link-outline" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
 </button>&nbsp;
 <button nbButton status="danger" size="medium" (click)="deleteWebApp()" [nbTooltip]="constants.TOOLTIP_DELETE_PROJECT" >
   <nb-icon icon="trash" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
@@ -13,15 +13,43 @@
     <nb-card-header>{{constants.CODE_PROJECT_EDIT}}</nb-card-header>
     <nb-card-body>
       <form [formGroup]="codeProjectForm" (ngSubmit)="saveCodeProject(codeProjectForm.value,ref)" >
-        <div class="form-group">
-          <label for="codeProjectName" class="label">{{constants.PROJECT_CODE_PROJECT_DTRACK}}</label>
-          <nb-select id="codeProjectName" fullWidth formControlName="dTrackUuid">
-            <nb-option *ngIf="!dTrackProjects">{{constants.PROJECT_DTRAC_PROJECT_EMPTY}}</nb-option>
-            <nb-option *ngFor="let dTrackProject of value" [value]="dTrackProject.uuid">{{ dTrackProject.name }}</nb-option>
-          </nb-select>
+        <div class="row" *ngIf="showOS">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="codeProjectName" class="label">{{constants.PROJECT_CODE_PROJECT_DTRACK}}</label>
+              <nb-select id="codeProjectName" fullWidth formControlName="dTrackUuid">
+                <nb-option *ngIf="!codeHelperModel.dTrackProjects">{{constants.PROJECT_DTRAC_PROJECT_EMPTY}}</nb-option>
+                <nb-option *ngFor="let dTrackProject of codeHelperModel.dTrackProjects" [value]="dTrackProject.uuid">{{ dTrackProject.name }}</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="dTrackCreateBtn" class="label">OR Create it now</label><br/>
+              <button id="dTrackCreateBtn" *ngIf="!rowData.dTrackUuid" type="button" nbButton status="primary" (click)="createDTrack(ref)">{{constants.CREATE_DTRACK_PROJECT}}</button>
+            </div>
+          </div>
         </div>
-        <button type="submit" nbButton status="danger">{{constants.TOOLTIP_EDIT}}</button>
-        <button *ngIf="!rowData.dTrackUuid" type="button" nbButton status="primary" (click)="createDTrack(ref)">{{constants.CREATE_DTRACK_PROJECT}}</button>
+        <div class="row" *ngIf="sastScanner">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="sastProject" class="label">{{constants.PROJECT_CODE_PROJECT_SAST}} ({{sastScanner}})</label>
+              <nb-select id="sastProject" fullWidth formControlName="sastProject">
+                <nb-option *ngIf="codeHelperModel.sastProjects?.length == 0">{{constants.PROJECT_SAST_PROJECT_EMPTY}}</nb-option>
+                <nb-option *ngFor="let sastProject of codeHelperModel.sastProjects" [value]="sastProject.id">{{ sastProject.name }}</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="sastProjectCreate" class="label">OR Create it now</label><br/>
+              <button id="sastProjectCreate" *ngIf="!rowData.dTrackUuid" type="button" nbButton status="primary" (click)="createSast(ref)">{{constants.CREATE_SAST_PROJECT1}} {{sastScanner}} {{constants.CREATE_SAST_PROJECT2}}</button>
+            </div>
+          </div>
+        </div>
+        <nb-alert *ngIf="!showOS && !showSast" outline="warning">{{constants.MISSING_INTEGRATIONS}}</nb-alert>
+
+        <button [disabled]="!showOS && !showSast" type="submit" nbButton status="danger">{{constants.TOOLTIP_EDIT}}</button>
 
       </form>
     </nb-card-body>

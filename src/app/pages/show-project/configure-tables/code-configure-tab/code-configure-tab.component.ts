@@ -1,15 +1,21 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, Input, OnInit, TemplateRef} from '@angular/core';
 import {NbDialogService} from '@nebular/theme';
 import {MixerProgresComponent} from '../../../extra-components/mixer-progres/mixer-progres.component';
 import {ShowProjectService} from '../../../../@core/service/ShowProjectService';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
 import {CodeGroup, Codes} from '../../../../@core/Model/Codes';
+import { forkJoin } from 'rxjs';
 import {FormBuilder, Validators} from '@angular/forms';
 import {Toast} from '../../../../@core/utils/Toast';
 import {ConfigureCodeComponent} from '../../../extra-components/configure-code/configure-code.component';
 import {ProjectConstants} from '../../../../@core/constants/ProjectConstants';
 import {DTrackProject} from '../../../../@core/Model/DTrackProject';
+import {SastProject} from '../../../../@core/Model/SastProject';
+import {ScannerType} from '../../../../@core/Model/Scanner';
+import {CodeHelperModel} from '../../../../@core/Model/CodeHelperModel';
+import {CodeScanIntegrationIconComponent} from '../../../extra-components/code-scan-integration-icon.component';
+import {OsScanIntegrationIconComponent} from '../../../extra-components/os-scan-integration-icon.component';
 
 @Component({
   selector: 'ngx-code-configure-tab',
@@ -25,6 +31,9 @@ export class CodeConfigureTabComponent implements OnInit {
   codes: Codes;
   dTrackProjects: DTrackProject[];
   codeGroups: CodeGroup[] = [];
+  @Input() scannerTypes: ScannerType[];
+  sastProjects: SastProject[];
+  codeHelperModel: CodeHelperModel = {scannerTypes: [], dTrackProjects: [], sastProjects: []};
   codeGroupForm;
   codeProjectForm;
   selectedRows;
@@ -33,9 +42,10 @@ export class CodeConfigureTabComponent implements OnInit {
   numberOfRunningTest: number = 0;
   canScanAll: boolean = false;
   constants: ProjectConstants = new ProjectConstants();
+
   constructor(private dialogService: NbDialogService,
               private showProjectService: ShowProjectService, private _route: ActivatedRoute, private router: Router,
-              private cookieService: CookieService, private formBuilder: FormBuilder, private toast: Toast ) {
+              private cookieService: CookieService, private formBuilder: FormBuilder, private toast: Toast) {
     this.role = this.cookieService.get('role');
     this.canEdit = (this.role === 'ROLE_ADMIN' || this.role === 'ROLE_EDITOR_RUNNER');
     this._entityId = +this._route.snapshot.paramMap.get('projectid');
@@ -43,9 +53,9 @@ export class CodeConfigureTabComponent implements OnInit {
       this.router.navigate(['/pages/dashboard']);
     }
     this.loadSettingsTable();
-    this.getDTrackProjects();
     this.loadCodes();
     this.loadCodeGroups();
+    this.loadValuesForProjects();
     this.codeProjectForm = this.formBuilder.group({
       codeGroup: [0, Validators.min(0)],
       codeProjectName: ['', Validators.required],
@@ -60,8 +70,6 @@ export class CodeConfigureTabComponent implements OnInit {
     });
     this.codeGroupForm = this.formBuilder.group({
       codeGroupName: ['', Validators.required],
-      versionIdAll: [0, Validators.required],
-      versionIdSingle: 0,
       giturl: ['', [Validators.pattern('(https?:\\/\\/(?:www\\.' +
         '|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+' +
         '[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]' +
@@ -73,7 +81,9 @@ export class CodeConfigureTabComponent implements OnInit {
       autoScan: false,
       childs: false,
     });
+
   }
+
   loadCodes() {
     return this.showProjectService.getCodes(this._entityId).subscribe(data => {
       this.codes = data;
@@ -83,16 +93,23 @@ export class CodeConfigureTabComponent implements OnInit {
       this.loading = false;
     });
   }
+
   loadCodeGroups() {
     return this.showProjectService.getCodeGroups(this._entityId).subscribe(data => {
       this.codeGroups = data;
     });
   }
-  getDTrackProjects() {
-    return this.showProjectService.getDTrackProjects().subscribe(data => {
-      this.dTrackProjects = data;
-      this.loadSettingsTable();
-    });
+  loadValuesForProjects() {
+    forkJoin([this.showProjectService.getCodeProjectFromRemote(),
+      this.showProjectService.getDTrackProjects()])
+      .subscribe(([sast, dTracks]) => {
+        this.sastProjects = sast;
+        this.codeHelperModel.sastProjects = sast;
+        this.codeHelperModel.scannerTypes = this.scannerTypes;
+        this.dTrackProjects = dTracks;
+        this.codeHelperModel.dTrackProjects = dTracks;
+        this.loadSettingsTable();
+      });
   }
 
   runTestSingle(event) {
@@ -115,12 +132,14 @@ export class CodeConfigureTabComponent implements OnInit {
       editable: false,
       renderComponent: ConfigureCodeComponent,
       filter: false,
-      valuePrepareFunction: (dTrackProjects, row, cell) => {
+      width: '30%',
+      valuePrepareFunction: (value, row, cell) => {
         // DATA FROM HERE GOES TO renderComponent
-        return this.dTrackProjects;
+        return this.codeHelperModel;
       },
       onComponentInitFunction(instance) {
         instance.refresh.subscribe(() => {
+          that.loadValuesForProjects();
           that.loadCodes();
         });
       },
@@ -133,10 +152,26 @@ export class CodeConfigureTabComponent implements OnInit {
         codeGroup: {
           title: this.constants.PROJECT_CODE_GROUP,
           type: 'string',
+          width: '20%',
         },
         codeProject: {
           title: this.constants.PROJECT_CODE_PROJECT,
           type: 'boolean',
+          width: '20%',
+        },
+        sastIntegration: {
+          title: this.constants.PROJECT_CODE_SAST_INTEGRATION,
+          renderComponent: CodeScanIntegrationIconComponent,
+          type: 'custom',
+          filter: false,
+          width: '5%',
+        },
+        osIntegration: {
+          title: this.constants.PROJECT_CODE_OS_INTEGRATION,
+          renderComponent: OsScanIntegrationIconComponent,
+          type: 'custom',
+          filter: false,
+          width: '5%',
         },
         risk: {
           title: this.constants.PROJECT_CODE_RISK,
@@ -146,6 +181,7 @@ export class CodeConfigureTabComponent implements OnInit {
           editable: false,
           renderComponent: MixerProgresComponent,
           filter: false,
+          width: '20%',
         },
         action: this.canEdit ? actions : {class: 'd-none', editable: false, filter: false},
       },
@@ -167,6 +203,7 @@ export class CodeConfigureTabComponent implements OnInit {
       this.toast.showToast('danger', this.constants.PROJECT_OPERATION_FAILURE,
         this.constants.PROJECT_OPERATION_FAILURES_EXTENDED);
     }
+    this.loadCodes();
   }
   saveCodeProject(codeProject, ref) {
     if (this.codeProjectForm.valid) {
