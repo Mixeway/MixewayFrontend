@@ -34,7 +34,6 @@ export class SmtpComponent implements OnInit {
     }
   }
   saveSmtp(value: any) {
-    alert(JSON.stringify(value));
     return this.adminService.updateSmtp(value).subscribe(() => {
         this.toast.showToast('primary', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_SMTP_UPDATE);
       },
