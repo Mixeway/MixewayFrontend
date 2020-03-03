@@ -8,7 +8,8 @@ env:
   global:
     - NODE_OPTIONS="–-max_old_space_size=8192"
 script:
+  - export VERSION=1.0.0
   - sonar-scanner
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t mixeway/frontend:0.9 .
-  - docker push mixeway/frontend:0.9
+  - docker build -t mixeway/frontend:$VERSION .
+  - docker push mixeway/frontend:$VERSION

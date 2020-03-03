@@ -429,7 +429,7 @@ export class DetailsTablesComponent implements OnInit {
         interf: row.intf.privateip + '(' + row.intf.asset.name + ')',
         vulnName: row.name,
         desc: row.description.replace(/(\r\n|\n|\r)/gm, ''),
-        severity: row.threat,
+        severity: row.severity,
         inserted: row.inserted,
       });
     }
