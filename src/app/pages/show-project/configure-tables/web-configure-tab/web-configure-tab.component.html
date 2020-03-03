@@ -33,7 +33,6 @@
   <nb-card>
     <nb-card-header>{{constants.PROJECT_WEBAPP_ADD_FORM}}</nb-card-header>
     <nb-card-body>
-      {{ webAppForm.valid | json }}
       <form [formGroup]="webAppForm" (ngSubmit)="saveWebApp(webAppForm.value, ref)">
         <div class="form-group">
           <label for="webAppUrl" class="label">{{constants.PROJECT_WEBAPP_ADD_URL}}</label>
