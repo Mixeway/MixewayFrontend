@@ -9,7 +9,7 @@ env:
     - NODE_OPTIONS="–-max_old_space_size=8192"
 script:
   - export VERSION=1.0.0
-  - sonar-scanner
+  - sonar-scanner -Dsonar.projectKey=Mixeway_MixewayFrontend -Dsonar.login=${SONAR_TOKEN}
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t mixeway/frontend:$VERSION .
   - docker push mixeway/frontend:$VERSION
