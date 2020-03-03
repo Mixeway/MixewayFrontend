@@ -10,7 +10,7 @@ env:
 jobs:
   include:
     - stage: sonar
-      script: sonar-scanner -Dsonar.projectKey=Mixeway_MixewayFrontend -Dsonar.login=${SONAR_TOKEN}
+      script: sonar-scanner
     - stage: build
       script: docker build -t mixeway/frontend:$VERSION .
     - stage: deploy
