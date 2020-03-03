@@ -3,13 +3,17 @@ addons:
   sonarcloud:
     organization: "mixeway"
     token:
-      secure: $SONAR_TOKEN
+      secure: ${SONAR_TOKEN}
 env:
   global:
     - NODE_OPTIONS="–-max_old_space_size=8192"
-script:
-  - export VERSION=1.0.0
-  - sonar-scanner -Dsonar.projectKey=Mixeway_MixewayFrontend -Dsonar.login=${SONAR_TOKEN}
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t mixeway/frontend:$VERSION .
-  - docker push mixeway/frontend:$VERSION
+    - VERSION=1.0.0
+jobs:
+  include:
+    - stage: sonar
+      script: sonar-scanner -Dsonar.projectKey=Mixeway_MixewayFrontend -Dsonar.login=${SONAR_TOKEN}
+    - stage: build
+      script: docker build -t mixeway/frontend:$VERSION .
+    - stage: deploy
+      script: docker push mixeway/frontend:$VERSION
+      if: branch = master
