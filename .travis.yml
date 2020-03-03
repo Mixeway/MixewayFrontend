@@ -2,8 +2,7 @@ services: docker
 addons:
   sonarcloud:
     organization: "mixeway"
-    token:
-      secure: ${SONAR_TOKEN}
+    token: ${SONAR_TOKEN}
 env:
   global:
     - NODE_OPTIONS="–-max_old_space_size=8192"
