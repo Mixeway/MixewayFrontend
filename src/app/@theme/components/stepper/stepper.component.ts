@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {TutorialConstants} from '../../../@core/constants/TutorialConstants';
 
 @Component({
   selector: 'ngx-stepper',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['stepper.component.scss'],
 })
 export class StepperComponent implements OnInit {
-
+  tutorialConstants: TutorialConstants = new TutorialConstants();
 
   constructor() {
   }
