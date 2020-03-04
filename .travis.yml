@@ -15,4 +15,5 @@ jobs:
     - stage: build_and_deploy
       script:
       - docker build -t mixeway/frontend:$VERSION .
+      - if [[ $TRAVIS_BRANCH == 'master' ]]; then echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin; fi
       - if [[ $TRAVIS_BRANCH == 'master' ]]; then docker push mixeway/frontend:$VERSION; fi
