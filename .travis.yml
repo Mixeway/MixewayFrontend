@@ -12,8 +12,7 @@ jobs:
   include:
 #    - stage: sonar
 #      script: sonar-scanner -Dsonar.login=${SONAR_TOKEN}
-    - stage: build
-      script: docker build -t mixeway/frontend:$VERSION .
-    - stage: deploy
-      script: docker push mixeway/frontend:$VERSION
-      if: branch = master
+    - stage: build_and_deploy
+      script:
+      - docker build -t mixeway/frontend:$VERSION .
+      - if [[ $TRAVIS_BRANCH == 'master' ]]; then docker push mixeway/frontend:$VERSION; fi
