@@ -21,4 +21,5 @@ export class ExtraConstants {
   CREATE_SAST_PROJECT2 = ' Project';
   SCANNER_DTRACK = 'OWASP Dependency Track';
   MISSING_INTEGRATIONS = 'There is no SAST or OpenSource Scanner added. If You did configure plugin in Admin zone, make sure scanner is active by testing it';
+  PROJECT_CODE_PROJECT_BRANCH = 'CodeProject branch [default master]';
 }

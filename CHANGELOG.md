@@ -1,3 +1,11 @@
+<a name="1.0.1"></a>
+## 1.0.1 (2020-03-11)
+
+### Info
+
+* Project Configure for SourceCode now contain edit button which allow to change default branch
+
+
 <a name="0.9.2"></a>
 ## 0.9.1 (2020-02-08)
 
