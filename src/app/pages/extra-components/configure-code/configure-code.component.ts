@@ -28,6 +28,7 @@ export class ConfigureCodeComponent implements OnInit, ViewCell {
     this.codeProjectForm = this.formBuilder.group({
       dTrackUuid: '',
       sastProject: 0,
+      branch: '',
     });
   }
 
@@ -35,6 +36,7 @@ export class ConfigureCodeComponent implements OnInit, ViewCell {
     this.codeProjectForm.patchValue({
       dTrackUuid: this.rowData.dTrackUuid,
       sastProject: this.rowData.versionId,
+      branch: this.rowData.branch,
     });
     this.codeHelperModel = <CodeHelperModel><unknown>this.value;
     if (this.codeHelperModel.scannerTypes
@@ -77,8 +79,9 @@ export class ConfigureCodeComponent implements OnInit, ViewCell {
 
 
 
-  saveCodeProject(value: any, ref) {
-    return this.showProjectService.editCodeProject(this.rowData.id, value).subscribe(() => {
+  saveCodeProject(ref) {
+    alert(JSON.stringify(this.codeProjectForm.value));
+    return this.showProjectService.editCodeProject(this.rowData.id, this.codeProjectForm.value).subscribe(() => {
         this.toast.showToast('success', this.constants.SUCCESS,
           this.constants.CODE_OPERATION_CODE_DELETE);
         ref.close();

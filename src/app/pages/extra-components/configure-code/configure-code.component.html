@@ -12,7 +12,7 @@
   <nb-card>
     <nb-card-header>{{constants.CODE_PROJECT_EDIT}}</nb-card-header>
     <nb-card-body>
-      <form [formGroup]="codeProjectForm" (ngSubmit)="saveCodeProject(codeProjectForm.value,ref)" >
+      <form [formGroup]="codeProjectForm" (ngSubmit)="saveCodeProject(ref)" >
         <div class="row" *ngIf="showOS">
           <div class="col-sm-6">
             <div class="form-group">
@@ -48,8 +48,16 @@
           </div>
         </div>
         <nb-alert *ngIf="!showOS && !showSast" outline="warning">{{constants.MISSING_INTEGRATIONS}}</nb-alert>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="branch" class="label">{{constants.PROJECT_CODE_PROJECT_BRANCH}}</label>
+              <input nbInput type="text" name="branch" id="branch" formControlName="branch" [value]="rowData.branch">
+            </div>
+          </div>
+        </div>
 
-        <button [disabled]="!showOS && !showSast" type="submit" nbButton status="danger">{{constants.TOOLTIP_EDIT}}</button>
+        <button type="submit" nbButton status="danger">{{constants.TOOLTIP_EDIT}}</button>
 
       </form>
     </nb-card-body>
