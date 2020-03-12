@@ -46,10 +46,19 @@
           <input type="text" nbInput fullWidth id="giturl" [placeholder]="constants.PROJECT_CODE_GROUP_GITURL" formControlName="giturl">
         </div>
         <div class="form-group">
+          <nb-radio-group [(ngModel)]="gitAuth" formControlName="gitAuth">
+            <nb-radio
+              *ngFor="let gitAuth of authOptions"
+              [value]="gitAuth.value">
+              {{ gitAuth.label }}
+            </nb-radio>
+          </nb-radio-group>
+        </div>
+        <div class="form-group" *ngIf="gitAuth==2">
           <label for="gitusername" class="label">{{constants.PROJECT_CODE_GROUP_GITUSERNAME}}</label>
           <input type="text" nbInput fullWidth id="gitusername" [placeholder]="constants.PROJECT_CODE_GROUP_GITUSERNAME" formControlName="gitusername">
         </div>
-        <div class="form-group">
+        <div class="form-group"  *ngIf="gitAuth==2 || gitAuth == 3" >
           <label for="gitpassword" class="label">{{constants.PROJECT_CODE_GROUP_GITPASSWORD}}</label>
           <input type="password" nbInput fullWidth id="gitpassword" [placeholder]="constants.PROJECT_CODE_GROUP_GITPASSWORD" formControlName="gitpassword">
         </div>

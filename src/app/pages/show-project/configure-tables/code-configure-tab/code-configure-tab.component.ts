@@ -23,6 +23,11 @@ import {OsScanIntegrationIconComponent} from '../../../extra-components/os-scan-
   styleUrls: ['./code-configure-tab.component.scss'],
 })
 export class CodeConfigureTabComponent implements OnInit {
+  authOptions = [
+    { value: '1', label: 'No auth [public repo]' },
+    { value: '2', label: 'Username + password' },
+    { value: '3', label: 'Token [recommended]' },
+  ];
   settings: any;
   codeAutomaticScanButton: boolean;
   codeScanRunSelectedButton: boolean = true;
@@ -42,6 +47,7 @@ export class CodeConfigureTabComponent implements OnInit {
   numberOfRunningTest: number = 0;
   canScanAll: boolean = false;
   constants: ProjectConstants = new ProjectConstants();
+  gitAuth: any;
 
   constructor(private dialogService: NbDialogService,
               private showProjectService: ShowProjectService, private _route: ActivatedRoute, private router: Router,
@@ -65,6 +71,7 @@ export class CodeConfigureTabComponent implements OnInit {
         '{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})')]],
       projectTech: ['', Validators.required],
       projectBranch: '',
+      gitAuth: 0,
       dTrackUuid: '',
       additionalPath: '',
     });
@@ -77,6 +84,7 @@ export class CodeConfigureTabComponent implements OnInit {
       gitusername: '',
       dTrackUuid: '',
       gitpassword: '',
+      gitAuth: 0,
       tech: '',
       autoScan: false,
       childs: false,

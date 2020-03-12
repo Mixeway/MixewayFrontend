@@ -57,7 +57,7 @@ export class ProjectConstants {
   PROJECT_CODE_PROJECT_TITLE = 'Project adding..';
   PROJECT_CODE_PROJECT_GROUP = 'Pick group';
   PROJECT_CODE_PROJECT_NAME = 'Name';
-  PROJECT_CODE_PROJECT_GITURL = 'GIT URL';
+  PROJECT_CODE_PROJECT_GITURL = 'GIT URL [Credentials are the same as codeGroup]';
   PROJECT_CODE_PROJECT_BRANCH = 'Branch (default: master)';
   PROJECT_CODE_PROJECT_TECH = 'Tech (comma separated)';
   PROJECT_CODE_PROJECT_PATH = 'Additional paths';

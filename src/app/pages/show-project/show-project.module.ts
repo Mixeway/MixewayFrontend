@@ -3,21 +3,21 @@ import { CommonModule } from '@angular/common';
 import { ShowProjectComponent } from './show-project.component';
 import { SummaryCardComponent } from './summary-card/summary-card.component';
 import {
-  NbAccordionModule,
-  NbAlertModule,
-  NbButtonModule,
-  NbCardModule,
-  NbCheckboxModule,
-  NbIconModule,
-  NbInputModule,
-  NbListModule,
-  NbPopoverModule,
-  NbSelectModule,
-  NbSpinnerModule,
-  NbTableModule,
-  NbTabsetModule,
-  NbTooltipModule,
-  NbTreeGridModule,
+    NbAccordionModule,
+    NbAlertModule,
+    NbButtonModule,
+    NbCardModule,
+    NbCheckboxModule,
+    NbIconModule,
+    NbInputModule,
+    NbListModule,
+    NbPopoverModule, NbRadioModule,
+    NbSelectModule,
+    NbSpinnerModule,
+    NbTableModule,
+    NbTabsetModule,
+    NbTooltipModule,
+    NbTreeGridModule,
 } from '@nebular/theme';
 import {GaugeChartComponent} from './summary-card/gauge-chart-component';
 import {NgxEchartsModule} from 'ngx-echarts';
@@ -39,7 +39,7 @@ import {DescriptionToggleComponent} from '../extra-components/description-toggle
 import {AuditResultColorComponent} from '../extra-components/audit-result-color.component';
 import {ShowProjectService} from '../../@core/service/ShowProjectService';
 import {AnalysisColorComponent} from '../extra-components/analysis-color.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ExtraComponentsModule} from '../extra-components/extra-components.module';
 
 @NgModule({
@@ -83,6 +83,8 @@ import {ExtraComponentsModule} from '../extra-components/extra-components.module
     NbTooltipModule,
     NbListModule,
     ExtraComponentsModule,
+    NbRadioModule,
+    FormsModule,
   ],
   providers: [
     ShowProjectService,
