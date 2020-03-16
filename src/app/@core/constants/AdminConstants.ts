@@ -44,6 +44,10 @@ export class AdminConstants {
       'name': 'Editor',
       'id': 'ROLE_EDITOR_RUNNER',
     },
+    {
+      'name': 'API',
+      'id': 'ROLE_API',
+    },
   ];
   OPERATION_SUCCESS_PROXY_DELETE: string = 'The Proxy is successfully deleted.';
   ADMIN_PAGE_TITLE: string = 'Admin panel';
