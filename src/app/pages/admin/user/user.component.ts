@@ -8,7 +8,6 @@ import {AdminService} from '../../../@core/service/AdminService';
 import {Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
 import {FormBuilder, Validators} from '@angular/forms';
-import {Project} from '../../../@core/Model/Project';
 import { FilteringEventArgs } from '@syncfusion/ej2-dropdowns';
 import { Query } from '@syncfusion/ej2-data/src/query';
 import { EmitType } from '@syncfusion/ej2-base/src/base';
