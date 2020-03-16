@@ -7,6 +7,7 @@ import {User} from '../Model/User';
 import {Scanner, ScannerType} from '../Model/Scanner';
 import {Router} from '@angular/router';
 import {Settings} from '../Model/Settings';
+import {Project} from '../Model/Project';
 
 @Injectable({
   providedIn: 'root',
@@ -193,6 +194,13 @@ export class AdminService {
   }
   updateTrendCron(expression): Observable<string> {
     return this.http.patch<string>(environment.backend + '/admin/settings/trendcron', expression)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  getProjects(): Observable<Project[]> {
+    return this.http.get<Project[]>(environment.backend + '/admin/projects')
       .pipe(
         retry(1),
         catchError(this.errorHandl),
