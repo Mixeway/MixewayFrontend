@@ -58,6 +58,8 @@ export class DetailsTablesComponent implements OnInit {
     }
     if (this.role !== 'ROLE_USER') {
       this.loadBugTrackers();
+    } else {
+      this.createTableSettings();
     }
     this.loadInfraVulns();
     this.loadWebApps();
@@ -164,11 +166,7 @@ export class DetailsTablesComponent implements OnInit {
       },
     };
     this.infraSettings = {
-      actions: {
-        add: false,
-        edit: false,
-        delete: false,
-      },
+      actions: false,
       columns: {
         status: {
           title: ' ',
