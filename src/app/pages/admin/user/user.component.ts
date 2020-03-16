@@ -150,4 +150,9 @@ export class UserComponent implements OnInit {
       dialog,
       { context: scanner });
   }
+
+  getRoleForUser(id: number) {
+    const user = this.getUserById(id);
+    return this.constants.USER_GROUPS.filter(group => group.id === user.permisions)[0].name;
+  }
 }

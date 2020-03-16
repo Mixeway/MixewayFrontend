@@ -146,4 +146,7 @@ export class AdminConstants {
   ADMIN_FORM_PROJECTS2 = 'Select projects...';
   ADMIN_ROLE_USER = 'ROLE_USER';
   ADMIN_FORM_EDIT = 'Edit';
+  ADMIN_EDIT_USER = 'Editing user';
+  ADMIN_TOOLTIP_EDIT = 'Edit user';
+  ADMIN_USERTABLE_PERMISSIONS = 'Role';
 }

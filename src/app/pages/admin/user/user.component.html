@@ -1,20 +1,20 @@
-<button status="primary" nbButton hero (click)="openCreateApiDialog(addUser,null)">
+<button status="primary" nbButton hero (click)="openCreateApiDialog(addUser,null)" fullWidth>
   <i class="ion-plus"></i>&nbsp; {{constants.ADMIN_ADD_USER}}
-</button>
+</button> <br/><br/>
+
+
 <table class="table">
   <caption>{{constants.ADMIN_USERTABLE_CAPTION}}</caption>
   <thead>
-    <th scope="col">{{constants.ADMIN_USERTABLE_COMMONNAME}}</th>
     <th scope="col">{{constants.ADMIN_USERTABLE_USERNAME}}</th>
-    <th scope="col">{{constants.ADMIN_USERTABLE_LASTIP}}</th>
+    <th scope="col">{{constants.ADMIN_USERTABLE_PERMISSIONS}}</th>
     <th scope="col">{{constants.ADMIN_USERTABLE_ACTIVE}}</th>
     <th scope="col">{{constants.ADMIN_USERTABLE_ACTION}}</th>
   </thead>
   <tbody>
   <tr *ngFor="let user of users">
     <td>{{user.commonName}}</td>
-    <td>{{user.lastLoggedIp}}</td>
-    <td>{{user.lastLoggedDate}}</td>
+    <td>{{ getRoleForUser(user.id)}}</td>
     <td *ngIf="user.enabled">
       <span class="badge badge-success">{{constants.YES}}</span>
     </td>
@@ -23,11 +23,11 @@
     </td>
     <td>
       <button status="info"  nbButton hero *ngIf="user.enabled" (click)="openEditUserDialog(changePassoword, user.id)">
-        <nb-icon icon="eye-off-outline" [nbTooltip]="constants.ADMIN_TOOLTIP_CHANGEPASSWORD" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
-      </button>
+        <nb-icon icon="edit-2-outline" [nbTooltip]="constants.ADMIN_TOOLTIP_EDIT" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+      </button>&nbsp;
       <button status="success" [nbTooltip]="constants.ADMIN_TOOLTIP_ACTIVATE_USER" nbButton hero *ngIf="!user.enabled" (click)="enableUser(user.id)">
         <nb-icon icon="plus" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
-      </button>
+      </button>&nbsp;
       <button status="danger"  nbButton hero *ngIf="user.enabled" (click)="disableUser(user.id)">
         <nb-icon icon="minus" [nbTooltip]="constants.ADMIN_TOOLTIP_BLOCK_USER" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
       </button>
@@ -76,7 +76,7 @@
 </ng-template>
 <ng-template #changePassoword let-data let-ref="dialogRef">
   <nb-card>
-    <nb-card-header>{{constants.ADMIN_FORM_CHANGEPASSWORD_TITTLE}}</nb-card-header>
+    <nb-card-header>{{constants.ADMIN_EDIT_USER + ' - ' + getUserById(data).commonName}}</nb-card-header>
     <nb-card-body>
       <form [formGroup]="changePasswordForm" (ngSubmit)="changePassowordSubmit(changePasswordForm.value, ref,data)" >
         <div class="form-group">
