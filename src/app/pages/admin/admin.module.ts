@@ -22,6 +22,7 @@ import { SmtpComponent } from './smtp/smtp.component';
 import { ApikeyComponent } from './apikey/apikey.component';
 import { ScannerComponent } from './scanner/scanner.component';
 import { UserComponent } from './user/user.component';
+import {MultiSelectModule} from '@syncfusion/ej2-angular-dropdowns';
 
 @NgModule({
   declarations: [
@@ -36,20 +37,21 @@ import { UserComponent } from './user/user.component';
     ScannerComponent,
     UserComponent,
   ],
-  imports: [
-    CommonModule,
-    NbCardModule,
-    NbTabsetModule,
-    NbButtonModule,
-    NbSelectModule,
-    NbInputModule,
-    ReactiveFormsModule,
-    NbIconModule,
-    NbCheckboxModule,
-    NbAlertModule,
-    NbTooltipModule,
-    NbListModule,
-  ],
+    imports: [
+        CommonModule,
+        NbCardModule,
+        NbTabsetModule,
+        NbButtonModule,
+        NbSelectModule,
+        NbInputModule,
+        ReactiveFormsModule,
+        NbIconModule,
+        NbCheckboxModule,
+        NbAlertModule,
+        NbTooltipModule,
+        NbListModule,
+        MultiSelectModule,
+    ],
   providers: [
     AdminService,
     ShowProjectService,

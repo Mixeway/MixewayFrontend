@@ -142,4 +142,8 @@ export class AdminConstants {
   ADMIN_SCANNERTABLE_CAPTION = 'Table containing list of configured vulnerability scanners';
   ADMIN_USERTABLE_CAPTION = 'Table containing list of users';
   ADMIN_TAB_AUTOTREND = 'Scheduler for Trend Email';
+  ADMIN_FORM_PROJECTS = 'Permissions for projects';
+  ADMIN_FORM_PROJECTS2 = 'Select projects...';
+  ADMIN_ROLE_USER = 'ROLE_USER';
+  ADMIN_FORM_EDIT = 'Edit';
 }

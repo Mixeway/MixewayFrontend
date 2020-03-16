@@ -8,6 +8,10 @@ import {AdminService} from '../../../@core/service/AdminService';
 import {Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
 import {FormBuilder, Validators} from '@angular/forms';
+import {Project} from '../../../@core/Model/Project';
+import { FilteringEventArgs } from '@syncfusion/ej2-dropdowns';
+import { Query } from '@syncfusion/ej2-data/src/query';
+import { EmitType } from '@syncfusion/ej2-base/src/base';
 
 @Component({
   selector: 'ngx-user',
@@ -15,7 +19,9 @@ import {FormBuilder, Validators} from '@angular/forms';
   styleUrls: ['./user.component.scss'],
 })
 export class UserComponent implements OnInit {
+  asd: any = 'ROLE_EDITOR_RUNNER';
   proxies: Proxies[];
+  projects: { [key: string]: Object; }[] = [];
   auth: boolean;
   index = 1;
   role: string;
@@ -25,7 +31,7 @@ export class UserComponent implements OnInit {
   changePasswordForm;
   isAdmin: boolean = false;
   constants: AdminConstants = new AdminConstants();
-
+  public fields: Object = { text: 'name', value: 'id' };
 
   constructor(private dialogService: NbDialogService, private toast: Toast,
               private adminService: AdminService, private router: Router,
@@ -43,16 +49,27 @@ export class UserComponent implements OnInit {
       userUsername: ['', Validators.required],
       userPassword: '',
       passwordAuth: false,
+      projects: '',
     });
     this.changePasswordForm = this.formBuilder.group({
-      newPassword: ['', Validators.required],
+      newPassword: '',
+      role:  '',
+      projects: '',
     });
     this.loadUsers();
+    this.loadProjects();
   }
   loadUsers() {
     return this.adminService.getUsers().subscribe(data => {
       // @ts-ignore
       this.users = data.body;
+    });
+  }
+  loadProjects() {
+    return this.adminService.getProjects().subscribe(data => {
+      for (const obj of data) {
+        this.projects.push({ name: obj.name, id: obj.id });
+      }
     });
   }
   openCreateApiDialog(dialog: TemplateRef<any>, scanner: any) {
@@ -111,4 +128,26 @@ export class UserComponent implements OnInit {
   ngOnInit() {
   }
 
+  public onFiltering: EmitType<FilteringEventArgs> = (e: FilteringEventArgs) => {
+    let query: Query = new Query();
+    query = (e.text !== '') ? query.where('Name', 'startswith', e.text, true) : query;
+    e.updateData(this.projects, query);
+  }
+
+
+  getUserById(data) {
+    return this.users.filter(u => u.id === data)[0];
+  }
+
+  openEditUserDialog(dialog: TemplateRef<any>, scanner: any) {
+    const projectIds: number[] = [];
+    for (const project of this.getUserById(scanner).projects) {
+      projectIds.push(project.id);
+    }
+    this.changePasswordForm.controls.role.setValue(this.getUserById(scanner).permisions);
+    this.changePasswordForm.controls.projects.setValue(projectIds);
+    this.dialogService.open(
+      dialog,
+      { context: scanner });
+  }
 }
