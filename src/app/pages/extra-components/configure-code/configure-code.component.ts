@@ -80,7 +80,6 @@ export class ConfigureCodeComponent implements OnInit, ViewCell {
 
 
   saveCodeProject(ref) {
-    alert(JSON.stringify(this.codeProjectForm.value));
     return this.showProjectService.editCodeProject(this.rowData.id, this.codeProjectForm.value).subscribe(() => {
         this.toast.showToast('success', this.constants.SUCCESS,
           this.constants.CODE_OPERATION_CODE_DELETE);
