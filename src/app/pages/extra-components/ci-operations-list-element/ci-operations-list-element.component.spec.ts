@@ -8,7 +8,7 @@ describe('CiOperationsListElementComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CiOperationsListElementComponent ]
+      declarations: [ CiOperationsListElementComponent ],
     })
     .compileComponents();
   }));

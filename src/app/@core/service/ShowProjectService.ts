@@ -23,7 +23,6 @@ import {Router} from '@angular/router';
 import {SoftVuln} from '../Model/SoftVuln';
 import {SastProject} from '../Model/SastProject';
 import {ScannerType} from '../Model/Scanner';
-import {CiResult} from '../Model/CiResult';
 import {CiOperations} from '../Model/CiOperations';
 
 @Injectable({
