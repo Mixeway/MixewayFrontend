@@ -1,0 +1,10 @@
+<nb-card size="medium">
+  <nb-card-header>CI Operations</nb-card-header>
+  <nb-card-body>
+    <nb-list nbInfiniteList listenWindowScroll [threshold]="25">
+      <nb-list-item *ngFor="let operation of ciOperations" >
+        <ngx-ci-operations-list-element [ciOperation]="operation"></ngx-ci-operations-list-element>
+      </nb-list-item>
+    </nb-list>
+  </nb-card-body>
+</nb-card>

@@ -23,10 +23,10 @@
               </nb-select>
             </div>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-6" *ngIf="!rowData.dTrackUuid">
             <div class="form-group">
               <label for="dTrackCreateBtn" class="label">OR Create it now</label><br/>
-              <button id="dTrackCreateBtn" *ngIf="!rowData.dTrackUuid" type="button" nbButton status="primary" (click)="createDTrack(ref)">{{constants.CREATE_DTRACK_PROJECT}}</button>
+              <button id="dTrackCreateBtn"  type="button" nbButton status="primary" (click)="createDTrack(ref)">{{constants.CREATE_DTRACK_PROJECT}}</button>
             </div>
           </div>
         </div>
@@ -40,10 +40,10 @@
               </nb-select>
             </div>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-6" *ngIf="!rowData.dTrackUuid" >
             <div class="form-group">
               <label for="sastProjectCreate" class="label">OR Create it now</label><br/>
-              <button id="sastProjectCreate" *ngIf="!rowData.dTrackUuid" type="button" nbButton status="primary" (click)="createSast(ref)">{{constants.CREATE_SAST_PROJECT1}} {{sastScanner}} {{constants.CREATE_SAST_PROJECT2}}</button>
+              <button id="sastProjectCreate"type="button" nbButton status="primary" (click)="createSast(ref)">{{constants.CREATE_SAST_PROJECT1}} {{sastScanner}} {{constants.CREATE_SAST_PROJECT2}}</button>
             </div>
           </div>
         </div>

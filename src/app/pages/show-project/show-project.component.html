@@ -20,15 +20,26 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-6 col-sm-4">
-    <ngx-summary-card [cardDetails]="infraRiskCard"></ngx-summary-card>
+  <div [ngClass]="ciOperations?.length > 0 ? 'col-8':'col-12'">
+    <div class="row">
+      <div class="col-6" [ngClass]="ciOperations?.length > 0 ? 'col-sm-6':'col-sm-3'">
+        <ngx-summary-card [cardDetails]="infraRiskCard"></ngx-summary-card>
+      </div>
+      <div class="col-6" [ngClass]="ciOperations?.length > 0 ? 'col-sm-6':'col-sm-3'">
+        <ngx-summary-card [cardDetails]="webAppRiskCard"></ngx-summary-card>
+      </div><br/>
+      <div class="col-6" [ngClass]="ciOperations?.length > 0 ? 'col-sm-6':'col-sm-3'">
+        <ngx-summary-card [cardDetails]="codeRiskCard"></ngx-summary-card>
+      </div>
+      <div class="col-6" [ngClass]="ciOperations?.length > 0 ? 'col-sm-6':'col-sm-3'">
+        <ngx-summary-card [cardDetails]="openSourceCard"></ngx-summary-card>
+      </div>
+    </div>
   </div>
-  <div class="col-6 col-sm-4">
-    <ngx-summary-card [cardDetails]="webAppRiskCard"></ngx-summary-card>
+  <div *ngIf="ciOperations?.length > 0" class="col-md-4">
+    <ngx-ci-operations [ciOperations]="ciOperations"></ngx-ci-operations>
   </div>
-  <div class="col-6 col-sm-4">
-    <ngx-summary-card [cardDetails]="codeRiskCard"></ngx-summary-card>
-  </div>
+
   <!--<div class="col-6 col-sm-3">
     <ngx-summary-card [cardDetails]="auditRiskCard"></ngx-summary-card>
   </div> -->

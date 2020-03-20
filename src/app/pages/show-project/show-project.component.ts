@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
 import {ProjectConstants} from '../../@core/constants/ProjectConstants';
 import {ScannerType} from '../../@core/Model/Scanner';
+import {CiOperations} from '../../@core/Model/CiOperations';
 
 @Component({
   selector: 'ngx-show-project',
@@ -17,7 +18,9 @@ export class ShowProjectComponent implements OnInit {
   codeRiskCard: any;
   webAppRiskCard: any;
   auditRiskCard: any;
+  openSourceCard: any;
   _entityId: any;
+  ciOperations: CiOperations[];
   scannerTypes: ScannerType[];
   showConfigTemplate: boolean;
   showConfigTableTemplate: boolean = false;
@@ -32,6 +35,7 @@ export class ShowProjectComponent implements OnInit {
     }
     this.drawRiskCards(this._entityId);
     this.loadScannerTypes();
+    this.loadCiOperations();
   }
 
   drawRiskCards(id) {
@@ -49,12 +53,21 @@ export class ShowProjectComponent implements OnInit {
       this.auditRiskCard = this.riskCardBuilder(this.constants.PROJECT_CARD_AUDIT_TITLE,
         this.constants.PROJECT_CARD_AUDIT_TEXT,
         this.risk.audit, this.risk.auditRisk);
+      this.openSourceCard = this.riskCardBuilder(this.constants.PROJECT_CARD_OPENSOURCE_TITLE,
+          this.constants.PROJECT_CARD_OPENSOURCE_TEXT,
+          this.risk.openSourceLibs, this.risk.openSourceRisk);
     });
   }
 
   loadScannerTypes() {
     return this.showProjectService.getPossibleScanners().subscribe(data => {
       this.scannerTypes = data;
+    });
+  }
+  loadCiOperations() {
+    return this.showProjectService.getCiForProject(this._entityId).subscribe(data => {
+      this.ciOperations = data.sort((a, b) => a.id > b.id ? -1 : a.id < b.id ? 1 : 0);
+
     });
   }
   ngOnInit() {

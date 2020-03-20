@@ -58,7 +58,7 @@ export class ConfigureCodeComponent implements OnInit, ViewCell {
         this.toast.showToast('success', this.constants.SUCCESS,
           this.constants.OPERATION_RUNONCE);
           this.rowData.running = true;
-        this.refresh.emit(null);
+          this.refresh.emit(null);
       },
       () => {
         this.toast.showToast('danger', this.constants.FAILURE,
@@ -84,6 +84,7 @@ export class ConfigureCodeComponent implements OnInit, ViewCell {
         this.toast.showToast('success', this.constants.SUCCESS,
           this.constants.CODE_OPERATION_CODE_DELETE);
         ref.close();
+        this.refresh.emit(null);
       },
       () => {
         this.toast.showToast('danger', this.constants.FAILURE,
@@ -101,6 +102,7 @@ export class ConfigureCodeComponent implements OnInit, ViewCell {
         this.toast.showToast('success', this.constants.SUCCESS,
           this.constants.CODE_OPERATION_CODE_DELETE);
         ref.close();
+        this.refresh.emit(null);
       },
       () => {
         this.toast.showToast('danger', this.constants.FAILURE,
@@ -114,6 +116,7 @@ export class ConfigureCodeComponent implements OnInit, ViewCell {
         this.toast.showToast('success', this.constants.SUCCESS,
           this.constants.CODE_OPERATION_CODE_DELETE);
         ref.close();
+        this.refresh.emit(null);
       },
       () => {
         this.toast.showToast('danger', this.constants.FAILURE,

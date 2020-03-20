@@ -1,10 +1,10 @@
 export class ProjectConstants {
   PROJECT_CARD_INFRAP_TITLE = 'Infrastructure';
   PROJECT_CARD_INFRAP_TEXT = 'Assets';
-  PROJECT_CARD_WEBAPP_TITLE = 'WebApps';
+  PROJECT_CARD_WEBAPP_TITLE = 'Dynamic Analysis';
   PROJECT_CARD_WEBAPP_TEXT = 'WebApps';
-  PROJECT_CARD_CODE_TITLE = 'Code Repository';
-  PROJECT_CARD_CODE_TEXT = 'Source Code projects';
+  PROJECT_CARD_CODE_TITLE = 'Static Analysis';
+  PROJECT_CARD_CODE_TEXT = 'Code projects';
   PROJECT_CARD_AUDIT_TITLE = 'Audit';
   PROJECT_CARD_OPENSOURCE_TITLE = 'OpenSource';
   PROJECT_CARD_AUDIT_TEXT = 'Asset No.';
@@ -191,4 +191,5 @@ export class ProjectConstants {
   SCANNER_TYPE_ACUNETIX = 'Acunetix';
   SCANNER_TYPE_DEPENDENCYTRACK = 'OWASP Dependency Track';
   SCANNER_TYPE_OPENVAS_SOCKET = 'OpenVAS Socket';
+  PROJECT_CARD_OPENSOURCE_TEXT = 'Dep. no. ';
 }

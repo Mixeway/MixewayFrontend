@@ -8,7 +8,7 @@ import {
   NbCalendarRangeModule,
   NbCardModule,
   NbChatModule,
-  NbIconModule, NbInputModule,
+  NbIconModule, NbInputModule, NbListModule,
   NbProgressBarModule,
   NbSelectModule,
   NbSpinnerModule,
@@ -45,6 +45,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {CodeScanIntegrationIconComponent} from './code-scan-integration-icon.component';
 import {OsScanIntegrationIconComponent} from './os-scan-integration-icon.component';
 import { StatusAlertComponent } from './status-alert/status-alert.component';
+import { CiOperationsComponent } from './ci-operations/ci-operations.component';
+import { CiOperationsListElementComponent } from './ci-operations-list-element/ci-operations-list-element.component';
 
 const COMPONENTS = [
   ExtraComponentsComponent,
@@ -95,10 +97,13 @@ const MODULES = [
     NbTooltipModule,
     ReactiveFormsModule,
     NbInputModule,
+    NbListModule,
   ],
   declarations: [
     ...COMPONENTS,
     StatusAlertComponent,
+    CiOperationsComponent,
+    CiOperationsListElementComponent,
   ],
   entryComponents: [
     MixerProgresComponent,
@@ -110,13 +115,14 @@ const MODULES = [
     OsScanIntegrationIconComponent,
     BugComponent,
   ],
-  exports: [
-    MixerProgresComponent,
-    ConfigureInfraComponent,
-    ConfigureWebComponent,
-    CiresultColorComponent,
-    BugComponent,
-    StatusAlertComponent,
-  ],
+    exports: [
+        MixerProgresComponent,
+        ConfigureInfraComponent,
+        ConfigureWebComponent,
+        CiresultColorComponent,
+        BugComponent,
+        StatusAlertComponent,
+        CiOperationsComponent,
+    ],
 })
 export class ExtraComponentsModule { }

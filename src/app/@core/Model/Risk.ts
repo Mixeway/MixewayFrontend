@@ -7,6 +7,8 @@ export class Risk {
   webAppRisk: number;
   codeRepoNumber: number;
   codeRisk: number;
+  openSourceLibs: number;
+  openSourceRisk: number;
   audit: number;
   auditRisk: number;
 }

@@ -1,0 +1,61 @@
+<nb-flip-card>
+  <nb-card-front>
+    <nb-card [accent]="resultBadge">
+      <nb-card-body>
+        <div class="row">
+          <div class="status">
+            <div class="status-box">
+              <b>Status</b><br/>
+              <span size="small" [class]="'badge badge-' + resultBadge">{{result}}</span>
+            </div>
+          </div>
+          <div class="status-details">
+            <table>
+              <tr>
+                <td class="info"><b>App:</b></td>
+                <td><span class="badge badge-info">{{this.ciOperation.codeProject.name}}</span></td>
+              </tr>
+              <tr>
+                <td class="info"><b>Branch:</b></td>
+                <td><span class="badge badge-info">{{this.ciOperation.codeProject.branch}}</span></td>
+              </tr>
+              <tr>
+                <td class="info"><b>CommitId:</b></td>
+                <td [nbTooltip]="ciOperation.commitId"><span class="badge badge-info">{{ ciOperation.commitId.substr(0,10)}}...</span></td>
+              </tr>
+              <tr>
+                <td class="info"><b>Date:</b></td>
+                <td><span class="badge badge-info">{{this.ciOperation.inserted}}</span></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </nb-card-front>
+  <nb-card-back>
+    <nb-card [accent]="resultBadge">
+      <nb-card-body>
+        <table class="ci-table">
+          <tr>
+            <td><img [src]="'../../../../assets/images/' + (ciOperation.sastScan ? 'ok':'notok') + '.png'"></td>
+            <td>SAST</td>
+            <td><span class="badge badge-danger">{{ciOperation.sastCrit}}</span>&nbsp; &nbsp;&nbsp;<span class="badge badge-warning">{{ciOperation.sastHigh}}</span> </td>
+          </tr>
+          <tr>
+            <td><img [src]="'../../../../assets/images/' + (ciOperation.openSourceScan ? 'ok':'notok') + '.png'"></td>
+            <td>OpenSource</td>
+            <td><span class="badge badge-danger">{{ciOperation.openSourceCrit}}</span>&nbsp;&nbsp;&nbsp; <span class="badge badge-warning">{{ciOperation.openSourceHigh}}</span> </td>
+          </tr>
+          <tr>
+            <td><img [src]="'../../../../assets/images/' + (ciOperation.imageScan ? 'ok':'notok') + '.png'"></td>
+            <td>Image</td>
+            <td><span class="badge badge-danger">{{ciOperation.imageCrit}}</span>&nbsp;&nbsp;&nbsp; <span class="badge badge-warning">{{ciOperation.imageHigh}}</span> </td>
+          </tr>
+        </table>
+      </nb-card-body>
+    </nb-card>
+  </nb-card-back>
+</nb-flip-card>
+
+

@@ -201,6 +201,7 @@ export class CodeConfigureTabComponent implements OnInit {
           this.toast.showToast('success', this.constants.PROJECT_OPERATION_SUCCESS,
             this.constants.PROJECT_OPERATION_GROUP_SAVE_SUCCESS);
           this.loadCodeGroups();
+          this.loadCodes();
           ref.close();
         },
         () => {
@@ -211,7 +212,6 @@ export class CodeConfigureTabComponent implements OnInit {
       this.toast.showToast('danger', this.constants.PROJECT_OPERATION_FAILURE,
         this.constants.PROJECT_OPERATION_FAILURES_EXTENDED);
     }
-    this.loadCodes();
   }
   saveCodeProject(codeProject, ref) {
     if (this.codeProjectForm.valid) {

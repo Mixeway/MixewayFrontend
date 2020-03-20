@@ -1,0 +1,46 @@
+nb-card {
+  padding: 0px;
+  margin: 0px auto;
+}
+nb-card-body {
+  padding: 7px;
+}
+.status {
+  position: relative;
+  margin-left: 25px;
+  margin-right: 50px;
+  vertical-align: middle !important;
+  height: 100%;
+}
+.status-box {
+  position: absolute;
+  top: 50%;
+  transform: translate(0,-50%);
+  text-align: center;
+}
+.status-details {
+  margin: 20px;
+  display: inline-table;
+  text-align: left;
+}
+.ci-table {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.info{
+  text-align: left;
+}
+td{
+  padding-bottom: 3px;
+  padding-top: 3px;
+  text-align: center;
+}
+
+
+:host ::ng-deep .flip-button {
+  top: 0 !important;
+}
+img {
+  height: 30px;
+}

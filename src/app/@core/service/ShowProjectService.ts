@@ -23,6 +23,8 @@ import {Router} from '@angular/router';
 import {SoftVuln} from '../Model/SoftVuln';
 import {SastProject} from '../Model/SastProject';
 import {ScannerType} from '../Model/Scanner';
+import {CiResult} from '../Model/CiResult';
+import {CiOperations} from '../Model/CiOperations';
 
 @Injectable({
   providedIn: 'root',
@@ -401,6 +403,13 @@ export class ShowProjectService {
   disableInfraAutoScan(id: number) {
     return this.http.put<string>(environment.backend + this.showProjectPath + '/' + id + '/asset/infraautoscan/disable',
       null)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  getCiForProject(id: number): Observable<CiOperations[]> {
+    return this.http.get<CiOperations[]>(environment.backend + '/cicd/data/project/' + id)
       .pipe(
         retry(1),
         catchError(this.errorHandl),
