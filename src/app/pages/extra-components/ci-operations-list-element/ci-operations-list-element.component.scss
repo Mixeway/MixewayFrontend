@@ -5,28 +5,32 @@ nb-card {
 nb-card-body {
   padding: 7px;
 }
+.status-container {
+  display: table;
+  width: 100%;
+}
 .status {
   position: relative;
+  display: table-cell;
+  width: 30%;
   margin-left: 25px;
   margin-right: 50px;
   vertical-align: middle !important;
   height: 100%;
 }
 .status-box {
-  position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
   text-align: center;
 }
 .status-details {
+  display: table-cell;
+  width: 70%;
   margin: 20px;
-  display: inline-table;
   text-align: left;
 }
 .ci-table {
-  width: 100%;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  width: 100% !important;
+  display: table;
+  margin: 20px auto;
 }
 .info {
   text-align: left;

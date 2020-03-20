@@ -2,7 +2,7 @@
   <nb-card-front>
     <nb-card [accent]="resultBadge">
       <nb-card-body>
-        <div class="row">
+        <div class="row status-container">
           <div class="status">
             <div class="status-box">
               <b>Status</b><br/>
@@ -10,7 +10,7 @@
             </div>
           </div>
           <div class="status-details">
-            <table>
+            <table class="ci-table">
               <tr>
                 <td class="info"><b>App:</b></td>
                 <td><span class="badge badge-info">{{this.ciOperation.codeProject.name}}</span></td>
