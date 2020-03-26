@@ -8,6 +8,7 @@ import {Scanner, ScannerType} from '../Model/Scanner';
 import {Router} from '@angular/router';
 import {Settings} from '../Model/Settings';
 import {Project} from '../Model/Project';
+import {WebAppScanStrategy} from '../Model/WebAppScanStrategy';
 
 @Injectable({
   providedIn: 'root',
@@ -201,6 +202,20 @@ export class AdminService {
   }
   getProjects(): Observable<Project[]> {
     return this.http.get<Project[]>(environment.backend + '/admin/projects')
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  editWebAppScanStrategy(form): Observable<string> {
+    return this.http.patch<string>(environment.backend + '/admin/settings/webappscanstrategy' , form)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  getWebAppScanStrategy(): Observable<WebAppScanStrategy> {
+    return this.http.get<WebAppScanStrategy>(environment.backend + '/admin/settings/webappscanstrategy')
       .pipe(
         retry(1),
         catchError(this.errorHandl),

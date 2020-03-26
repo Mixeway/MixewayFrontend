@@ -153,4 +153,15 @@ export class AdminConstants {
   ADMIN_EDIT_USER = 'Editing user';
   ADMIN_TOOLTIP_EDIT = 'Edit user';
   ADMIN_USERTABLE_PERMISSIONS = 'Role';
+  WEBAPP_STRATEGY_HEADER = 'Web Application Scanning Strategy';
+  WEBAPP_STRATEGY_DESCRIPTION = 'Scanning Stretegy describe order of how Vulnerability Scan should be performed.' +
+    'By Selecting any Scanner Type in fields bellow You just simply select on which scanner which type of scan will be executed.' +
+    'By Selecting none or any policy will pick first suitable scanner for WebApplication';
+  WEBAPP_STRATEGY_ANY = 'Any';
+  WEBAPP_STRATEGY_API = 'Pick first order for WebApp Scan originated from API calls (including CICD Jobs)';
+  SCANNER_TYPE_BURPEE = 'BurpEE';
+  WEBAPP_STRATEGY_SCHEDULED = 'Pick first order for WebApp Scan originated by Scheduler';
+  WEBAPP_STRATEGY_GUI = 'Pick first order for WebApp Scan originated by GUI (www of mixeway)';
+  OPERATION_SUCCESS_SET_STRATEGY = 'Web Application Scanning strategy edit completed';
+  SCANNER_CATEGORY_WEB = 'WEBAPP';
 }

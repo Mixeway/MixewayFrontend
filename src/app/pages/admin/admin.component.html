@@ -11,7 +11,7 @@
             <ngx-user></ngx-user>
           </nb-tab>
           <nb-tab [tabTitle]="constants.ADMIN_TAB_SCANNERS">
-            <ngx-scanner [proxies]="proxies" [routingDomains]="routingDomains"></ngx-scanner>
+            <ngx-scanner [proxies]="proxies" [routingDomains]="routingDomains" [scannerTypes]="scannerTypes"></ngx-scanner>
           </nb-tab>
           <nb-tab [tabTitle]="constants.ADMIN_TAB_SETTINGS">
             <ngx-auth [settings]="settings"></ngx-auth>
@@ -21,6 +21,7 @@
             <ngx-routing-domain [routingDomains]="routingDomains"></ngx-routing-domain>
             <ngx-proxy [proxies]="proxies"></ngx-proxy>
             <ngx-scheduler></ngx-scheduler>
+            <ngx-web-app-strategy [scannerType]="scannerTypes"></ngx-web-app-strategy>
           </nb-tab>
         </nb-tabset>
       </nb-card-body>
