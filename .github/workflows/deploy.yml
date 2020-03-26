@@ -23,7 +23,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_TOKEN }}
-          repository: mixeway/backend
+          repository: mixeway/frontend
           tags: 1.1.0
         env:
           NODE_OPTIONS: –-max_old_space_size=8192
