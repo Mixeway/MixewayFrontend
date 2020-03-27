@@ -105,8 +105,13 @@ export class ScannerComponent implements OnInit {
           this.loadScanners();
           ref.close();
         },
-        () => {
-          this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED);
+        (error) => {
+          if (error === '409') {
+            this.toast.showToast('danger', this.constants.TOAST_FAILED,
+              this.constants.OPERATION_FAILED_SCANNER_POLICY_CONFLICT);
+          } else {
+            this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED);
+          }
         });
     }
   }

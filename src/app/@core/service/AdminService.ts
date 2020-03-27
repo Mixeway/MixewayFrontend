@@ -77,8 +77,11 @@ export class AdminService {
     return this.http.put<string>(environment.backend + '/admin/scanner/add', scanner)
       .pipe(
         retry(1),
-        catchError(this.errorHandl),
-      );
+      ).catch((error: any) => {
+        if (error.status === 409) {
+          return throwError('409');
+        }
+      });
   }
   deleteScanner(id): Observable<string> {
     return this.http.delete<string>(environment.backend + '/admin/scanner/' + id)
@@ -211,8 +214,11 @@ export class AdminService {
     return this.http.patch<string>(environment.backend + '/admin/settings/webappscanstrategy' , form)
       .pipe(
         retry(1),
-        catchError(this.errorHandl),
-      );
+      ).catch((error: any) => {
+        if (error.status === 409) {
+          return throwError('409');
+        }
+      });
   }
   getWebAppScanStrategy(): Observable<WebAppScanStrategy> {
     return this.http.get<WebAppScanStrategy>(environment.backend + '/admin/settings/webappscanstrategy')

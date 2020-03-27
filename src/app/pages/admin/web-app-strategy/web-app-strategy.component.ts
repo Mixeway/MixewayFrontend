@@ -52,8 +52,13 @@ export class WebAppStrategyComponent implements OnInit {
       return this.adminService.editWebAppScanStrategy(this.webAppStrategyForm.value).subscribe(() => {
           this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_SET_STRATEGY);
         },
-        () => {
-          this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED);
+        (error) => {
+          if (error === '409') {
+            this.toast.showToast('danger', this.constants.TOAST_FAILED,
+              this.constants.OPERATION_FAILED_STRATEGY_DOUBLE_SCANNER);
+          } else {
+            this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED);
+          }
         });
     }
   }
