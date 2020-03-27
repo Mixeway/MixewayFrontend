@@ -1,5 +1,5 @@
 <button nbButton status="primary" size="large" (click)="playOnceScan()" [disabled]="rowData.running" nbTooltip="Uruchom skan dla wybranej aplikacji"
-          [nbSpinner]="rowData.running" nbSpinnerStatus="primary" nbSpinnerSize="medium" nbSpinnerMessage="">
+          [nbSpinner]="rowData.running || rowData.inQueue" nbSpinnerStatus="primary" nbSpinnerSize="medium" nbSpinnerMessage="">
   <nb-icon icon="play-circle-outline" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
 </button>&nbsp;
 <button nbButton status="danger" size="medium" (click)="deleteWebApp()"  nbTooltip="Usuń wybraną aplikacje">
