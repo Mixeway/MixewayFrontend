@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, TemplateRef} from '@angular/core';
 import {RoutingDomain} from '../../../@core/Model/RoutingDomain';
 import {Proxies} from '../../../@core/Model/Proxies';
-import {Scanner} from '../../../@core/Model/Scanner';
+import {Scanner, ScannerType} from '../../../@core/Model/Scanner';
 import {AdminConstants} from '../../../@core/constants/AdminConstants';
 import {NbDialogService} from '@nebular/theme';
 import {Toast} from '../../../@core/utils/Toast';
@@ -20,7 +20,7 @@ export class ScannerComponent implements OnInit {
   showFortifySCA: boolean = false;
   showAcunetix: boolean = false;
   showNessus: boolean = false;
-  scannerTypes: any;
+  @Input() scannerTypes: ScannerType[];
   auth: boolean;
   index = 1;
   role: string;
@@ -62,7 +62,6 @@ export class ScannerComponent implements OnInit {
       rfwPassword:  ['', Validators.required],
       rfwScannerIp:  ['', Validators.required],
     });
-    this.loadScannerTypes();
     this.loadScanners();
   }
 
@@ -80,11 +79,7 @@ export class ScannerComponent implements OnInit {
     this.showNessus = scannerType[0].authsecrettoken;
     this.basicAuth = scannerType[0].authpassword;
   }
-  loadScannerTypes() {
-    return this.adminService.getScannerTypes().subscribe(data => {
-      this.scannerTypes = data;
-    });
-  }
+
   loadScanners() {
     return this.adminService.getScanners().subscribe(data => {
       this.scanners = data;
@@ -110,8 +105,13 @@ export class ScannerComponent implements OnInit {
           this.loadScanners();
           ref.close();
         },
-        () => {
-          this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED);
+        (error) => {
+          if (error === '409') {
+            this.toast.showToast('danger', this.constants.TOAST_FAILED,
+              this.constants.OPERATION_FAILED_SCANNER_POLICY_CONFLICT);
+          } else {
+            this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED);
+          }
         });
     }
   }

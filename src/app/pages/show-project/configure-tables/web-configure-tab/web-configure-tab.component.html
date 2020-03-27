@@ -45,8 +45,14 @@
         <div class="form-group">
           <label for="public" class="label">{{constants.PROJECT_WEBAPP_PUBLIC_FORM}}</label>
           <nb-select id="public" selected="1" formControlName="scanPublic">
-            <nb-option value="1">Tak</nb-option>
-            <nb-option value="2">Nie</nb-option>
+            <nb-option value="1">Yes</nb-option>
+            <nb-option value="2">No</nb-option>
+          </nb-select>
+        </div>
+        <div class="form-group">
+          <label for="routingDomainForAsset" class="label">{{constants.PROJECT_INFRA_TABLE_ROUTINGDOMAIN}}</label>
+          <nb-select id="routingDomainForAsset" formControlName="routingDomainForAsset" [fullWidth]="true">
+            <nb-option *ngFor="let rd of routingDomains" [value]="rd.id">{{ rd.name }}</nb-option>
           </nb-select>
         </div>
         <button type="submit" nbButton status="danger">{{constants.PROJECT_SAVE}}</button>

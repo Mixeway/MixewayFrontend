@@ -18,4 +18,5 @@ export class ScannerType {
   authpassword: boolean;
   authcloudctrltoken: boolean;
   authapikey: boolean;
+  category: string;
 }

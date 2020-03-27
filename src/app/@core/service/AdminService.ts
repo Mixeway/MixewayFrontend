@@ -8,6 +8,7 @@ import {Scanner, ScannerType} from '../Model/Scanner';
 import {Router} from '@angular/router';
 import {Settings} from '../Model/Settings';
 import {Project} from '../Model/Project';
+import {WebAppScanStrategy} from '../Model/WebAppScanStrategy';
 
 @Injectable({
   providedIn: 'root',
@@ -76,8 +77,11 @@ export class AdminService {
     return this.http.put<string>(environment.backend + '/admin/scanner/add', scanner)
       .pipe(
         retry(1),
-        catchError(this.errorHandl),
-      );
+      ).catch((error: any) => {
+        if (error.status === 409) {
+          return throwError('409');
+        }
+      });
   }
   deleteScanner(id): Observable<string> {
     return this.http.delete<string>(environment.backend + '/admin/scanner/' + id)
@@ -201,6 +205,23 @@ export class AdminService {
   }
   getProjects(): Observable<Project[]> {
     return this.http.get<Project[]>(environment.backend + '/admin/projects')
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  editWebAppScanStrategy(form): Observable<string> {
+    return this.http.patch<string>(environment.backend + '/admin/settings/webappscanstrategy' , form)
+      .pipe(
+        retry(1),
+      ).catch((error: any) => {
+        if (error.status === 409) {
+          return throwError('409');
+        }
+      });
+  }
+  getWebAppScanStrategy(): Observable<WebAppScanStrategy> {
+    return this.http.get<WebAppScanStrategy>(environment.backend + '/admin/settings/webappscanstrategy')
       .pipe(
         retry(1),
         catchError(this.errorHandl),

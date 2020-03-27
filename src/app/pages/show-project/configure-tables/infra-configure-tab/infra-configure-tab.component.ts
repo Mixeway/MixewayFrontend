@@ -31,7 +31,7 @@ export class InfraConfigureTabComponent implements OnInit {
   settings: any;
   infraScanRunSelectedButton: boolean = false;
   iaasApiAdd: boolean = false;
-  routingDomains: RoutingDomain[];
+  @Input() routingDomains: RoutingDomain[];
   _entityId: number;
   iaasApis: IaasApi;
   assets: Assets;
@@ -54,7 +54,6 @@ export class InfraConfigureTabComponent implements OnInit {
       this.router.navigate(['/pages/dashboard']);
     }
     this.setTableSettings();
-    this.loadRoutingDomains();
     this.loadAssets();
     this.loadIaasApi();
     this.iaasApiForm = this.formBuilder.group({
@@ -79,11 +78,7 @@ export class InfraConfigureTabComponent implements OnInit {
     });
   }
 
-  loadRoutingDomains() {
-    return this.showProjectService.getRoutingDomains().subscribe(data => {
-      this.routingDomains = data;
-    });
-  }
+
 
   loadIaasApi() {
     return this.showProjectService.getIaasApi(this._entityId).subscribe(data => {

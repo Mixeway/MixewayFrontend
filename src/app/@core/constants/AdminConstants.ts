@@ -153,4 +153,19 @@ export class AdminConstants {
   ADMIN_EDIT_USER = 'Editing user';
   ADMIN_TOOLTIP_EDIT = 'Edit user';
   ADMIN_USERTABLE_PERMISSIONS = 'Role';
+  WEBAPP_STRATEGY_HEADER = 'Web Application Scanning Strategy';
+  WEBAPP_STRATEGY_DESCRIPTION = '(strategies are set when You would like to surpass RoutingDomain limits. For' +
+    'example: When You have WebApplications of multiple routing domians, registering Scan policy will pick scanner of given type' +
+    'to scan them without RoutingDomain constraint. Having no policy (any) will pick scanner by RoutingDomain match.)';
+  WEBAPP_STRATEGY_ANY = 'Any';
+  WEBAPP_STRATEGY_API = 'Pick first order for WebApp Scan originated from API calls (including CICD Jobs)';
+  SCANNER_TYPE_BURPEE = 'BurpEE';
+  WEBAPP_STRATEGY_SCHEDULED = 'Pick first order for WebApp Scan originated by Scheduler';
+  WEBAPP_STRATEGY_GUI = 'Pick first order for WebApp Scan originated by GUI (www of mixeway)';
+  OPERATION_SUCCESS_SET_STRATEGY = 'Web Application Scanning strategy edit completed';
+  SCANNER_CATEGORY_WEB = 'WEBAPP';
+  OPERATION_FAILED_STRATEGY_DOUBLE_SCANNER = 'There are more then 1 scanners of given type registered. WebApp Scan policy can be ' +
+    'set only for one instance of given scanner. Read docs for more information.';
+  OPERATION_FAILED_SCANNER_POLICY_CONFLICT = 'There is policy set for given scanner. With scan policy registered there is limit of' +
+    '1 scanner of given type. Read docs for more information.';
 }

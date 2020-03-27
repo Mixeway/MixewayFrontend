@@ -1,0 +1,34 @@
+<div class="row">
+  <nb-card>
+    <nb-card-header>
+      {{ constants.WEBAPP_STRATEGY_HEADER}} <br/>
+      <small>{{constants.WEBAPP_STRATEGY_DESCRIPTION}}</small>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="webAppStrategyForm" (ngSubmit)="saveStrategy()" >
+        <div class="form-group">
+          <label for="apiStrategy" class="label">{{constants.WEBAPP_STRATEGY_API}}</label>
+          <nb-select id="apiStrategy" fullWidth formControlName="apiStrategy">
+            <nb-option value="">{{constants.WEBAPP_STRATEGY_ANY}}</nb-option>
+            <nb-option *ngFor="let scanner of webAppScannerTypes" [value]="scanner.name">{{ scanner.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="form-group">
+          <label for="schedulerStrategy" class="label">{{constants.WEBAPP_STRATEGY_SCHEDULED}}</label>
+          <nb-select id="schedulerStrategy" fullWidth formControlName="scheduledStrategy">
+            <nb-option value="">{{constants.WEBAPP_STRATEGY_ANY}}</nb-option>
+            <nb-option *ngFor="let scanner of webAppScannerTypes" [value]="scanner.name">{{ scanner.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="form-group">
+          <label for="guiStrategy" class="label">{{constants.WEBAPP_STRATEGY_GUI}}</label>
+          <nb-select id="guiStrategy" fullWidth formControlName="guiStrategy">
+            <nb-option value="">{{constants.WEBAPP_STRATEGY_ANY}}</nb-option>
+            <nb-option *ngFor="let scanner of webAppScannerTypes" [value]="scanner.name">{{ scanner.name }}</nb-option>
+          </nb-select>
+        </div>
+        <button type="submit" nbButton status="danger">{{constants.ADMIN_FORM_SAVE}}</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</div>

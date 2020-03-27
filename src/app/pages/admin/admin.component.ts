@@ -10,6 +10,7 @@ import {RoutingDomain} from '../../@core/Model/RoutingDomain';
 import {Proxies} from '../../@core/Model/Proxies';
 import {AdminConstants} from '../../@core/constants/AdminConstants';
 import {Settings} from '../../@core/Model/Settings';
+import {ScannerType} from '../../@core/Model/Scanner';
 
 @Component({
   selector: 'ngx-admin',
@@ -25,7 +26,7 @@ export class AdminComponent implements OnInit {
   settings: Settings;
   isAdmin: boolean = false;
   constants: AdminConstants = new AdminConstants();
-
+  scannerTypes: ScannerType[];
 
   constructor(private dialogService: NbDialogService,
               private adminService: AdminService, private router: Router,
@@ -38,6 +39,7 @@ export class AdminComponent implements OnInit {
     }
     this.loadRoutingService();
     this.loadProxies();
+    this.loadScannerTypes();
   }
 
   ngOnInit() {
@@ -46,6 +48,11 @@ export class AdminComponent implements OnInit {
   loadProxies() {
     return this.showProjectService.getProxies().subscribe(data => {
       this.proxies = data;
+    });
+  }
+  loadScannerTypes() {
+    return this.adminService.getScannerTypes().subscribe(data => {
+      this.scannerTypes = data;
     });
   }
   openCreateApiDialog(dialog: TemplateRef<any>, scanner: any) {

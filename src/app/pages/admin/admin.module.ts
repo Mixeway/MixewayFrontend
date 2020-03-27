@@ -23,6 +23,7 @@ import { ApikeyComponent } from './apikey/apikey.component';
 import { ScannerComponent } from './scanner/scanner.component';
 import { UserComponent } from './user/user.component';
 import {MultiSelectModule} from '@syncfusion/ej2-angular-dropdowns';
+import { WebAppStrategyComponent } from './web-app-strategy/web-app-strategy.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {MultiSelectModule} from '@syncfusion/ej2-angular-dropdowns';
     ApikeyComponent,
     ScannerComponent,
     UserComponent,
+    WebAppStrategyComponent,
   ],
     imports: [
         CommonModule,

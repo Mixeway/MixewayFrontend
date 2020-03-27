@@ -11,4 +11,5 @@ export class WebApp {
   risk: number;
   running: boolean;
   project: Project;
+  inQueue: boolean;
 }
