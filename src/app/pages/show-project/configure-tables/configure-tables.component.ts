@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {LocalDataSource} from 'ng2-smart-table';
 import {ProjectConstants} from '../../../@core/constants/ProjectConstants';
 import {ScannerType} from '../../../@core/Model/Scanner';
+import {ShowProjectService} from '../../../@core/service/ShowProjectService';
+import {RoutingDomain} from '../../../@core/Model/RoutingDomain';
 
 @Component({
   selector: 'ngx-configure-tables',
@@ -13,7 +15,14 @@ export class ConfigureTablesComponent implements OnInit {
   @Input() scannerTypes: ScannerType[];
   source: LocalDataSource = new LocalDataSource();
   constants: ProjectConstants = new ProjectConstants();
-  constructor() {
+  routingDomains: RoutingDomain[];
+  constructor(private showProjectService: ShowProjectService) {
+    this.loadRoutingDomains();
+  }
+  loadRoutingDomains() {
+    return this.showProjectService.getRoutingDomains().subscribe(data => {
+      this.routingDomains = data;
+    });
   }
   ngOnInit() {
   }

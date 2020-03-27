@@ -44,6 +44,12 @@ export class AuthComponent implements OnInit {
       });
   }
   ngOnInit() {
+    if (this.settings) {
+      this.authForm.patchValue({
+        passwordAuth: this.settings.passwordAuth,
+        certificateAuth: this.settings.certificateAuth,
+      });
+    }
   }
 
 }

@@ -2,10 +2,10 @@
   <nb-card>
     <nb-tabset fullWidth>
       <nb-tab [tabTitle]="constants.PROJECT_CARD_INFRAP_TITLE">
-        <ngx-infra-configure-tab *ngIf="scannerTypes" [scannerTypes]="scannerTypes"></ngx-infra-configure-tab>
+        <ngx-infra-configure-tab *ngIf="scannerTypes" [scannerTypes]="scannerTypes" [routingDomains]="routingDomains"></ngx-infra-configure-tab>
       </nb-tab>
       <nb-tab [tabTitle]="constants.PROJECT_CARD_WEBAPP_TITLE">
-        <ngx-web-configure-tab [scannerTypes]="scannerTypes"></ngx-web-configure-tab>
+        <ngx-web-configure-tab [scannerTypes]="scannerTypes" [routingDomains]="routingDomains"></ngx-web-configure-tab>
       </nb-tab>
       <nb-tab [tabTitle]="constants.PROJECT_CARD_CODE_TEXT">
         <ngx-code-configure-tab [scannerTypes]="scannerTypes"></ngx-code-configure-tab>

@@ -10,6 +10,7 @@ import {ConfigureWebComponent} from '../../../extra-components/configure-web/con
 import {Toast} from '../../../../@core/utils/Toast';
 import {ProjectConstants} from '../../../../@core/constants/ProjectConstants';
 import {ScannerType} from '../../../../@core/Model/Scanner';
+import {RoutingDomain} from '../../../../@core/Model/RoutingDomain';
 @Component({
   selector: 'ngx-web-configure-tab',
   templateUrl: './web-configure-tab.component.html',
@@ -20,6 +21,7 @@ export class WebConfigureTabComponent implements OnInit {
   @ViewChild('addWebApp')
   addDialog: TemplateRef<any>;
   @Input() scannerTypes: ScannerType[];
+  @Input() routingDomains: RoutingDomain[];
   settings: any;
   webScanRunSelectedButton: boolean = true;
   webAutomaticScanButton: boolean = true;
@@ -48,6 +50,7 @@ export class WebConfigureTabComponent implements OnInit {
       webAppUrl:  ['', Validators.required],
       webAppHeaders: '',
       scanPublic:  ['', Validators.required],
+      routingDomainForAsset: 0,
     });
   }
   loadWebApps() {
