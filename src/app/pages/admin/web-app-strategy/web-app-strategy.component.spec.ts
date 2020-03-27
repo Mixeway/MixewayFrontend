@@ -8,7 +8,7 @@ describe('WebAppStrategyComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WebAppStrategyComponent ]
+      declarations: [ WebAppStrategyComponent ],
     })
     .compileComponents();
   }));
