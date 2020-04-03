@@ -50,7 +50,7 @@ export class WebConfigureTabComponent implements OnInit {
       webAppUrl:  ['', Validators.required],
       webAppHeaders: '',
       scanPublic:  ['', Validators.required],
-      routingDomainForAsset: 0,
+      routingDomainForAsset: [0, Validators.min(1)],
     });
   }
   loadWebApps() {
@@ -108,9 +108,12 @@ export class WebConfigureTabComponent implements OnInit {
           title: this.constants.PROJECT_WEBAPP_URL,
           type: 'string',
         },
-        publicScan: {
-          title: this.constants.PROJECT_WEBAPP_PUBLIC,
-          type: 'boolean',
+        routingDomain: {
+          title: this.constants.PROJECT_WEBAPP_ROUTINGDOMAIN,
+          valuePrepareFunction: (cell, row) => {
+            return (row.routingDomain ? row.routingDomain.name : 'no domain');
+          },
+          type: 'string',
         },
         risk: {
           title: this.constants.PROJECT_WEBAPP_RISK,

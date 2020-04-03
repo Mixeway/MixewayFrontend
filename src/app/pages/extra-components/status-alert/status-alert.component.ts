@@ -28,9 +28,7 @@ export class StatusAlertComponent implements OnInit {
     switch (this.statusFor) {
       case this.constants.SCANNER_INFRA: {
         if (this.scannerTypes.filter(st => (
-          st.name === this.constants.SCANNER_TYPE_NESSUS ||
-          st.name === this.constants.SCANNER_TYPE_OPENVAS ||
-          st.name === this.constants.SCANNER_TYPE_OPENVAS_SOCKET)).length > 0) {
+          st.category === this.constants.SCANNER_TYPE_CATEGORY_INFRA)).length > 0) {
           this.status = 'success';
           if (this.dashboard) {
             this.statusText = 'Network scanner: configured';
@@ -53,7 +51,7 @@ export class StatusAlertComponent implements OnInit {
       }
       case this.constants.SCANNER_WEB: {
         if (this.scannerTypes.filter(st => (
-          st.name === this.constants.SCANNER_TYPE_ACUNETIX)).length > 0) {
+          st.category === this.constants.SCANNER_TYPE_CATEGORY_WEB)).length > 0) {
           this.status = 'success';
           if (this.dashboard) {
             this.statusText = 'WebApplication scanner: configured';
@@ -76,9 +74,7 @@ export class StatusAlertComponent implements OnInit {
       }
       case this.constants.SCANNER_CODE: {
         if (this.scannerTypes.filter(st => (
-          st.name === this.constants.SCANNER_TYPE_CHECKMARX ||
-          st.name === this.constants.SCANNER_TYPE_FORTIFYSCA ||
-          st.name === this.constants.SCANNER_TYPE_FORTIFYSSC)).length > 0) {
+          st.category === this.constants.SCANNER_TYPE_CATEGORY_CODE)).length > 0) {
           this.status = 'success';
           if (this.dashboard) {
             this.statusText = 'SAST scanner: configured';

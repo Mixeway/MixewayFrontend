@@ -1,4 +1,5 @@
 import {Project} from './Asset';
+import {RoutingDomain} from './RoutingDomain';
 
 export class WebApps {
   webAppAutoScan: boolean;
@@ -12,4 +13,5 @@ export class WebApp {
   running: boolean;
   project: Project;
   inQueue: boolean;
+  routingDomain: RoutingDomain;
 }
