@@ -35,12 +35,8 @@ export class ShowProjectService {
     return this.http.get<Risk>(environment.backend + this.showProjectPath + '/' + id + '/risk')
       .pipe(
         retry(1),
-      ).catch((error: any) => {
-        if (error.status === 403) {
-          this.redirectToDashboard();
-          return throwError('403');
-        }
-      });
+        catchError(this.errorHandl),
+      );
   }
   getIaasApi(id): Observable<IaasApi> {
     return this.http.get<IaasApi>(environment.backend + this.showProjectPath + '/' + id + '/iaasapi')
@@ -157,15 +153,10 @@ export class ShowProjectService {
   }
 
   errorHandl(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = `${error.status}`;
+    if (error.status === 403) {
+      window.location.href = '/pages/dashboard';
     }
-    return throwError(errorMessage);
+    return throwError(error.status);
   }
   putIaasForProject(id, body): Observable<string> {
     return this.http.put<string>(environment.backend + this.showProjectPath + '/' + id + '/add/iaasapi', body)

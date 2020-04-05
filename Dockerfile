@@ -1,7 +1,7 @@
 ### STAGE 1: Build ###
 
 # We label our stage as ‘builder’
-FROM node:13 as builder
+FROM node:latest as builder
 
 # build-time variables
 # prod|sandbox its value will be come from outside
@@ -10,10 +10,9 @@ ARG HTTPS_PROXY=""
 # Move our files into directory name "app"
 WORKDIR /app
 COPY package.json package-lock.json  /app/
-RUN npm install -g
 RUN cd /app && npm install
 COPY .  /app
-RUN npm i node-sass@latest
+
 # Build with $env variable from outside
 RUN cd /app && npm run build:prod
 

@@ -49,7 +49,7 @@
 h3 {
   text-align: center;
 }
-:host /deep/ ng2-smart-table table tr td {
+:host ::ng-deep ng2-smart-table table tr td {
   font-size:0.9em;
   word-break: break-all;
 }

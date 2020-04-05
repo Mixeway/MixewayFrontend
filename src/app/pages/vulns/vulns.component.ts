@@ -13,6 +13,7 @@ export class VulnsComponent implements OnInit, AfterViewInit {
   showingInfra: boolean = true;
   showingWebApps: boolean = false;
   showingCodes: boolean = false;
+  showingOpenSource: boolean = false;
   themeSubscription: any;
   optionsVulns: any;
   optionsTargets: any;
@@ -60,6 +61,18 @@ export class VulnsComponent implements OnInit, AfterViewInit {
       this.drawTargetsChart();
     });
   }
+  loadOpenSourceVulns() {
+    return this.vulnsService.getOpenSourceVulns().subscribe(data => {
+      this.targets = data;
+      this.drawVulnsChart();
+    });
+  }
+  loadOpenSourceVulnsForCodeProject() {
+    return this.vulnsService.getOpenSourceVulnsForCodeProject().subscribe(data => {
+      this.vulns = data;
+      this.drawTargetsChart();
+    });
+  }
 
   ngOnInit() {
   }
@@ -68,6 +81,7 @@ export class VulnsComponent implements OnInit, AfterViewInit {
     this.showingInfra = true;
     this.showingCodes = false;
     this.showingWebApps = false;
+    this.showingOpenSource = false;
     this.loadInfraTargets();
     this.loadInfraVulns();
   }
@@ -76,6 +90,7 @@ export class VulnsComponent implements OnInit, AfterViewInit {
     this.showingInfra = false;
     this.showingCodes = false;
     this.showingWebApps = true;
+    this.showingOpenSource = false;
     this.loadWebApps();
     this.loadWebVulns();
   }
@@ -84,8 +99,17 @@ export class VulnsComponent implements OnInit, AfterViewInit {
     this.showingInfra = false;
     this.showingCodes = true;
     this.showingWebApps = false;
+    this.showingOpenSource = false;
     this.loadCodeTargets();
     this.loadCodeVulns();
+  }
+  showOpenSource() {
+    this.showingInfra = false;
+    this.showingCodes = false;
+    this.showingWebApps = false;
+    this.showingOpenSource = true;
+    this.loadOpenSourceVulns();
+    this.loadOpenSourceVulnsForCodeProject();
   }
   ngAfterViewInit() {
   }
@@ -233,4 +257,6 @@ export class VulnsComponent implements OnInit, AfterViewInit {
       };
     });
   }
+
+
 }

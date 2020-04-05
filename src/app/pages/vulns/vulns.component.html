@@ -12,6 +12,10 @@
       <nb-icon icon="code-outline" [nbTooltip]="constants.VULNS_BUTTON_TOOLTIP_CODE" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
       {{constants.VULNS_BUTTON_CODE}}
     </button>
+    <button status="primary" nbButton hero (click)="showOpenSource()" [disabled]="showingOpenSource" >
+      <nb-icon icon="github-outline" [nbTooltip]="constants.VULNS_BUTTON_TOOLTIP_OPENSOURCE" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+      {{constants.VULNS_BUTTON_OPENSOURCE}}
+    </button>
   </div>
 </div>
 <br/>

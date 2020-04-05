@@ -6,7 +6,7 @@ img {
   height: 40px;
 }
 
-:host /deep/ .badge{ text-align: center; }
+:host ::ng-deep .badge { text-align: center; }
 .descriptionCard {
   white-space: pre-wrap;
 }

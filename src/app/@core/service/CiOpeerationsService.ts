@@ -26,12 +26,8 @@ export class CiOpeerationsService {
     return this.http.get<CiResult>(environment.backend + '/cicd/result')
       .pipe(
         retry(1),
-      ).catch((error: any) => {
-        if (error.status === 403) {
-          this.redirectToDashboard();
-          return throwError('403');
-        }
-      });
+        catchError(this.errorHandl),
+      );
   }
 
   getTrends(): Observable<AllVulnTrendData[]> {
@@ -43,15 +39,10 @@ export class CiOpeerationsService {
   }
 
   errorHandl(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    if (error.status === 403) {
+      window.location.href = '/pages/dashboard';
     }
-    return throwError(errorMessage);
+    return throwError(error.status);
   }
   private redirectToDashboard() {
     this.router.navigate(['/auth/login']);

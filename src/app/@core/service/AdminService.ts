@@ -31,12 +31,8 @@ export class AdminService {
     return this.http.get<User[]>(environment.backend + '/admin/users', {observe:  'response'} )
       .pipe(
         retry(1),
-      ).catch((error: any) => {
-        if (error.status === 403) {
-          this.redirectToDashboard();
-          return throwError('403');
-        }
-      });
+        catchError(this.errorHandl),
+      );
   }
   getScanners(): Observable<Scanner[]> {
     return this.http.get<Scanner[]>(environment.backend + '/admin/scanners')
@@ -77,11 +73,8 @@ export class AdminService {
     return this.http.put<string>(environment.backend + '/admin/scanner/add', scanner)
       .pipe(
         retry(1),
-      ).catch((error: any) => {
-        if (error.status === 409) {
-          return throwError('409');
-        }
-      });
+        catchError(this.errorHandl),
+      );
   }
   deleteScanner(id): Observable<string> {
     return this.http.delete<string>(environment.backend + '/admin/scanner/' + id)
@@ -214,11 +207,8 @@ export class AdminService {
     return this.http.patch<string>(environment.backend + '/admin/settings/webappscanstrategy' , form)
       .pipe(
         retry(1),
-      ).catch((error: any) => {
-        if (error.status === 409) {
-          return throwError('409');
-        }
-      });
+        catchError(this.errorHandl),
+      );
   }
   getWebAppScanStrategy(): Observable<WebAppScanStrategy> {
     return this.http.get<WebAppScanStrategy>(environment.backend + '/admin/settings/webappscanstrategy')
@@ -232,15 +222,10 @@ export class AdminService {
     return throwError(null);
   }
   errorHandl(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = error.error.status;
+    if (error.status === 403) {
+      window.location.href = '/pages/dashboard';
     }
-    return throwError(errorMessage);
+    return throwError(error.status);
   }
 
   private redirectToDashboard() {
