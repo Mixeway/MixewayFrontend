@@ -134,7 +134,6 @@ export class WebConfigureTabComponent implements OnInit {
   }
   saveWebApp(webApp, ref) {
     if (this.webAppForm.valid) {
-      alert(JSON.stringify(this.webAppForm.value));
       this.webAppForm.value.scanPublic = parseInt(this.webAppForm.value.scanPublic, 10) === 1;
       return this.showProjectService.saveWebApp(this._entityId, this.webAppForm.value).subscribe(() => {
           this.toast.showToast('success', this.constants.PROJECT_OPERATION_SUCCESS,
