@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-6 offset-md-3">
+  <div class="col-md-12 offset-md-3">
     <button status="primary" nbButton hero (click)="showInfra()" [disabled]="showingInfra">
       <nb-icon icon="hard-drive-outline" [nbTooltip]="constants.VULNS_BUTTON_TOOLTIP_INFRA" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
       {{constants.VULNS_BUTTON_INFRA}}
@@ -11,7 +11,7 @@
     <button status="primary" nbButton hero (click)="showCode()" [disabled]="showingCodes" >
       <nb-icon icon="code-outline" [nbTooltip]="constants.VULNS_BUTTON_TOOLTIP_CODE" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
       {{constants.VULNS_BUTTON_CODE}}
-    </button>
+    </button>&nbsp;
     <button status="primary" nbButton hero (click)="showOpenSource()" [disabled]="showingOpenSource" >
       <nb-icon icon="github-outline" [nbTooltip]="constants.VULNS_BUTTON_TOOLTIP_OPENSOURCE" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
       {{constants.VULNS_BUTTON_OPENSOURCE}}
