@@ -7,7 +7,6 @@ import { environment } from '../../../environments/environment';
 import {AllSourceDataChart} from '../Model/AllSourceDataChart';
 import {Project} from '../Model/Project';
 import {SessionOwner} from '../Model/SessionOwner';
-import {Router} from '@angular/router';
 // @ts-ignore
 import {SearchResponse} from '../Model/SearchResponse';
 
@@ -18,7 +17,7 @@ import {SearchResponse} from '../Model/SearchResponse';
 export class DashboardService {
 
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient) {
   }
 
   // Http Headers
@@ -39,12 +38,8 @@ export class DashboardService {
     return this.http.get<SessionOwner>(environment.backend + '/dashboard/userinfo')
       .pipe(
         retry(1),
-      ).catch((error: any) => {
-        if (error.status === 403) {
-          this.redirectToDashboard();
-          return throwError('403');
-        }
-      });
+        catchError(this.errorHandl),
+      );
   }
   getTrendData(): Observable<AllVulnTrendData[]> {
     return this.http.get<AllVulnTrendData[]>(environment.backend + '/dashboard/getvulntrenddata')
@@ -93,17 +88,9 @@ export class DashboardService {
     return throwError(null);
   }
   errorHandl(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    if (error.status === 403) {
+      window.location.href = '/auth/login';
     }
-    return throwError(errorMessage);
-  }
-  private redirectToDashboard() {
-    this.router.navigate(['/auth/login']);
+    return throwError(error.status);
   }
 }

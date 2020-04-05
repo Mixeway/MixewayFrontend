@@ -6,13 +6,12 @@ import {catchError, retry} from 'rxjs/operators';
 import {CiOperations} from '../Model/CiOperations';
 import {CiResult} from '../Model/CiResult';
 import {AllVulnTrendData} from '../Model/AllVulnTrendData';
-import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CiOpeerationsService {
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient) {
   }
 
   getTableData(): Observable<CiOperations[]> {
@@ -26,12 +25,8 @@ export class CiOpeerationsService {
     return this.http.get<CiResult>(environment.backend + '/cicd/result')
       .pipe(
         retry(1),
-      ).catch((error: any) => {
-        if (error.status === 403) {
-          this.redirectToDashboard();
-          return throwError('403');
-        }
-      });
+        catchError(this.errorHandl),
+      );
   }
 
   getTrends(): Observable<AllVulnTrendData[]> {
@@ -43,18 +38,9 @@ export class CiOpeerationsService {
   }
 
   errorHandl(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    if (error.status === 403) {
+      window.location.href = '/pages/dashboard';
     }
-    return throwError(errorMessage);
-  }
-  private redirectToDashboard() {
-    this.router.navigate(['/auth/login']);
-
+    return throwError(error.status);
   }
 }

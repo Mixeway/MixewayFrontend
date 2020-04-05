@@ -11,7 +11,6 @@ import {Proxies} from '../Model/Proxies';
 import {DTrackProject} from '../Model/DTrackProject';
 import {WebApps} from '../Model/WebApps';
 import {CodeGroup, Codes} from '../Model/Codes';
-import {ApiPermission} from '../Model/ApiPermission';
 import {VulnTrendChart} from '../Model/VulnTrendChart';
 import {InfraVuln} from '../Model/InfraVuln';
 import {WebAppVuln} from '../Model/WebAppVuln';
@@ -19,7 +18,6 @@ import {CodeVuln} from '../Model/CodeVuln';
 import {AuditVuln} from '../Model/AuditVuln';
 import {Severities} from '../Model/Severities';
 import {ApiKey} from '../Model/ApiKey';
-import {Router} from '@angular/router';
 import {SoftVuln} from '../Model/SoftVuln';
 import {SastProject} from '../Model/SastProject';
 import {ScannerType} from '../Model/Scanner';
@@ -30,17 +28,13 @@ import {CiOperations} from '../Model/CiOperations';
 })
 export class ShowProjectService {
   showProjectPath: string = '/show/project';
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient) { }
   getRiskCards(id): Observable<Risk> {
     return this.http.get<Risk>(environment.backend + this.showProjectPath + '/' + id + '/risk')
       .pipe(
         retry(1),
-      ).catch((error: any) => {
-        if (error.status === 403) {
-          this.redirectToDashboard();
-          return throwError('403');
-        }
-      });
+        catchError(this.errorHandl),
+      );
   }
   getIaasApi(id): Observable<IaasApi> {
     return this.http.get<IaasApi>(environment.backend + this.showProjectPath + '/' + id + '/iaasapi')
@@ -86,13 +80,6 @@ export class ShowProjectService {
   }
   getCodeGroups(id): Observable<CodeGroup[]> {
     return this.http.get<CodeGroup[]>(environment.backend + this.showProjectPath + '/' + id + '/codegroups')
-      .pipe(
-        retry(1),
-        catchError(this.errorHandl),
-      );
-  }
-  getApiPermissions(id): Observable<ApiPermission[]> {
-    return this.http.get<ApiPermission[]>(environment.backend + this.showProjectPath + '/' + id + '/apipermissions')
       .pipe(
         retry(1),
         catchError(this.errorHandl),
@@ -157,15 +144,10 @@ export class ShowProjectService {
   }
 
   errorHandl(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = `${error.status}`;
+    if (error.status === 403) {
+      window.location.href = '/pages/dashboard';
     }
-    return throwError(errorMessage);
+    return throwError(error.status);
   }
   putIaasForProject(id, body): Observable<string> {
     return this.http.put<string>(environment.backend + this.showProjectPath + '/' + id + '/add/iaasapi', body)
@@ -365,14 +347,6 @@ export class ShowProjectService {
         catchError(this.errorHandl),
       );
   }
-  updateapipermissions(id, permissions): Observable<string> {
-    return this.http.put<string>(environment.backend + this.showProjectPath + '/' + id + '/updateapipermission',
-      permissions)
-      .pipe(
-        retry(1),
-        catchError(this.errorHandl),
-      );
-  }
   generateApiKey(id): Observable<ApiKey> {
     return this.http.put<ApiKey>(environment.backend + this.showProjectPath + '/' + id + '/apikey',
       null)
@@ -394,9 +368,6 @@ export class ShowProjectService {
         retry(1),
         catchError(this.errorHandl),
       );
-  }
-  private redirectToDashboard() {
-    this.router.navigate(['/pages/dashboard']);
   }
 
   disableInfraAutoScan(id: number) {

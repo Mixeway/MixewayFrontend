@@ -4,13 +4,12 @@ import {Observable, throwError} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {catchError, retry} from 'rxjs/operators';
 import {BarChartValues2} from '../Model/BarChartValues2';
-import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VulnsService {
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient) {
   }
 
   getCodeVulns(): Observable<BarChartValues2[]> {
@@ -32,12 +31,8 @@ export class VulnsService {
     return this.http.get<BarChartValues2[]>(environment.backend + '/vulns/infravulns')
       .pipe(
         retry(1),
-      ).catch((error: any) => {
-        if (error.status === 403) {
-          this.redirectToDashboard();
-          return throwError('403');
-        }
-      });
+        catchError(this.errorHandl),
+      );
   }
 
   getInfraTargets(): Observable<BarChartValues2[]> {
@@ -63,20 +58,25 @@ export class VulnsService {
         catchError(this.errorHandl),
       );
   }
+  getOpenSourceVulns(): Observable<BarChartValues2[]> {
+    return this.http.get<BarChartValues2[]>(environment.backend + '/vulns/opensource')
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  getOpenSourceVulnsForCodeProject(): Observable<BarChartValues2[]> {
+    return this.http.get<BarChartValues2[]>(environment.backend + '/vulns/opensourceforcode')
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
 
   errorHandl(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    if (error.status === 403) {
+      window.location.href = '/pages/dashboard';
     }
-    return throwError(errorMessage);
-  }
-  private redirectToDashboard() {
-    this.router.navigate(['/auth/login']);
-
+    return throwError(error.status);
   }
 }

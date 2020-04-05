@@ -16,10 +16,10 @@
     }
   }
 }
-:host /deep/ ng2-st-tbody-edit-delete {
+:host ::ng-deep ng2-st-tbody-edit-delete {
   height: 1px !important;
 }
 
-:host /deep/ ng2-st-tbody-custom a {
+:host ::ng-deep ng2-st-tbody-custom a {
   height: 1px !important;
 }

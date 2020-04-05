@@ -22,6 +22,8 @@ export class WebConfigureTabComponent implements OnInit {
   addDialog: TemplateRef<any>;
   @Input() scannerTypes: ScannerType[];
   @Input() routingDomains: RoutingDomain[];
+  showHeaders: boolean = false;
+  showPasswords: boolean = false;
   settings: any;
   webScanRunSelectedButton: boolean = true;
   webAutomaticScanButton: boolean = true;
@@ -49,7 +51,9 @@ export class WebConfigureTabComponent implements OnInit {
     this.webAppForm = this.formBuilder.group({
       webAppUrl:  ['', Validators.required],
       webAppHeaders: '',
-      scanPublic:  ['', Validators.required],
+      webAppUsername: '',
+      webAppPassword: '',
+      scanPublic:  false,
       routingDomainForAsset: [0, Validators.min(1)],
     });
   }
@@ -202,5 +206,12 @@ export class WebConfigureTabComponent implements OnInit {
         this.toast.showToast('danger', this.constants.PROJECT_OPERATION_FAILURE,
           this.constants.PROJECT_OPERATION_FAILURES);
       });
+  }
+
+  toggleHeader(checked: boolean) {
+    this.showHeaders = checked;
+  }
+  togglePassword(checked: any) {
+    this.showPasswords = checked;
   }
 }

@@ -39,15 +39,20 @@
           <input type="text" nbInput fullWidth id="webAppUrl" [placeholder]="constants.PROJECT_WEBAPP_ADD_URL" formControlName="webAppUrl">
         </div>
         <div class="form-group">
+          <nb-checkbox (checkedChange)="toggleHeader($event)" [checked]="true" indeterminate disabled>{{ constants.PROJECT_WEBAPP_ADD_CHECKBOX_HEADER}}</nb-checkbox> <br/>
+          <nb-checkbox (checkedChange)="togglePassword($event)">{{ constants.PROJECT_WEBAPP_ADD_CHECKBOX_PASSWORD}}</nb-checkbox>
+        </div>
+        <div class="form-group" *ngIf="showHeaders">
           <label for="webAppHeaders" class="label">{{constants.PROJECT_WEBAPP_HEADER_1}}</label>
           <textarea rows="5" nbInput fullWidth shape="round" id="webAppHeaders" [placeholder]="constants.PROJECT_WEBAPP_HEADER_2" formControlName="webAppHeaders"></textarea>
         </div>
-        <div class="form-group">
-          <label for="public" class="label">{{constants.PROJECT_WEBAPP_PUBLIC_FORM}}</label>
-          <nb-select id="public" selected="1" formControlName="scanPublic">
-            <nb-option value="1">Yes</nb-option>
-            <nb-option value="2">No</nb-option>
-          </nb-select>
+        <div class="form-group" *ngIf="showPasswords">
+          <label for="webAppUsername" class="label">{{constants.PROJECT_WEBAPP_ADD_USERNAME}}</label>
+          <input type="text" nbInput fullWidth id="webAppUsername" [placeholder]="constants.PROJECT_WEBAPP_ADD_USERNAME" formControlName="webAppUsername">
+        </div>
+        <div class="form-group" *ngIf="showPasswords">
+          <label for="webAppPassword" class="label">{{constants.PROJECT_WEBAPP_ADD_PASSWORD}}</label>
+          <input type="password" nbInput fullWidth id="webAppPassword" [placeholder]="constants.PROJECT_WEBAPP_ADD_PASSWORD" formControlName="webAppPassword">
         </div>
         <div class="form-group">
           <label for="routingDomainForAsset" class="label">{{constants.PROJECT_INFRA_TABLE_ROUTINGDOMAIN}}</label>

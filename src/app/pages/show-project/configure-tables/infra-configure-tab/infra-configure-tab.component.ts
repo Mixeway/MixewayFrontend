@@ -25,7 +25,6 @@ export class InfraConfigureTabComponent implements OnInit {
   @ViewChild('addAsset')
   addDialog: TemplateRef<any>;
   // @ts-ignore
-  @ViewChild('addIaasApi', { read: TemplateRef })
   @Input() scannerTypes: ScannerType[];
   iaasDialog: TemplateRef<any>;
   settings: any;
