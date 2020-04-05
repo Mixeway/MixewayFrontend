@@ -63,13 +63,13 @@ export class VulnsComponent implements OnInit, AfterViewInit {
   }
   loadOpenSourceVulns() {
     return this.vulnsService.getOpenSourceVulns().subscribe(data => {
-      this.targets = data;
+      this.vulns = data;
       this.drawVulnsChart();
     });
   }
   loadOpenSourceVulnsForCodeProject() {
     return this.vulnsService.getOpenSourceVulnsForCodeProject().subscribe(data => {
-      this.vulns = data;
+      this.targets = data;
       this.drawTargetsChart();
     });
   }
