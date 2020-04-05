@@ -22,6 +22,8 @@ export class WebConfigureTabComponent implements OnInit {
   addDialog: TemplateRef<any>;
   @Input() scannerTypes: ScannerType[];
   @Input() routingDomains: RoutingDomain[];
+  showHeaders: boolean = false;
+  showPasswords: boolean = false;
   settings: any;
   webScanRunSelectedButton: boolean = true;
   webAutomaticScanButton: boolean = true;
@@ -49,7 +51,9 @@ export class WebConfigureTabComponent implements OnInit {
     this.webAppForm = this.formBuilder.group({
       webAppUrl:  ['', Validators.required],
       webAppHeaders: '',
-      scanPublic:  ['', Validators.required],
+      webAppUsername: '',
+      webAppPassword: '',
+      scanPublic:  false,
       routingDomainForAsset: [0, Validators.min(1)],
     });
   }
@@ -130,6 +134,7 @@ export class WebConfigureTabComponent implements OnInit {
   }
   saveWebApp(webApp, ref) {
     if (this.webAppForm.valid) {
+      alert(JSON.stringify(this.webAppForm.value));
       this.webAppForm.value.scanPublic = parseInt(this.webAppForm.value.scanPublic, 10) === 1;
       return this.showProjectService.saveWebApp(this._entityId, this.webAppForm.value).subscribe(() => {
           this.toast.showToast('success', this.constants.PROJECT_OPERATION_SUCCESS,
@@ -202,5 +207,12 @@ export class WebConfigureTabComponent implements OnInit {
         this.toast.showToast('danger', this.constants.PROJECT_OPERATION_FAILURE,
           this.constants.PROJECT_OPERATION_FAILURES);
       });
+  }
+
+  toggleHeader(checked: boolean) {
+    this.showHeaders = checked;
+  }
+  togglePassword(checked: any) {
+    this.showPasswords = checked;
   }
 }
