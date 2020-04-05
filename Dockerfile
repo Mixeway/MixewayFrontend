@@ -9,6 +9,8 @@ ARG HTTPS_PROXY=""
 
 # Move our files into directory name "app"
 WORKDIR /app
+npm i rxjs-compat --save
+npm i ng2-completer --save
 COPY package.json package-lock.json  /app/
 RUN cd /app && npm install
 COPY .  /app
