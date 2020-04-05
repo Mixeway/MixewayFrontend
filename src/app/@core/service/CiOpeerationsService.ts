@@ -6,13 +6,12 @@ import {catchError, retry} from 'rxjs/operators';
 import {CiOperations} from '../Model/CiOperations';
 import {CiResult} from '../Model/CiResult';
 import {AllVulnTrendData} from '../Model/AllVulnTrendData';
-import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CiOpeerationsService {
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient) {
   }
 
   getTableData(): Observable<CiOperations[]> {
@@ -43,9 +42,5 @@ export class CiOpeerationsService {
       window.location.href = '/pages/dashboard';
     }
     return throwError(error.status);
-  }
-  private redirectToDashboard() {
-    this.router.navigate(['/auth/login']);
-
   }
 }

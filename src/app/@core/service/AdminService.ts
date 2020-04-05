@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import {retry, catchError, timeout} from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import {User} from '../Model/User';
 import {Scanner, ScannerType} from '../Model/Scanner';
-import {Router} from '@angular/router';
 import {Settings} from '../Model/Settings';
 import {Project} from '../Model/Project';
 import {WebAppScanStrategy} from '../Model/WebAppScanStrategy';
@@ -16,15 +15,9 @@ import {WebAppScanStrategy} from '../Model/WebAppScanStrategy';
 export class AdminService {
 
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient) {
   }
 
-  // Http Headers
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
   // GET
   getUsers(): Observable<User[]> {
     // @ts-ignore
@@ -218,9 +211,6 @@ export class AdminService {
       );
   }
 
-  showErrorOnDelete() {
-    return throwError(null);
-  }
   errorHandl(error) {
     if (error.status === 403) {
       window.location.href = '/pages/dashboard';
@@ -228,7 +218,4 @@ export class AdminService {
     return throwError(error.status);
   }
 
-  private redirectToDashboard() {
-    this.router.navigate(['/auth/login']);
-  }
 }

@@ -7,7 +7,6 @@ import { environment } from '../../../environments/environment';
 import {AllSourceDataChart} from '../Model/AllSourceDataChart';
 import {Project} from '../Model/Project';
 import {SessionOwner} from '../Model/SessionOwner';
-import {Router} from '@angular/router';
 // @ts-ignore
 import {SearchResponse} from '../Model/SearchResponse';
 
@@ -18,7 +17,7 @@ import {SearchResponse} from '../Model/SearchResponse';
 export class DashboardService {
 
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient) {
   }
 
   // Http Headers
@@ -93,8 +92,5 @@ export class DashboardService {
       window.location.href = '/auth/login';
     }
     return throwError(error.status);
-  }
-  private redirectToDashboard() {
-    this.router.navigate(['/auth/login']);
   }
 }

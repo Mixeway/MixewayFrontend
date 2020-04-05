@@ -4,13 +4,12 @@ import {Observable, throwError} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {catchError, retry} from 'rxjs/operators';
 import {BarChartValues2} from '../Model/BarChartValues2';
-import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VulnsService {
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient) {
   }
 
   getCodeVulns(): Observable<BarChartValues2[]> {
@@ -79,9 +78,5 @@ export class VulnsService {
       window.location.href = '/pages/dashboard';
     }
     return throwError(error.status);
-  }
-  private redirectToDashboard() {
-    this.router.navigate(['/pages/dashboard']);
-
   }
 }
