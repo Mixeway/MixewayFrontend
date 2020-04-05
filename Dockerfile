@@ -9,6 +9,8 @@ RUN npm install -g
 RUN cd /app && npm install
 COPY .  /app
 RUN npm i node-sass@latest
+RUN npm i ng2-completer --save
+RUN npm i ng2-smart-table --save
 RUN cd /app && npm run build:prod
 
 FROM nginx:alpine
