@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card >
+      <nb-card-body>
+        <nb-tabset fullWidth class="col-md-12" >
+          <nb-tab tabTitle="InfrastructureVulns" >
+            <button nbButton status="warning" hero (click)="refreshInfra()">
+              <nb-icon icon="refresh" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+            </button>&nbsp;
+            <button nbButton status="danger" hero (click)="confirmInfra()">
+              Confirm Vulnerabilities
+            </button>&nbsp;
+            <button nbButton status="success" hero (click)="denyInfra()">
+              False Positives
+            </button>&nbsp;
+            <ng2-smart-table [settings]="settings" [source]="infraVulns" (userRowSelect)="onInfraVulnSelect($event)"></ng2-smart-table>
+          </nb-tab>
+          <nb-tab tabTitle="Web Application Vulns">
+            <button nbButton status="warning" hero (click)="refreshWeb()">
+              <nb-icon icon="refresh" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+            </button>&nbsp;
+            <button nbButton status="danger" hero (click)="confirmWeb()">
+              Confirm Vulnerabilities
+            </button>&nbsp;
+            <button nbButton status="success" hero (click)="denyWeb()">
+              False Positives
+            </button>&nbsp;
+            <ng2-smart-table [settings]="settings" [source]="webVulns" (userRowSelect)="onWebVulnSelect($event)"></ng2-smart-table>
+          </nb-tab>
+          <nb-tab tabTitle="Code Vulns">
+            <button nbButton status="warning" hero (click)="refreshCode()">
+              <nb-icon icon="refresh" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+            </button>&nbsp;
+            <button nbButton status="danger" hero (click)="confirmCode()">
+              Confirm Vulnerabilities
+            </button>&nbsp;
+            <button nbButton status="success" hero (click)="denyCode()">
+              False Positives
+            </button>&nbsp;
+            <ng2-smart-table [settings]="settings" [source]="codeVulns" (userRowSelect)="onCodeVulnSelect($event)"></ng2-smart-table>
+          </nb-tab>
+          <nb-tab tabTitle="OpenSource Vulns">
+            <button nbButton status="warning" hero (click)="refreshOS()">
+              <nb-icon icon="refresh" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+            </button>&nbsp;
+            <button nbButton status="danger" hero (click)="confirmOS()">
+              Confirm Vulnerabilities
+            </button>&nbsp;
+            <button nbButton status="success" hero (click)="denyOS()">
+              False Positives
+            </button>&nbsp;
+            <ng2-smart-table [settings]="settings" [source]="osVulns" (userRowSelect)="onOSVulnSelect($event)"></ng2-smart-table>
+          </nb-tab>
+
+        </nb-tabset>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

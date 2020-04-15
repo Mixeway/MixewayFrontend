@@ -1,5 +1,13 @@
 import { NgModule } from '@angular/core';
-import {NbAlertModule, NbCardModule, NbListModule, NbMenuModule} from '@nebular/theme';
+import {
+  NbAlertModule,
+  NbButtonModule,
+  NbCardModule,
+  NbIconModule,
+  NbListModule,
+  NbMenuModule,
+  NbTabsetModule
+} from '@nebular/theme';
 
 import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
@@ -14,6 +22,8 @@ import {FormsModule} from '@angular/forms';
 import {CicdModule} from './cicd/cicd.module';
 import {VulnsModule} from './vulns/vulns.module';
 import { SearchComponent } from './search/search.component';
+import { VulnAnalyzeComponent } from './vuln-analyze/vuln-analyze.component';
+import {Ng2SmartTableModule} from "ng2-smart-table";
 
 @NgModule({
   imports: [
@@ -30,10 +40,15 @@ import { SearchComponent } from './search/search.component';
     NbCardModule,
     NbAlertModule,
     NbListModule,
+    NbTabsetModule,
+    Ng2SmartTableModule,
+    NbIconModule,
+    NbButtonModule,
   ],
   declarations: [
     PagesComponent,
     SearchComponent,
+    VulnAnalyzeComponent,
   ],
   providers: [
     {
