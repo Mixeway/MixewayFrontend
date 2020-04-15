@@ -6,7 +6,7 @@ import {
   NbIconModule,
   NbListModule,
   NbMenuModule,
-  NbTabsetModule
+  NbTabsetModule,
 } from '@nebular/theme';
 
 import { ThemeModule } from '../@theme/theme.module';
@@ -23,7 +23,7 @@ import {CicdModule} from './cicd/cicd.module';
 import {VulnsModule} from './vulns/vulns.module';
 import { SearchComponent } from './search/search.component';
 import { VulnAnalyzeComponent } from './vuln-analyze/vuln-analyze.component';
-import {Ng2SmartTableModule} from "ng2-smart-table";
+import {Ng2SmartTableModule} from 'ng2-smart-table';
 
 @NgModule({
   imports: [

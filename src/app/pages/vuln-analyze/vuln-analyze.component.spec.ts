@@ -8,7 +8,7 @@ describe('VulnAnalyzeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VulnAnalyzeComponent ]
+      declarations: [ VulnAnalyzeComponent ],
     })
     .compileComponents();
   }));
