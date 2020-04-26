@@ -47,6 +47,7 @@ import {OsScanIntegrationIconComponent} from './os-scan-integration-icon.compone
 import { StatusAlertComponent } from './status-alert/status-alert.component';
 import { CiOperationsComponent } from './ci-operations/ci-operations.component';
 import { CiOperationsListElementComponent } from './ci-operations-list-element/ci-operations-list-element.component';
+import {VulnmanageColorComponent} from './vulnmanage-color.component';
 
 const COMPONENTS = [
   ExtraComponentsComponent,
@@ -68,6 +69,7 @@ const COMPONENTS = [
   ConfigureWebComponent,
   ConfigureCodeComponent,
   CiresultColorComponent,
+  VulnmanageColorComponent,
   BugComponent,
   CodeScanIntegrationIconComponent,
   OsScanIntegrationIconComponent,

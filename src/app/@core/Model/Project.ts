@@ -4,4 +4,5 @@ export class Project {
   description: string;
   risk: number;
   ciid: string;
+  enableVulnManage: number;
 }
