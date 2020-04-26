@@ -11,15 +11,15 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-12" *ngIf="searchResponse?.assets.length > 0">
+  <div class="col-md-12" *ngIf="searchResponse && searchResponse?.assets.length > 0">
     <nb-card>
       <nb-card-header>
-        {{constants.SEARCH_ASSET_1}} <strong>{{searchResponse.assets.length}} </strong>{{constants.SEARCH_ASSET_2}}
+        {{constants.SEARCH_ASSET_1}} <strong>{{searchResponse?.assets.length}} </strong>{{constants.SEARCH_ASSET_2}}
       </nb-card-header>
       <nb-card-body>
-        <nb-list>
-          <nb-list-item *ngFor="let asset of searchResponse.assets">
-            <a href="/pages/show/project/{{asset.project.id}}">{{constants.SEARCH_TO_PROJECT}}</a> {{ asset.ipAddress + ' [' + asset.hostname +']' }}
+        <nb-list *ngIf="searchResponse" >
+          <nb-list-item *ngFor="let assets of searchResponse?.assets">
+            <a href="/pages/show/project/{{assets.asset.project.id}}">{{constants.SEARCH_TO_PROJECT}}</a> &nbsp;{{ assets.privateip + '  [' + assets.asset.project.name +']' }}
           </nb-list-item>
         </nb-list>
       </nb-card-body>
@@ -35,7 +35,7 @@
       <nb-card-body>
         <nb-list>
           <nb-list-item *ngFor="let asset of searchResponse.webApps">
-            <a href="/pages/show/project/{{asset.project.id}}">{{constants.SEARCH_TO_PROJECT}}</a> {{ asset.url }}
+            <a href="/pages/show/project/{{asset.project.id}}">{{constants.SEARCH_TO_PROJECT}}</a>&nbsp; {{ asset.url }}
           </nb-list-item>
         </nb-list>
       </nb-card-body>
@@ -51,7 +51,7 @@
       <nb-card-body>
         <nb-list>
           <nb-list-item *ngFor="let asset of searchResponse.codeProjects">
-            <a href="/pages/show/project/{{asset.codeGroup.project.id}}">{{constants.SEARCH_TO_PROJECT}}</a> {{ asset.name + ' [' + asset.codeGroup.name + ']' }}
+            <a href="/pages/show/project/{{asset.codeGroup.project.id}}">{{constants.SEARCH_TO_PROJECT}}</a>&nbsp; {{ asset.name + ' [' + asset.codeGroup.name + ']' }}
           </nb-list-item>
         </nb-list>
       </nb-card-body>
@@ -67,7 +67,7 @@
       <nb-card-body>
         <nb-list>
           <nb-list-item *ngFor="let vuln of searchResponse.vulns">
-            <a href="/pages/show/project/{{vuln.projectId}}">{{constants.SEARCH_TO_PROJECT}}</a> {{ vuln.name }} <br/>{{ vuln.location + ' [' + vuln.source + ']' }}
+            <a href="/pages/show/project/{{vuln.projectId}}">{{constants.SEARCH_TO_PROJECT}}</a> &nbsp;{{ vuln.name }} <br/>{{ vuln.location + ' [' + vuln.source + ']' }}
           </nb-list-item>
         </nb-list>
       </nb-card-body>

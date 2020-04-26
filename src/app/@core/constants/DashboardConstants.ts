@@ -27,4 +27,5 @@ export class DashboardConstants {
   DASHBOARD_CHART_SOURCE_INFRA = 'Infrastructure';
   DASHBOARD_CHART_SOURCE_CODE = 'Source Code';
   DASHBOARD_CHART_SOURCE_OPENSOURCE = 'OpenSource';
+  DASHBOARD_TABLE_VULNMANAGE = 'Vuln Management';
 }

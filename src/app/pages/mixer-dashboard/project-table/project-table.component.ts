@@ -6,12 +6,14 @@ import {Toast} from '../../../@core/utils/Toast';
 import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
 import {DashboardConstants} from '../../../@core/constants/DashboardConstants';
+import {VulnmanageColorComponent} from '../../extra-components/vulnmanage-color.component';
 
 
 @Component({
   selector: 'ngx-project-table',
   templateUrl: './project-table.component.html',
   styleUrls: ['./project-table.component.scss'],
+  entryComponents: [VulnmanageColorComponent],
 })
 export class ProjectTableComponent {
   projects: Project[] = [];
@@ -63,14 +65,43 @@ export class ProjectTableComponent {
           valuePrepareFunction: (cell) => {
             return `<b>${cell}</b>`;
           },
+          width: '20%',
         },
         description: {
           title: this.constants.DASHBOARD_TABLE_DESCRIPTION,
           type: 'string',
+          width: '35%',
         },
         ciid: {
           title: this.constants.DASHBOARD_TABLE_EXTERNALID,
           type: 'string',
+          width: '10%',
+        },
+        enableVulnManage: {
+          title: this.constants.DASHBOARD_TABLE_VULNMANAGE,
+          type: 'custom',
+          renderComponent: VulnmanageColorComponent,
+          width: '10%',
+          editor: {
+            type: 'list',
+            config: {
+              selectText: 'Select',
+              list: [
+                {value: '1', title: 'Enabled'},
+                {value: '0', title: 'Disabled'},
+              ],
+            },
+          },
+          filter: {
+            type: 'list',
+            config: {
+              selectText: 'Select',
+              list: [
+                {value: '1', title: 'Enabled'},
+                {value: '0', title: 'Disabled'},
+              ],
+            },
+          },
         },
         risk: {
           title: this.constants.DASHBOARD_TABLE_RISK,
@@ -78,6 +109,7 @@ export class ProjectTableComponent {
           sortDirection: 'desc',
           addable: false,
           editable: false,
+          width: '25%',
           renderComponent: MixerProgresComponent,
           filter: false,
         },
@@ -101,8 +133,8 @@ export class ProjectTableComponent {
           this.constants.DASHBOARD_OPERATION_PROJECT_DELETE_FAILURE);
       });
   }
-  createProject(name, description, ciid) {
-    return this.dashboardService.addProject(name, description, ciid).subscribe(
+  createProject(name, description, ciid, enableVulnManage) {
+    return this.dashboardService.addProject(name, description, ciid, enableVulnManage).subscribe(
       data => {
         this.toast.showToast('success', this.constants.DASHBOARD_TOAST_TITLE_SUCCESS,
           this.constants.DASHBOARD_OPERATION_PROJECT_ADD_SUCCESS + name);
@@ -117,6 +149,7 @@ export class ProjectTableComponent {
       data => {
         this.toast.showToast('success', this.constants.DASHBOARD_TOAST_TITLE_SUCCESS,
           this.constants.DASHBOARD_OPERATION_PROJECT_EDIT_SUCCESS + project.name);
+        this.getProjects();
       },
       error => {
         this.toast.showToast('danger', this.constants.DASHBOARD_TOAST_TITLE_FAILURE,
@@ -142,8 +175,9 @@ export class ProjectTableComponent {
     const name = event.newData.name;
     const description = event.newData.description;
     const ciid = event.newData.ciid;
+    const enableVulnManage = event.newData.enableVulnManage;
     if (name && description && ciid) {
-      this.createProject(name, description, ciid);
+      this.createProject(name, description, ciid, enableVulnManage);
       await this.delay(500);
       this.getProjects();
       event.confirm.resolve(event.newData);
@@ -160,6 +194,7 @@ export class ProjectTableComponent {
       description: event.newData.description,
       id: event.newData.id,
       risk: event.newData.risk,
+      enableVulnManage: event.newData.enableVulnManage,
     };
     this.editProject(event.data.id, project);
     await this.delay(500);

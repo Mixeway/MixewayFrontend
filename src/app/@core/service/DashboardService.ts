@@ -69,9 +69,9 @@ export class DashboardService {
         catchError(this.showErrorOnDelete),
       );
   }
-  addProject(name, description, ciid): Observable<null> {
+  addProject(name, description, ciid, enableVulnManage): Observable<null> {
     return this.http.put<null>(environment.backend + '/dashboard/projects/' + name + '/' + description + '/'
-      + ciid, null)
+      + ciid + '/' + enableVulnManage, null)
       .pipe(
         retry(1),
         catchError(this.showErrorOnDelete),
