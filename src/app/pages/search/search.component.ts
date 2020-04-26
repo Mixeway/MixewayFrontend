@@ -13,16 +13,15 @@ import {SearchResponse} from '../../@core/Model/SearchResponse';
 })
 export class SearchComponent implements OnInit {
   searchingFor: string = '';
-  searchResponse: SearchResponse = new SearchResponse();
+  searchResponse: SearchResponse;
   constants: SearchConstants = new SearchConstants();
   constructor(private dashboardService: DashboardService,
               private _route: ActivatedRoute) {
-    this.searchingFor = this._route.snapshot.paramMap.get('search');
-    this.search();
   }
 
   ngOnInit() {
-
+    this.searchingFor = this._route.snapshot.paramMap.get('search');
+    this.search();
   }
   search() {
     const request: SearchRequest = {};

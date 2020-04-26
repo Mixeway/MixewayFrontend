@@ -11,8 +11,10 @@ export class Asset {
   risk: number;
   running: boolean;
   project: Project;
+  webAppAutoDiscver: boolean;
 }
 export class Project {
   id: number;
   name: string;
+  enableVulnManage: boolean;
 }
