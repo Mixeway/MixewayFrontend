@@ -48,7 +48,7 @@ export class UserComponent implements OnInit {
       userUsername: ['', Validators.required],
       userPassword: '',
       passwordAuth: false,
-      projects: '',
+      projects: null,
     });
     this.changePasswordForm = this.formBuilder.group({
       newPassword: '',
