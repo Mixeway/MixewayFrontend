@@ -22,6 +22,7 @@ import {SoftVuln} from '../Model/SoftVuln';
 import {SastProject} from '../Model/SastProject';
 import {ScannerType} from '../Model/Scanner';
 import {CiOperations} from '../Model/CiOperations';
+import {Vulnerability} from '../Model/Vulnerability';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +39,21 @@ export class ShowProjectService {
   }
   getIaasApi(id): Observable<IaasApi> {
     return this.http.get<IaasApi>(environment.backend + this.showProjectPath + '/' + id + '/iaasapi')
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  getVulnerabilities(id): Observable<Vulnerability[]> {
+    return this.http.get<Vulnerability[]>(environment.backend + this.showProjectPath + '/' + id + '/vulnerabilities')
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  getVulnerability(id, vulnId): Observable<Vulnerability> {
+    return this.http.get<Vulnerability>(environment.backend + this.showProjectPath + '/' + id +
+      '/vulnerabilities/' + vulnId)
       .pipe(
         retry(1),
         catchError(this.errorHandl),

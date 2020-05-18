@@ -201,4 +201,5 @@ export class ProjectConstants {
   PROJECT_WEBAPP_ADD_PASSWORD = 'Password';
   PROJECT_WEBAPP_ADD_CHECKBOX_HEADER = 'Add header authentication';
   PROJECT_WEBAPP_ADD_CHECKBOX_PASSWORD = 'Add password authentication';
+  PROJECT_DETAILS_STATUS = 'Status';
 }

@@ -34,13 +34,15 @@ import {VulnTrendAreaStackComponent} from './show-project-details-chart/vuln-tre
 import {VulnTrendPieComponent} from './show-project-details-chart/vuln-trend-pie.component';
 import { DetailsTablesComponent} from './details-tables/details-tables.component';
 import {AlertColorComponent} from '../extra-components/alert-color.component';
-import {NewIconComponent} from '../extra-components/new-icon.component';
+import {DetailsComponent} from '../extra-components/details-component';
 import {DescriptionToggleComponent} from '../extra-components/description-toggle.component';
 import {AuditResultColorComponent} from '../extra-components/audit-result-color.component';
 import {ShowProjectService} from '../../@core/service/ShowProjectService';
 import {AnalysisColorComponent} from '../extra-components/analysis-color.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ExtraComponentsModule} from '../extra-components/extra-components.module';
+import {VulnerabilitySourceComponent} from '../extra-components/vulnerability-source-component';
+import {StatusComponent} from '../extra-components/status-component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import {ExtraComponentsModule} from '../extra-components/extra-components.module
     VulnTrendPieComponent,
     DetailsTablesComponent,
     AlertColorComponent,
-    NewIconComponent,
+    DetailsComponent,
+    VulnerabilitySourceComponent,
+    StatusComponent,
     DescriptionToggleComponent,
     AuditResultColorComponent,
     AnalysisColorComponent,

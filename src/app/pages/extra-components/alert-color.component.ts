@@ -3,7 +3,7 @@ import {ViewCell} from 'ng2-smart-table';
 
 @Component({
   template: `
-    <span [class]="'badge ' + class">{{ severity }}</span>
+    <span [class]="'badge ' + class" style="display: block; margin-left: auto; margin-right: auto;">{{ severity }}</span>
   `,
 })
 export class AlertColorComponent implements ViewCell, OnInit {
@@ -25,6 +25,12 @@ export class AlertColorComponent implements ViewCell, OnInit {
       this.class = 'badge-warning';
     } else {
       this.class = 'badge-info';
+    }
+    if (this.rowData.analysis) {
+      this.severity += ' / ' + this.rowData.analysis;
+      if (this.rowData.analysis === 'Not an Issue') {
+        this.class = 'badge-success';
+      }
     }
   }
 }
