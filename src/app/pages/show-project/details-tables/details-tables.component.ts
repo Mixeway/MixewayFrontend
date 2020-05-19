@@ -11,7 +11,6 @@ import {Angular5Csv} from 'angular5-csv/dist/Angular5-csv';
 import {ProjectConstants} from '../../../@core/constants/ProjectConstants';
 import {BugComponent} from '../../extra-components/bug-component';
 import {Vulnerability} from '../../../@core/Model/Vulnerability';
-import {AuditVuln} from '../../../@core/Model/AuditVuln';
 import {LocalDataSource} from 'ng2-smart-table';
 import {VulnerabilitySourceComponent} from '../../extra-components/vulnerability-source-component';
 import {StatusComponent} from '../../extra-components/status-component';
