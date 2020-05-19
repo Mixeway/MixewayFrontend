@@ -74,8 +74,7 @@ import {Vulnerability} from '../../@core/Model/Vulnerability';
                   <nb-card-header>
                     References
                   </nb-card-header>
-                  <nb-card-body>
-                    {{ references }}
+                  <nb-card-body [innerHTML]="references" style="white-space: pre-wrap;">
                   </nb-card-body>
                 </nb-card>
               </div>
