@@ -33,8 +33,6 @@ export class DetailsTablesComponent implements OnInit {
   _entityId: number;
   role: string;
   constants: ProjectConstants = new ProjectConstants();
-  private auditSource: AuditVuln[];
-  private auditTabShow: boolean;
   constructor( private showProjectService: ShowProjectService, private _route: ActivatedRoute, private router: Router,
                private cookieService: CookieService) {
     this.role = this.cookieService.get('role');
@@ -48,10 +46,6 @@ export class DetailsTablesComponent implements OnInit {
   }
   loadAudit() {
     return this.showProjectService.getAuditVulns(this._entityId).subscribe(data => {
-      this.auditSource = data;
-      if (data.length > 0) {
-        this.auditTabShow = true;
-      }
     });
   }
   loadVulns() {
