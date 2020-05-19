@@ -12,7 +12,7 @@ import {
   NbProgressBarModule,
   NbSelectModule,
   NbSpinnerModule,
-  NbTabsetModule, NbTooltipModule,
+  NbTabsetModule, NbTooltipModule, NbWindowModule,
 } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
@@ -89,6 +89,7 @@ const MODULES = [
   NbSelectModule,
   NbSpinnerModule,
   NbTabsetModule,
+  NbWindowModule,
   ThemeModule,
   ExtraComponentsRoutingModule,
 ];
@@ -117,14 +118,14 @@ const MODULES = [
     OsScanIntegrationIconComponent,
     BugComponent,
   ],
-    exports: [
-        MixerProgresComponent,
-        ConfigureInfraComponent,
-        ConfigureWebComponent,
-        CiresultColorComponent,
-        BugComponent,
-        StatusAlertComponent,
-        CiOperationsComponent,
-    ],
+  exports: [
+    MixerProgresComponent,
+    ConfigureInfraComponent,
+    ConfigureWebComponent,
+    CiresultColorComponent,
+    BugComponent,
+    StatusAlertComponent,
+    CiOperationsComponent,
+  ],
 })
 export class ExtraComponentsModule { }

@@ -89,7 +89,9 @@ export class DashboardService {
   }
   errorHandl(error) {
     if (error.status === 403) {
-      window.location.href = '/auth/login';
+      const expires = 'expires=' + new Date().toUTCString();
+      document.cookie = `role=;Path=/;expires=${expires}`;
+      window.location.reload();
     }
     return throwError(error.status);
   }

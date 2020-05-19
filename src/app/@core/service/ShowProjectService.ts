@@ -161,7 +161,9 @@ export class ShowProjectService {
 
   errorHandl(error) {
     if (error.status === 403) {
-      window.location.href = '/pages/dashboard';
+      const expires = 'expires=' + new Date().toUTCString();
+      document.cookie = `role=;Path=/;expires=${expires}`;
+      window.location.reload();
     }
     return throwError(error.status);
   }

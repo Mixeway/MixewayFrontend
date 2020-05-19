@@ -9,7 +9,6 @@ import {CookieService} from 'ngx-cookie-service';
 import {AnalysisColorComponent} from '../../extra-components/analysis-color.component';
 import {Angular5Csv} from 'angular5-csv/dist/Angular5-csv';
 import {ProjectConstants} from '../../../@core/constants/ProjectConstants';
-import {BugTrackerService} from '../../../@core/service/BugTrackerService';
 import {BugComponent} from '../../extra-components/bug-component';
 import {Vulnerability} from '../../../@core/Model/Vulnerability';
 import {AuditVuln} from '../../../@core/Model/AuditVuln';
@@ -33,15 +32,11 @@ export class DetailsTablesComponent implements OnInit {
   vulnerabilitiesSettings: any;
   _entityId: number;
   role: string;
-  activeTab: number;
   constants: ProjectConstants = new ProjectConstants();
   private auditSource: AuditVuln[];
   private auditTabShow: boolean;
-  private webAppSource: any;
-  private codeSource: any;
-  private infraSource: any;
   constructor( private showProjectService: ShowProjectService, private _route: ActivatedRoute, private router: Router,
-               private cookieService: CookieService, private bugTrackerService: BugTrackerService) {
+               private cookieService: CookieService) {
     this.role = this.cookieService.get('role');
     this._entityId = +this._route.snapshot.paramMap.get('projectid');
     if (!this._entityId) {
@@ -64,6 +59,7 @@ export class DetailsTablesComponent implements OnInit {
       this.vulnerabilities = data;
       for (const vulnerability of data) {
         const vuln = {
+          projectId: this._entityId,
           id: vulnerability.id,
           name: vulnerability.vulnerability.name,
           location: vulnerability.location,

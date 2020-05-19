@@ -5,9 +5,8 @@
 
     </nb-card-header>
     <nb-card-body>
-      <div style="text-align: center">{{constants.LOGIN_TITLE}}</div>
       <nb-alert status="danger" *ngIf="error">{{constants.LOGIN_CERT_ERROR}}</nb-alert>
-      <button *ngIf="statusEntity.cert" type="submit" nbButton status="primary" (click)="x509Login()" hero>{{constants.LOGIN_BUTTON_CERT}}</button>
+      <button style="display: block; margin-left: auto; margin-right: auto;" *ngIf="statusEntity.cert" type="submit" nbButton status="primary" (click)="x509Login()" hero>{{constants.LOGIN_BUTTON_CERT}}</button>
       <br/> <br/><br/>
       <form *ngIf="statusEntity.password" [formGroup]="passwordAuthForm" (ngSubmit)="authUsingPassword()" >
         <div class="form-group">
@@ -18,7 +17,7 @@
           <label for="password" class="label">{{constants.LOGIN_FORM_PASSWORD}}</label>
           <input type="password" nbInput fullWidth id="password" [placeholder]="constants.LOGIN_FORM_PASSWORD" formControlName="password">
         </div>
-        <button type="submit" nbButton status="info">{{constants.LOGIN_FORM_BUTTON}}</button>
+        <button style="display: block; margin-left: auto; margin-right: auto;" type="submit" nbButton status="info">{{constants.LOGIN_FORM_BUTTON}}</button>
       </form>
     </nb-card-body>
   </nb-card>
