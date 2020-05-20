@@ -23,6 +23,7 @@ import {SastProject} from '../Model/SastProject';
 import {ScannerType} from '../Model/Scanner';
 import {CiOperations} from '../Model/CiOperations';
 import {Vulnerability} from '../Model/Vulnerability';
+import {ProjectInfo} from '../Model/ProjectInfo';
 
 @Injectable({
   providedIn: 'root',
@@ -427,8 +428,22 @@ export class ShowProjectService {
         catchError(this.errorHandl),
       );
   }
+  getProjectInfo(id) {
+    return this.http.get<ProjectInfo>(environment.backend + this.showProjectPath + '/' + id)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
   putProjectToRemote(projectId: number, codeProjectId: number) {
     return this.http.put<SastProject[]>(environment.backend + this.showProjectPath + '/' + projectId + '/createremoteproject/' + codeProjectId, null)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  saveVulnAuditorSettings(id, settings) {
+    return this.http.post<string>(environment.backend + this.showProjectPath + '/' + id + '/vulnauditor', settings)
       .pipe(
         retry(1),
         catchError(this.errorHandl),

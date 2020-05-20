@@ -53,6 +53,7 @@ export class WebConfigureTabComponent implements OnInit {
       webAppHeaders: '',
       webAppUsername: '',
       webAppPassword: '',
+      appClient: '',
       scanPublic:  false,
       routingDomainForAsset: [0, Validators.min(1)],
     });

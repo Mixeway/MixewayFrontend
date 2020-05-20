@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12 col-sm-6 col-md-8">
     <nb-card>
-      <h3> {{ risk?.projectName }}</h3>
+      <h3> {{ risk?.projectName }} <button *ngIf="showVulnAuditor" (click)="displayProjectGlobalSettings()" nbButton status="primary" nbTooltip="Vuln Auditor Settings" style="float:right; margin-top:5px; margin-left:5px;"><nb-icon icon="briefcase-outline"></nb-icon></button></h3>
     </nb-card>
   </div>
   <div class="col-md-2">
@@ -47,3 +47,31 @@
 <ngx-configure-tables *ngIf="showConfigTableTemplate" [scannerTypes]="scannerTypes"></ngx-configure-tables>
 <ngx-show-project-details-chart *ngIf="showDetailsTemplate"></ngx-show-project-details-chart>
 <ngx-details-tables *ngIf="showDetailsTemplate"></ngx-details-tables>
+<ng-template #vulnAuditorSettings let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Global settings, would be applied if object doesn't have setting specified</nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="vulnAuditorForm" (ngSubmit)="saveVulnAuditorSettings(ref)">
+        <div class="form-group">
+          <nb-checkbox id="enableAuditor" name="enableVulnAuditor" formControlName="enableVulnAuditor" [checked]="vulnAuditorForm.value.enableVulnAuditor">Enable Vulnerability Auditor? (read more in Mixeway docs)</nb-checkbox>
+        </div>
+        <div class="form-group">
+          <label for="datacenter" class="label">Location of assets</label>
+          <nb-select id="datacenter" fullWidth formControlName="dclocation" [(selected)]="vulnAuditorForm.value.dclocation">
+            <nb-option value="">Select...</nb-option>
+            <nb-option value="localdc">Internal Data Center</nb-option>
+            <nb-option value="remotedc">Remote Data Center (3rd party)</nb-option>
+          </nb-select>        </div>
+        <div class="form-group">
+          <label for="codeGroupAppClient" class="label">Who is going to use the app?</label>
+          <nb-select id="codeGroupAppClient" fullWidth formControlName="appClient" [(selected)]="vulnAuditorForm.value.appClient">
+            <nb-option value="">Select...</nb-option>
+            <nb-option value="customer">Customer</nb-option>
+            <nb-option value="employe">Emoloyee</nb-option>
+          </nb-select>
+        </div>
+        <button type="submit" nbButton status="danger">{{constants.PROJECT_SAVE}}</button>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</ng-template>

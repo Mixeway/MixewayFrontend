@@ -60,6 +60,14 @@
             <nb-option *ngFor="let rd of routingDomains" [value]="rd.id">{{ rd.name }}</nb-option>
           </nb-select>
         </div>
+        <div class="form-group">
+          <label for="codeGroupAppClient" class="label">Who is going to use the app?</label>
+          <nb-select id="codeGroupAppClient" fullWidth formControlName="appClient">
+            <nb-option value="">Select...</nb-option>
+            <nb-option value="Customer">Customer</nb-option>
+            <nb-option value="employe">Emoloyee</nb-option>
+          </nb-select>
+        </div>
         <button type="submit" nbButton status="danger">{{constants.PROJECT_SAVE}}</button>
       </form>
     </nb-card-body>
