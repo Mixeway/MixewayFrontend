@@ -7,7 +7,7 @@ import {ProjectConstants} from '../../@core/constants/ProjectConstants';
 import {ScannerType} from '../../@core/Model/Scanner';
 import {CiOperations} from '../../@core/Model/CiOperations';
 import {NbDialogService} from '@nebular/theme';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {Toast} from '../../@core/utils/Toast';
 import {ProjectInfo} from '../../@core/Model/ProjectInfo';
 
