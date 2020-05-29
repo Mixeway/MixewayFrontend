@@ -132,7 +132,6 @@ export class ShowProjectComponent implements OnInit {
   }
 
   saveVulnAuditorSettings(ref) {
-    alert(JSON.stringify(this.vulnAuditorForm.value));
     return this.showProjectService.saveVulnAuditorSettings(this._entityId, this.vulnAuditorForm.value).subscribe(() => {
         this.toast.showToast('success', this.constants.PROJECT_OPERATION_SUCCESS,
           'Vuln Auditor Settings saved successfully.');
