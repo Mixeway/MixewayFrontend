@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Settings} from '../../../@core/Model/Settings';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {AdminService} from '../../../@core/service/AdminService';
 import {Toast} from '../../../@core/utils/Toast';
 import {AdminConstants} from '../../../@core/constants/AdminConstants';
