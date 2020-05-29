@@ -449,4 +449,12 @@ export class ShowProjectService {
         catchError(this.errorHandl),
       );
   }
+  setGradeForVuln(projectid, vulnId, grade): Observable<string> {
+    return this.http.get<string>(environment.backend + '/show/project/' + projectid +
+      '/vulnerabilities/' + vulnId + '/grade/' + grade)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
 }

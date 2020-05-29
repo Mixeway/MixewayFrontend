@@ -8,6 +8,7 @@ import {Scanner, ScannerType} from '../Model/Scanner';
 import {Settings} from '../Model/Settings';
 import {Project} from '../Model/Project';
 import {WebAppScanStrategy} from '../Model/WebAppScanStrategy';
+import {SearchResponse} from '../Model/SearchResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -205,6 +206,20 @@ export class AdminService {
   }
   getWebAppScanStrategy(): Observable<WebAppScanStrategy> {
     return this.http.get<WebAppScanStrategy>(environment.backend + '/admin/settings/webappscanstrategy')
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  editVulnAuditorSettings(settings): Observable<string> {
+    return this.http.post<string>(environment.backend + '/admin/settings/vulnauditor' , settings)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  updateVulnAuditor(vulnauditor): Observable<string> {
+    return this.http.post<string>(environment.backend + '/admin/settings/vulnauditor', vulnauditor)
       .pipe(
         retry(1),
         catchError(this.errorHandl),

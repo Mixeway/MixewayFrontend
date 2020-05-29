@@ -3,6 +3,7 @@ import {ViewCell} from 'ng2-smart-table';
 import {NbWindowService} from '@nebular/theme';
 import {ShowProjectService} from '../../@core/service/ShowProjectService';
 import {Vulnerability} from '../../@core/Model/Vulnerability';
+import {Toast} from '../../@core/utils/Toast';
 
 @Component({
   template: `
@@ -10,6 +11,18 @@ import {Vulnerability} from '../../@core/Model/Vulnerability';
       <div class="modal-body px-0">
         <div style="overflow-y: hidden; height: calc(100vh - 15rem);">
           <div class="px-2" style="overflow-y: auto; height: 100%;">
+            <div class="row" *ngIf="grade === 1">
+              <div class="col-md-12">
+                <nb-alert status="danger" nbTooltip="Vulnerability
+can be marked by Mixeway Vuln Auditor or manualy by a user, read docs to get more informations.">This vulnerability is marked as confirmed and important. </nb-alert>
+              </div>
+            </div>
+            <div class="row" *ngIf="grade === 0">
+              <div class="col-md-12">
+                <nb-alert status="success" nbTooltip="Vulnerability
+can be marked by Mixeway Vuln Auditor or manualy by a user, read docs to get more informations.">This vulnerability is marked as not confirmed or not relavant in given context. </nb-alert>
+              </div>
+            </div>
             <div class="row">
               <div class="col-md-12">
                 <nb-card>
@@ -45,7 +58,7 @@ import {Vulnerability} from '../../@core/Model/Vulnerability';
                 </nb-card>
               </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="recommendation">
               <div class="col-md-12">
                 <nb-card>
                   <nb-card-header>
@@ -68,13 +81,26 @@ import {Vulnerability} from '../../@core/Model/Vulnerability';
                 </nb-card>
               </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="references">
               <div class="col-md-12">
                 <nb-card>
                   <nb-card-header>
                     References
                   </nb-card-header>
                   <nb-card-body [innerHTML]="references" style="white-space: pre-wrap;">
+                  </nb-card-body>
+                </nb-card>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <nb-card>
+                  <nb-card-header>
+                    Manually set the grade for given vulnerability
+                  </nb-card-header>
+                  <nb-card-body>
+                    <button style="float:right" nbButton outline status="success" [disabled]="grade==0" (click)="setGradeForVuln(0)">Mark as not relevant</button>
+                    <button style="float:left" nbButton outline status="danger" [disabled]="grade==1" (click)="setGradeForVuln(1)">Mark as confirmed and relevant</button>
                   </nb-card-body>
                 </nb-card>
               </div>
@@ -98,7 +124,9 @@ export class DetailsComponent implements ViewCell, OnInit {
   recommendation: string;
   asset: string;
   references: string;
-  constructor(private windowService: NbWindowService, private showProjectService: ShowProjectService) {
+  grade: number;
+  constructor(private windowService: NbWindowService, private showProjectService: ShowProjectService,
+              private toast: Toast) {
 
   }
   loadVulnerability() {
@@ -118,6 +146,7 @@ export class DetailsComponent implements ViewCell, OnInit {
       this.references = data.vulnerability.refs;
       this.description = data.description;
       this.recommendation = data.vulnerability.recommendation;
+      this.grade = data.grade;
       this.windowService.open(
         this.escCloseTemplate,
         { title: this.vulnerability.vulnerability.name, hasBackdrop: true },
@@ -129,5 +158,16 @@ export class DetailsComponent implements ViewCell, OnInit {
 
   openWindowWithBackdrop() {
     this.loadVulnerability();
+  }
+
+  setGradeForVuln(number: number) {
+    return this.showProjectService.setGradeForVuln(this.rowData.projectId, this.rowData.id, number).subscribe(() => {
+        this.toast.showToast('primary', 'Success',
+          'Vulnerability classification has been changed.');
+        this.loadVulnerability();
+      },
+      () => {
+        this.toast.showToast('danger', 'Failure', 'There was a problem while changing vulnerability classification');
+      });
   }
 }

@@ -14,4 +14,6 @@ export class Settings {
   webAppAutoCron: string;
   codeAutoCron: string;
   trendEmailCron: string;
+  vulnAuditorEnable: boolean;
+  vulnAuditorUrl: string;
 }

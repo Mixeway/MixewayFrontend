@@ -168,4 +168,7 @@ export class AdminConstants {
     'set only for one instance of given scanner. Read docs for more information.';
   OPERATION_FAILED_SCANNER_POLICY_CONFLICT = 'There is policy set for given scanner. With scan policy registered there is limit of' +
     '1 scanner of given type. Read docs for more information.';
+    OPERATION_SUCCESS_VULNAUDITOR_UPDATE = 'Vuln Auditor Settings are saved successfully';
+  OPERATION_FAILED_VULNAUDITOR = 'There were an error during operation of save ' +
+      'Vuln Auditor Settings, please try again.';
 }
