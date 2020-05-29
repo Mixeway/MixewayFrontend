@@ -20,7 +20,7 @@ export class VulnAuditorComponent implements OnInit {
   role: string;
   isAdmin: boolean = false;
   constants: AdminConstants = new AdminConstants();
-  private options: any;
+  options: any;
   constructor(private formBuilder: FormBuilder, private adminService: AdminService, private toast: Toast,
               private cookieService: CookieService, private router: Router) {
     this.role = this.cookieService.get('role');
