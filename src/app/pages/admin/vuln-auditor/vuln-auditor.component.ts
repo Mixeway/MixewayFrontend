@@ -18,7 +18,6 @@ export class VulnAuditorComponent implements OnInit {
   enabled: boolean = false;
   disabled: boolean = true;
   role: string;
-  smtpForm: FormGroup;
   isAdmin: boolean = false;
   constants: AdminConstants = new AdminConstants();
   private options: any;

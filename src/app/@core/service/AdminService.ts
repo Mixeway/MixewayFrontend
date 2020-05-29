@@ -8,7 +8,6 @@ import {Scanner, ScannerType} from '../Model/Scanner';
 import {Settings} from '../Model/Settings';
 import {Project} from '../Model/Project';
 import {WebAppScanStrategy} from '../Model/WebAppScanStrategy';
-import {SearchResponse} from '../Model/SearchResponse';
 
 @Injectable({
   providedIn: 'root',
