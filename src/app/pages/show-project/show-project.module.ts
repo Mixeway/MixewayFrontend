@@ -43,6 +43,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ExtraComponentsModule} from '../extra-components/extra-components.module';
 import {VulnerabilitySourceComponent} from '../extra-components/vulnerability-source-component';
 import {StatusComponent} from '../extra-components/status-component';
+import {ClassificationColorComponent} from '../extra-components/classification-color.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import {StatusComponent} from '../extra-components/status-component';
     VulnTrendPieComponent,
     DetailsTablesComponent,
     AlertColorComponent,
+    ClassificationColorComponent,
     DetailsComponent,
     VulnerabilitySourceComponent,
     StatusComponent,

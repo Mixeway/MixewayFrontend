@@ -14,6 +14,7 @@ import {Vulnerability} from '../../../@core/Model/Vulnerability';
 import {LocalDataSource} from 'ng2-smart-table';
 import {VulnerabilitySourceComponent} from '../../extra-components/vulnerability-source-component';
 import {StatusComponent} from '../../extra-components/status-component';
+import {ClassificationColorComponent} from '../../extra-components/classification-color.component';
 
 
 @Component({
@@ -21,7 +22,7 @@ import {StatusComponent} from '../../extra-components/status-component';
   templateUrl: './details-tables.component.html',
   styleUrls: ['./details-tables.component.scss'],
   entryComponents: [AlertColorComponent, DetailsComponent, DescriptionToggleComponent, AuditResultColorComponent,
-    AnalysisColorComponent, BugComponent, VulnerabilitySourceComponent, StatusComponent],
+    AnalysisColorComponent, BugComponent, VulnerabilitySourceComponent, StatusComponent, ClassificationColorComponent],
 })
 export class DetailsTablesComponent implements OnInit {
   source: LocalDataSource;
@@ -169,6 +170,24 @@ export class DetailsTablesComponent implements OnInit {
                 {value: 'High', title: 'High'},
                 {value: 'Medium', title: 'Medium'},
                 {value: 'Low', title: 'Low'},
+              ],
+            },
+          },
+        },
+        grade: {
+          title: 'Classification',
+          type: 'custom',
+          width: '10%',
+          renderComponent: ClassificationColorComponent,
+          sortDirection: 'desc',
+          filter: {
+            type: 'list',
+            config: {
+              selectText: 'Select',
+              list: [
+                {value: 1, title: 'Confirmed'},
+                {value: 0, title: 'Not Relevant'},
+                {value: -1, title: 'Not Set'},
               ],
             },
           },
