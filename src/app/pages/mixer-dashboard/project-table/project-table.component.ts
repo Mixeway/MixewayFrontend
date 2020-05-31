@@ -33,13 +33,6 @@ export class ProjectTableComponent {
         add: (this.role === 'ROLE_ADMIN' || this.role === 'ROLE_EDITOR_RUNNER'),
         edit: (this.role === 'ROLE_ADMIN' || this.role === 'ROLE_EDITOR_RUNNER'),
         delete: (this.role === 'ROLE_ADMIN' || this.role === 'ROLE_EDITOR_RUNNER'),
-        custom: [
-          {
-            name: this.constants.DASHBOARD_TABLE_DETAILS,
-            title: '<i class="nb-search" title="' +
-              this.constants.DASHBOARD_TABLE_DETAILS + '"></i>',
-          },
-        ],
       },
       add: {
         title: this.constants.DASHBOARD_TABLE_ADD,

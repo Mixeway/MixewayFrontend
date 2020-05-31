@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {Risk} from '../../@core/Model/Risk';
 import {ShowProjectService} from '../../@core/service/ShowProjectService';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -6,6 +6,10 @@ import {CookieService} from 'ngx-cookie-service';
 import {ProjectConstants} from '../../@core/constants/ProjectConstants';
 import {ScannerType} from '../../@core/Model/Scanner';
 import {CiOperations} from '../../@core/Model/CiOperations';
+import {NbDialogService} from '@nebular/theme';
+import {FormBuilder} from '@angular/forms';
+import {Toast} from '../../@core/utils/Toast';
+import {ProjectInfo} from '../../@core/Model/ProjectInfo';
 
 @Component({
   selector: 'ngx-show-project',
@@ -13,31 +17,53 @@ import {CiOperations} from '../../@core/Model/CiOperations';
   styleUrls: ['./show-project.component.scss'],
 })
 export class ShowProjectComponent implements OnInit {
+  @ViewChild('vulnAuditorSettings')
+  showVulnAuditorDialog: TemplateRef<any>;
   risk: Risk;
   infraRiskCard: any;
   codeRiskCard: any;
   webAppRiskCard: any;
   auditRiskCard: any;
   openSourceCard: any;
+  projectInfo: ProjectInfo = new ProjectInfo;
   _entityId: any;
   ciOperations: CiOperations[];
   scannerTypes: ScannerType[];
   showConfigTemplate: boolean;
+  showVulnAuditor: boolean;
   showConfigTableTemplate: boolean = false;
   showDetailsTemplate: boolean;
   role: string;
   constants: ProjectConstants = new ProjectConstants();
+  private vulnAuditorForm: any;
   constructor(private showProjectService: ShowProjectService, private _route: ActivatedRoute, private router: Router,
-              private cookieService: CookieService) {
+              private cookieService: CookieService, private dialogService: NbDialogService,
+              private formBuilder: FormBuilder, private toast: Toast) {
     this._entityId = +this._route.snapshot.paramMap.get('projectid');
     if (!this._entityId) {
       this.router.navigate(['/pages/dashboard']);
     }
     this.drawRiskCards(this._entityId);
     this.loadScannerTypes();
+    this.loadProjectInfo();
     this.loadCiOperations();
+    this.vulnAuditorForm = this.formBuilder.group({
+      enableVulnAuditor: this.projectInfo.vulnAuditorEnable,
+      dclocation: this.projectInfo.networkdc,
+      appClient: this.projectInfo.appClient,
+    });
   }
 
+  loadProjectInfo() {
+    return this.showProjectService.getProjectInfo(this._entityId).subscribe(data => {
+      this.projectInfo = data;
+      this.vulnAuditorForm.patchValue({
+        enableVulnAuditor: data.vulnAuditorEnable,
+        dclocation: data.networkdc,
+        appClient: data.appClient,
+      });
+    });
+  }
   drawRiskCards(id) {
     return this.showProjectService.getRiskCards(id).subscribe(data => {
       this.risk = data;
@@ -73,6 +99,7 @@ export class ShowProjectComponent implements OnInit {
   ngOnInit() {
     this.role = this.cookieService.get('role');
     this.showConfigTemplate = this.role !== 'ROLE_ADMIN' && this.role !== 'ROLE_EDITOR_RUNNER';
+    this.showVulnAuditor = this.role === 'ROLE_ADMIN' || this.role === 'ROLE_EDITOR_RUNNER';
     this.showDetailsTemplate = true;
   }
 
@@ -93,5 +120,27 @@ export class ShowProjectComponent implements OnInit {
       inventoryCount: inventoryCount,
       risk: risk,
     };
+  }
+
+  displayProjectGlobalSettings() {
+    this.openCreateApiDialog(this.showVulnAuditorDialog);
+  }
+  openCreateApiDialog(dialog: TemplateRef<any>) {
+    this.dialogService.open(
+      dialog,
+      { context: 'this is some additional data passed to dialog' });
+  }
+
+  saveVulnAuditorSettings(ref) {
+    return this.showProjectService.saveVulnAuditorSettings(this._entityId, this.vulnAuditorForm.value).subscribe(() => {
+        this.toast.showToast('success', this.constants.PROJECT_OPERATION_SUCCESS,
+          'Vuln Auditor Settings saved successfully.');
+        this.loadProjectInfo();
+        ref.close();
+      },
+      () => {
+        this.toast.showToast('danger', this.constants.PROJECT_OPERATION_FAILURE,
+          this.constants.PROJECT_OPERATION_FAILURES);
+      });
   }
 }

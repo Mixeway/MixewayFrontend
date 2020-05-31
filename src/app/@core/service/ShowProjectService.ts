@@ -22,6 +22,8 @@ import {SoftVuln} from '../Model/SoftVuln';
 import {SastProject} from '../Model/SastProject';
 import {ScannerType} from '../Model/Scanner';
 import {CiOperations} from '../Model/CiOperations';
+import {Vulnerability} from '../Model/Vulnerability';
+import {ProjectInfo} from '../Model/ProjectInfo';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +40,21 @@ export class ShowProjectService {
   }
   getIaasApi(id): Observable<IaasApi> {
     return this.http.get<IaasApi>(environment.backend + this.showProjectPath + '/' + id + '/iaasapi')
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  getVulnerabilities(id): Observable<Vulnerability[]> {
+    return this.http.get<Vulnerability[]>(environment.backend + this.showProjectPath + '/' + id + '/vulnerabilities')
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  getVulnerability(id, vulnId): Observable<Vulnerability> {
+    return this.http.get<Vulnerability>(environment.backend + this.showProjectPath + '/' + id +
+      '/vulnerabilities/' + vulnId)
       .pipe(
         retry(1),
         catchError(this.errorHandl),
@@ -145,7 +162,9 @@ export class ShowProjectService {
 
   errorHandl(error) {
     if (error.status === 403) {
-      window.location.href = '/pages/dashboard';
+      const expires = 'expires=' + new Date().toUTCString();
+      document.cookie = `role=;Path=/;expires=${expires}`;
+      window.location.reload();
     }
     return throwError(error.status);
   }
@@ -409,8 +428,30 @@ export class ShowProjectService {
         catchError(this.errorHandl),
       );
   }
+  getProjectInfo(id) {
+    return this.http.get<ProjectInfo>(environment.backend + this.showProjectPath + '/' + id)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
   putProjectToRemote(projectId: number, codeProjectId: number) {
     return this.http.put<SastProject[]>(environment.backend + this.showProjectPath + '/' + projectId + '/createremoteproject/' + codeProjectId, null)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  saveVulnAuditorSettings(id, settings) {
+    return this.http.post<string>(environment.backend + this.showProjectPath + '/' + id + '/vulnauditor', settings)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  setGradeForVuln(projectid, vulnId, grade): Observable<string> {
+    return this.http.get<string>(environment.backend + '/show/project/' + projectid +
+      '/vulnerabilities/' + vulnId + '/grade/' + grade)
       .pipe(
         retry(1),
         catchError(this.errorHandl),

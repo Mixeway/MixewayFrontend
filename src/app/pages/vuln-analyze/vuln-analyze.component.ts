@@ -64,7 +64,7 @@ export class VulnAnalyzeComponent implements OnInit {
           (row.baseURL ? row.baseURL : '') + ' ' +
           (row.packetName ? row.packetName : '') + ' ' +
           (row.project ? row.project : '' )),
-          type: 'string',
+          type: 'text',
           width: '20%',
         },
         vulnerabilityName: {

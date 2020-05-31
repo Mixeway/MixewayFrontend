@@ -1,6 +1,7 @@
 export class Risk {
   projectName: string;
   projectDescription: string;
+  enableVulnAuditor: boolean;
   assetNumber: number;
   assetRisk: number;
   webAppNumber: number;

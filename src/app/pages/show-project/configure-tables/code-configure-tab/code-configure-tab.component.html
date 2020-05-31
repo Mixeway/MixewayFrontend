@@ -66,6 +66,15 @@
           <label for="tech" class="label">{{constants.PROJECT_CODE_GROUP_TECH}}</label>
           <input type="text" nbInput fullWidth id="tech" [placeholder]="constants.PROJECT_CODE_GROUP_TECH_1" formControlName="tech">
         </div>
+        <div class="form-group">
+          <label for="codeGroupAppClient" class="label">Who is going to use the app?</label>
+          <nb-select id="codeGroupAppClient" fullWidth formControlName="appClient">
+            <nb-option value="">Select...</nb-option>
+            <nb-option value="Customer">Customer</nb-option>
+            <nb-option value="employe">Emoloyee</nb-option>
+          </nb-select>
+        </div>
+
 
         <div class="form-group">
           <nb-checkbox formControlName="childs">{{constants.PROJECT_CODE_GROUP_CHILDS}}?</nb-checkbox>

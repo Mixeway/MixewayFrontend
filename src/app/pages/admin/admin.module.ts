@@ -2,13 +2,13 @@ import {NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {AdminComponent} from './admin.component';
 import {
-  NbAlertModule,
-  NbButtonModule,
-  NbCardModule, NbCheckboxModule,
-  NbIconModule,
-  NbInputModule, NbListModule,
-  NbSelectModule,
-  NbTabsetModule, NbTooltipModule,
+    NbAlertModule,
+    NbButtonModule,
+    NbCardModule, NbCheckboxModule,
+    NbIconModule,
+    NbInputModule, NbListModule, NbRadioModule,
+    NbSelectModule,
+    NbTabsetModule, NbTooltipModule,
 } from '@nebular/theme';
 import {AdminService} from '../../@core/service/AdminService';
 import {ShowProjectService} from '../../@core/service/ShowProjectService';
@@ -24,6 +24,7 @@ import { ScannerComponent } from './scanner/scanner.component';
 import { UserComponent } from './user/user.component';
 import {MultiSelectModule} from '@syncfusion/ej2-angular-dropdowns';
 import { WebAppStrategyComponent } from './web-app-strategy/web-app-strategy.component';
+import { VulnAuditorComponent } from './vuln-auditor/vuln-auditor.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { WebAppStrategyComponent } from './web-app-strategy/web-app-strategy.com
     ScannerComponent,
     UserComponent,
     WebAppStrategyComponent,
+    VulnAuditorComponent,
   ],
     imports: [
         CommonModule,
@@ -53,6 +55,7 @@ import { WebAppStrategyComponent } from './web-app-strategy/web-app-strategy.com
         NbTooltipModule,
         NbListModule,
         MultiSelectModule,
+        NbRadioModule,
     ],
   providers: [
     AdminService,

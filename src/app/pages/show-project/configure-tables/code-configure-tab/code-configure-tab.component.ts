@@ -84,6 +84,7 @@ export class CodeConfigureTabComponent implements OnInit {
       gitusername: '',
       dTrackUuid: '',
       gitpassword: '',
+      appClient: '',
       gitAuth: 0,
       tech: '',
       autoScan: false,

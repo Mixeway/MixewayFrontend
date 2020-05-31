@@ -1,36 +1,15 @@
 <div class="row">
   <div class="col-md-12">
-    <nb-card *ngIf="auditTabShow || webAppTabShow || codeTabShow || softTabShow || infraTabShow">
-      <nb-card-header>
+    <nb-card>
+      <nb-card-header >
         {{constants.PROJECT_DETAILS_DETAILS_TITLE}}
         <button status="primary" nbButton hero (click)="downloadCSV()" class="right">
           <nb-icon icon="cloud-download-outline" [nbTooltip]="constants.PROJECT_DETAILS_TOOLTIP_EXPORT" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
         </button>&nbsp;
       </nb-card-header>
       <nb-card-body>
-        <nb-tabset fullWidth class="col-md-12" (changeTab)="onChangeTab($event)" >
-          <nb-tab [tabTitle]="constants.PROJECT_CARD_INFRAP_TITLE" *ngIf="infraTabShow" [badgeText]="infraNewVulns ? 'new':null" badgePosition="top right" badgeStatus="success">
-            <ng2-smart-table [settings]="infraSettings" [source]="infraSource" ></ng2-smart-table>
-          </nb-tab>
-          <nb-tab [tabTitle]="constants.PROJECT_CARD_WEBAPP_TITLE" *ngIf="webAppTabShow" [badgeText]="webAppNewVulns ? 'new':null" badgePosition="top right" badgeStatus="success">
-            <ng2-smart-table [settings]="webAppSettings" [source]="webAppSource"></ng2-smart-table>
-          </nb-tab>
-          <nb-tab [tabTitle]="constants.PROJECT_CARD_CODE_TEXT" *ngIf="codeTabShow" [badgeText]="codeNewVulns ? 'new':null" badgePosition="top right" badgeStatus="success">
-            <ng2-smart-table [settings]="codeSettings" [source]="codeSource"></ng2-smart-table>
-          </nb-tab>
-          <nb-tab [tabTitle]="constants.PROJECT_CARD_OPENSOURCE_TITLE" *ngIf="softTabShow" [badgeText]="softNewVulns ? 'new':null" badgePosition="top right" badgeStatus="success">
-            <ng2-smart-table [settings]="softSettings" [source]="softVulnsPojo"></ng2-smart-table>
-          </nb-tab>
-          <nb-tab [tabTitle]="constants.PROJECT_CARD_AUDIT_TITLE" *ngIf="auditTabShow" [badgeText]="auditNewVulns ? 'new':null" badgePosition="top right" badgeStatus="success">
-            <ng2-smart-table [settings]="auditSettings" [source]="auditSource"></ng2-smart-table>
-          </nb-tab>
-        </nb-tabset>
+        <ng2-smart-table [settings]="vulnerabilitiesSettings" [source]="source"></ng2-smart-table>
       </nb-card-body>
-    </nb-card>
-    <nb-card *ngIf="auditTabShow==false && webAppTabShow==false && codeTabShow==false && infraTabShow==false && softTabShow==false">
-      <nb-alert status="info" >
-        {{constants.PROJECT_DETAILS_NODATA}}
-      </nb-alert>
     </nb-card>
   </div>
 </div>

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AlertColorComponent} from '../../extra-components/alert-color.component';
-import {NewIconComponent} from '../../extra-components/new-icon.component';
+import {DetailsComponent} from '../../extra-components/details-component';
 import {DescriptionToggleComponent} from '../../extra-components/description-toggle.component';
 import {AuditResultColorComponent} from '../../extra-components/audit-result-color.component';
 import {ShowProjectService} from '../../../@core/service/ShowProjectService';
@@ -9,386 +9,190 @@ import {CookieService} from 'ngx-cookie-service';
 import {AnalysisColorComponent} from '../../extra-components/analysis-color.component';
 import {Angular5Csv} from 'angular5-csv/dist/Angular5-csv';
 import {ProjectConstants} from '../../../@core/constants/ProjectConstants';
-import {BugTracker} from '../../../@core/Model/BugTracker';
-import {BugTrackerService} from '../../../@core/service/BugTrackerService';
 import {BugComponent} from '../../extra-components/bug-component';
-import {SoftVulnPojo} from '../../../@core/Model/SoftVuln';
+import {Vulnerability} from '../../../@core/Model/Vulnerability';
+import {LocalDataSource} from 'ng2-smart-table';
+import {VulnerabilitySourceComponent} from '../../extra-components/vulnerability-source-component';
+import {StatusComponent} from '../../extra-components/status-component';
+import {ClassificationColorComponent} from '../../extra-components/classification-color.component';
 
 
 @Component({
   selector: 'ngx-details-tables',
   templateUrl: './details-tables.component.html',
   styleUrls: ['./details-tables.component.scss'],
-  entryComponents: [AlertColorComponent, NewIconComponent, DescriptionToggleComponent, AuditResultColorComponent,
-    AnalysisColorComponent, BugComponent],
+  entryComponents: [AlertColorComponent, DetailsComponent, DescriptionToggleComponent, AuditResultColorComponent,
+    AnalysisColorComponent, BugComponent, VulnerabilitySourceComponent, StatusComponent, ClassificationColorComponent],
 })
 export class DetailsTablesComponent implements OnInit {
-  webAppSettings: any;
-  webAppSource: any;
-  webAppTabShow: boolean = false;
-  webAppNewVulns: boolean = false;
-  auditSettings: any;
-  auditSource: any;
-  auditTabShow: boolean = false;
-  auditNewVulns: boolean = false;
-  infraSettings: any;
-  infraTabShow: boolean = false;
-  infraNewVulns: boolean = false;
-  codeSettings: any;
-  codeSource: any;
-  codeTabShow: boolean = false;
-  codeNewVulns: boolean = false;
-  softSettings: any;
-  softSource: any;
-  softVulnsPojo: SoftVulnPojo[] = [];
-  softTabShow: boolean = false;
-  softNewVulns: boolean = false;
-  infraSource: any;
+  source: LocalDataSource;
+  types: string[];
+  vulnerabilities: Vulnerability[];
+  vulnerabilitiesPojo: any = [];
+  vulnerabilitiesSettings: any;
   _entityId: number;
   role: string;
-  bugTrackers: BugTracker[] = [];
-  activeTab: number;
   constants: ProjectConstants = new ProjectConstants();
   constructor( private showProjectService: ShowProjectService, private _route: ActivatedRoute, private router: Router,
-               private cookieService: CookieService, private bugTrackerService: BugTrackerService) {
+               private cookieService: CookieService) {
     this.role = this.cookieService.get('role');
     this._entityId = +this._route.snapshot.paramMap.get('projectid');
     if (!this._entityId) {
       this.router.navigate(['/pages/dashboard']);
     }
-    if (this.role !== 'ROLE_USER') {
-      this.loadBugTrackers();
-    } else {
-      this.createTableSettings();
-    }
-    this.loadInfraVulns();
-    this.loadWebApps();
-    this.loadCodeVulns();
+    this.createTableSettings();
+    this.loadVulns();
     this.loadAudit();
-    this.loadSoftVulns();
-
   }
   loadAudit() {
     return this.showProjectService.getAuditVulns(this._entityId).subscribe(data => {
-      this.auditSource = data;
-      if (data.length > 0) {
-        this.auditTabShow = true;
-      }
-      if (data.filter(audit => audit.status.name === this.constants.PROJECT_DETAILS_STATUS_NEW).length > 0) {
-        this.auditNewVulns = true;
-      }
     });
   }
-  loadBugTrackers() {
-    return this.bugTrackerService.getBugTrackers(this._entityId).subscribe(data => {
-      this.bugTrackers = data;
-      this.createTableSettings();
-    });
-  }
-  loadInfraVulns() {
-    return this.showProjectService.getInfraVulns(this._entityId).subscribe(data => {
-      this.infraSource = data.map(e => ({...e, type: 'infra'}));
-      if (data.length > 0) {
-        this.infraTabShow = true;
-      }
-      if (data.filter(infra => infra.status.name === this.constants.PROJECT_DETAILS_STATUS_NEW).length > 0) {
-        this.infraNewVulns = true;
-      }
-    });
-  }
-  loadWebApps() {
-    return this.showProjectService.getWebAppVulns(this._entityId).subscribe(data => {
-      this.webAppSource = data.map(e => ({...e, type: 'webapp'}));
-      if (data.length > 0) {
-        this.webAppTabShow = true;
-      }
-      if (data.filter(webApp => webApp.status.name === this.constants.PROJECT_DETAILS_STATUS_NEW).length > 0) {
-        this.webAppNewVulns = true;
-      }
-    });
-  }
-  loadSoftVulns() {
-    return this.showProjectService.getSoftVulns(this._entityId).subscribe(data => {
-      this.softSource = data.map(e => ({...e, type: 'opensource'}));
-      if (data.length > 0 ) {
-        this.softTabShow = true;
-      }
-      if (data.filter(soft =>
-        soft.softwarePacketVulnerability.status.name === this.constants.PROJECT_DETAILS_STATUS_NEW).length > 0) {
-        this.softNewVulns = true;
-      }
-      data.forEach( (v) => {
-        const vuln: SoftVulnPojo = {
-          codeProjectName: v.codeProject.name + ' [' + v.codeProject.codeGroup.name + ']',
-          detected: v.softwarePacketVulnerability.inserted,
-          location: v.softwarePacketVulnerability.softwarepacket.name,
-          name: v.softwarePacketVulnerability.name,
-          severity: v.softwarePacketVulnerability.severity,
+  loadVulns() {
+    return this.showProjectService.getVulnerabilities(this._entityId).subscribe(data => {
+      this.vulnerabilities = data;
+      for (const vulnerability of data) {
+        const vuln = {
+          projectId: this._entityId,
+          id: vulnerability.id,
+          name: vulnerability.vulnerability.name,
+          location: vulnerability.location,
+          severity: vulnerability.severity,
+          grade: vulnerability.grade,
+          status: vulnerability.status.name,
+          analysis: vulnerability.analysis,
+          inserted: vulnerability.inserted,
+          source: vulnerability.vulnerabilitySource.name,
         };
-        this.softVulnsPojo.push(vuln);
-      });
-    });
-  }
-  loadCodeVulns() {
-    return this.showProjectService.getCodeVulns(this._entityId).subscribe(data => {
-      this.codeSource = data.map(e => ({...e, type: 'code'}));
-      if (data.length > 0) {
-        this.codeTabShow = true;
-      }
-      if (data.filter(code => code.status.name === this.constants.PROJECT_DETAILS_STATUS_NEW).length > 0) {
-        this.codeNewVulns = true;
+        this.vulnerabilitiesPojo.push(vuln);
+        this.source = new LocalDataSource(this.vulnerabilitiesPojo);
       }
     });
   }
-
   ngOnInit() {
   }
   createTableSettings() {
-    const that = this;
-    const bugTracking = {
-      title: this.constants.PROJECT_ISSUE_TICKET,
-      type: 'custom',
-      width: '15%',
-      filter: false,
-      renderComponent: BugComponent,
-      onComponentInitFunction(instance) {
-        instance.refresh.subscribe((row) => {
-          if (row.type === 'infra') {
-            that.loadInfraVulns();
-          } else if (row.type === 'webapp') {
-            that.loadWebApps();
-          } else if (row.type === 'code') {
-            that.loadCodeVulns();
-          } else {
-            that.loadSoftVulns();
-          }
-        });
-      },
-    };
-    this.infraSettings = {
+    this.vulnerabilitiesSettings = {
       actions: false,
       columns: {
-        status: {
+        details: {
           title: ' ',
           type: 'custom',
-          renderComponent: NewIconComponent,
+          renderComponent: DetailsComponent,
           filter: false,
-          width: '10%',
-        },
-        intf: {
-          title: this.constants.PROJECT_DETAILS_LOCATION,
-          valuePrepareFunction: (cell, row) => (row.intf.privateip === row.intf.asset.name ? row.intf.privateip :
-            row.intf.asset.name + ' (' + row.intf.privateip + ')'),
-          filterFunction: (intf?: any, search?: string) => {
-            return intf.privateip.indexOf(search) > -1 || intf.asset.name.indexOf(search) > -1;
-          },
-          type: 'string',
-          width: '20%',
-        },
-        name: {
-          title: this.constants.PROJECT_DETAILS_NAME,
-          type: 'string',
-          width: '40%',
-        },
-        severity: {
-          title: this.constants.PROJECT_DETAILS_SEVERITY,
-          type: 'custom',
-          width: '15%',
-          renderComponent: AlertColorComponent,
-        },
-        inserted: {
-          title: this.constants.PROJECT_DETAILS_LASTSEEN,
-          type: 'date',
-          width: '15%',
-        },
-        ...((this.bugTrackers.filter(bt => bt.vulns === 'infra').length > 0) && (this.role !== 'ROLE_USER')
-          ? {bug: bugTracking} : {}),
-      },
-    };
-    this.softSettings = {
-      actions: {
-        add: false,
-        edit: false,
-        delete: false,
-      },
-      columns: {
-        status: {
-          title: ' ',
-          type: 'custom',
-          renderComponent: NewIconComponent,
-          filter: false,
-          width: '10%',
-        },
-        codeProjectName: {
-          title: this.constants.PROJECT_DETAILS_SOFT_CODEPROJECT,
-          type: 'string',
-          width: '20%',
-        },
-        location: {
-          title: this.constants.PROJECT_DETAILS_LOCATION,
-          type: 'string',
-          width: '20%',
-        },
-        // @ts-ignore
-        name: {
-          title: this.constants.PROJECT_DETAILS_NAME,
-          type: 'string',
-          width: '40%',
-        },
-        severity: {
-          title: this.constants.PROJECT_DETAILS_SEVERITY,
-          type: 'custom',
-          width: '15%',
-          renderComponent: AlertColorComponent,
-        },
-        detected: {
-          title: this.constants.PROJECT_DETAILS_LASTSEEN,
-          type: 'date',
-          width: '15%',
-        },
-        ...((this.bugTrackers.filter(bt => bt.vulns === 'opensource').length > 0) && (this.role !== 'ROLE_USER')
-          ? {bug: bugTracking} : {}),
-      },
-    };
-    this.codeSettings = {
-      actions: {
-        add: false,
-        edit: false,
-        delete: false,
-      },
-      columns: {
-        status: {
-          title: ' ',
-          type: 'custom',
-          renderComponent: NewIconComponent,
-          filter: false,
-          width: '10%',
-        },
-        codeProject: {
-          title: this.constants.PROJECT_DETAILS_PROJECT,
-          valuePrepareFunction: (cell, row) => (row.codeProject ? row.codeProject.name + ' [' +
-            row.codeProject.codeGroup.name + ']' : row.codeGroup.name),
-          filterFunction(cell?: any, search?: string): boolean {
-            const match = cell.name.indexOf(search) > -1 || cell.codeGroup.name.indexOf(search) > -1;
-            return match || search === '';
-          },
-          type: 'string',
-          width: '20%',
-        },
-        filePath: {
-          title: this.constants.PROJECT_DETAILS_LOCATION,
-          type: 'string',
-          width: '20%',
-        },
-        name: {
-          title: this.constants.PROJECT_DETAILS_NAME,
-          type: 'string',
-          width: '40%',
-        },
-        severity: {
-          title: this.constants.PROJECT_DETAILS_SEVERITY,
-          type: 'custom',
-          width: '15%',
-          renderComponent: AlertColorComponent,
-        },
-        analysis: {
-          title: this.constants.PROJECT_DETAILS_ANALYSIS,
-          type: 'custom',
-          width: '15%',
-          renderComponent: AnalysisColorComponent,
-        },
-        inserted: {
-          title: this.constants.PROJECT_DETAILS_LASTSEEN,
-          type: 'date',
-          width: '15%',
-        },
-        ...((this.bugTrackers.filter(bt => bt.vulns === 'code').length > 0) && (this.role !== 'ROLE_USER')
-          ? {bug: bugTracking} : {}),
-      },
-    };
-    this.webAppSettings = {
-      actions: {
-        add: false,
-        edit: false,
-        delete: false,
-      },
-      columns: {
-        status: {
-          title: ' ',
-          type: 'custom',
-          renderComponent: NewIconComponent,
-          filter: false,
-          width: '10%',
-        },
-        location: {
-          title: this.constants.PROJECT_DETAILS_LOCATION,
-          type: 'string',
-          width: '20%',
-        },
-        name: {
-          title: this.constants.PROJECT_DETAILS_NAME,
-          type: 'string',
-          width: '40%',
-        },
-        severity: {
-          title: this.constants.PROJECT_DETAILS_SEVERITY,
-          type: 'custom',
-          width: '15%',
-          renderComponent: AlertColorComponent,
-        },
-        webApp: {
-          title: this.constants.PROJECT_DETAILS_LASTSEEN,
-          valuePrepareFunction: (webApp) => {
-            return webApp.lastExecuted;
-          },
-          filterFunction: (webApp?: any, search?: string) => {
-            return webApp.lastExecuted.indexOf(search) > -1;
-          },
-          type: 'date',
-          width: '15%',
-        },
-        ...((this.bugTrackers.filter(bt => bt.vulns === 'webapp').length > 0) && (this.role !== 'ROLE_USER')
-          ? {bug: bugTracking} : {}),
-      },
-    };
-    this.auditSettings = {
-      actions: {
-        add: false,
-        edit: false,
-        delete: false,
-      },
-      columns: {
-        nodeName: {
-          title: this.constants.PROJECT_DETAILS_NODE,
-          valuePrepareFunction: (cell, row) => row.node.name,
-          type: 'string',
-          width: '10%',
-        },
-        nodeType: {
-          title: this.constants.PROJECT_DETAILS_TYPE,
-          valuePrepareFunction: (cell, row) => row.node.type,
-          type: 'string',
-          width: '20%',
-        },
-        reqCode: {
-          title: this.constants.PROJECT_DETAILS_CODE,
-          valuePrepareFunction: (cell, row) => row.requirement.code,
-          type: 'string',
           width: '5%',
         },
-        reqName: {
-          title: this.constants.PROJECT_DETAILS_REQUIREMENT,
-          valuePrepareFunction: (cell, row) => row.requirement.name,
+        status: {
+          title: 'Status',
+          type: 'custom',
+          renderComponent: StatusComponent,
+          width: '5%',
+          filter: {
+            type: 'list',
+            config: {
+              selectText: 'Select',
+              list: [
+                {value: 'New', title: 'New'},
+                {value: 'Existing', title: 'Existing'},
+              ],
+            },
+          },
+        },
+        source: {
+          title: 'Source',
+          type: 'custom',
+          renderComponent: VulnerabilitySourceComponent,
+          width: '5%',
+          filter: {
+            type: 'list',
+            config: {
+              selectText: 'Select',
+              list: [
+                {value: 'Network', title: 'Network'},
+                {value: 'SourceCode', title: 'SourceCode'},
+                {value: 'WebApplication', title: 'WebApplication'},
+                {value: 'OpenSource', title: 'OpenSource'},
+              ],
+            },
+          },
+        },
+        location: {
+          title: this.constants.PROJECT_DETAILS_LOCATION,
+          type: 'string',
+          width: '20%',
+        },
+        name: {
+          title: this.constants.PROJECT_DETAILS_NAME,
           type: 'string',
           width: '40%',
         },
-        score: {
-          title: this.constants.PROJECT_DETAILS_SCORE,
+        severity: {
+          title: this.constants.PROJECT_DETAILS_SEVERITY,
           type: 'custom',
-          renderComponent: AuditResultColorComponent,
           width: '10%',
+          renderComponent: AlertColorComponent,
+          sortDirection: 'desc',
+          compareFunction: (direction: any, a: any, b: any) => {
+            let first = 0;
+            let second = 0;
+            if (a.toLowerCase() === 'critical') {
+              first = 4;
+            } else if (a.toLowerCase() === 'high') {
+              first = 3;
+            } else if (a.toLowerCase() === 'medium') {
+              first = 2;
+            } else {
+              first = 1;
+            }
+            if (b.toLowerCase() === 'critical') {
+              second = 4;
+            } else if (b.toLowerCase() === 'high') {
+              second = 3;
+            } else if (b.toLowerCase() === 'medium') {
+              second = 2;
+            } else {
+              second = 1;
+            }
+            if (first < second) {
+              return -1 * direction;
+            }
+            if (first > second) {
+              return direction;
+            }
+            return 0;
+          },
+          filter: {
+            type: 'list',
+            config: {
+              selectText: 'Select',
+              list: [
+                {value: 'Critical', title: 'Critical'},
+                {value: 'High', title: 'High'},
+                {value: 'Medium', title: 'Medium'},
+                {value: 'Low', title: 'Low'},
+              ],
+            },
+          },
         },
-        updated: {
+        grade: {
+          title: 'Classification',
+          type: 'custom',
+          width: '10%',
+          renderComponent: ClassificationColorComponent,
+          sortDirection: 'desc',
+          filter: {
+            type: 'list',
+            config: {
+              selectText: 'Select',
+              list: [
+                {value: 1, title: 'Confirmed'},
+                {value: 0, title: 'Not Relevant'},
+                {value: -1, title: 'Not Set'},
+              ],
+            },
+          },
+        },
+        inserted: {
           title: this.constants.PROJECT_DETAILS_LASTSEEN,
           type: 'date',
           width: '15%',
@@ -407,66 +211,24 @@ export class DetailsTablesComponent implements OnInit {
       headers: [
         this.constants.PROJECT_DETAILS_LOCATION,
         this.constants.PROJECT_DETAILS_NAME,
-        this.constants.PROJECT_DETAILS_DESCRIPTION,
+        this.constants.PROJECT_DETAILS_STATUS,
         this.constants.PROJECT_DETAILS_SEVERITY,
         this.constants.PROJECT_DETAILS_LASTSEEN,
       ],
     };
-    if (this.activeTab === 1) {
-      new Angular5Csv(this.getExportedValuesForInfra(), 'report', options);
-    } else if (this.activeTab === 2) {
-      new Angular5Csv(this.getExportedValuesForWeb(), 'report', options);
-    } else if (this.activeTab === 3) {
-      new Angular5Csv(this.getExportedValuesForCode(), 'report', options);
-    }
-  }
-  getExportedValuesForInfra() {
-    const data = [];
-    for (const row of this.infraSource) {
-      data.push({
-        interf: row.intf.privateip + '(' + row.intf.asset.name + ')',
-        vulnName: row.name,
-        desc: row.description.replace(/(\r\n|\n|\r)/gm, ''),
-        severity: row.severity,
-        inserted: row.inserted,
-      });
-    }
-    return data;
-  }
-  onChangeTab($event: any) {
-    if ($event.tabTitle.startsWith('Infra')) {
-      this.activeTab = 1;
-    } else if ($event.tabTitle.startsWith('Web')) {
-      this.activeTab = 2;
-    } else if ($event.tabTitle.startsWith('Kod')) {
-      this.activeTab = 3;
-    } else if ($event.tabTitle.startsWith('Open')) {
-      this.activeTab = 4;
-    }
+     new Angular5Csv(this.getExportedValues(), 'report', options);
   }
 
-  getExportedValuesForCode() {
+  getExportedValues() {
     const data = [];
-    for (const row of this.codeSource) {
+    // @ts-ignore
+    for (const row of this.source.getFilteredAndSorted().__zone_symbol__value) {
       data.push({
-        interf: row.codeGroup.name + '(' + row.filePath + ')',
+        interf: row.location,
         vulnName: row.name,
-        desc: 'Analysis is: ' + row.analysis,
+        status: row.status,
         severity: row.severity,
         inserted: row.inserted,
-      });
-    }
-    return data;
-  }
-  getExportedValuesForWeb() {
-    const data = [];
-    for (const row of this.webAppSource) {
-      data.push({
-        interf: row.webApp.url,
-        vulnName: row.name,
-        desc: row.description.replace(/(\r\n|\n|\r)/gm, ''),
-        severity: row.severity,
-        inserted: row.webApp.lastExecuted,
       });
     }
     return data;

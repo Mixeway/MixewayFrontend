@@ -210,10 +210,26 @@ export class AdminService {
         catchError(this.errorHandl),
       );
   }
+  editVulnAuditorSettings(settings): Observable<string> {
+    return this.http.post<string>(environment.backend + '/admin/settings/vulnauditor' , settings)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  updateVulnAuditor(vulnauditor): Observable<string> {
+    return this.http.post<string>(environment.backend + '/admin/settings/vulnauditor', vulnauditor)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
 
   errorHandl(error) {
     if (error.status === 403) {
-      window.location.href = '/pages/dashboard';
+      const expires = 'expires=' + new Date().toUTCString();
+      document.cookie = `role=;Path=/;expires=${expires}`;
+      window.location.reload();
     }
     return throwError(error.status);
   }
