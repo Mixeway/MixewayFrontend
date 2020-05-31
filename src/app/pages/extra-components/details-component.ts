@@ -110,7 +110,8 @@ can be marked by Mixeway Vuln Auditor or manualy by a user, read docs to get mor
       </div>
     </ng-template>
 
-    <nb-icon (click)="openWindowWithBackdrop()" icon="more-horizontal-outline" nbTooltip="Read more..." [options]="{ animation: { type: 'zoom' } }" style="display: block; margin-left: auto; margin-right: auto;"></nb-icon>
+    <button nbButton nbTooltip="Read more..." (click)="openWindowWithBackdrop()" ><nb-icon icon="more-horizontal-outline"
+                                            [options]="{ animation: { type: 'zoom' } }" style="display: block; margin-left: auto; margin-right: auto;"></nb-icon></button>
   `,
 })
 export class DetailsComponent implements ViewCell, OnInit {
