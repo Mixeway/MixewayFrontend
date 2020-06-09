@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {ViewCell} from 'ng2-smart-table';
 import {NbWindowService} from '@nebular/theme';
 import {ShowProjectService} from '../../@core/service/ShowProjectService';
@@ -118,6 +118,7 @@ export class DetailsComponent implements ViewCell, OnInit {
   @Input() value: any;
   @Input() rowData: any;
   @ViewChild('vulnerability', { read: TemplateRef }) escCloseTemplate: TemplateRef<HTMLElement>;
+  @Output() refresh: EventEmitter<any> = new EventEmitter();
   vulnerability: Vulnerability;
   location: string;
   inserted: string;
@@ -165,6 +166,9 @@ export class DetailsComponent implements ViewCell, OnInit {
     return this.showProjectService.setGradeForVuln(this.rowData.projectId, this.rowData.id, number).subscribe(() => {
         this.toast.showToast('primary', 'Success',
           'Vulnerability classification has been changed.');
+        this.grade = number;
+        this.rowData.grade = number;
+        this.refresh.emit(this.rowData);
         this.loadVulnerability();
       },
       () => {

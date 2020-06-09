@@ -51,6 +51,7 @@ export class DetailsTablesComponent implements OnInit {
   loadVulns() {
     return this.showProjectService.getVulnerabilities(this._entityId).subscribe(data => {
       this.vulnerabilities = data;
+      this.vulnerabilitiesPojo = [];
       for (const vulnerability of data) {
         const vuln = {
           projectId: this._entityId,
@@ -72,6 +73,7 @@ export class DetailsTablesComponent implements OnInit {
   ngOnInit() {
   }
   createTableSettings() {
+    const that = this;
     this.vulnerabilitiesSettings = {
       actions: false,
       columns: {
@@ -81,6 +83,11 @@ export class DetailsTablesComponent implements OnInit {
           renderComponent: DetailsComponent,
           filter: false,
           width: '5%',
+          onComponentInitFunction(instance) {
+            instance.refresh.subscribe((data) => {
+              that.loadVulns();
+            });
+          },
         },
         status: {
           title: 'Status',
@@ -102,7 +109,7 @@ export class DetailsTablesComponent implements OnInit {
           title: 'Source',
           type: 'custom',
           renderComponent: VulnerabilitySourceComponent,
-          width: '5%',
+          width: '10%',
           filter: {
             type: 'list',
             config: {
@@ -177,7 +184,7 @@ export class DetailsTablesComponent implements OnInit {
         grade: {
           title: 'Classification',
           type: 'custom',
-          width: '10%',
+          width: '7%',
           renderComponent: ClassificationColorComponent,
           sortDirection: 'desc',
           filter: {
@@ -195,7 +202,7 @@ export class DetailsTablesComponent implements OnInit {
         inserted: {
           title: this.constants.PROJECT_DETAILS_LASTSEEN,
           type: 'date',
-          width: '15%',
+          width: '13%',
         },
       },
     };
