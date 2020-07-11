@@ -75,11 +75,9 @@ export class ProjectConstants {
   PROJECT_OPERATIONS_IAAS_TEST_FAIL = 'IAAS API test failed.';
   PROJECT_OPERATIONS_IAAS_TEST_SUCCESS = 'IAAS API test passed';
   PROJECT_OPERATIONS_IAAS_SAVE_SUCCESS = 'IAAS API is successfully saved';
-  PROJECT_IAAS_TITLE = 'OpenStack Integration';
-  PROJECT_IAAS_API_ADD = 'Add API OpenStack';
-  PROJECT_IAAS_IAM = 'IAM: ';
-  PROJECT_IAAS_SERVICE = 'Service: ';
-  PROJECT_IAAS_NETWORK = 'Network: ';
+  PROJECT_IAAS_TITLE = 'IAAS Integration';
+  PROJECT_IAAS_API_ADD = 'Add IAAS API Informations';
+  PROJECT_IAAS_SERVICE = 'API URL: ';
   PROJECT_IAAS_PROJECT = 'Project: ';
   PROJECT_IAAS_TEST = 'Test';
   PROJECT_IAAS_ENABLE_SYNCHRO = 'Enable synchronization';
@@ -202,4 +200,5 @@ export class ProjectConstants {
   PROJECT_WEBAPP_ADD_CHECKBOX_HEADER = 'Add header authentication';
   PROJECT_WEBAPP_ADD_CHECKBOX_PASSWORD = 'Add password authentication';
   PROJECT_DETAILS_STATUS = 'Status';
+  PROJECT_IAAS_TYPE = 'IAAS Platform';
 }
