@@ -14,6 +14,7 @@
             <ngx-scanner [proxies]="proxies" [routingDomains]="routingDomains" [scannerTypes]="scannerTypes"></ngx-scanner>
           </nb-tab>
           <nb-tab [tabTitle]="constants.ADMIN_TAB_SETTINGS">
+            <ngx-security-gateway></ngx-security-gateway>
             <ngx-auth [settings]="settings"></ngx-auth>
             <ngx-smtp [settings]="settings"></ngx-smtp>
             <ngx-apikey [settings]="settings"></ngx-apikey>

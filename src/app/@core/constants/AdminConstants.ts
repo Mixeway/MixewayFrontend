@@ -171,4 +171,10 @@ export class AdminConstants {
     OPERATION_SUCCESS_VULNAUDITOR_UPDATE = 'Vuln Auditor Settings are saved successfully';
   OPERATION_FAILED_VULNAUDITOR = 'There were an error during operation of save ' +
       'Vuln Auditor Settings, please try again.';
+  ADMIN_SECURITY_GATEWAY = 'Security Quality Gateway Settings';
+  OPERATION_SUCCESS = 'Successfully edited settings ';
+  ADMIN_SECURITY_GATEWAY_VULN = 'Limit of confirmed vulnerability before Security Gateway will start denying builds';
+  ADMIN_SECURITY_GATEWAY_CRITICAL = 'Limit of vulnerabilities with Severity: CRITICAL';
+  ADMIN_SECURITY_GATEWAY_HIGH = 'Limit of vulnerabilities with Severity: HIGH';
+  ADMIN_SECURITY_GATEWAY_MEDIUM = 'Limit of vulnerabilities with Severity: MEDIUM';
 }
