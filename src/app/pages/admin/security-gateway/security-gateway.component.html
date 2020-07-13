@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        {{constants.ADMIN_SECURITY_GATEWAY}}
+      </nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="securityGatewayForm" (ngSubmit)="update()" >
+          <div class="form-group">
+            <nb-radio-group formControlName="grade">
+              <nb-radio [value]="true" (valueChange)="changeGatewayToGrade()" (select)="grade">Grade Based Gateway - Vuln Auditor - (see https://mixeway.io for more info)</nb-radio>
+              <nb-radio [value]="false" (valueChange)="changeGatewayToSeverity()" (select)="!grade">Severity Based Gateway (gateway based on severity taken from vulnerability scanner)</nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="form-group" *ngIf="grade">
+            <label for="vuln" class="label">{{constants.ADMIN_SECURITY_GATEWAY_VULN}}</label>
+            <input type="text" nbInput fullWidth id="vuln" formControlName="vuln">
+          </div>
+          <div class="form-group" *ngIf="!grade">
+            <label for="critical" class="label">{{constants.ADMIN_SECURITY_GATEWAY_CRITICAL}}</label>
+            <input type="text" nbInput fullWidth id="critical" formControlName="critical">
+          </div>
+          <div class="form-group" *ngIf="!grade">
+            <label for="high" class="label">{{constants.ADMIN_SECURITY_GATEWAY_HIGH}}</label>
+            <input type="text" nbInput fullWidth id="high" formControlName="high">
+          </div>
+          <div class="form-group" *ngIf="!grade">
+            <label for="medium" class="label">{{constants.ADMIN_SECURITY_GATEWAY_MEDIUM}}</label>
+            <input type="text" nbInput fullWidth id="medium" formControlName="medium">
+          </div>
+          <button type="submit" nbButton status="danger">{{constants.ADMIN_FORM_SAVE}}</button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

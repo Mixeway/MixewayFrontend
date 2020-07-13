@@ -8,6 +8,7 @@ import {Scanner, ScannerType} from '../Model/Scanner';
 import {Settings} from '../Model/Settings';
 import {Project} from '../Model/Project';
 import {WebAppScanStrategy} from '../Model/WebAppScanStrategy';
+import {SecurityGateway} from '../Model/SecurityGateway';
 
 @Injectable({
   providedIn: 'root',
@@ -232,6 +233,20 @@ export class AdminService {
       window.location.reload();
     }
     return throwError(error.status);
+  }
+  getSecurityGateway(): Observable<SecurityGateway> {
+    return this.http.get<SecurityGateway>(environment.backend + '/admin/settings/securitygateway')
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  updateSecurityGateway(securityGateway): Observable<string> {
+    return this.http.post<string>(environment.backend + '/admin/settings/securitygateway', securityGateway)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
   }
 
 }
