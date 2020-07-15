@@ -53,11 +53,17 @@ export class DetailsTablesComponent implements OnInit {
       this.vulnerabilities = data;
       this.vulnerabilitiesPojo = [];
       for (const vulnerability of data) {
+        let location = '';
+        if ( vulnerability.anInterface && (vulnerability.location !== vulnerability.anInterface.privateip)) {
+          location = vulnerability.location + ' / ' + vulnerability.anInterface.privateip;
+        } else {
+          location = vulnerability.location;
+        }
         const vuln = {
           projectId: this._entityId,
           id: vulnerability.id,
           name: vulnerability.vulnerability.name,
-          location: vulnerability.location,
+          location: location,
           severity: vulnerability.severity,
           grade: vulnerability.grade,
           status: vulnerability.status.name,
