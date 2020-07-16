@@ -13,6 +13,7 @@ import {Toast} from '../../../../@core/utils/Toast';
 import {Angular5Csv} from 'angular5-csv/dist/Angular5-csv';
 import {ProjectConstants} from '../../../../@core/constants/ProjectConstants';
 import {ScannerType} from '../../../../@core/Model/Scanner';
+import {IaasApiType} from '../../../../@core/Model/IaasApiType';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class InfraConfigureTabComponent implements OnInit {
   @Input() routingDomains: RoutingDomain[];
   _entityId: number;
   iaasApis: IaasApi;
+  iaasApisType: IaasApiType[];
   assets: Assets;
   canScanAll: boolean;
   role: any;
@@ -43,6 +45,8 @@ export class InfraConfigureTabComponent implements OnInit {
   loading: boolean = true;
   numberOfRunningTest: number = 0;
   constants: ProjectConstants = new ProjectConstants();
+  addOpenStack: boolean = false;
+  addAWSEC2: boolean = false;
   constructor(private dialogService: NbDialogService,
               private showProjectService: ShowProjectService, private _route: ActivatedRoute, private router: Router,
               private cookieService: CookieService, private formBuilder: FormBuilder, private toast: Toast) {
@@ -55,19 +59,16 @@ export class InfraConfigureTabComponent implements OnInit {
     this.setTableSettings();
     this.loadAssets();
     this.loadIaasApi();
+    this.loadIaasApiTypes();
     this.iaasApiForm = this.formBuilder.group({
-      iamApi: ['', [Validators.required, Validators.pattern('(https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+' +
-        '[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]' +
-        '{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})')]],
-      serviceApi: ['', [Validators.required, Validators.pattern('(https?:\\/\\/(?:www\\.|(?!www))' +
-        '[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]' +
-        '{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})')]],
-      networkApi: ['', [Validators.required, Validators.pattern('(https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]' +
-        '[a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]' +
-        '{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})')]],
+      iamApi: '',
+      serviceApi: '',
+      networkApi: '',
+      apiType: ['', Validators.required],
       projectid: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', Validators.required],
+      region: '',
       routingDomainForIaasApi: 0,
     });
     this.assetForm = this.formBuilder.group({
@@ -164,6 +165,7 @@ export class InfraConfigureTabComponent implements OnInit {
   }
 
   iaasApiSubmit(ref) {
+    alert(JSON.stringify(this.iaasApiForm.value));
     if (this.iaasApiForm.valid) {
       return this.showProjectService.putIaasForProject(this._entityId, this.iaasApiForm.value).subscribe(() => {
           this.toast.showToast('success', this.constants.PROJECT_OPERATION_SUCCESS,
@@ -199,7 +201,7 @@ export class InfraConfigureTabComponent implements OnInit {
       },
       () => {
         this.toast.showToast('danger', this.constants.PROJECT_OPERATION_FAILURE,
-          this.constants.PROJECT_OPERATION_FAILURES);
+          this.constants.PROJECT_OPERATION_FAILURES_IAAS);
       });
   }
   disableIaasApi() {
@@ -319,5 +321,25 @@ export class InfraConfigureTabComponent implements OnInit {
         this.toast.showToast('danger', this.constants.PROJECT_OPERATION_FAILURE,
           this.constants.PROJECT_OPERATION_FAILURES);
       });
+  }
+
+  private loadIaasApiTypes() {
+    return this.showProjectService.getIaasApiTypes().subscribe(data => {
+      this.iaasApisType = data;
+    });
+  }
+
+  onChange($event: any) {
+    const iaasApiType = this.iaasApisType.filter(st => st.name === $event);
+    if (iaasApiType.length > 0 && iaasApiType[0].name === 'OpenStack') {
+      this.addAWSEC2 = false;
+      this.addOpenStack = true;
+    } else if ( iaasApiType.length > 0 && iaasApiType[0].name === 'AWS EC2') {
+      this.addAWSEC2 = true;
+      this.addOpenStack = false;
+    } else {
+      this.addAWSEC2 = false;
+      this.addOpenStack = false;
+    }
   }
 }

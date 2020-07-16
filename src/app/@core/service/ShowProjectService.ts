@@ -24,6 +24,7 @@ import {ScannerType} from '../Model/Scanner';
 import {CiOperations} from '../Model/CiOperations';
 import {Vulnerability} from '../Model/Vulnerability';
 import {ProjectInfo} from '../Model/ProjectInfo';
+import {IaasApiType} from '../Model/IaasApiType';
 
 @Injectable({
   providedIn: 'root',
@@ -452,6 +453,13 @@ export class ShowProjectService {
   setGradeForVuln(projectid, vulnId, grade): Observable<string> {
     return this.http.get<string>(environment.backend + '/show/project/' + projectid +
       '/vulnerabilities/' + vulnId + '/grade/' + grade)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  getIaasApiTypes(): Observable<IaasApiType[]> {
+    return this.http.get<IaasApiType[]>(environment.backend + this.showProjectPath + '/iaasapitype')
       .pipe(
         retry(1),
         catchError(this.errorHandl),
