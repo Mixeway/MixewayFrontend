@@ -61,19 +61,14 @@ export class InfraConfigureTabComponent implements OnInit {
     this.loadIaasApi();
     this.loadIaasApiTypes();
     this.iaasApiForm = this.formBuilder.group({
-      iamApi: ['', [Validators.required, Validators.pattern('(https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+' +
-        '[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]' +
-        '{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})')]],
-      serviceApi: ['', [Validators.required, Validators.pattern('(https?:\\/\\/(?:www\\.|(?!www))' +
-        '[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]' +
-        '{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})')]],
-      networkApi: ['', [Validators.required, Validators.pattern('(https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]' +
-        '[a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]' +
-        '{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})')]],
-      iaasType: ['', Validators.required],
+      iamApi: '',
+      serviceApi: '',
+      networkApi: '',
+      apiType: ['', Validators.required],
       projectid: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', Validators.required],
+      region: '',
       routingDomainForIaasApi: 0,
     });
     this.assetForm = this.formBuilder.group({
@@ -170,6 +165,7 @@ export class InfraConfigureTabComponent implements OnInit {
   }
 
   iaasApiSubmit(ref) {
+    alert(JSON.stringify(this.iaasApiForm.value));
     if (this.iaasApiForm.valid) {
       return this.showProjectService.putIaasForProject(this._entityId, this.iaasApiForm.value).subscribe(() => {
           this.toast.showToast('success', this.constants.PROJECT_OPERATION_SUCCESS,
@@ -205,7 +201,7 @@ export class InfraConfigureTabComponent implements OnInit {
       },
       () => {
         this.toast.showToast('danger', this.constants.PROJECT_OPERATION_FAILURE,
-          this.constants.PROJECT_OPERATION_FAILURES);
+          this.constants.PROJECT_OPERATION_FAILURES_IAAS);
       });
   }
   disableIaasApi() {

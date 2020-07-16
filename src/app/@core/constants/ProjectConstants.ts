@@ -95,7 +95,7 @@ export class ProjectConstants {
   PROJECT_IAAS_IAM_URL = 'IAM API URL';
   PROJECT_IAAS_SERVICE_URL = 'Service API URL';
   PROJECT_IAAS_NETWORK_URL = 'Network API URL';
-  PROJECT_IAAS_PROJECTID = 'Project Id';
+  PROJECT_IAAS_PROJECTID = 'Project Id (or VPC-ID if AWS EC2)';
   PROJECT_IAAS_USERNAME = 'Username';
   PROJECT_IAAS_PASSWORD = 'Password';
   PROJECT_ASSET_ADD = 'Adding asset';
@@ -201,4 +201,6 @@ export class ProjectConstants {
   PROJECT_WEBAPP_ADD_CHECKBOX_PASSWORD = 'Add password authentication';
   PROJECT_DETAILS_STATUS = 'Status';
   PROJECT_IAAS_TYPE = 'IAAS Platform';
+  PROJECT_IAAS_REGION = 'Region for IaaS API AWS Integration';
+  PROJECT_OPERATION_FAILURES_IAAS = 'Before enabling synchronization, make sure API is working properly by testing it';
 }

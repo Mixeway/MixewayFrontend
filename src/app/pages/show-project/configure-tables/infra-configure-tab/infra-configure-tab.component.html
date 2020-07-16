@@ -10,8 +10,8 @@
         </button>
       </nb-card>
       <nb-alert [outline]="iaasApis?.enabled ? 'success' : 'danger'">
-        {{constants.PROJECT_IAAS_SERVICE}} {{ iaasApis?.service }}<br/>
-        {{constants.PROJECT_IAAS_PROJECT}} {{ iaasApis?.project }}<br/>
+        {{constants.PROJECT_IAAS_SERVICE}} {{ iaasApis?.service ? iaasApis?.service : 'AWS EC2' }}<br/>
+        {{constants.PROJECT_IAAS_PROJECTID}}: {{ iaasApis?.project }}<br/>
       </nb-alert>
       <div class="buttons-row">
         <button status="info" nbButton ghost *ngIf="!iaasApis?.enabled" (click)="testIaasApi()">
@@ -71,7 +71,7 @@
       <form [formGroup]="iaasApiForm" (ngSubmit)="iaasApiSubmit(ref)">
         <div class="form-group">
           <label for="scannerType" class="label">{{constants.PROJECT_IAAS_TYPE}}</label>
-          <nb-select id="scannerType" fullWidth (selectedChange)="onChange($event)" formControlName="iaasType">
+          <nb-select id="scannerType" fullWidth (selectedChange)="onChange($event)" formControlName="apiType">
             <nb-option *ngFor="let st of iaasApisType" [value]="st.name">{{ st.name }}</nb-option>
           </nb-select>
         </div>
@@ -87,19 +87,23 @@
           <label for="networkApi" class="label">{{constants.PROJECT_IAAS_NETWORK_URL}}</label>
           <input type="text" nbInput fullWidth id="networkApi" [placeholder]="constants.PROJECT_IAAS_NETWORK_URL" formControlName="networkApi">
         </div>
-        <div class="form-group" *ngIf="addOpenStack">
+        <div class="form-group" *ngIf="addAWSEC2">
+          <label for="region" class="label">{{constants.PROJECT_IAAS_REGION}}</label>
+          <input type="text" nbInput fullWidth id="region" [placeholder]="constants.PROJECT_IAAS_REGION" formControlName="region">
+        </div>
+        <div class="form-group" *ngIf="addOpenStack || addAWSEC2">
           <label for="projectid" class="label">{{constants.PROJECT_IAAS_PROJECTID}}</label>
           <input type="text" nbInput fullWidth id="projectid" [placeholder]="constants.PROJECT_IAAS_PROJECTID" formControlName="projectid">
         </div>
-        <div class="form-group" *ngIf="addOpenStack">
+        <div class="form-group" *ngIf="addOpenStack || addAWSEC2">
           <label for="username" class="label">{{constants.PROJECT_IAAS_USERNAME}}</label>
           <input type="text" nbInput fullWidth id="username" [placeholder]="constants.PROJECT_IAAS_USERNAME" formControlName="username">
         </div>
-        <div class="form-group" *ngIf="addOpenStack">
+        <div class="form-group" *ngIf="addOpenStack || addAWSEC2">
           <label for="password" class="label">{{constants.PROJECT_IAAS_PASSWORD}}</label>
           <input type="password" nbInput fullWidth id="password" [placeholder]="constants.PROJECT_IAAS_PASSWORD" formControlName="password">
         </div>
-        <div class="form-group" *ngIf="addOpenStack">
+        <div class="form-group" *ngIf="addOpenStack || addAWSEC2">
           <label for="routingDomainForIaasApi" class="label">{{constants.PROJECT_INFRA_TABLE_ROUTINGDOMAIN}}</label>
           <nb-select id="routingDomainForIaasApi" fullWidth formControlName="routingDomainForIaasApi">
             <nb-option *ngFor="let rd of routingDomains" [value]="rd.id">{{ rd.name }}</nb-option>
