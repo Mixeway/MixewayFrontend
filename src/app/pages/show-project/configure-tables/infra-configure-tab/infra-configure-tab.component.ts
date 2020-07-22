@@ -165,7 +165,6 @@ export class InfraConfigureTabComponent implements OnInit {
   }
 
   iaasApiSubmit(ref) {
-    alert(JSON.stringify(this.iaasApiForm.value));
     if (this.iaasApiForm.valid) {
       return this.showProjectService.putIaasForProject(this._entityId, this.iaasApiForm.value).subscribe(() => {
           this.toast.showToast('success', this.constants.PROJECT_OPERATION_SUCCESS,
