@@ -72,7 +72,7 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  test($event: any) {
+  changeToScannerTab($event: any) {
     if ($event.tabTitle === 'Scanners') {
       this.loadProxies();
       this.loadRoutingService();

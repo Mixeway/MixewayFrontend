@@ -6,7 +6,7 @@
         {{ constants.ADMIN_PAGE_TITLE}}
       </nb-card-header>
       <nb-card-body>
-        <nb-tabset fullWidth (changeTab)="test($event)">
+        <nb-tabset fullWidth (changeTab)="changeToScannerTab($event)">
           <nb-tab [tabTitle]="constants.ADMIN_TAB_USERS">
             <ngx-user></ngx-user>
           </nb-tab>
