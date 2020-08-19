@@ -22,4 +22,7 @@ export class ExtraConstants {
   SCANNER_DTRACK = 'OWASP Dependency Track';
   MISSING_INTEGRATIONS = 'There is no SAST or OpenSource Scanner added. If You did configure plugin in Admin zone, make sure scanner is active by testing it';
   PROJECT_CODE_PROJECT_BRANCH = 'CodeProject branch [default master]';
+  PROJECT_CODE_PROJECT_REPOURL = 'URL for GIT Repository';
+  PROJECT_CODE_PROJECT_REPOPASSWORD = 'Password to authenticate on above GIR URL (fill if token auth is set)';
+  PROJECT_CODE_PROJECT_REPOUSERNAME = 'Username to authenticate on above GIT URL (leave blank if token auth is set)';
 }

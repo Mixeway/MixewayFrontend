@@ -17,6 +17,9 @@ export class CodeProject {
   dTrackUuid: string;
   versionId: number;
   branch: string;
+  repoUrl: string;
+  repoUsername: string;
+  repoPassword: string;
 }
 export class CodeGroup {
   name: string;
