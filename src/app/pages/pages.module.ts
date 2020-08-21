@@ -18,7 +18,7 @@ import {ShowProjectModule} from './show-project/show-project.module';
 import {AdminModule} from './admin/admin.module';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {TokenInterceptor} from '../auth/token.interceptor';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CicdModule} from './cicd/cicd.module';
 import {VulnsModule} from './vulns/vulns.module';
 import { SearchComponent } from './search/search.component';
@@ -27,27 +27,28 @@ import {Ng2SmartTableModule} from 'ng2-smart-table';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
-  imports: [
-    PagesRoutingModule,
-    ThemeModule,
-    NbMenuModule,
-    MiscellaneousModule,
-    MixerDashboardModule,
-    ShowProjectModule,
-    AdminModule,
-    FormsModule,
-    CicdModule,
-    VulnsModule,
-    NbCardModule,
-    NbAlertModule,
-    NbListModule,
-    NbTabsetModule,
-    Ng2SmartTableModule,
-    NbIconModule,
-    NbButtonModule,
-    NbInputModule,
-    NbSelectModule,
-  ],
+    imports: [
+        PagesRoutingModule,
+        ThemeModule,
+        NbMenuModule,
+        MiscellaneousModule,
+        MixerDashboardModule,
+        ShowProjectModule,
+        AdminModule,
+        FormsModule,
+        CicdModule,
+        VulnsModule,
+        NbCardModule,
+        NbAlertModule,
+        NbListModule,
+        NbTabsetModule,
+        Ng2SmartTableModule,
+        NbIconModule,
+        NbButtonModule,
+        NbInputModule,
+        NbSelectModule,
+        ReactiveFormsModule,
+    ],
   declarations: [
     PagesComponent,
     SearchComponent,

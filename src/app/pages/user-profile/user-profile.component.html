@@ -1,13 +1,13 @@
 <div class="row">
   <div class="row col-md-4">
-    <nb-card size="large">
+    <nb-card size="large" style="width:100%;">
       <div class="picture" style="background-image:url('/assets/images/Logo1.png')"></div>
       <div class="details">
-        <div class="h4">{{profile.username}}</div>
+        <div class="h4" style="text-align: center">{{profile.username}}</div>
       </div>
       <nb-card-footer>
         <div class="col-md-6">
-          <nb-card>
+          <nb-card fullWidth>
             <nb-card-body>
               <small>Projects</small>
             </nb-card-body>
@@ -17,7 +17,7 @@
           </nb-card>
         </div>
         <div class="col-md-6">
-          <nb-card>
+          <nb-card fullWidth="">
             <nb-card-body>
               <small>Vulns</small>
             </nb-card-body>
@@ -32,29 +32,33 @@
   <div class="row col-md-8">
     <nb-card style="width: 100%">
       <nb-card-header>
-        <form>
+        <form [formGroup]="passwordChangeForm" (ngSubmit)="confirmPasswordChange()">
           <div class="form-group">
             <label for="username" class="label">Username</label>
             <input type="text" nbInput fullWidth id="username" [value]="profile.username" disabled>
           </div>
+          <div class="form-group">
+            <label for="role" class="label">Role</label>
+            <input type="text" nbInput fullWidth id="role" [value]="role" disabled>
+          </div>
           <h4 *ngIf="profile.passwordAuthEnabled">Password Change form:</h4>
           <div class="form-group" *ngIf="profile.passwordAuthEnabled">
             <label for="oldPassword" class="label">Old Password</label>
-            <input type="password" nbInput fullWidth id="oldPassword" placeholder="Old Password" [value]="profile.password">
+            <input type="password" nbInput fullWidth id="oldPassword" placeholder="Old Password" [value]="profile.password" formControlName="oldPassword">
           </div>
           <div class="form-group" *ngIf="profile.passwordAuthEnabled">
             <label for="newPassword" class="label">New Password</label>
-            <input type="newPassword" nbInput fullWidth id="newPassword" placeholder="New Password">
+            <input type="password" nbInput fullWidth id="newPassword" placeholder="New Password" formControlName="newPassword">
           </div>
           <div class="form-group" *ngIf="profile.passwordAuthEnabled">
             <label for="newPasswordRepeat" class="label">Repeat new password</label>
-            <input type="newPasswordRepeat" nbInput fullWidth id="newPasswordRepeat" placeholder="Repeat new password">
+            <input type="password" nbInput fullWidth id="newPasswordRepeat" placeholder="Repeat new password" formControlName="newPasswordRepeat">
           </div>
-          <button type="submit" nbButton status="danger">Submit</button>
+          <button  *ngIf="profile.passwordAuthEnabled" type="submit" nbButton status="danger">Submit</button>
         </form>
       </nb-card-header>
       <nb-card-footer>
-        <button nbButton status="primary"><nb-icon icon="refresh"></nb-icon>Generate new CICD Api Key (old one will be disabled)</button>
+        <button nbButton status="primary" (click)="generateApiKey()"><nb-icon icon="refresh"></nb-icon>Generate new CICD Api Key (old one will be disabled)</button>
       </nb-card-footer>
       <nb-card-footer>
         Picking theme
@@ -67,3 +71,13 @@
   </div>
 
 </div>
+<ng-template #apiKeyModal let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-body>
+      <pre class="api-key-value">{{ data.requestId}}</pre>
+    </nb-card-body>
+    <nb-card-footer>
+      <p class="api-key-warrning">Please make sure You have copied this Api key somewhere. Once You close this window it will be no longer possible to read.</p>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>

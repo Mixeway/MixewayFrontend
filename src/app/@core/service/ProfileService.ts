@@ -4,6 +4,7 @@ import {environment} from '../../../environments/environment';
 import {catchError, retry} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {UserProfile} from '../Model/UserProfile';
+import {Status} from '../Model/Status';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,20 @@ export class ProfileService {
 
   getProfile(): Observable<UserProfile> {
     return this.http.get<UserProfile>(environment.backend + '/profile')
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  changePassword(passwordForm): Observable<string> {
+    return this.http.patch<string>(environment.backend + '/profile', passwordForm)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  regenerateCicdApiKey(): Observable<Status> {
+    return this.http.get<Status>(environment.backend + '/profile/apikey/cicd')
       .pipe(
         retry(1),
         catchError(this.errorHandl),
