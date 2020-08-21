@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NbThemeService} from '@nebular/theme';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'ngx-user-profile',
@@ -29,12 +30,15 @@ export class UserProfileComponent implements OnInit {
 
   currentTheme = 'default';
 
-  constructor(private themeService: NbThemeService) { }
+  constructor(private themeService: NbThemeService,
+              private cookieService: CookieService) { }
 
   ngOnInit(): void {
   }
 
   changeTheme(themeName: string) {
     this.themeService.changeTheme(themeName);
+    this.cookieService.delete('mixeway-theme');
+    this.cookieService.set('mixeway-theme', themeName, 10000, '/');
   }
 }

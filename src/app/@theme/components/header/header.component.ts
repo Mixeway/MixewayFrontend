@@ -11,6 +11,7 @@ import { Subject } from 'rxjs';
 import {DashboardService} from '../../../@core/service/DashboardService';
 import {Router} from '@angular/router';
 import {StepperComponent} from '../stepper/stepper.component';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'ngx-header',
@@ -51,7 +52,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private dashboardService: DashboardService,
               private router: Router,
               private dialogService: NbDialogService,
-              private searchService: NbSearchService) {
+              private searchService: NbSearchService,
+              private cookieService: CookieService) {
     this.menuService.onItemClick().subscribe(( event ) => {
       this.onItemSelection(event.item.title);
     });
@@ -63,6 +65,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         // @ts-ignore
         this.router.navigate(['/pages/search/' + data.term]);
       });
+    this.checkActualTheme();
   }
   onItemSelection( title ) {
     if ( title === 'Log out' ) {
@@ -117,5 +120,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   showSwaggerDoc() {
     window.location.href = '/swagger-ui.html';
+  }
+  checkActualTheme() {
+    const theme = this.themes.filter(t => t.value === this.cookieService.get('mixeway-theme'));
+    if (theme.length !== 0 && theme[0].value !== '') {
+      this.themeService.changeTheme(theme[0].value);
+    }
   }
 }
