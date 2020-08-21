@@ -1,4 +1,4 @@
-import {Component, ContentChild, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {Proxies} from '../../../@core/Model/Proxies';
 import {User} from '../../../@core/Model/User';
 import {AdminConstants} from '../../../@core/constants/AdminConstants';
@@ -11,7 +11,6 @@ import {FormBuilder, Validators} from '@angular/forms';
 import { FilteringEventArgs } from '@syncfusion/ej2-dropdowns';
 import { Query } from '@syncfusion/ej2-data/src/query';
 import { EmitType } from '@syncfusion/ej2-base/src/base';
-import {Status} from '../../../@core/Model/Status';
 
 @Component({
   selector: 'ngx-user',
