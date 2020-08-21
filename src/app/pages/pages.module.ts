@@ -24,6 +24,7 @@ import {VulnsModule} from './vulns/vulns.module';
 import { SearchComponent } from './search/search.component';
 import { VulnAnalyzeComponent } from './vuln-analyze/vuln-analyze.component';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   imports: [
@@ -49,6 +50,7 @@ import {Ng2SmartTableModule} from 'ng2-smart-table';
     PagesComponent,
     SearchComponent,
     VulnAnalyzeComponent,
+    UserProfileComponent,
   ],
   providers: [
     {
