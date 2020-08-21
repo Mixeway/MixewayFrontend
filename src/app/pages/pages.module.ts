@@ -3,9 +3,9 @@ import {
   NbAlertModule,
   NbButtonModule,
   NbCardModule,
-  NbIconModule,
+  NbIconModule, NbInputModule,
   NbListModule,
-  NbMenuModule,
+  NbMenuModule, NbSelectModule,
   NbTabsetModule,
 } from '@nebular/theme';
 
@@ -45,6 +45,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     Ng2SmartTableModule,
     NbIconModule,
     NbButtonModule,
+    NbInputModule,
+    NbSelectModule,
   ],
   declarations: [
     PagesComponent,

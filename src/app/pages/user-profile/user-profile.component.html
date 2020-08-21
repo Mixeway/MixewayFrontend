@@ -41,9 +41,38 @@
   <div class="row col-md-8">
     <nb-card style="width: 100%">
       <nb-card-header>
-        User profile
+        <form>
+          <div class="form-group">
+            <label for="username" class="label">Username</label>
+            <input type="text" nbInput fullWidth id="username" disabled>
+          </div>
+          <h4>Password Change form:</h4>
+          <div class="form-group">
+            <label for="oldPassword" class="label">Old Password</label>
+            <input type="password" nbInput fullWidth id="oldPassword" placeholder="Old Password">
+          </div>
+          <div class="form-group">
+            <label for="newPassword" class="label">New Password</label>
+            <input type="newPassword" nbInput fullWidth id="newPassword" placeholder="New Password">
+          </div>
+          <div class="form-group">
+            <label for="newPasswordRepeat" class="label">Repeat new password</label>
+            <input type="newPasswordRepeat" nbInput fullWidth id="newPasswordRepeat" placeholder="Repeat new password">
+          </div>
+          <button type="submit" nbButton status="danger">Submit</button>
+        </form>
       </nb-card-header>
+      <nb-card-footer>
+        <button nbButton status="primary"><nb-icon icon="refresh"></nb-icon>Generate new CICD Api Key (old one will be disabled)</button>
+      </nb-card-footer>
+      <nb-card-footer>
+        Picking theme
+        <nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
+          <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
+        </nb-select>
+      </nb-card-footer>
     </nb-card>
+
   </div>
 
 </div>
