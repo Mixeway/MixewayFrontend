@@ -3,38 +3,29 @@
     <nb-card size="large">
       <div class="picture" style="background-image:url('/assets/images/Logo1.png')"></div>
       <div class="details">
-        <div class="h4">UI Kitten</div>
+        <div class="h4">{{profile.username}}</div>
       </div>
       <nb-card-footer>
-        <div class="col-md-4">
+        <div class="col-md-6">
           <nb-card>
             <nb-card-body>
               <small>Projects</small>
             </nb-card-body>
             <nb-card-footer>
-              <small>2</small>
+              <small>{{profile.projects}}</small>
             </nb-card-footer>
           </nb-card>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
           <nb-card>
             <nb-card-body>
-              <small>Assets</small>
+              <small>Vulns</small>
             </nb-card-body>
             <nb-card-footer>
-              <small>2</small>
+              <small>{{profile.vulns}}</small>
             </nb-card-footer>
           </nb-card>
-        </div><div class="col-md-4">
-        <nb-card>
-          <nb-card-body>
-            <small>Vulns</small>
-          </nb-card-body>
-          <nb-card-footer>
-            <small>2</small>
-          </nb-card-footer>
-        </nb-card>
-      </div>
+        </div>
       </nb-card-footer>
     </nb-card>
   </div>
@@ -44,18 +35,18 @@
         <form>
           <div class="form-group">
             <label for="username" class="label">Username</label>
-            <input type="text" nbInput fullWidth id="username" disabled>
+            <input type="text" nbInput fullWidth id="username" [value]="profile.username" disabled>
           </div>
-          <h4>Password Change form:</h4>
-          <div class="form-group">
+          <h4 *ngIf="profile.passwordAuthEnabled">Password Change form:</h4>
+          <div class="form-group" *ngIf="profile.passwordAuthEnabled">
             <label for="oldPassword" class="label">Old Password</label>
-            <input type="password" nbInput fullWidth id="oldPassword" placeholder="Old Password">
+            <input type="password" nbInput fullWidth id="oldPassword" placeholder="Old Password" [value]="profile.password">
           </div>
-          <div class="form-group">
+          <div class="form-group" *ngIf="profile.passwordAuthEnabled">
             <label for="newPassword" class="label">New Password</label>
             <input type="newPassword" nbInput fullWidth id="newPassword" placeholder="New Password">
           </div>
-          <div class="form-group">
+          <div class="form-group" *ngIf="profile.passwordAuthEnabled">
             <label for="newPasswordRepeat" class="label">Repeat new password</label>
             <input type="newPasswordRepeat" nbInput fullWidth id="newPasswordRepeat" placeholder="Repeat new password">
           </div>
