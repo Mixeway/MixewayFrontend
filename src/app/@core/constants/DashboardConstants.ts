@@ -17,7 +17,7 @@ export class DashboardConstants {
   DASHBOARD_OPERATION_PROJECT_EDIT_SUCCESS = 'Project is successfully edited - ';
   DASHBOARD_OPERATION_PROJECT_EDIT_FAILURE = 'Operation failed';
   DASHBOARD_OPERATION_PROJECT_DELETE_CONFIRMATION_1 = 'Are You sure to delete - ';
-  DASHBOARD_OPERATION_PROJECT_DELETE_CONFIRMATION_2 = ' cannot be undone';
+  DASHBOARD_OPERATION_PROJECT_DELETE_CONFIRMATION_2 = ' . \n\nThis operation cannot be undone';
   DASHBOARD_OPERATION_PROJECT_TABLE_TITLE = 'Defined projects';
   DASHBOARD_CHART_TREND_NODATA = 'Not enough data to draw charts. Add project, ' +
     'start testing. You will see vulnerability trends here.';

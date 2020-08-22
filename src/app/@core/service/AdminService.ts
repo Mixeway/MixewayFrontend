@@ -9,6 +9,7 @@ import {Settings} from '../Model/Settings';
 import {Project} from '../Model/Project';
 import {WebAppScanStrategy} from '../Model/WebAppScanStrategy';
 import {SecurityGateway} from '../Model/SecurityGateway';
+import {Status} from '../Model/Status';
 
 @Injectable({
   providedIn: 'root',
@@ -42,8 +43,8 @@ export class AdminService {
         catchError(this.errorHandl),
       );
   }
-  addUser(user): Observable<string> {
-    return this.http.put<string>(environment.backend + '/admin/user/add', user)
+  addUser(user): Observable<Status> {
+    return this.http.put<Status>(environment.backend + '/admin/user/add', user)
       .pipe(
         retry(1),
         catchError(this.errorHandl),

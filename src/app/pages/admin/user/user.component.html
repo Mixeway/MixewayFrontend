@@ -42,10 +42,16 @@
     <nb-card-body>
       <form [formGroup]="userForm" (ngSubmit)="saveUser(userForm.value, ref)" >
         <div class="form-group">
+          <label for="permissions" class="label">{{constants.ADMIN_FORM_ROLE}}</label>
+          <nb-select id="permissions" fullWidth formControlName="userRole" (selectedChange)="changedRole($event)">
+            <nb-option *ngFor="let cg of constants.USER_GROUPS" [value]="cg.id">{{ cg.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="form-group" *ngIf="showUsername">
           <label for="userUsername" class="label">{{constants.ADMIN_FORM_USER_NAME}}</label>
           <input type="text" nbInput fullWidth id="userUsername" [placeholder]="constants.ADMIN_FORM_USER_NAME" formControlName="userUsername">
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="showOptions">
           <label for="passwordAuth" class="label">{{constants.ADMIN_FORM_USER_PASSWORD_AUTH}}</label>
           <nb-checkbox fullWidth id="passwordAuth" formControlName="passwordAuth" ng-model="passwordAuth"></nb-checkbox>
         </div>
@@ -53,19 +59,13 @@
           <label for="userPassword" class="label">{{constants.ADMIN_FORM_USER_PASSWORD}} </label>
           <input type="password" nbInput fullWidth id="userPassword" [placeholder]="constants.ADMIN_FORM_USER_PASSWORD" formControlName="userPassword">
         </div>
-        <div class="form-group">
-          <label for="permissions" class="label">{{constants.ADMIN_FORM_ROLE}}</label>
-          <nb-select id="permissions" fullWidth formControlName="userRole">
-            <nb-option *ngFor="let cg of constants.USER_GROUPS" [value]="cg.id">{{ cg.name }}</nb-option>
-          </nb-select>
-        </div>
         <div class="form-group" *ngIf="userForm.value.userRole == constants.ADMIN_ROLE_USER">
           <label for="permissionsProject" class="label">{{constants.ADMIN_FORM_PROJECTS}}</label>
           <ejs-multiselect formControlName="projects" id="permissionsProject" [dataSource]='projects' [fields]='fields' (filtering)='onFiltering($event)' [allowFiltering]='true'
                            [placeholder]='constants.ADMIN_FORM_PROJECTS2'></ejs-multiselect>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="showCN">
           <label for="cn" class="label">{{constants.ADMIN_FORM_COMMONNAME}}</label>
           <input type="text" nbInput fullWidth id="cn" [placeholder]="constants.ADMIN_FORM_COMMONNAME_PLACEHOLDER" formControlName="userCN">
         </div>
@@ -80,14 +80,14 @@
     <nb-card-body>
       <form [formGroup]="changePasswordForm" (ngSubmit)="changePassowordSubmit(changePasswordForm.value, ref,data)" >
         <div class="form-group">
-          <label for="newPassword" class="label">{{constants.ADMIN_FORM_CHANGEPASSWORD_NEWPASS}}</label>
-          <input type="password" nbInput fullWidth id="newPassword" [placeholder]="constants.ADMIN_FORM_CHANGEPASSWORD_NEWPASS" formControlName="newPassword">
-        </div>
-        <div class="form-group">
           <label for="permissionsEdit" class="label">{{constants.ADMIN_FORM_ROLE}}</label>
           <nb-select id="permissionsEdit" fullWidth formControlName="role">
             <nb-option *ngFor="let cg of constants.USER_GROUPS" [value]="cg.id" >{{ cg.name }}</nb-option>
           </nb-select>
+        </div>
+        <div class="form-group">
+          <label for="newPassword" class="label">{{constants.ADMIN_FORM_CHANGEPASSWORD_NEWPASS}}</label>
+          <input type="password" nbInput fullWidth id="newPassword" [placeholder]="constants.ADMIN_FORM_CHANGEPASSWORD_NEWPASS" formControlName="newPassword">
         </div>
         <div class="form-group" *ngIf="changePasswordForm.value.role == constants.ADMIN_ROLE_USER">
           <label for="permissionsProjectEdit" class="label">{{constants.ADMIN_FORM_PROJECTS}}</label>
@@ -97,5 +97,15 @@
         <button type="submit" nbButton status="danger">{{constants.ADMIN_FORM_EDIT}}</button>
       </form>
     </nb-card-body>
+  </nb-card>
+</ng-template>
+<ng-template #apiKeyModal let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-body>
+      <pre class="api-key-value">{{ data.requestId}}</pre>
+    </nb-card-body>
+    <nb-card-footer>
+      <p class="api-key-warrning">Please make sure You have copied this Api key somewhere. Once You close this window it will be no longer possible to read.</p>
+    </nb-card-footer>
   </nb-card>
 </ng-template>

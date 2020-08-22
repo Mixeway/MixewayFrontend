@@ -48,6 +48,10 @@ export class AdminConstants {
       'name': 'API',
       'id': 'ROLE_API',
     },
+    {
+      'name': 'CICD',
+      'id': 'ROLE_API_CICD',
+    },
   ];
   OPERATION_SUCCESS_PROXY_DELETE: string = 'The Proxy is successfully deleted.';
   ADMIN_PAGE_TITLE: string = 'Admin panel';
@@ -177,4 +181,5 @@ export class AdminConstants {
   ADMIN_SECURITY_GATEWAY_CRITICAL = 'Limit of vulnerabilities with Severity: CRITICAL';
   ADMIN_SECURITY_GATEWAY_HIGH = 'Limit of vulnerabilities with Severity: HIGH';
   ADMIN_SECURITY_GATEWAY_MEDIUM = 'Limit of vulnerabilities with Severity: MEDIUM';
+  ADMIN_APIKEY_MODAL_HEADER = 'CICD Api Key was generated';
 }

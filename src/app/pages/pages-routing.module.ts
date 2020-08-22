@@ -10,6 +10,7 @@ import {VulnsComponent} from './vulns/vulns.component';
 import {CicdComponent} from './cicd/cicd.component';
 import {SearchComponent} from './search/search.component';
 import {VulnAnalyzeComponent} from './vuln-analyze/vuln-analyze.component';
+import {UserProfileComponent} from './user-profile/user-profile.component';
 
 const routes: Routes = [{
   path: '',
@@ -34,6 +35,10 @@ const routes: Routes = [{
     {
       path: 'admin',
       component: AdminComponent,
+    },
+    {
+      path: 'profile',
+      component: UserProfileComponent,
     },
     {
       path: 'vulnsanalyze',

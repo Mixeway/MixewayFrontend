@@ -152,7 +152,7 @@ export class ProjectTableComponent {
 
 
   async onDeleteConfirm(event) {
-    if (window.confirm(this.constants.DASHBOARD_OPERATION_PROJECT_DELETE_CONFIRMATION_1 + '${event.data.name}' +
+    if (window.confirm(this.constants.DASHBOARD_OPERATION_PROJECT_DELETE_CONFIRMATION_1 + '### ' + event.data.name + ' ###' +
     this.constants.DASHBOARD_OPERATION_PROJECT_DELETE_CONFIRMATION_2)) {
       this.deleteProject(event.data.id);
       await this.delay(500);

@@ -1,8 +1,8 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {Proxies} from '../../../@core/Model/Proxies';
 import {User} from '../../../@core/Model/User';
 import {AdminConstants} from '../../../@core/constants/AdminConstants';
-import {NbDialogService} from '@nebular/theme';
+import {NbDialogService, NbWindowService} from '@nebular/theme';
 import {Toast} from '../../../@core/utils/Toast';
 import {AdminService} from '../../../@core/service/AdminService';
 import {Router} from '@angular/router';
@@ -18,6 +18,7 @@ import { EmitType } from '@syncfusion/ej2-base/src/base';
   styleUrls: ['./user.component.scss'],
 })
 export class UserComponent implements OnInit {
+  @ViewChild('apiKeyModal', { read: TemplateRef }) apiKeyModal: TemplateRef<HTMLElement>;
   asd: any = 'ROLE_EDITOR_RUNNER';
   proxies: Proxies[];
   projects: { [key: string]: Object; }[] = [];
@@ -30,12 +31,16 @@ export class UserComponent implements OnInit {
   changePasswordForm;
   isAdmin: boolean = false;
   constants: AdminConstants = new AdminConstants();
+  showOptions: boolean = false;
+  showUsername: boolean = false;
+  showCN: boolean = false;
   public fields: Object = { text: 'name', value: 'id' };
 
   constructor(private dialogService: NbDialogService, private toast: Toast,
               private adminService: AdminService, private router: Router,
               private cookieService: CookieService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private windowService: NbWindowService) {
     this.role = this.cookieService.get('role');
     if (this.role !== 'ROLE_ADMIN') {
       this.router.navigate(['/pages/dashboard']);
@@ -44,7 +49,7 @@ export class UserComponent implements OnInit {
     }
     this.userForm = this.formBuilder.group({
       userRole:  ['', Validators.required],
-      userCN:  ['', Validators.required],
+      userCN:  '',
       userUsername: ['', Validators.required],
       userPassword: '',
       passwordAuth: false,
@@ -79,11 +84,18 @@ export class UserComponent implements OnInit {
 
 
   saveUser(value: any, ref) {
+    this.userForm.value.userCN = this.userForm.value.userUsername;
     if (this.userForm.valid) {
-      return this.adminService.addUser(this.userForm.value).subscribe(() => {
+      return this.adminService.addUser(this.userForm.value).subscribe(data => {
           this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_USER_SAVE);
           this.loadUsers();
           ref.close();
+          if (this.userForm.value.userRole === 'ROLE_API_CICD') {
+            this.windowService.open(
+              this.apiKeyModal,
+              { title: this.constants.ADMIN_APIKEY_MODAL_HEADER, context: data },
+              );
+          }
         },
         () => {
           this.toast.showToast('danger', this.constants.TOAST_FAILED, this.constants.OPERATION_FAILED);
@@ -153,5 +165,15 @@ export class UserComponent implements OnInit {
   getRoleForUser(id: number) {
     const user = this.getUserById(id);
     return this.constants.USER_GROUPS.filter(group => group.id === user.permisions)[0].name;
+  }
+
+  changedRole($event: any) {
+    if ($event === 'ROLE_USER' || $event === 'ROLE_ADMIN' || $event === 'ROLE_EDITOR_RUNNER' || $event === 'ROLE_API') {
+      this.showUsername = true;
+      this.showOptions = true;
+    } else if ($event === 'ROLE_API_CICD') {
+      this.showUsername = true;
+      this.showOptions = false;
+    }
   }
 }

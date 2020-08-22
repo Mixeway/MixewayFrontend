@@ -2,3 +2,13 @@
 @import '~@syncfusion/ej2-inputs/styles/material.css';
 @import '~@syncfusion/ej2-angular-dropdowns/styles/material.css';
 @import '~@syncfusion/ej2-base/styles/material.css';
+
+.api-key-warrning {
+  font-weight: bold;
+  font-style: italic;
+  color: red;
+}
+
+.api-key-value {
+  text-align: center;
+}

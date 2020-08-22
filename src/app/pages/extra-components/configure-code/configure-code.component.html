@@ -13,6 +13,30 @@
     <nb-card-header>{{constants.CODE_PROJECT_EDIT}}</nb-card-header>
     <nb-card-body>
       <form [formGroup]="codeProjectForm" (ngSubmit)="saveCodeProject(ref)" >
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="repoUrl" class="label">{{constants.PROJECT_CODE_PROJECT_REPOURL}} </label>
+              <input nbInput type="text" name="repoUrl" id="repoUrl" formControlName="repoUrl" [value]="rowData.repoUrl">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="repoUsername" class="label">{{constants.PROJECT_CODE_PROJECT_REPOUSERNAME}} </label>
+              <input nbInput type="text" name="repoUsername" id="repoUsername" formControlName="repoUsername" [value]="rowData.repoUsername">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="repoPassword" class="label">{{constants.PROJECT_CODE_PROJECT_REPOPASSWORD}} </label>
+              <input nbInput type="password" name="repoPassword" id="repoPassword" formControlName="repoPassword" [value]="rowData.repoPassword">
+            </div>
+          </div>
+        </div>
         <div class="row" *ngIf="showOS">
           <div class="col-sm-6">
             <div class="form-group">

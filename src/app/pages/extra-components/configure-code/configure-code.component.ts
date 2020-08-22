@@ -29,6 +29,9 @@ export class ConfigureCodeComponent implements OnInit, ViewCell {
       dTrackUuid: '',
       sastProject: 0,
       branch: '',
+      repoUrl: '',
+      repoUsername: '',
+      repoPassword: '',
     });
   }
 

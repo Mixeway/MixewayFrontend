@@ -71,4 +71,11 @@ export class AdminComponent implements OnInit {
       this.routingDomains = data;
     });
   }
+
+  changeToScannerTab($event: any) {
+    if ($event.tabTitle === 'Scanners') {
+      this.loadProxies();
+      this.loadRoutingService();
+    }
+  }
 }
