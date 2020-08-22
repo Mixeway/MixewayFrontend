@@ -24,24 +24,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   themes = [
     {
-      value: 'default',
-      name: 'Light',
+      value: 'material-dark',
+      name: 'Material Dark',
     },
     {
-      value: 'dark',
-      name: 'Dark',
-    },
-    {
-      value: 'cosmic',
-      name: 'Cosmic',
-    },
-    {
-      value: 'corporate',
-      name: 'Corporate',
+      value: 'material-light',
+      name: 'Material Light',
     },
   ];
 
-  currentTheme = 'Dark';
+  currentTheme = 'material-lightś';
 
   userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
 

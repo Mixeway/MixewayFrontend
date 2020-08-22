@@ -1,7 +1,7 @@
 <div class="row">
   <div class="row col-md-4">
     <nb-card size="large" style="width:100%;">
-      <div class="picture" style="background-image:url('/assets/images/Logo1.png')"></div>
+      <div class="picture" style="background-image:url('/assets/images/profile.png')"></div>
       <div class="details">
         <div class="h4" style="text-align: center">{{profile.username}}</div>
       </div>
@@ -32,39 +32,66 @@
   <div class="row col-md-8">
     <nb-card style="width: 100%">
       <nb-card-header>
-        <form [formGroup]="passwordChangeForm" (ngSubmit)="confirmPasswordChange()">
-          <div class="form-group">
-            <label for="username" class="label">Username</label>
-            <input type="text" nbInput fullWidth id="username" [value]="profile.username" disabled>
-          </div>
-          <div class="form-group">
-            <label for="role" class="label">Role</label>
-            <input type="text" nbInput fullWidth id="role" [value]="role" disabled>
-          </div>
-          <h4 *ngIf="profile.passwordAuthEnabled">Password Change form:</h4>
-          <div class="form-group" *ngIf="profile.passwordAuthEnabled">
-            <label for="oldPassword" class="label">Old Password</label>
-            <input type="password" nbInput fullWidth id="oldPassword" placeholder="Old Password" [value]="profile.password" formControlName="oldPassword">
-          </div>
-          <div class="form-group" *ngIf="profile.passwordAuthEnabled">
-            <label for="newPassword" class="label">New Password</label>
-            <input type="password" nbInput fullWidth id="newPassword" placeholder="New Password" formControlName="newPassword">
-          </div>
-          <div class="form-group" *ngIf="profile.passwordAuthEnabled">
-            <label for="newPasswordRepeat" class="label">Repeat new password</label>
-            <input type="password" nbInput fullWidth id="newPasswordRepeat" placeholder="Repeat new password" formControlName="newPasswordRepeat">
-          </div>
-          <button  *ngIf="profile.passwordAuthEnabled" type="submit" nbButton status="danger">Submit</button>
-        </form>
+        <nb-card style="width:100%">
+          <nb-card-header>
+            Basic info
+          </nb-card-header>
+          <nb-card-body>
+            <div class="form-group">
+              <label for="username" class="label">Username</label>
+              <input type="text" nbInput fullWidth id="username" [value]="profile.username" disabled>
+            </div>
+            <div class="form-group">
+              <label for="role" class="label">Role</label>
+              <input type="text" nbInput fullWidth id="role" [value]="role" disabled>
+            </div>
+          </nb-card-body>
+        </nb-card>
+        <nb-card style="width:100%">
+          <nb-card-header>
+            Password change form
+          </nb-card-header>
+          <nb-card-body>
+            <form [formGroup]="passwordChangeForm" (ngSubmit)="confirmPasswordChange()">
+              <div class="form-group" *ngIf="profile.passwordAuthEnabled">
+                <label for="oldPassword" class="label">Old Password</label>
+                <input type="password" nbInput fullWidth id="oldPassword" placeholder="Old Password" [value]="profile.password" formControlName="oldPassword">
+              </div>
+              <div class="form-group" *ngIf="profile.passwordAuthEnabled">
+                <label for="newPassword" class="label">New Password</label>
+                <input type="password" nbInput fullWidth id="newPassword" placeholder="New Password" formControlName="newPassword">
+              </div>
+              <div class="form-group" *ngIf="profile.passwordAuthEnabled">
+                <label for="newPasswordRepeat" class="label">Repeat new password</label>
+                <input type="password" nbInput fullWidth id="newPasswordRepeat" placeholder="Repeat new password" formControlName="newPasswordRepeat">
+              </div>
+              <button  *ngIf="profile.passwordAuthEnabled" type="submit" nbButton status="danger">Submit</button>
+            </form>
+          </nb-card-body>
+        </nb-card>
       </nb-card-header>
       <nb-card-footer>
-        <button nbButton status="primary" (click)="generateApiKey()"><nb-icon icon="refresh"></nb-icon>Generate new CICD Api Key (old one will be disabled)</button>
+        <nb-card style="width:100%">
+          <nb-card-header>
+            CICD Api Key
+          </nb-card-header>
+          <nb-card-body>
+            <button nbButton status="primary" (click)="generateApiKey()"><nb-icon icon="refresh"></nb-icon>Generate new CICD Api Key (old one will be disabled)</button>
+          </nb-card-body>
+        </nb-card>
       </nb-card-footer>
       <nb-card-footer>
-        Picking theme
-        <nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
-          <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
-        </nb-select>
+        <nb-card style="width:100%">
+          <nb-card-header>
+            Theme
+          </nb-card-header>
+          <nb-card-body>
+            <nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)"
+                       status="śprimary" [(selected)]="currentTheme" style="width:100%">
+              <nb-option *ngFor="let theme of themes" [value]="theme.value" > {{ theme.name }}</nb-option>
+            </nb-select>
+          </nb-card-body>
+        </nb-card>
       </nb-card-footer>
     </nb-card>
 

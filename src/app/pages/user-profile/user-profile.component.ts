@@ -19,24 +19,16 @@ export class UserProfileComponent implements OnInit {
 
   themes = [
     {
-      value: 'default',
-      name: 'Light',
-    },
-    {
-      value: 'dark',
+      value: 'material-dark',
       name: 'Dark',
     },
     {
-      value: 'cosmic',
-      name: 'Cosmic',
-    },
-    {
-      value: 'corporate',
-      name: 'Corporate',
+      value: 'material-light',
+      name: 'Light',
     },
   ];
 
-  currentTheme = 'default';
+  currentTheme = 'material-light';
 
   constructor(private themeService: NbThemeService,
               private cookieService: CookieService,
@@ -44,6 +36,7 @@ export class UserProfileComponent implements OnInit {
               private formBuilder: FormBuilder,
               private toast: Toast,
               private windowService: NbWindowService) {
+    this.checkActualTheme();
     this.passwordChangeForm = this.formBuilder.group({
       oldPassword: ['', Validators.required],
       newPassword: ['', Validators.required],
@@ -105,5 +98,11 @@ export class UserProfileComponent implements OnInit {
       );
     });
 
+  }
+  checkActualTheme() {
+    const theme = this.themes.filter(t => t.value === this.cookieService.get('mixeway-theme'));
+    if (theme.length !== 0 && theme[0].value !== '') {
+      this.currentTheme = theme[0].value;
+    }
   }
 }
