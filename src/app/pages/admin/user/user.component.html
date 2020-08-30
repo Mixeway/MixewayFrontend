@@ -59,7 +59,7 @@
           <label for="userPassword" class="label">{{constants.ADMIN_FORM_USER_PASSWORD}} </label>
           <input type="password" nbInput fullWidth id="userPassword" [placeholder]="constants.ADMIN_FORM_USER_PASSWORD" formControlName="userPassword">
         </div>
-        <div class="form-group" *ngIf="userForm.value.userRole == constants.ADMIN_ROLE_USER">
+        <div class="form-group" *ngIf="( userForm.value.userRole==constants.ADMIN_ROLE_USER)">
           <label for="permissionsProject" class="label">{{constants.ADMIN_FORM_PROJECTS}}</label>
           <ejs-multiselect formControlName="projects" id="permissionsProject" [dataSource]='projects' [fields]='fields' (filtering)='onFiltering($event)' [allowFiltering]='true'
                            [placeholder]='constants.ADMIN_FORM_PROJECTS2'></ejs-multiselect>

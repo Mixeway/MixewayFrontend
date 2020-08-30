@@ -37,6 +37,10 @@ export class AdminConstants {
       'id': 'ROLE_ADMIN',
     },
     {
+      'name': 'Auditor',
+      'id': 'ROLE_AUDITOR',
+    },
+    {
       'name': 'Viewer',
       'id': 'ROLE_USER',
     },
@@ -47,12 +51,7 @@ export class AdminConstants {
     {
       'name': 'API',
       'id': 'ROLE_API',
-    },
-    {
-      'name': 'CICD',
-      'id': 'ROLE_API_CICD',
-    },
-  ];
+    }];
   OPERATION_SUCCESS_PROXY_DELETE: string = 'The Proxy is successfully deleted.';
   ADMIN_PAGE_TITLE: string = 'Admin panel';
   ADMIN_TAB_USERS: string = 'Users';
@@ -153,6 +152,7 @@ export class AdminConstants {
   ADMIN_FORM_PROJECTS = 'Permissions for projects';
   ADMIN_FORM_PROJECTS2 = 'Select projects...';
   ADMIN_ROLE_USER = 'ROLE_USER';
+  ADMIN_ROLE_USER2 = 'ROLE_EDITOR_RUNNER';
   ADMIN_FORM_EDIT = 'Edit';
   ADMIN_EDIT_USER = 'Editing user';
   ADMIN_TOOLTIP_EDIT = 'Edit user';

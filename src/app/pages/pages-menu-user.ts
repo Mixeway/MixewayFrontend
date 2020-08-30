@@ -11,6 +11,11 @@ export const MENU_ITEMS_USER: NbMenuItem[] = [
     group: true,
   },
   {
+    title: 'Vulnerabilities',
+    icon: 'bar-chart-outline',
+    link: '/pages/vulns',
+  },
+  {
     title: 'CI/CD',
     icon: 'pie-chart-outline',
     link: '/pages/cicd',

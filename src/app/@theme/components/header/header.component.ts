@@ -10,7 +10,6 @@ import {LayoutService} from '../../../@core/utils';
 import { Subject } from 'rxjs';
 import {DashboardService} from '../../../@core/service/DashboardService';
 import {Router} from '@angular/router';
-import {StepperComponent} from '../stepper/stepper.component';
 import {CookieService} from 'ngx-cookie-service';
 
 @Component({
@@ -33,9 +32,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     },
   ];
 
-  currentTheme = 'material-lightś';
+  currentTheme = 'material-light';
 
   userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
+
+  docsMenu = [ {title: 'Swagger'}, { title: 'GitHub' }, { title: 'Tutorials' } ];
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
@@ -49,6 +50,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.menuService.onItemClick().subscribe(( event ) => {
       this.onItemSelection(event.item.title);
     });
+
     this.searchService.onSearchSubmit()
       .subscribe((data: any) => {
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
@@ -77,9 +79,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   getUserName() {
     return this.dashboardService.getSessionOwner().subscribe(data => {
       this.user = data;
-      if (this.user.logins < 2) {
-        this.showTutorialWizzard();
-      }
       });
   }
 
@@ -104,11 +103,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.menuService.navigateHome();
     return false;
   }
-  showTutorialWizzard() {
-    this.dialogService.open(
-      StepperComponent,
-      { context: 'this is some additional data passed to dialog' });
-  }
+
 
   showSwaggerDoc() {
     window.location.href = '/swagger-ui.html';
@@ -118,5 +113,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (theme.length !== 0 && theme[0].value !== '') {
       this.themeService.changeTheme(theme[0].value);
     }
+  }
+
+  openGitHub() {
+    window.location.href = 'https://github.com/mixeway/mixewayhub';
+  }
+
+  openTutorials() {
+    window.location.href = 'https://mixeway.io/category/tutorial/';
   }
 }
