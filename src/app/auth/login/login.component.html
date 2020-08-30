@@ -8,6 +8,14 @@
       <nb-alert status="danger" *ngIf="error">{{constants.LOGIN_CERT_ERROR}}</nb-alert>
       <button style="display: block; margin-left: auto; margin-right: auto;" *ngIf="statusEntity.cert" type="submit" nbButton status="primary" (click)="x509Login()" hero>{{constants.LOGIN_BUTTON_CERT}}</button>
       <br/> <br/><br/>
+      <a href="/v2/auth/fb" class="fb btn" *ngIf="statusEntity.facebook">
+        <nb-icon icon="facebook"></nb-icon> Login with Facebook
+      </a>
+      <br/>
+      <a href="/v2/auth/github" class="google btn" *ngIf="statusEntity.gitHub">
+        <nb-icon icon="github"></nb-icon> Login with GitHub
+      </a>
+      <br/> <br/><br/>
       <form *ngIf="statusEntity.password" [formGroup]="passwordAuthForm" (ngSubmit)="authUsingPassword()" >
         <div class="form-group">
           <label for="username" class="label">{{constants.LOGIN_FORM_NAME}} </label>

@@ -22,8 +22,11 @@ export class VulnTypeChartComponent implements OnDestroy {
   }
   loadSourceData() {
     return this.dashboardService.getSourceTrendData().subscribe(data => {
-      this.sourcesData = data;
-      this.drawChart();
+      if (data != null) {
+        this.sourcesData = data;
+        this.drawChart();
+      }
+
     });
   }
 
