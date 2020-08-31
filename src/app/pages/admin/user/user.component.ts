@@ -19,7 +19,6 @@ import { EmitType } from '@syncfusion/ej2-base/src/base';
 })
 export class UserComponent implements OnInit {
   @ViewChild('apiKeyModal', { read: TemplateRef }) apiKeyModal: TemplateRef<HTMLElement>;
-  asd: any = 'ROLE_EDITOR_RUNNER';
   proxies: Proxies[];
   projects: { [key: string]: Object; }[] = [];
   auth: boolean;
@@ -90,7 +89,7 @@ export class UserComponent implements OnInit {
           this.toast.showToast('success', this.constants.TOAST_SUCCESS, this.constants.OPERATION_SUCCESS_USER_SAVE);
           this.loadUsers();
           ref.close();
-          if (this.userForm.value.userRole === 'ROLE_API_CICD') {
+          if (this.userForm.value.userRole === 'ROLE_API') {
             this.windowService.open(
               this.apiKeyModal,
               { title: this.constants.ADMIN_APIKEY_MODAL_HEADER, context: data },
@@ -168,10 +167,10 @@ export class UserComponent implements OnInit {
   }
 
   changedRole($event: any) {
-    if ($event === 'ROLE_USER' || $event === 'ROLE_ADMIN' || $event === 'ROLE_EDITOR_RUNNER' || $event === 'ROLE_API') {
+    if ($event === 'ROLE_USER' || $event === 'ROLE_ADMIN' || $event === 'ROLE_AUDITOR' || $event === 'ROLE_EDITOR_RUNNER') {
       this.showUsername = true;
       this.showOptions = true;
-    } else if ($event === 'ROLE_API_CICD') {
+    } else if ($event === 'ROLE_API') {
       this.showUsername = true;
       this.showOptions = false;
     }

@@ -16,7 +16,12 @@
                nbTooltip="Swagger API REST"></nb-icon>
     </nb-action>
     <nb-action class="control-item">
-      <nb-icon icon="question-mark-circle-outline" pack="eva" [options]="{ animation: { type: 'pulse' } }" (click)="showTutorialWizzard()" nbTooltip="Tutorial"></nb-icon>
+      <nb-icon icon="github-outline" pack="eva" [options]="{ animation: { type: 'pulse' } }" (click)="openGitHub()"
+               nbTooltip="GitHub Docs"></nb-icon>
+    </nb-action>
+    <nb-action class="control-item">
+      <nb-icon icon="bulb-outline" pack="eva" [options]="{ animation: { type: 'pulse' } }" (click)="openTutorials()"
+               nbTooltip="Tutorials"></nb-icon>
     </nb-action>
     <nb-action class="control-item">
       <nb-search type="rotate-layout" nbTooltip="Look for..."></nb-search>

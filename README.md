@@ -5,14 +5,10 @@
 
 # Mixeway User Interface <img src="https://mixeway.github.io/img/logo_dashboard.png" height="60px">
 
-### Disclaimer:
-> The current version of Mixaway (0.9) is considered as beta. It contains several bugs and vulnerabilities. Every fix
-is put on the board and proceed to make sure version 1.0 will be vulnerability and bug-free. 
-
-
 ### About Mixeway:
 Mixeway is an OpenSource software that is meant to simplify the process of security assurance of projects which are implemented using CICD procedures. **Mixawey is not another vulnerability scanning
 software - it is security orchestration tool**.
+Mixeway frontend is based on ngx-admin dashboard - https://github.com/akveo/ngx-admin
 
 With number of plugins for Vulnerability Scanners :
 <img src="https://mixeway.github.io/img/nessus.png" height="50px">

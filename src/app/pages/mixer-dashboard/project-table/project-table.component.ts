@@ -30,9 +30,9 @@ export class ProjectTableComponent {
   loadSettings() {
     this.settings = {
       actions: {
-        add: (this.role === 'ROLE_ADMIN' || this.role === 'ROLE_EDITOR_RUNNER'),
-        edit: (this.role === 'ROLE_ADMIN' || this.role === 'ROLE_EDITOR_RUNNER'),
-        delete: (this.role === 'ROLE_ADMIN' || this.role === 'ROLE_EDITOR_RUNNER'),
+        add: true,
+        edit: true,
+        delete: true,
       },
       add: {
         title: this.constants.DASHBOARD_TABLE_ADD,
