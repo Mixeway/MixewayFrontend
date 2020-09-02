@@ -19,9 +19,9 @@ export class AlertColorComponent implements ViewCell, OnInit {
     } else if (this.rowData.hasOwnProperty('threat')) {
       this.severity = this.rowData.threat;
     }
-    if (this.severity === 'Critical' || this.severity === 'High' ) {
+    if (this.severity.toLowerCase() === 'Critical' || this.severity.toLowerCase() === 'High' ) {
       this.class = 'badge-danger';
-    } else if (this.severity === 'Medium' ) {
+    } else if (this.severity.toLowerCase() === 'Medium' ) {
       this.class = 'badge-warning';
     } else {
       this.class = 'badge-info';
