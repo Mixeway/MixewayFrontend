@@ -75,3 +75,19 @@
     </nb-card-body>
   </nb-card>
 </ng-template>
+<ng-template #showInstructions let-data let-ref="showInstructions">
+  <nb-card>
+    <nb-card-header>Starting point</nb-card-header>
+    <nb-card-body>It looks like its starting point for this project. It is all set up. All You need to do is perform some scans.
+    Using Mixeway Scanner is pretty easy:
+      <br/><br/>
+      <code>
+        > docker pull mixeway/scanner:latest<br/>
+        > docker run -e OSS_USERNAME=_username_ -e OSS_KEY=_KEY_ -e MIXEWAY_URL={{hostname}} -e MIXEWAY_KEY=_key_ -e MIXEWAY_PROJECT_ID={{_entityId}} -e MODE=STANDALONE -v ${{ "{" }}PWD{{ "}" }}:/opt/sources mixeway/scanner:latest
+      </code>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton (click)="ref.close()">Close</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>

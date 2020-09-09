@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {Risk} from '../../@core/Model/Risk';
 import {ShowProjectService} from '../../@core/service/ShowProjectService';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -6,10 +6,11 @@ import {CookieService} from 'ngx-cookie-service';
 import {ProjectConstants} from '../../@core/constants/ProjectConstants';
 import {ScannerType} from '../../@core/Model/Scanner';
 import {CiOperations} from '../../@core/Model/CiOperations';
-import {NbDialogService} from '@nebular/theme';
+import {NbDialogService, NbWindowService} from '@nebular/theme';
 import {FormBuilder} from '@angular/forms';
 import {Toast} from '../../@core/utils/Toast';
 import {ProjectInfo} from '../../@core/Model/ProjectInfo';
+import {Template} from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
   selector: 'ngx-show-project',
@@ -35,10 +36,12 @@ export class ShowProjectComponent implements OnInit {
   showDetailsTemplate: boolean;
   role: string;
   constants: ProjectConstants = new ProjectConstants();
+  @ViewChild('showInstructions') showInstructions: TemplateRef<any>;
+  hostname: string;
   private vulnAuditorForm: any;
   constructor(private showProjectService: ShowProjectService, private _route: ActivatedRoute, private router: Router,
               private cookieService: CookieService, private dialogService: NbDialogService,
-              private formBuilder: FormBuilder, private toast: Toast) {
+              private formBuilder: FormBuilder, private toast: Toast, private windowService: NbWindowService) {
     this._entityId = +this._route.snapshot.paramMap.get('projectid');
     if (!this._entityId) {
       this.router.navigate(['/pages/dashboard']);
@@ -52,6 +55,13 @@ export class ShowProjectComponent implements OnInit {
       dclocation: this.projectInfo.networkdc,
       appClient: this.projectInfo.appClient,
     });
+    this.updateShowDockerInfo();
+  }
+  updateShowDockerInfo() {
+    const url = window.location.href;
+    const arr = url.split('/');
+    this.hostname = arr[0] + '//' + arr[2];
+
   }
 
   loadProjectInfo() {
@@ -82,6 +92,15 @@ export class ShowProjectComponent implements OnInit {
       this.openSourceCard = this.riskCardBuilder(this.constants.PROJECT_CARD_OPENSOURCE_TITLE,
           this.constants.PROJECT_CARD_OPENSOURCE_TEXT,
           this.risk.openSourceLibs, this.risk.openSourceRisk);
+      if (this.risk?.webAppNumber === 0 &&
+        this.risk?.codeRepoNumber === 0 &&
+        this.risk?.assetNumber === 0 &&
+        this.risk?.audit === 0) {
+          this.windowService.open(
+            this.showInstructions,
+            { title: 'First step instruction', context: { text: 'some text to pass into template' } },
+          );
+      }
     });
   }
 
@@ -99,7 +118,7 @@ export class ShowProjectComponent implements OnInit {
   ngOnInit() {
     this.role = this.cookieService.get('role');
     this.showConfigTemplate = this.role !== 'ROLE_ADMIN' && this.role !== 'ROLE_EDITOR_RUNNER';
-    this.showVulnAuditor = this.role === 'ROLE_ADMIN' || this.role === 'ROLE_EDITOR_RUNNER';
+    this.showVulnAuditor = true;
     this.showDetailsTemplate = true;
   }
 
