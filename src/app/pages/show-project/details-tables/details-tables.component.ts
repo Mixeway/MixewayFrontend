@@ -125,6 +125,7 @@ export class DetailsTablesComponent implements OnInit {
                 {value: 'SourceCode', title: 'SourceCode'},
                 {value: 'WebApplication', title: 'WebApplication'},
                 {value: 'OpenSource', title: 'OpenSource'},
+                {value: 'GitLeaks', title: 'GitLeaks'},
               ],
             },
           },
