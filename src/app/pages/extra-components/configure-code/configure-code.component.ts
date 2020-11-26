@@ -39,6 +39,9 @@ export class ConfigureCodeComponent implements OnInit, ViewCell {
     this.codeProjectForm.patchValue({
       dTrackUuid: this.rowData.dTrackUuid,
       sastProject: this.rowData.versionId,
+      repoUrl: this.rowData.repoUrl,
+      repoUsername: this.rowData.repoUsername,
+      repoPassword: '******',
       branch: this.rowData.branch,
     });
     this.codeHelperModel = <CodeHelperModel><unknown>this.value;

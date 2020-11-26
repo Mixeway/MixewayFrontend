@@ -16,8 +16,16 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="form-group">
-              <label for="repoUrl" class="label">{{constants.PROJECT_CODE_PROJECT_REPOURL}} </label>
+              <label for="repoUrl" class="label">{{constants.PROJECT_CODE_PROJECT_REPOURL}} </label><br/>
               <input nbInput type="text" name="repoUrl" id="repoUrl" formControlName="repoUrl" [value]="rowData.repoUrl">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="branch" class="label">{{constants.PROJECT_CODE_PROJECT_BRANCH}} </label><br/>
+              <input nbInput type="text" name="branch" id="branch" formControlName="branch" [value]="rowData.branch">
             </div>
           </div>
         </div>
@@ -72,14 +80,6 @@
           </div>
         </div>
         <nb-alert *ngIf="!showOS && !showSast" outline="warning">{{constants.MISSING_INTEGRATIONS}}</nb-alert>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="branch" class="label">{{constants.PROJECT_CODE_PROJECT_BRANCH}} </label>
-              <input nbInput type="text" name="branch" id="branch" formControlName="branch" [value]="rowData.branch">
-            </div>
-          </div>
-        </div>
 
         <button type="submit" nbButton status="danger">{{constants.TOOLTIP_EDIT}}</button>
 
