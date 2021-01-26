@@ -8,7 +8,7 @@ describe('KnowlegeBaseComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ KnowlegeBaseComponent ]
+      declarations: [ KnowlegeBaseComponent ],
     })
     .compileComponents();
   }));
