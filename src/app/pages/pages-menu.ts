@@ -21,6 +21,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/cicd',
   },
   {
+    title: 'Knowlege base',
+    icon: 'archive-outline',
+    link: '/pages/kb',
+  },
+  {
     title: 'Settings',
     group: true,
   },

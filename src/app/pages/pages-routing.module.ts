@@ -11,6 +11,7 @@ import {CicdComponent} from './cicd/cicd.component';
 import {SearchComponent} from './search/search.component';
 import {VulnAnalyzeComponent} from './vuln-analyze/vuln-analyze.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';
+import {KnowlegeBaseComponent} from './knowlege-base/knowlege-base.component';
 
 const routes: Routes = [{
   path: '',
@@ -43,6 +44,10 @@ const routes: Routes = [{
     {
       path: 'vulnsanalyze',
       component: VulnAnalyzeComponent,
+    },
+    {
+      path: 'kb',
+      component: KnowlegeBaseComponent,
     },
     {
       path: 'search/:search',

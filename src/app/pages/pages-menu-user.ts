@@ -20,4 +20,9 @@ export const MENU_ITEMS_USER: NbMenuItem[] = [
     icon: 'pie-chart-outline',
     link: '/pages/cicd',
   },
+  {
+    title: 'Knowlege base',
+    icon: 'archive-outline',
+    link: '/pages/kb',
+  },
 ];

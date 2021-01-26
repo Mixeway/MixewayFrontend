@@ -25,6 +25,9 @@ import { SearchComponent } from './search/search.component';
 import { VulnAnalyzeComponent } from './vuln-analyze/vuln-analyze.component';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { KnowlegeBaseComponent } from './knowlege-base/knowlege-base.component';
+import { VulnerabilitiesComponent } from './knowlege-base/vulnerabilities/vulnerabilities.component';
+import { CisRequirementsComponent } from './knowlege-base/cis-requirements/cis-requirements.component';
 
 @NgModule({
     imports: [
@@ -54,6 +57,9 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     SearchComponent,
     VulnAnalyzeComponent,
     UserProfileComponent,
+    KnowlegeBaseComponent,
+    VulnerabilitiesComponent,
+    CisRequirementsComponent,
   ],
   providers: [
     {
