@@ -144,14 +144,17 @@ export class DetailsComponent implements ViewCell, OnInit {
         this.asset = data.webApp.url;
       } else if (data.vulnerabilitySource.name === 'OpenSource') {
         this.asset = data.codeProject.codeGroup.name + ' / ' + data.codeProject.name;
+      } else if (data.vulnerabilitySource.name === 'CISBenchmark') {
+        this.asset = data.location;
       }
-      this.references = data.vulnerability.refs;
+      this.references = data.vulnerability ? data.vulnerability.refs : '';
       this.description = data.description;
-      this.recommendation = data.vulnerability.recommendation;
+      this.recommendation = data.vulnerability ? data.vulnerability.recommendation : '';
       this.grade = data.grade;
       this.windowService.open(
         this.escCloseTemplate,
-        { title: this.vulnerability.vulnerability.name, hasBackdrop: true },
+        { title: this.vulnerability.vulnerability ? this.vulnerability.vulnerability.name :
+            this.vulnerability.cisRequirement.name, hasBackdrop: true },
       );
     });
   }

@@ -62,7 +62,7 @@ export class DetailsTablesComponent implements OnInit {
         const vuln = {
           projectId: this._entityId,
           id: vulnerability.id,
-          name: vulnerability.vulnerability.name,
+          name: vulnerability.vulnerability ? vulnerability.vulnerability.name : vulnerability.cisRequirement.name,
           location: location,
           severity: vulnerability.severity,
           grade: vulnerability.grade,
@@ -126,6 +126,7 @@ export class DetailsTablesComponent implements OnInit {
                 {value: 'WebApplication', title: 'WebApplication'},
                 {value: 'OpenSource', title: 'OpenSource'},
                 {value: 'GitLeaks', title: 'GitLeaks'},
+                {value: 'CISBenchmark', title: 'CIS Benchmark'},
               ],
             },
           },
