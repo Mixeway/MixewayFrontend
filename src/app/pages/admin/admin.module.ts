@@ -26,6 +26,7 @@ import {MultiSelectModule} from '@syncfusion/ej2-angular-dropdowns';
 import { WebAppStrategyComponent } from './web-app-strategy/web-app-strategy.component';
 import { VulnAuditorComponent } from './vuln-auditor/vuln-auditor.component';
 import { SecurityGatewayComponent } from './security-gateway/security-gateway.component';
+import { GitcredentialsComponent } from './gitcredentials/gitcredentials.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { SecurityGatewayComponent } from './security-gateway/security-gateway.co
     WebAppStrategyComponent,
     VulnAuditorComponent,
     SecurityGatewayComponent,
+    GitcredentialsComponent,
   ],
     imports: [
         CommonModule,
