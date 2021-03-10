@@ -10,6 +10,7 @@ import {Project} from '../Model/Project';
 import {WebAppScanStrategy} from '../Model/WebAppScanStrategy';
 import {SecurityGateway} from '../Model/SecurityGateway';
 import {Status} from '../Model/Status';
+import {GitCredentials} from '../Model/GitCredentials';
 
 @Injectable({
   providedIn: 'root',
@@ -244,6 +245,28 @@ export class AdminService {
   }
   updateSecurityGateway(securityGateway): Observable<string> {
     return this.http.post<string>(environment.backend + '/admin/settings/securitygateway', securityGateway)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+
+  createGitCreds(creds): Observable<string> {
+    return this.http.put<string>(environment.backend + '/admin/settings/gitcredentials', creds)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  deleteGitCreds(id): Observable<string> {
+    return this.http.delete<string>(environment.backend + '/admin/settings/gitcredentials/' + id)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  getGitCreds(): Observable<GitCredentials[]> {
+    return this.http.get<GitCredentials[]>(environment.backend + '/admin/settings/gitcredentials')
       .pipe(
         retry(1),
         catchError(this.errorHandl),

@@ -182,4 +182,11 @@ export class AdminConstants {
   ADMIN_SECURITY_GATEWAY_HIGH = 'Limit of vulnerabilities with Severity: HIGH';
   ADMIN_SECURITY_GATEWAY_MEDIUM = 'Limit of vulnerabilities with Severity: MEDIUM';
   ADMIN_APIKEY_MODAL_HEADER = 'CICD Api Key was generated';
+  ADMIN_GITCREDS = 'Git Credentials (global)';
+  ADMIN_ADD_GITCREDENTIALS = 'Add global Git Credentials';
+  ADMIN_URL = 'GIT Url';
+  ADMIN_USERNAME = 'GIT Username';
+  ADMIN_PASSWORD = 'GIT Password';
+  OPERATION_SUCCESS_GITCREDS_DELETE = 'Git Credentials successfully deleted';
+  OPERATION_SUCCESS_GITCREDS_ADD = 'Git Credentials successfully saved';
 }

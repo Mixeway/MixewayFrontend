@@ -11,6 +11,7 @@ import {Proxies} from '../../@core/Model/Proxies';
 import {AdminConstants} from '../../@core/constants/AdminConstants';
 import {Settings} from '../../@core/Model/Settings';
 import {ScannerType} from '../../@core/Model/Scanner';
+import {GitCredentials} from '../../@core/Model/GitCredentials';
 
 @Component({
   selector: 'ngx-admin',
@@ -20,6 +21,7 @@ import {ScannerType} from '../../@core/Model/Scanner';
 export class AdminComponent implements OnInit {
   routingDomains: RoutingDomain[];
   proxies: Proxies[];
+  gitCredentials: GitCredentials[];
   auth: boolean;
   index = 1;
   role: string;
@@ -40,6 +42,7 @@ export class AdminComponent implements OnInit {
     this.loadRoutingService();
     this.loadProxies();
     this.loadScannerTypes();
+    this.loadCreds();
   }
 
   ngOnInit() {
@@ -77,5 +80,10 @@ export class AdminComponent implements OnInit {
       this.loadProxies();
       this.loadRoutingService();
     }
+  }
+  loadCreds() {
+    return this.adminService.getGitCreds().subscribe(data => {
+      this.gitCredentials = data;
+    });
   }
 }
