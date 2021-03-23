@@ -242,7 +242,7 @@ export class DetailsTablesComponent implements OnInit {
         interf: row.location,
         vulnName: row.name,
         status: row.status,
-        severity: row.severity,
+        severity: row.severity + (row.analysis != null ? ' / ' + row.analysis : ''),
         inserted: row.inserted,
       });
     }
