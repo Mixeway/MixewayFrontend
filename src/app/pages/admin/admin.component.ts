@@ -70,7 +70,7 @@ export class AdminComponent implements OnInit {
     });
   }
   loadRoutingService() {
-    return this.showProjectService.getRoutingDomains().subscribe(data => {
+    return this.showProjectService.getAllRoutingDomains().subscribe(data => {
       this.routingDomains = data;
     });
   }

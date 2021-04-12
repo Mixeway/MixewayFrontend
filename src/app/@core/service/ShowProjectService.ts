@@ -75,6 +75,13 @@ export class ShowProjectService {
         catchError(this.errorHandl),
       );
   }
+  getAllRoutingDomains(): Observable<RoutingDomain[]> {
+    return this.http.get<RoutingDomain[]>(environment.backend + '/show/project/allroutingdomains')
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
   getProxies(): Observable<Proxies[]> {
     return this.http.get<Proxies[]>(environment.backend + '/show/project/proxies')
       .pipe(
