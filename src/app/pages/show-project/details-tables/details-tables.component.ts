@@ -15,6 +15,8 @@ import {LocalDataSource} from 'ng2-smart-table';
 import {VulnerabilitySourceComponent} from '../../extra-components/vulnerability-source-component';
 import {StatusComponent} from '../../extra-components/status-component';
 import {ClassificationColorComponent} from '../../extra-components/classification-color.component';
+import {BugTracker} from '../../../@core/Model/BugTracker';
+import {BugTrackerService} from '../../../@core/service/BugTrackerService';
 
 
 @Component({
@@ -32,9 +34,14 @@ export class DetailsTablesComponent implements OnInit {
   vulnerabilitiesSettings: any;
   _entityId: number;
   role: string;
+  bugTrackers: BugTracker[];
+  osBugTracker: boolean;
+  codeBugTracker: boolean;
+  webAppBugTracker: boolean;
+  networkBugTracker: boolean;
   constants: ProjectConstants = new ProjectConstants();
   constructor( private showProjectService: ShowProjectService, private _route: ActivatedRoute, private router: Router,
-               private cookieService: CookieService) {
+               private cookieService: CookieService, private bugTrackerService: BugTrackerService) {
     this.role = this.cookieService.get('role');
     this._entityId = +this._route.snapshot.paramMap.get('projectid');
     if (!this._entityId) {
@@ -43,6 +50,17 @@ export class DetailsTablesComponent implements OnInit {
     this.createTableSettings();
     this.loadVulns();
     this.loadAudit();
+    this.loadBugTrackersForProject();
+  }
+  loadBugTrackersForProject() {
+    return this.bugTrackerService.getBugTrackers(this._entityId).subscribe(data => {
+      this.bugTrackers = data;
+      const checkBugTrackerExistence = dataParam => data.some( ({vulns}) => vulns === dataParam);
+      this.webAppBugTracker = checkBugTrackerExistence('WebApplication');
+      this.codeBugTracker = checkBugTrackerExistence('SourceCode');
+      this.osBugTracker = checkBugTrackerExistence('OpenSource');
+      this.networkBugTracker = checkBugTrackerExistence('Network');
+    });
   }
   loadAudit() {
     return this.showProjectService.getAuditVulns(this._entityId).subscribe(data => {
@@ -70,6 +88,11 @@ export class DetailsTablesComponent implements OnInit {
           analysis: vulnerability.analysis,
           inserted: vulnerability.inserted,
           source: vulnerability.vulnerabilitySource.name,
+          ticketId: vulnerability.ticketId,
+          osBug: this.osBugTracker,
+          webAppBug: this.webAppBugTracker,
+          codeBug: this.codeBugTracker,
+          networkBug: this.networkBugTracker,
         };
         this.vulnerabilitiesPojo.push(vuln);
         this.source = new LocalDataSource(this.vulnerabilitiesPojo);
@@ -84,7 +107,7 @@ export class DetailsTablesComponent implements OnInit {
       actions: false,
       columns: {
         details: {
-          title: ' ',
+          title: 'Details',
           type: 'custom',
           renderComponent: DetailsComponent,
           filter: false,
@@ -211,6 +234,18 @@ export class DetailsTablesComponent implements OnInit {
           title: this.constants.PROJECT_DETAILS_LASTSEEN,
           type: 'date',
           width: '13%',
+        },
+        bugTracker: {
+          title: 'Ticket',
+          type: 'custom',
+          renderComponent: BugComponent,
+          filter: false,
+          width: '5%',
+          onComponentInitFunction(instance) {
+            instance.refresh.subscribe((data) => {
+              that.loadVulns();
+            });
+          },
         },
       },
     };

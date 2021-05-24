@@ -92,6 +92,7 @@ can be marked by Mixeway Vuln Auditor or manualy by a user, read docs to get mor
                 </nb-card>
               </div>
             </div>
+
             <div class="row">
               <div class="col-md-12">
                 <nb-card>
@@ -127,10 +128,11 @@ export class DetailsComponent implements ViewCell, OnInit {
   asset: string;
   references: string;
   grade: number;
+  bugTrackerEnabled: boolean;
   constructor(private windowService: NbWindowService, private showProjectService: ShowProjectService,
               private toast: Toast) {
-
   }
+
   loadVulnerability() {
     return this.showProjectService.getVulnerability(this.rowData.projectId, this.rowData.id).subscribe(data => {
       this.vulnerability = data;
