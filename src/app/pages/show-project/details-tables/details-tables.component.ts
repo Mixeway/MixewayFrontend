@@ -74,6 +74,10 @@ export class DetailsTablesComponent implements OnInit {
         let location = '';
         if ( vulnerability.anInterface && (vulnerability.location !== vulnerability.anInterface.privateip)) {
           location = vulnerability.location + ' / ' + vulnerability.anInterface.privateip;
+        } if ( vulnerability.vulnerabilitySource.name === 'OpenSource') {
+          location = vulnerability.codeProject.name + '(' + vulnerability.location + ')';
+        } if ( vulnerability.vulnerabilitySource.name === 'SourceCode') {
+          location = vulnerability.codeProject.name + '(' + vulnerability.location + ')';
         } else {
           location = vulnerability.location;
         }
