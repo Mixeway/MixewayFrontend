@@ -7,8 +7,8 @@ import {Toast} from '../../@core/utils/Toast';
 
 @Component({
   template: `
-    <ng-template #vulnerability style="display: flex;flex-direction: column;">
-      <div class="modal-body px-0">
+    <ng-template #vulnerability style="display: flex;flex-direction: column;width: 60%">
+      <div class="modal-body px-0" >
         <div style="overflow-y: hidden; height: calc(100vh - 15rem);">
           <div class="px-2" style="overflow-y: auto; height: 100%;">
             <div class="row" *ngIf="grade === 1">
@@ -93,15 +93,16 @@ can be marked by Mixeway Vuln Auditor or manualy by a user, read docs to get mor
               </div>
             </div>
 
-            <div class="row">
+            <div class="row" class="align-content-center">
               <div class="col-md-12">
                 <nb-card>
                   <nb-card-header>
                     Manually set the grade for given vulnerability
                   </nb-card-header>
-                  <nb-card-body>
-                    <button style="float:right" nbButton outline status="success" [disabled]="grade==0" (click)="setGradeForVuln(0)">Mark as not relevant</button>
-                    <button style="float:left" nbButton outline status="danger" [disabled]="grade==1" (click)="setGradeForVuln(1)">Mark as confirmed and relevant</button>
+                  <nb-card-body >
+                    <button class="align-content-center" nbButton outline status="success" [disabled]="grade==0" (click)="setGradeForVuln(0)">Mark as not relevant</button>
+                    <br/><br/>
+                    <button class="align-content-center" nbButton outline status="danger" [disabled]="grade==1" (click)="setGradeForVuln(1)">Confirm as Must be fixed</button>
                   </nb-card-body>
                 </nb-card>
               </div>

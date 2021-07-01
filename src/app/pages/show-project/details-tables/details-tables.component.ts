@@ -17,6 +17,7 @@ import {StatusComponent} from '../../extra-components/status-component';
 import {ClassificationColorComponent} from '../../extra-components/classification-color.component';
 import {BugTracker} from '../../../@core/Model/BugTracker';
 import {BugTrackerService} from '../../../@core/service/BugTrackerService';
+import {VulnLocationComponent} from '../../extra-components/vuln-location-component';
 
 
 @Component({
@@ -74,10 +75,6 @@ export class DetailsTablesComponent implements OnInit {
         let location = '';
         if ( vulnerability.anInterface && (vulnerability.location !== vulnerability.anInterface.privateip)) {
           location = vulnerability.location + ' / ' + vulnerability.anInterface.privateip;
-        } if ( vulnerability.vulnerabilitySource.name === 'OpenSource') {
-          location = vulnerability.codeProject.name + '(' + vulnerability.location + ')';
-        } if ( vulnerability.vulnerabilitySource.name === 'SourceCode') {
-          location = vulnerability.codeProject.name + '(' + vulnerability.location + ')';
         } else {
           location = vulnerability.location;
         }
@@ -97,6 +94,7 @@ export class DetailsTablesComponent implements OnInit {
           webAppBug: this.webAppBugTracker,
           codeBug: this.codeBugTracker,
           networkBug: this.networkBugTracker,
+          codeProject: vulnerability.codeProject?.name,
         };
         this.vulnerabilitiesPojo.push(vuln);
         this.source = new LocalDataSource(this.vulnerabilitiesPojo);
@@ -160,7 +158,8 @@ export class DetailsTablesComponent implements OnInit {
         },
         location: {
           title: this.constants.PROJECT_DETAILS_LOCATION,
-          type: 'string',
+          type: 'custom',
+          renderComponent: VulnLocationComponent,
           width: '20%',
         },
         name: {
