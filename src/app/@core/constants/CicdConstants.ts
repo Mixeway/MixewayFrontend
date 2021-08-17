@@ -8,5 +8,5 @@ export class CicdConstants {
   CICD_CHART_NODATA = 'Not enough data to show statistics';
   CICD_CHART_SUCCESS = 'Success';
   CICD_CHART_REJECTIONS = 'Rejection';
-  CICD_CHART_TREND_TITLE = 'Number of request for Security Quality Gateway';
+  CICD_CHART_TREND_TITLE = 'Number of requests to Security Quality Gateway';
 }
