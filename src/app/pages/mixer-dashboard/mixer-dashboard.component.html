@@ -17,23 +17,30 @@
 </div>
 
 <div class="row">
-  <div class="col-md-8">
-    <nb-card>
-      <nb-card-header>{{constants.DASHBOARD_CHART_TREND_TITLE}}</nb-card-header>
-      <nb-card-body>
-        <ngx-trend-chart-line></ngx-trend-chart-line>
-      </nb-card-body>
-    </nb-card>
-  </div>
   <div class="col-md-4">
-    <nb-card>
-      <nb-card-header>{{constants.DASHBOARD_CHART_SOURCE_TITLE}}</nb-card-header>
-      <nb-card-body>
-        <ngx-vuln-type-chart-pie></ngx-vuln-type-chart-pie>
-      </nb-card-body>
-    </nb-card>
+    <ngx-details-assets [statistics]="rootStatistics.statisticCard"></ngx-details-assets>
+  </div>
+  <div class="col-md-8">
+    <ngx-details-vulns [vulns]="rootStatistics.projectVulnerabilityList"></ngx-details-vulns>
   </div>
 </div>
+
+<nb-accordion *ngIf="trendResponse?.length > 0">
+  <nb-accordion-item #item>
+    <nb-accordion-item-header>
+      Vulnerability detection trends
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+      <div class="row">
+        <div class="col-md-12">
+          <ngx-dashboard-vuln-trend-analytics [trendResponse]="trendResponse"></ngx-dashboard-vuln-trend-analytics>
+        </div>
+      </div>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+</nb-accordion>
+<br/>
+
 <div class="row">
   <div class="col-md-12">
     <ngx-project-table></ngx-project-table>

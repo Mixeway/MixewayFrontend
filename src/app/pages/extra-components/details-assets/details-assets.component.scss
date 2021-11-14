@@ -1,0 +1,57 @@
+@import '../../../@theme/styles/themes';
+
+$shadow-green: #00977e;
+
+@include nb-install-component() {
+  .progress-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 2rem;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  .description {
+    margin-top: 0.5rem;
+  }
+  nb-card {
+    overflow: hidden;
+  }
+
+  nb-tabset {
+    display: flex;
+    flex-direction: column;
+
+    ::ng-deep ul {
+      // make same size as card header
+      padding-bottom: 1px;
+      ::ng-deep .tab-link {
+        padding: 1.25rem 2rem;
+      }
+    }
+  }
+
+  nb-tab {
+    padding: 0;
+  }
+
+  .contact {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &:first-child {
+      border-top: none;
+    }
+  }
+  nb-user{
+    text-align: center !important;
+  }
+
+  ::ng-deep nb-user.user-title.ng-star-inserted {
+    font-size: 300px;
+  }
+}

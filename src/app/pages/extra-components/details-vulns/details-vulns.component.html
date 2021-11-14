@@ -1,0 +1,20 @@
+<nb-card size="small">
+  <nb-card-header>Recently discovered vulnerabilities</nb-card-header>
+  <nb-card-body >
+    <div class="row" *ngFor="let vuln of vulns">
+      <div class="col-md-12">
+        <nb-alert [outline]="vuln.severity == 'Medium' ? 'warning' : 'danger'">
+          {{vuln.vulnerability.name}}<br/>
+          <small><b>Inserted:</b> {{vuln.inserted}}, <b>Project:</b> {{vuln.project.name}}, <b>Asset:</b> {{vuln.location}}, <b>Severity:</b> {{vuln.severity}}, <a href="/pages/show/project/{{vuln.project.id}}">go to</a></small>
+        </nb-alert>
+      </div>
+    </div>
+    <div class="row" *ngIf="vulns?.length == 0">
+      <div class="col-md-12">
+        <nb-alert outline="primary">
+          No vulnerabilities recently discovered
+        </nb-alert>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

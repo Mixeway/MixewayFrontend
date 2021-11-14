@@ -9,6 +9,7 @@ import {Project} from '../Model/Project';
 import {SessionOwner} from '../Model/SessionOwner';
 // @ts-ignore
 import {SearchResponse} from '../Model/SearchResponse';
+import {DashboardTopStatistics} from '../Model/DashboardTopStatistics';
 
 
 @Injectable({
@@ -57,6 +58,13 @@ export class DashboardService {
   }
   getProjects(): Observable<Project[]> {
     return this.http.get<Project[]>(environment.backend + '/dashboard/projects')
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  getRootStatistics(): Observable<DashboardTopStatistics> {
+    return this.http.get<DashboardTopStatistics>(environment.backend + '/dashboard/statistics')
       .pipe(
         retry(1),
         catchError(this.errorHandl),

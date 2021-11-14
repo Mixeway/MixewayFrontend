@@ -1,0 +1,18 @@
+<nb-card size="medium">
+  <nb-card-header>
+    <h3>Number of vulnerabilities detected</h3>
+    <div class="subtitle">Trend</div>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="chart-container">
+      <div class="chart-header">
+        <ngx-legend-chart [legendItems]="chartLegend"></ngx-legend-chart>
+      </div>
+      <ngx-vuln-trend-analytics-chart [chartData]="trendResponse"></ngx-vuln-trend-analytics-chart>
+    </div>
+  </nb-card-body>
+
+  <ngx-slide-out [showVisitorsStatistics]="true">
+    <ngx-vuln-trend-statistics [value]="pieChartValue"></ngx-vuln-trend-statistics>
+  </ngx-slide-out>
+</nb-card>

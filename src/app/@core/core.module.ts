@@ -13,6 +13,12 @@ import {
   StateService,
 } from './utils';
 import {UserData} from './data/users';
+import {TrendDataService} from './service/trend-data.service';
+import {PeriodsService} from './service/periods.service';
+import {StatsAssetsData} from './data/stats-asset';
+import {StatsAssetService} from './service/stats-asset.service';
+import {StatsVulnData} from './data/stats-vuln';
+import {StatsVulnsService} from './service/stats-vulns.service';
 
 const socialLinks = [
   {
@@ -34,6 +40,10 @@ const socialLinks = [
 
 const DATA_SERVICES = [
   { provide: UserData, useClass: UserService },
+  { provide: TrendDataService, useClass: TrendDataService},
+  { provide: PeriodsService, useClass: PeriodsService},
+  { provide: StatsAssetService, useClass: StatsAssetService},
+  { provide: StatsVulnData, useClass: StatsVulnsService},
 ];
 
 export class NbSimpleRoleProvider extends NbRoleProvider {
@@ -100,8 +110,8 @@ export class CoreModule {
     throwIfAlreadyLoaded(parentModule, 'CoreModule');
   }
 
-  static forRoot(): ModuleWithProviders<any> {
-    return <ModuleWithProviders<any>>{
+  static forRoot(): ModuleWithProviders<CoreModule> {
+    return {
       ngModule: CoreModule,
       providers: [
         ...NB_CORE_PROVIDERS,

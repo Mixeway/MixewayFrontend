@@ -1,0 +1,43 @@
+<nb-card size="small">
+  <nb-card-body>
+    <div class="progress-info" >
+      <div class="subtitle">Number of defined projects</div>
+      <div class="h3">{{ statistics?.projects }}</div>
+      <div class="caption description">
+        <bdi>Project defined on Mixeway platform (global value)</bdi>
+      </div>
+    </div>
+    <div class="progress-info" >
+      <div class="subtitle">Number of scanned IP addresses</div>
+      <div class="h3">{{ statistics?.assets}}</div>
+      <nb-progress-bar [value]="assetPercent"></nb-progress-bar>
+      <div class="caption description">
+        <bdi>Assets as IP addresses defined on Mixeway platform (global value)</bdi>
+      </div>
+    </div>
+    <div class="progress-info" >
+      <div class="subtitle">Number of scanned URL addresses</div>
+      <div class="h3">{{ statistics?.webApps}}</div>
+      <nb-progress-bar [value]="webPercent"></nb-progress-bar>
+      <div class="caption description">
+        <bdi>Web Applications as URLs defined on Mixeway platform (global value)</bdi>
+      </div>
+    </div>
+    <div class="progress-info" >
+      <div class="subtitle">Number of scanned Code Repositories</div>
+      <div class="h3">{{ statistics?.repos}}</div>
+      <nb-progress-bar [value]="codePercent"></nb-progress-bar>
+      <div class="caption description">
+        <bdi>Source code repositories defined on Mixeway platform (global value)</bdi>
+      </div>
+    </div>
+    <div class="progress-info" >
+      <div class="subtitle">Number Vulnerabilities detected</div>
+      <div class="h3">{{ statistics?.vulnerabilities}}</div>
+      <nb-progress-bar value="100"></nb-progress-bar>
+      <div class="caption description">
+        <bdi>Number of all vulnerabilities currently reported on Mixeway</bdi>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
