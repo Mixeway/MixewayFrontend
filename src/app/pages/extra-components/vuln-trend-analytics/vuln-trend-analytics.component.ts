@@ -16,6 +16,9 @@ import {AllVulnTrendData} from '../../../@core/Model/AllVulnTrendData';
 export class VulnTrendAnalyticsComponent implements OnDestroy {
   private alive = true;
   @Input() trendResponse: AllVulnTrendData[];
+  @Input() sourceData: any;
+  @Input() trendType: string;
+  @Input() pieTitle: string;
   pieChartValue: number;
   chartLegend: {iconColor: string; title: string}[];
   visitorsAnalyticsData: { innerLine: number[]; outerLine: OutlineData[]; };

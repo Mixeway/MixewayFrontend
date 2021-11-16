@@ -14,38 +14,22 @@ import {AllSourceDataChart} from '../../../../@core/Model/AllSourceDataChart';
 export class VulnTrendStatisticsComponent implements AfterViewInit, OnDestroy {
 
   private alive = true;
-
-  @Input() value: number;
-
   option: any = {};
   chartLegend: { iconColor: string; title: string }[];
   echartsIntance: any;
   sourcesData: AllSourceDataChart;
-  chartData: any = [];
+  @Input() chartData: any = [];
+  @Input() pieTitle: string;
 
   constructor(private theme: NbThemeService,
-              private layoutService: LayoutService,
-              private dashboardService: DashboardService) {
+              private layoutService: LayoutService) {
     this.layoutService.onSafeChangeLayoutSize()
       .pipe(
         takeWhile(() => this.alive),
       )
       .subscribe(() => this.resizeChart());
-    this.loadSourceData();
   }
 
-  loadSourceData() {
-    return this.dashboardService.getSourceTrendData().subscribe(data => {
-      if (data != null) {
-        this.sourcesData = data;
-        this.chartData.push({value: data.code, name: 'Source Code'});
-        this.chartData.push({value: data.soft, name: 'OpenSource'});
-        this.chartData.push({value: data.audit, name: 'CIS Benchmark'});
-        this.chartData.push({value: data.infra, name: 'Infrastructure'});
-        this.chartData.push({value: data.webApp, name: 'Web Application'});
-      }
-    });
-  }
   ngAfterViewInit() {
     this.theme.getJsTheme()
       .pipe(

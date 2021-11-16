@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {DashboardConstants} from '../../@core/constants/DashboardConstants';
 import {ShowProjectService} from '../../@core/service/ShowProjectService';
 import {ScannerType} from '../../@core/Model/Scanner';
@@ -6,6 +6,7 @@ import {ProjectConstants} from '../../@core/constants/ProjectConstants';
 import {DashboardTopStatistics} from '../../@core/Model/DashboardTopStatistics';
 import {DashboardService} from '../../@core/service/DashboardService';
 import {AllVulnTrendData} from '../../@core/Model/AllVulnTrendData';
+import {AllSourceDataChart} from '../../@core/Model/AllSourceDataChart';
 
 @Component({
   selector: 'ngx-mixer-dashboard',
@@ -18,10 +19,13 @@ export class MixerDashboardComponent implements OnInit {
   constants: DashboardConstants = new DashboardConstants();
   constantsProject: ProjectConstants = new ProjectConstants();
   rootStatistics: DashboardTopStatistics = new DashboardTopStatistics();
+  sourcesData: AllSourceDataChart;
+  chartData: any = [];
   constructor( private showProjectService: ShowProjectService,
                private dashboardService: DashboardService) {
     this.loadScannerTypes();
     this.loadTrendData();
+    this.loadSourceData();
   }
 
   ngOnInit() {
@@ -30,6 +34,18 @@ export class MixerDashboardComponent implements OnInit {
   loadTrendData() {
     return this.dashboardService.getTrendData().subscribe(data => {
       this.trendResponse = data.reverse();
+    });
+  }
+  loadSourceData() {
+    return this.dashboardService.getSourceTrendData().subscribe(data => {
+      if (data != null) {
+        this.sourcesData = data;
+        this.chartData.push({value: data.code, name: 'Source Code'});
+        this.chartData.push({value: data.soft, name: 'OpenSource'});
+        this.chartData.push({value: data.audit, name: 'CIS Benchmark'});
+        this.chartData.push({value: data.infra, name: 'Infrastructure'});
+        this.chartData.push({value: data.webApp, name: 'Web Application'});
+      }
     });
   }
 

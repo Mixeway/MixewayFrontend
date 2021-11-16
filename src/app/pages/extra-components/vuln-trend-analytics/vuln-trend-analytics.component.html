@@ -8,11 +8,11 @@
       <div class="chart-header">
         <ngx-legend-chart [legendItems]="chartLegend"></ngx-legend-chart>
       </div>
-      <ngx-vuln-trend-analytics-chart [chartData]="trendResponse"></ngx-vuln-trend-analytics-chart>
+      <ngx-vuln-trend-analytics-chart [chartData]="trendResponse" [type]="trendType"></ngx-vuln-trend-analytics-chart>
     </div>
   </nb-card-body>
 
   <ngx-slide-out [showVisitorsStatistics]="true">
-    <ngx-vuln-trend-statistics [value]="pieChartValue"></ngx-vuln-trend-statistics>
+    <ngx-vuln-trend-statistics [chartData]="sourceData" [pieTitle]="pieTitle"></ngx-vuln-trend-statistics>
   </ngx-slide-out>
 </nb-card>

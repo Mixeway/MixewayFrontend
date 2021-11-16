@@ -11,6 +11,8 @@ import {FormBuilder} from '@angular/forms';
 import {Toast} from '../../@core/utils/Toast';
 import {ProjectInfo} from '../../@core/Model/ProjectInfo';
 import {Template} from '@angular/compiler/src/render3/r3_ast';
+import {VulnTrendChart} from '../../@core/Model/VulnTrendChart';
+import {Severities} from '../../@core/Model/Severities';
 
 @Component({
   selector: 'ngx-show-project',
@@ -36,8 +38,11 @@ export class ShowProjectComponent implements OnInit {
   showDetailsTemplate: boolean;
   role: string;
   constants: ProjectConstants = new ProjectConstants();
+  vulnTrendChart: VulnTrendChart;
   @ViewChild('showInstructions') showInstructions: TemplateRef<any>;
   hostname: string;
+  severities: Severities;
+  severitiesChartData: any = [];
   private vulnAuditorForm: any;
   constructor(private showProjectService: ShowProjectService, private _route: ActivatedRoute, private router: Router,
               private cookieService: CookieService, private dialogService: NbDialogService,
@@ -50,12 +55,28 @@ export class ShowProjectComponent implements OnInit {
     this.loadScannerTypes();
     this.loadProjectInfo();
     this.loadCiOperations();
+    this.loadTrendChartData();
+    this.loadSeveritiesChart();
     this.vulnAuditorForm = this.formBuilder.group({
       enableVulnAuditor: this.projectInfo.vulnAuditorEnable,
       dclocation: this.projectInfo.networkdc,
       appClient: this.projectInfo.appClient,
     });
     this.updateShowDockerInfo();
+  }
+  loadTrendChartData() {
+    return this.showProjectService.getVulnTrendChart(this._entityId).subscribe(data => {
+      this.vulnTrendChart = data;
+    });
+  }
+  loadSeveritiesChart() {
+    return this.showProjectService.getSeverityChart(this._entityId).subscribe(data => {
+      this.severities = data;
+      this.severitiesChartData.push({value: data.Low, name: 'Low'});
+      this.severitiesChartData.push({value: data.High, name: 'High'});
+      this.severitiesChartData.push({value: data.Critical, name: 'Critical'});
+      this.severitiesChartData.push({value: data.Medium, name: 'Medium'});
+    });
   }
   updateShowDockerInfo() {
     const url = window.location.href;

@@ -57,8 +57,9 @@ export class VulnTrendPieComponent implements OnDestroy {
           {
             name: this.constants.PROJECT_CHARTS_SEVERITY_TITLE,
             type: 'pie',
-            radius: '80%',
+            radius: ['40%', '70%'],
             center: ['50%', '50%'],
+            avoidLabelOverlap: true,
             data: [
               {
                 'name': 'Critic',
@@ -83,6 +84,9 @@ export class VulnTrendPieComponent implements OnDestroy {
                 shadowOffsetX: 0,
                 shadowColor: echarts.itemHoverShadowColor,
               },
+              borderRadius: 10,
+              borderColor: '#fff',
+              borderWidth: 2,
             },
             label: {
               normal: {
