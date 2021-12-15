@@ -105,7 +105,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 
   showSwaggerDoc() {
-    window.location.href = '/swagger-ui.html';
+    window.location.href = '/swagger-ui';
   }
   checkActualTheme() {
     const theme = this.themes.filter(t => t.value === this.cookieService.get('mixeway-theme'));

@@ -44,6 +44,9 @@ import {ExtraComponentsModule} from '../extra-components/extra-components.module
 import {VulnerabilitySourceComponent} from '../extra-components/vulnerability-source-component';
 import {StatusComponent} from '../extra-components/status-component';
 import {ClassificationColorComponent} from '../extra-components/classification-color.component';
+import { ProjectDetailsComponent } from './project-details/project-details.component';
+import {ChartModule} from 'angular2-chartjs';
+import {ProjectRiskChartComponent} from './project-details/project-risk-chart';
 
 @NgModule({
   declarations: [
@@ -67,6 +70,9 @@ import {ClassificationColorComponent} from '../extra-components/classification-c
     DescriptionToggleComponent,
     AuditResultColorComponent,
     AnalysisColorComponent,
+    DetailsComponent,
+    ProjectDetailsComponent,
+    ProjectRiskChartComponent,
   ],
   imports: [
     CommonModule,
@@ -91,6 +97,7 @@ import {ClassificationColorComponent} from '../extra-components/classification-c
     ExtraComponentsModule,
     NbRadioModule,
     FormsModule,
+    ChartModule,
   ],
   providers: [
     ShowProjectService,

@@ -20,29 +20,13 @@
   </div>
 </div>
 <div class="row">
-  <div [ngClass]="ciOperations?.length > 0 ? 'col-8':'col-12'">
-    <div class="row">
-      <div class="col-6" [ngClass]="ciOperations?.length > 0 ? 'col-sm-6':'col-sm-3'">
-        <ngx-summary-card [cardDetails]="infraRiskCard"></ngx-summary-card>
-      </div>
-      <div class="col-6" [ngClass]="ciOperations?.length > 0 ? 'col-sm-6':'col-sm-3'">
-        <ngx-summary-card [cardDetails]="webAppRiskCard"></ngx-summary-card>
-      </div><br/>
-      <div class="col-6" [ngClass]="ciOperations?.length > 0 ? 'col-sm-6':'col-sm-3'">
-        <ngx-summary-card [cardDetails]="codeRiskCard"></ngx-summary-card>
-      </div>
-      <div class="col-6" [ngClass]="ciOperations?.length > 0 ? 'col-sm-6':'col-sm-3'">
-        <ngx-summary-card [cardDetails]="openSourceCard"></ngx-summary-card>
-      </div>
-    </div>
+  <div [class]="ciOperations?.length > 0 ? 'col-md-8' : 'col-md-12'">
+    <ngx-project-details [projectInfo]="projectInfo" [projectStats]="projectStats"></ngx-project-details>
   </div>
+
   <div *ngIf="ciOperations?.length > 0" class="col-md-4">
     <ngx-ci-operations [ciOperations]="ciOperations"></ngx-ci-operations>
   </div>
-
-  <!--<div class="col-6 col-sm-3">
-    <ngx-summary-card [cardDetails]="auditRiskCard"></ngx-summary-card>
-  </div> -->
 </div>
 <ngx-configure-tables *ngIf="showConfigTableTemplate" [scannerTypes]="scannerTypes"></ngx-configure-tables>
 <ngx-show-project-details-chart *ngIf="showDetailsTemplate"></ngx-show-project-details-chart>

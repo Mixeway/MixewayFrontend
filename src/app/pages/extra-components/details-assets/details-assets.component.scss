@@ -13,6 +13,16 @@ $shadow-green: #00977e;
       margin-top: 0;
     }
   }
+  ::ng-deep .progress-card {
+    height: 100%;
+    padding-bottom: 3px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+  }
+
+  .progress-body {
+    padding-bottom: 0;
+  }
 
   .description {
     margin-top: 0.5rem;
