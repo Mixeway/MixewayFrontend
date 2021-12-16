@@ -319,11 +319,18 @@ export const MATERIAL_LIGHT_THEME = {
       secondPieRadius: ['60%', '97%'],
       shadowOffsetX: '0',
       shadowOffsetY: '0',
+
+      thirdPieRadius: ['55%', '98%'],
+      thirdPieGradientLeft: baseThemeVariables.primary,
+      thirdPieGradientRight: baseThemeVariables.primaryLight,
+
     },
 
     visitorsPieLegend: {
       firstSection: baseThemeVariables.warning,
       secondSection: baseThemeVariables.success,
+      thirdSection: baseThemeVariables.primary,
+      fourthSection: baseThemeVariables.info,
     },
 
     earningPie: {

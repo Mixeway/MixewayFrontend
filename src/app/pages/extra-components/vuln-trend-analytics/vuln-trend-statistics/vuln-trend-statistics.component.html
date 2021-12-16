@@ -1,0 +1,10 @@
+<div class="visitors-statistics">
+  <h4 class="h1">{{pieTitle}}</h4>
+  <div class="statistics-chart">
+    <div echarts
+         [options]="option"
+         class="echart"
+         (chartInit)="onChartInit($event)">
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+@import '../../../@theme/styles/themes';
+
+$shadow-green: #00977e;
+
+@include nb-install-component() {
+  .progress-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 2rem;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  .description {
+    margin-top: 0.5rem;
+  }
+  nb-alert{
+    text-align: center;
+  }
+  nb-card {
+    margin-bottom: 2px;
+  }
+
+}

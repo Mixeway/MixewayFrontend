@@ -12,7 +12,7 @@ import {
   NbProgressBarModule,
   NbSelectModule,
   NbSpinnerModule,
-  NbTabsetModule, NbTooltipModule, NbWindowModule,
+  NbTabsetModule, NbTooltipModule, NbUserModule, NbWindowModule,
 } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
@@ -49,6 +49,14 @@ import { CiOperationsComponent } from './ci-operations/ci-operations.component';
 import { CiOperationsListElementComponent } from './ci-operations-list-element/ci-operations-list-element.component';
 import {VulnmanageColorComponent} from './vulnmanage-color.component';
 import {VulnLocationComponent} from './vuln-location-component';
+import {NgxEchartsModule} from 'ngx-echarts';
+import {LegendChartComponent} from './legend-chart/legend-chart.component';
+import {VulnTrendAnalyticsComponent} from './vuln-trend-analytics/vuln-trend-analytics.component';
+import {VulnTrendStatisticsComponent} from './vuln-trend-analytics/vuln-trend-statistics/vuln-trend-statistics.component';
+import {VulnTrendAnalyticsChartComponent} from './vuln-trend-analytics/vuln-trend-analytics-chart/vuln-trend-analytics-chart.component';
+import {SlideOutComponent} from './slide-out/slide-out.component';
+import {DetailsAssetsComponent} from './details-assets/details-assets.component';
+import {DetailsVulnsComponent} from './details-vulns/details-vulns.component';
 
 const COMPONENTS = [
   ExtraComponentsComponent,
@@ -75,6 +83,11 @@ const COMPONENTS = [
   CodeScanIntegrationIconComponent,
   OsScanIntegrationIconComponent,
   VulnLocationComponent,
+  LegendChartComponent,
+  VulnTrendAnalyticsComponent,
+  VulnTrendStatisticsComponent,
+  VulnTrendAnalyticsChartComponent,
+  SlideOutComponent,
 ];
 
 const MODULES = [
@@ -103,12 +116,16 @@ const MODULES = [
     ReactiveFormsModule,
     NbInputModule,
     NbListModule,
+    NgxEchartsModule,
+    NbUserModule,
   ],
   declarations: [
     ...COMPONENTS,
     StatusAlertComponent,
     CiOperationsComponent,
     CiOperationsListElementComponent,
+    DetailsAssetsComponent,
+    DetailsVulnsComponent,
   ],
   entryComponents: [
     MixerProgresComponent,
@@ -120,14 +137,18 @@ const MODULES = [
     OsScanIntegrationIconComponent,
     BugComponent,
   ],
-  exports: [
-    MixerProgresComponent,
-    ConfigureInfraComponent,
-    ConfigureWebComponent,
-    CiresultColorComponent,
-    BugComponent,
-    StatusAlertComponent,
-    CiOperationsComponent,
-  ],
+    exports: [
+        MixerProgresComponent,
+        ConfigureInfraComponent,
+        ConfigureWebComponent,
+        CiresultColorComponent,
+        BugComponent,
+        StatusAlertComponent,
+        CiOperationsComponent,
+        VulnTrendAnalyticsComponent,
+        DetailsAssetsComponent,
+        DetailsVulnsComponent,
+        SlideOutComponent,
+    ],
 })
 export class ExtraComponentsModule { }

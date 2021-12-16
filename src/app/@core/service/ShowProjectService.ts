@@ -25,6 +25,7 @@ import {CiOperations} from '../Model/CiOperations';
 import {Vulnerability} from '../Model/Vulnerability';
 import {ProjectInfo} from '../Model/ProjectInfo';
 import {IaasApiType} from '../Model/IaasApiType';
+import {ProjectStats} from '../Model/ProjectStats';
 
 @Injectable({
   providedIn: 'root',
@@ -438,6 +439,13 @@ export class ShowProjectService {
   }
   getProjectInfo(id) {
     return this.http.get<ProjectInfo>(environment.backend + this.showProjectPath + '/' + id)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  getProjectStats(id) {
+    return this.http.get<ProjectStats>(environment.backend + this.showProjectPath + '/' + id + '/stats')
       .pipe(
         retry(1),
         catchError(this.errorHandl),

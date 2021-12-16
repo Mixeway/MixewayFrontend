@@ -1,5 +1,5 @@
 
-FROM node:13 as builder
+FROM node:14 as builder
 
 ARG HTTPS_PROXY=""
 

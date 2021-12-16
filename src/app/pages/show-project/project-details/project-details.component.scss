@@ -1,0 +1,53 @@
+@import '../../../@theme/styles/themes';
+
+
+@include nb-install-component() {
+  ngx-project-risk-chart {
+    display: block;
+    height: nb-theme(card-height-medium);
+    width: 60%;
+    margin-top: 0;
+    padding-left: 0;
+  }
+  nb-card {
+    width: 100%;
+  }
+
+  ::ng-deep .echart {
+    margin-top:0;
+    height: 100%;
+    width: 100%;
+  }
+  ::ng-deep nb-alert {
+    padding: 0;
+    width: 100%;
+    display: inline;
+  }
+  ::ng-deep .p_name, .p_value {
+    display: inline-block;
+  }
+  ::ng-deep .p_name {
+    font-size: 16pt;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    font-weight: bold;
+    width: 200px;
+  }
+  ::ng-deep .p_value {
+    margin-left: 10px;
+    font-size: 18pt;
+    border: 2px solid #2d8ac7;
+    border-radius: 10px;
+    padding: 5px;
+  }
+  ::ng-deep nb-alert {
+    font-size: 18pt;
+    padding: 5px;
+  }
+  ::ng-deep .project_details {
+    margin-top: 30px;
+    display: inline-block;
+  }
+  ::ng-deep .project_grade {
+  }
+}
