@@ -4,4 +4,5 @@ export class StatusEntity {
   password: boolean;
   facebook: boolean;
   gitHub: boolean;
+  keycloak: boolean;
 }

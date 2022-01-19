@@ -15,6 +15,9 @@
       <a href="/v2/auth/github" class="google btn" *ngIf="statusEntity.gitHub">
         <nb-icon icon="github"></nb-icon> Login with GitHub
       </a>
+      <a href="/v2/auth/keycloak" class="google btn" *ngIf="statusEntity.keycloak">
+        <nb-icon icon="compass-outline"></nb-icon> Login with Keycloak
+      </a>
       <br/> <br/><br/>
       <form *ngIf="statusEntity.password" [formGroup]="passwordAuthForm" (ngSubmit)="authUsingPassword()" >
         <div class="form-group">
