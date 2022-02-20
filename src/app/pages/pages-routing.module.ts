@@ -12,6 +12,7 @@ import {SearchComponent} from './search/search.component';
 import {VulnAnalyzeComponent} from './vuln-analyze/vuln-analyze.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';
 import {KnowlegeBaseComponent} from './knowlege-base/knowlege-base.component';
+import {ScansComponent} from './scans/scans.component';
 
 const routes: Routes = [{
   path: '',
@@ -48,6 +49,10 @@ const routes: Routes = [{
     {
       path: 'kb',
       component: KnowlegeBaseComponent,
+    },
+    {
+      path: 'scans',
+      component: ScansComponent,
     },
     {
       path: 'search/:search',

@@ -1,44 +1,49 @@
-<div class="row">
-  <div class="col-md-4">
-    <nb-card>
-      <ngx-status-alert *ngIf="scannerTypes" [statusFor]="constantsProject.SCANNER_INFRA" [scannerTypes]="scannerTypes" [dashboard]="true"></ngx-status-alert>
-    </nb-card>
-  </div>
-  <div class="col-md-4">
-    <nb-card>
-      <ngx-status-alert *ngIf="scannerTypes" [statusFor]="constantsProject.SCANNER_WEB" [scannerTypes]="scannerTypes" [dashboard]="true"></ngx-status-alert>
-    </nb-card>
-  </div>
-  <div class="col-md-4">
-    <nb-card>
-      <ngx-status-alert *ngIf="scannerTypes" [statusFor]="constantsProject.SCANNER_CODE" [scannerTypes]="scannerTypes" [dashboard]="true"></ngx-status-alert>
-    </nb-card>
-  </div>
-</div>
 
 <div class="row">
-  <div class="col-md-4">
-    <ngx-details-assets [statistics]="rootStatistics.statisticCard"></ngx-details-assets>
-  </div>
-  <div class="col-md-8">
-    <ngx-details-vulns [vulns]="rootStatistics.projectVulnerabilityList"></ngx-details-vulns>
-  </div>
+  <nb-card class="col-md-3">
+    <nb-card-body>
+      <div class="stat">{{ stats.statisticCard?.projects }}</div>
+    </nb-card-body>
+    <nb-card-footer>
+      <div class="desc">Projects</div>
+    </nb-card-footer>
+  </nb-card>
+
+  <nb-card class="col-md-3">
+    <nb-card-body>
+      <div class="stat">{{ stats.statisticCard?.scanRunning }}</div>
+    </nb-card-body>
+    <nb-card-footer>
+      <div class="desc">Running scans</div>
+    </nb-card-footer>
+  </nb-card>
+
+  <nb-card class="col-md-3">
+    <nb-card-body>
+      <div class="stat">{{ stats.statisticCard?.scanInQueue }}</div>
+    </nb-card-body>
+    <nb-card-footer>
+      <div class="desc">Scans in queue</div>
+    </nb-card-footer>
+  </nb-card>
+
+  <nb-card class="col-md-3">
+    <nb-card-body>
+      <div class="stat">{{ stats.statisticCard?.vulnerabilities }}</div>
+    </nb-card-body>
+    <nb-card-footer>
+      <div class="desc">Vulnerabilities</div>
+    </nb-card-footer>
+  </nb-card>
 </div>
 
-<nb-accordion *ngIf="trendResponse?.length > 0">
-  <nb-accordion-item #item>
-    <nb-accordion-item-header>
-      Vulnerability detection trends
-    </nb-accordion-item-header>
-    <nb-accordion-item-body>
-      <div class="row">
-        <div class="col-md-12">
-          <ngx-dashboard-vuln-trend-analytics [trendResponse]="trendResponse" [sourceData]="chartData" [trendType]="'Linear'" [pieTitle]="'Vulnerability source'"></ngx-dashboard-vuln-trend-analytics>
-        </div>
-      </div>
-    </nb-accordion-item-body>
-  </nb-accordion-item>
-</nb-accordion>
+<div class="row" *ngIf="trendResponse?.length > 0">
+  <nb-card class="col-md-12">
+    <nb-card-body>
+      <ngx-dashboard-vuln-trend-analytics [trendResponse]="trendResponse" [sourceData]="chartData" [trendType]="'Linear'" [pieTitle]="'Vulnerability source'"></ngx-dashboard-vuln-trend-analytics>
+    </nb-card-body>
+  </nb-card>
+</div>
 <br/>
 
 <div class="row">

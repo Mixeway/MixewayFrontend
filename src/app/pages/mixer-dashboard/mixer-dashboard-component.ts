@@ -18,18 +18,23 @@ export class MixerDashboardComponent implements OnInit {
   trendResponse: AllVulnTrendData[];
   constants: DashboardConstants = new DashboardConstants();
   constantsProject: ProjectConstants = new ProjectConstants();
-  rootStatistics: DashboardTopStatistics = new DashboardTopStatistics();
   sourcesData: AllSourceDataChart;
+  stats: DashboardTopStatistics = new DashboardTopStatistics();
   chartData: any = [];
   constructor( private showProjectService: ShowProjectService,
                private dashboardService: DashboardService) {
     this.loadScannerTypes();
     this.loadTrendData();
     this.loadSourceData();
+    this.loadStatistics();
   }
 
   ngOnInit() {
-    this.loadStatistics();
+  }
+  loadStatistics() {
+    return this.dashboardService.getRootStatistics().subscribe(data => {
+      this.stats = data;
+    });
   }
   loadTrendData() {
     return this.dashboardService.getTrendData().subscribe(data => {
@@ -52,11 +57,6 @@ export class MixerDashboardComponent implements OnInit {
   loadScannerTypes() {
     return this.showProjectService.getPossibleScanners().subscribe(data => {
       this.scannerTypes = data;
-    });
-  }
-  loadStatistics() {
-    return this.dashboardService.getRootStatistics().subscribe(data => {
-      this.rootStatistics = data;
     });
   }
 }

@@ -20,6 +20,35 @@ export class VulnsComponent implements OnInit, AfterViewInit {
   vulns: BarChartValues2[];
   targets: BarChartValues2[];
   constants: VulnsConstants = new VulnsConstants();
+  vulnsSource: any;
+  targetSource: any;
+  vulnsSettings = {
+    actions: false,
+    columns: {
+      namee: {
+        title: 'Vulnerability name',
+        filter: false,
+      },
+      value: {
+        title: 'Occurrences',
+        filter: false,
+      },
+    },
+  };
+  targetSettings = {
+    actions: false,
+    columns: {
+      namee: {
+        title: 'Target name',
+        filter: false,
+      },
+      value: {
+        title: 'Occurrences',
+        filter: false,
+      },
+    },
+
+  };
 
   constructor(private vulnsService: VulnsService, private theme: NbThemeService) {
     this.loadInfraTargets();
@@ -114,6 +143,7 @@ export class VulnsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
   }
   drawTargetsChart() {
+    this.targetSource = this.targets;
     this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
 
       const colors: any = config.variables;
@@ -188,6 +218,7 @@ export class VulnsComponent implements OnInit, AfterViewInit {
     });
   }
   drawVulnsChart() {
+    this.vulnsSource = this.vulns;
     this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
 
       const colors: any = config.variables;

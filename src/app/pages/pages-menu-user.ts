@@ -25,4 +25,9 @@ export const MENU_ITEMS_USER: NbMenuItem[] = [
     icon: 'archive-outline',
     link: '/pages/kb',
   },
+  {
+    title: 'Scan Manager',
+    icon: 'activity-outline',
+    link: '/pages/scans',
+  },
 ];
