@@ -55,7 +55,6 @@ import {VulnTrendAnalyticsComponent} from './vuln-trend-analytics/vuln-trend-ana
 import {VulnTrendStatisticsComponent} from './vuln-trend-analytics/vuln-trend-statistics/vuln-trend-statistics.component';
 import {VulnTrendAnalyticsChartComponent} from './vuln-trend-analytics/vuln-trend-analytics-chart/vuln-trend-analytics-chart.component';
 import {SlideOutComponent} from './slide-out/slide-out.component';
-import {DetailsAssetsComponent} from './details-assets/details-assets.component';
 import {DetailsVulnsComponent} from './details-vulns/details-vulns.component';
 
 const COMPONENTS = [
@@ -124,7 +123,6 @@ const MODULES = [
     StatusAlertComponent,
     CiOperationsComponent,
     CiOperationsListElementComponent,
-    DetailsAssetsComponent,
     DetailsVulnsComponent,
   ],
   entryComponents: [
@@ -146,7 +144,6 @@ const MODULES = [
         StatusAlertComponent,
         CiOperationsComponent,
         VulnTrendAnalyticsComponent,
-        DetailsAssetsComponent,
         DetailsVulnsComponent,
         SlideOutComponent,
     ],

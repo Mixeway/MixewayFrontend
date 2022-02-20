@@ -1,0 +1,16 @@
+<div class="row">
+  <ngx-details-vulns class="col-md-12" [vulns]="rootStatistics.projectVulnerabilityList"></ngx-details-vulns>
+</div>
+<br/>
+<div class="row">
+  <nb-card class="col-md-12">
+    <nb-tabset fullWidth>
+      <nb-tab tabTitle="Scans Running">
+        <ng2-smart-table [settings]="tableSettings" [source]="runningScans"></ng2-smart-table>
+      </nb-tab>
+      <nb-tab tabTitle="Scans in queue">
+        <ng2-smart-table [settings]="tableSettings" [source]="inQueueScans"></ng2-smart-table>
+      </nb-tab>
+    </nb-tabset>
+  </nb-card>
+</div>

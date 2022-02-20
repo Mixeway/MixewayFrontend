@@ -6,8 +6,7 @@ export class DashboardTopStatistics {
 }
 export class StatisticCard {
   projects: number;
-  assets: number;
-  webApps: number;
-  repos: number;
+  scanRunning: number;
+  scanInQueue: number;
   vulnerabilities: number;
 }
