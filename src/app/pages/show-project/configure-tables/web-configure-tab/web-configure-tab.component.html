@@ -12,7 +12,7 @@
   {{constants.PROJECT_SCAN_DISABLE_AUTO_SCAN}}
 </button>&nbsp;
 <button [disabled]="!canEdit" nbButton status="success" hero (click)="onAdd()" [nbTooltip]="constants.PROJECT_WEBAPP_ADD">
-  <nb-icon icon="plus" pack="eva" [options]="{ animation: { type: 'shake' } }"></nb-icon>
+  ADD NEW <nb-icon icon="plus" pack="eva" [options]="{ animation: { type: 'shake' } }"></nb-icon>
 </button>
 &nbsp;
 <button nbButton status="warning" hero (click)="refresh()" [nbTooltip]="constants.PROJECT_CODE_TOOLTIP_REFRESH">

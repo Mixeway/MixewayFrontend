@@ -25,20 +25,25 @@
   }
   ::ng-deep .p_name, .p_value {
     display: inline-block;
+    margin-top: 0px;
+    margin-bottom: 2px;
   }
   ::ng-deep .p_name {
-    font-size: 16pt;
+    font-size: 12pt;
     padding-bottom: 3px;
     padding-top: 3px;
     font-weight: bold;
-    width: 200px;
+    width: 120px;
   }
   ::ng-deep .p_value {
     margin-left: 10px;
-    font-size: 18pt;
+    font-size: 12pt;
     border: 2px solid #2d8ac7;
     border-radius: 10px;
-    padding: 5px;
+    padding: 2px;
+  }
+  ::ng-deep .centrize {
+    text-align: center;
   }
   ::ng-deep nb-alert {
     font-size: 18pt;

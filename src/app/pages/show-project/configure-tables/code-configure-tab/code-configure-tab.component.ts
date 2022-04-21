@@ -39,7 +39,6 @@ export class CodeConfigureTabComponent implements OnInit {
   @Input() scannerTypes: ScannerType[];
   sastProjects: SastProject[];
   codeHelperModel: CodeHelperModel = {scannerTypes: [], dTrackProjects: [], sastProjects: []};
-  codeGroupForm;
   codeProjectForm;
   selectedRows;
   canEdit: boolean;
@@ -60,10 +59,8 @@ export class CodeConfigureTabComponent implements OnInit {
     }
     this.loadSettingsTable();
     this.loadCodes();
-    this.loadCodeGroups();
     this.loadValuesForProjects();
     this.codeProjectForm = this.formBuilder.group({
-      codeGroup: [0, Validators.min(0)],
       codeProjectName: ['', Validators.required],
       projectGiturl: ['', [Validators.required, Validators.pattern('(https?:\\/\\/(?:www\\.' +
         '|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+' +
@@ -72,25 +69,7 @@ export class CodeConfigureTabComponent implements OnInit {
       projectTech: ['', Validators.required],
       projectBranch: '',
       gitAuth: 0,
-      dTrackUuid: '',
-      additionalPath: '',
     });
-    this.codeGroupForm = this.formBuilder.group({
-      codeGroupName: ['', Validators.required],
-      giturl: ['', [Validators.pattern('(https?:\\/\\/(?:www\\.' +
-        '|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+' +
-        '[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]' +
-        '{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})')]],
-      gitusername: '',
-      dTrackUuid: '',
-      gitpassword: '',
-      appClient: '',
-      gitAuth: 0,
-      tech: '',
-      autoScan: false,
-      childs: false,
-    });
-
   }
 
   loadCodes() {
@@ -103,11 +82,6 @@ export class CodeConfigureTabComponent implements OnInit {
     });
   }
 
-  loadCodeGroups() {
-    return this.showProjectService.getCodeGroups(this._entityId).subscribe(data => {
-      this.codeGroups = data;
-    });
-  }
   loadValuesForProjects() {
     forkJoin([this.showProjectService.getCodeProjectFromRemote(),
       this.showProjectService.getDTrackProjects()])
@@ -158,11 +132,6 @@ export class CodeConfigureTabComponent implements OnInit {
       mode: 'external',
       actions: false,
       columns: {
-        codeGroup: {
-          title: this.constants.PROJECT_CODE_GROUP,
-          type: 'string',
-          width: '20%',
-        },
         codeProject: {
           title: this.constants.PROJECT_CODE_PROJECT,
           type: 'boolean',
@@ -196,24 +165,7 @@ export class CodeConfigureTabComponent implements OnInit {
       },
     };
   }
-  saveCodeGroup(codeGroup, ref) {
-    if (this.codeGroupForm.valid) {
-      return this.showProjectService.saveCodeGroup(this._entityId, this.codeGroupForm.value).subscribe(() => {
-          this.toast.showToast('success', this.constants.PROJECT_OPERATION_SUCCESS,
-            this.constants.PROJECT_OPERATION_GROUP_SAVE_SUCCESS);
-          this.loadCodeGroups();
-          this.loadCodes();
-          ref.close();
-        },
-        () => {
-          this.toast.showToast('danger', this.constants.PROJECT_OPERATION_FAILURE,
-            this.constants.PROJECT_OPERATION_FAILURES_EXTENDED);
-        });
-    } else {
-      this.toast.showToast('danger', this.constants.PROJECT_OPERATION_FAILURE,
-        this.constants.PROJECT_OPERATION_FAILURES_EXTENDED);
-    }
-  }
+
   saveCodeProject(codeProject, ref) {
     if (this.codeProjectForm.valid) {
       return this.showProjectService.saveCodeProject(this._entityId, this.codeProjectForm.value).subscribe(() => {

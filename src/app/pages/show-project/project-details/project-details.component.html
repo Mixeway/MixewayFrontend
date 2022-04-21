@@ -1,15 +1,39 @@
-    <nb-card size="medium">
-      <nb-card-header>Project Risk</nb-card-header>
-      <nb-card-body>
-          <ngx-project-risk-chart [projectInfo]="projectInfo" ></ngx-project-risk-chart>
-          <div class="project_details">
-            <p class="p_name">Assets:</p> <p class="p_value">{{projectStats.assets}}</p> <br/>
-            <p class="p_name">Code Repos:</p> <p class="p_value">{{projectStats.repos}}</p> <br/>
-            <p class="p_name">WebApps:</p> <p class="p_value">{{projectStats.webApps}}</p> <br/>
-            <p class="p_name">OpenSource Libraries:</p> <p class="p_value">{{projectStats.libs}}</p> <br/>
-            <p class="p_name">Vulnerabilities:</p>&nbsp;<nb-alert status="danger">{{projectStats.vulnCrit}}</nb-alert>&nbsp;&nbsp;
-            <nb-alert status="warning">{{projectStats.vulnMedium}}</nb-alert>&nbsp;&nbsp;
-            <nb-alert status="primary">{{projectStats.vulnLow}}</nb-alert>
-          </div>
-      </nb-card-body>
-    </nb-card>
+<nb-card size="tiny" xmlns="http://www.w3.org/1999/html">
+  <nb-card-header>Project summary</nb-card-header>
+  <nb-card-body>
+    <div class="col-md-4 centrize">
+      <div echarts [options]="option" class="echart"></div>
+    </div>
+    <div class="col-md-4 centrize">
+      <p class="p_name">Assets:</p> <p class="p_value">{{projectStats?.assets}}</p> <br/>
+      <p class="p_name">Code Repos:</p> <p class="p_value">{{projectStats?.repos}}</p> <br/>
+      <p class="p_name">WebApps:</p> <p class="p_value">{{projectStats?.webApps}}</p> <br/>
+      <p class="p_name">Dependencies:</p> <p class="p_value">{{projectStats?.libs}}</p> <br/>
+    </div>
+    <div class="col-md-4">
+      <div class="centrize">
+        <h6>Vulnerabilities detected</h6> <br/>
+        <nb-alert status="danger" nbTooltip="Critical or High Severity">{{projectStats?.vulnCrit}}</nb-alert>&nbsp;&nbsp;
+        <nb-alert status="warning" nbTooltip="Medium Severity">{{projectStats?.vulnMedium}}</nb-alert>&nbsp;&nbsp;
+        <nb-alert status="primary" nbTooltip="Low Severity">{{projectStats?.vulnLow}}</nb-alert>&nbsp;&nbsp;<br/><br/>
+        <a pageScroll href="#detailsTables">View more info</a>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+
+<!--    <nb-card size="medium">-->
+<!--      <nb-card-header>Project Risk</nb-card-header>-->
+<!--      <nb-card-body>-->
+<!--          <ngx-project-risk-chart [projectInfo]="projectInfo" ></ngx-project-risk-chart>-->
+<!--          <div class="project_details">-->
+<!--            <p class="p_name">Assets:</p> <p class="p_value">{{projectStats?.assets}}</p> <br/>-->
+<!--            <p class="p_name">Code Repos:</p> <p class="p_value">{{projectStats?.repos}}</p> <br/>-->
+<!--            <p class="p_name">WebApps:</p> <p class="p_value">{{projectStats?.webApps}}</p> <br/>-->
+<!--            <p class="p_name">OpenSource Libraries:</p> <p class="p_value">{{projectStats?.libs}}</p> <br/>-->
+<!--            <p class="p_name">Vulnerabilities:</p>&nbsp;<nb-alert status="danger">{{projectStats?.vulnCrit}}</nb-alert>&nbsp;&nbsp;-->
+<!--            <nb-alert status="warning">{{projectStats?.vulnMedium}}</nb-alert>&nbsp;&nbsp;-->
+<!--            <nb-alert status="primary">{{projectStats?.vulnLow}}</nb-alert>-->
+<!--          </div>-->
+<!--      </nb-card-body>-->
+<!--    </nb-card>-->

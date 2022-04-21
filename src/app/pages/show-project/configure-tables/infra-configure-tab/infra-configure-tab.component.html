@@ -46,7 +46,7 @@
 </button>&nbsp;
 
 <button [disabled]="!canEdit" nbButton [nbTooltip]="constants.PROJECT_TOOLTIP_ADD_ASSET" status="success" hero (click)="onAdd()">
-  <nb-icon icon="plus" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+  ADD NEW <nb-icon icon="plus" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
 </button>&nbsp;
 <button nbButton status="warning" hero (click)="refresh()" [nbTooltip]="constants.PROJECT_CODE_TOOLTIP_REFRESH">
   <nb-icon icon="refresh" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
