@@ -3,10 +3,12 @@ on:
   push:
     branches:
       - '*'
+      - 'refactor/*'
       - '!master'
   pull_request:
     branches:
       - '*'
+      - 'refactor/*'
       - '!master'
 jobs:
   mixeway-scan:
@@ -31,12 +33,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Set Release version
+        run: |
+          echo "RELEASE_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
       - name: docker actions build & deploy
         uses: docker/build-push-action@v1
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_TOKEN }}
           repository: mixeway/frontend
-          tags: 1.5.0-beta
+          tags: ${{ env.RELEASE_VERSION }}-beta
         env:
           NODE_OPTIONS: –-max_old_space_size=8192
