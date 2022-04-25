@@ -25,7 +25,16 @@ jobs:
   publishbrod:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+      - name: docker actions build & deploy
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+          repository: mixeway/frontend
+          tags: ${{ env.RELEASE_VERSION }}
+        env:
+          NODE_OPTIONS: –-max_old_space_size=8192
       - name: docker actions build & deploy
         uses: docker/build-push-action@v1
         with:

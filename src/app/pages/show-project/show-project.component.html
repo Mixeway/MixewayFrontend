@@ -21,17 +21,17 @@
 </div>
 <div class="row">
   <div [class]="ciOperations?.length > 0 ? 'col-md-8' : 'col-md-12'">
-    <ngx-project-details [projectInfo]="projectInfo" [projectStats]="projectStats"></ngx-project-details>
+    <ngx-project-details [projectInfo]="projectInfo" [projectStats]="projectStats" [chartValue]="projectInfo.risk"></ngx-project-details>
   </div>
 
   <div *ngIf="ciOperations?.length > 0" class="col-md-4">
-    <ngx-ci-operations [ciOperations]="ciOperations"></ngx-ci-operations>
+    <ngx-ci-operations [ciOperations]="ciOperations" [chartValue]="ciOperationSuccessRate"></ngx-ci-operations>
   </div>
 </div>
 <ngx-configure-tables *ngIf="showConfigTableTemplate" [scannerTypes]="scannerTypes"></ngx-configure-tables>
 <ngx-show-project-details-chart *ngIf="showDetailsTemplate"></ngx-show-project-details-chart>
 
-<ngx-details-tables *ngIf="showDetailsTemplate"></ngx-details-tables>
+<ngx-details-tables id="detailsTables" *ngIf="showDetailsTemplate"></ngx-details-tables>
 <ng-template #vulnAuditorSettings let-data let-ref="dialogRef">
   <nb-card>
     <nb-card-header>Global settings, would be applied if object doesn't have setting specified</nb-card-header>

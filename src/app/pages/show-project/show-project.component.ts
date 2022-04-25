@@ -32,6 +32,7 @@ export class ShowProjectComponent implements OnInit {
   projectInfo: ProjectInfo = new ProjectInfo;
   _entityId: any;
   ciOperations: CiOperations[];
+  ciOperationSuccessRate: any;
   scannerTypes: ScannerType[];
   showConfigTemplate: boolean;
   showVulnAuditor: boolean;
@@ -141,7 +142,8 @@ export class ShowProjectComponent implements OnInit {
   loadCiOperations() {
     return this.showProjectService.getCiForProject(this._entityId).subscribe(data => {
       this.ciOperations = data.sort((a, b) => a.id > b.id ? -1 : a.id < b.id ? 1 : 0);
-
+      const success = this.ciOperations.filter((operation) => operation.result === 'Ok').length;
+      this.ciOperationSuccessRate = Math.round((success / this.ciOperations.length) * 100);
     });
   }
   ngOnInit() {

@@ -8,22 +8,16 @@
 <button *ngIf="codeAutomaticScanButton" nbButton status="danger" hero (click)="disableAutoScan()">
   {{constants.PROJECT_SCAN_DISABLE_AUTO_SCAN}}
 </button>&nbsp;
-
+<button [disabled]="!canEdit" nbButton status="success" hero (click)="openCreateApiDialog(addCodeProject)" [nbTooltip]="constants.PROJECT_WEBAPP_ADD">
+  ADD NEW <nb-icon icon="plus" pack="eva" [options]="{ animation: { type: 'shake' } }"></nb-icon>
+</button>
+&nbsp;
 <button nbButton status="warning" hero (click)="refresh()" [nbTooltip]="constants.PROJECT_CODE_TOOLTIP_REFRESH">
   <nb-icon icon="refresh" pack="eva" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
 </button>
 &nbsp;
-
 <ngx-status-alert *ngIf="scannerTypes" [scannerTypes]="scannerTypes" [statusFor]="constants.SCANNER_CODE" class="statusAlert"></ngx-status-alert>
-<br/>
-<div class="buttons-row">
-  <button status="primary" (click)="openCreateApiDialog(addCodeGroup)" nbButton ghost>
-    {{constants.PROJECT_CODE_BUTTON_GROUP_ADD}}
-  </button>
-  <button status="info" (click)="openCreateApiDialog(addCodeProject)" nbButton ghost [disabled]="codeGroups.length<=0" >
-    {{constants.PROJECT_CODE_BUTTON_PROJECT_ADD}}
-  </button>
-</div>
+
 <br/>
 <nb-alert status="info" *ngIf="numberOfRunningTest > 0" >
   {{constants.PROJECT_CODE_SCAN_STATUS_1}} <b><u>{{ numberOfRunningTest }} </u></b>{{constants.PROJECT_CODE_SCAN_STATUS_2}}
@@ -32,69 +26,11 @@
 <ng2-smart-table *ngIf="!loading" [settings]="settings" (custom)="runTestSingle($event)" [source]="codes?.codeModels" (userRowSelect)="onAssetSelect($event)" >
 </ng2-smart-table>
 
-<ng-template #addCodeGroup let-data let-ref="dialogRef">
-  <nb-card>
-    <nb-card-header>{{constants.PROJECT_CODE_GROUP_TITLE}}</nb-card-header>
-    <nb-card-body>
-      <form [formGroup]="codeGroupForm" (ngSubmit)="saveCodeGroup(codeGroupForm.value,ref)" >
-        <div class="form-group">
-          <label for="codeGroupName" class="label">{{constants.PROJECT_CODE_GROUP_NAME}}</label>
-          <input type="text" nbInput fullWidth id="codeGroupName" [placeholder]="constants.PROJECT_CODE_GROUP_NAME_1" formControlName="codeGroupName">
-        </div>
-        <div class="form-group">
-          <label for="giturl" class="label">{{constants.PROJECT_CODE_GROUP_GITURL}}</label>
-          <input type="text" nbInput fullWidth id="giturl" [placeholder]="constants.PROJECT_CODE_GROUP_GITURL" formControlName="giturl">
-        </div>
-        <div class="form-group">
-          <nb-radio-group [(ngModel)]="gitAuth" formControlName="gitAuth">
-            <nb-radio
-              *ngFor="let gitAuth of authOptions"
-              [value]="gitAuth.value">
-              {{ gitAuth.label }}
-            </nb-radio>
-          </nb-radio-group>
-        </div>
-        <div class="form-group" *ngIf="gitAuth==2">
-          <label for="gitusername" class="label">{{constants.PROJECT_CODE_GROUP_GITUSERNAME}}</label>
-          <input type="text" nbInput fullWidth id="gitusername" [placeholder]="constants.PROJECT_CODE_GROUP_GITUSERNAME" formControlName="gitusername">
-        </div>
-        <div class="form-group"  *ngIf="gitAuth==2 || gitAuth == 3" >
-          <label for="gitpassword" class="label">{{constants.PROJECT_CODE_GROUP_GITPASSWORD}}</label>
-          <input type="password" nbInput fullWidth id="gitpassword" [placeholder]="constants.PROJECT_CODE_GROUP_GITPASSWORD" formControlName="gitpassword">
-        </div>
-        <div class="form-group">
-          <label for="tech" class="label">{{constants.PROJECT_CODE_GROUP_TECH}}</label>
-          <input type="text" nbInput fullWidth id="tech" [placeholder]="constants.PROJECT_CODE_GROUP_TECH_1" formControlName="tech">
-        </div>
-        <div class="form-group">
-          <label for="codeGroupAppClient" class="label">Who is going to use the app?</label>
-          <nb-select id="codeGroupAppClient" fullWidth formControlName="appClient">
-            <nb-option value="">Select...</nb-option>
-            <nb-option value="Customer">Customer</nb-option>
-            <nb-option value="employe">Emoloyee</nb-option>
-          </nb-select>
-        </div>
-
-
-        <div class="form-group">
-          <nb-checkbox formControlName="childs">{{constants.PROJECT_CODE_GROUP_CHILDS}}?</nb-checkbox>
-        </div>
-        <button type="submit" nbButton status="danger">{{constants.PROJECT_SAVE}}</button>
-      </form>
-    </nb-card-body>
-  </nb-card>
-</ng-template>
 <ng-template #addCodeProject let-data let-ref="dialogRef">
   <nb-card>
     <nb-card-header>{{constants.PROJECT_CODE_PROJECT_TITLE}}</nb-card-header>
     <nb-card-body>
       <form [formGroup]="codeProjectForm" (ngSubmit)="saveCodeProject(codeProjectForm.value,ref)" >
-        <div class="form-group">
-          <label for="codeGroupForProject" class="label">{{constants.PROJECT_CODE_PROJECT_GROUP}}</label>
-          <nb-select id="codeGroupForProject" fullWidth formControlName="codeGroup">
-            <nb-option *ngFor="let cg of codeGroups" [value]="cg.id">{{ cg.name }}</nb-option>
-          </nb-select>
-        </div>
 
         <div class="form-group">
           <label for="codeProjectName" class="label">{{constants.PROJECT_CODE_PROJECT_NAME}}</label>
@@ -111,14 +47,6 @@
         <div class="form-group">
           <label for="projectTech" class="label">{{constants.PROJECT_CODE_PROJECT_TECH}}</label>
           <input type="text" nbInput fullWidth id="projectTech" [placeholder]="constants.PROJECT_CODE_GROUP_TECH_1" formControlName="projectTech">
-        </div>
-        <div class="form-group">
-          <label for="additionalPath" class="label">{{constants.PROJECT_CODE_PROJECT_PATH}}</label>
-          <input type="text" nbInput fullWidth id="additionalPath" [placeholder]="constants.PROJECT_CODE_PROJECT_PATH" formControlName="additionalPath">
-        </div>
-        <div class="form-group">
-          <label for="dTrackUuidC" class="label">{{constants.PROJECT_CODE_GROUP_DTRACK}}</label>
-          <input type="text" nbInput fullWidth id="dTrackUuidC" [placeholder]="constants.PROJECT_CODE_GROUP_DTRACK" formControlName="dTrackUuid">
         </div>
         <button type="submit" nbButton status="danger">{{constants.PROJECT_SAVE}}</button>
       </form>
