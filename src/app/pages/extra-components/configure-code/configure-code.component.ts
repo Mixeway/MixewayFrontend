@@ -37,7 +37,7 @@ export class ConfigureCodeComponent implements OnInit, ViewCell {
 
   ngOnInit() {
     this.codeProjectForm.patchValue({
-      dTrackUuid: this.rowData.dTrackUuid,
+      dTrackUuid: this.rowData.dtrackUuid,
       sastProject: this.rowData.versionId,
       repoUrl: this.rowData.repoUrl,
       repoUsername: this.rowData.repoUsername,

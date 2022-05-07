@@ -11,7 +11,7 @@ export class OsScanIntegrationIconComponent implements ViewCell, OnInit {
   @Input() rowData: any;
   image: string;
   ngOnInit(): void {
-    if (this.rowData.dTrackUuid) {
+    if (this.rowData.dtrackUuid) {
       this.image = 'ok.png';
     } else {
       this.image = 'notok.png';
