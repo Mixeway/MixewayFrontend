@@ -2,6 +2,7 @@
 
 #### Bug Fixes
 * Fixed bug related with improper view of the status in codeproject opensource scanner integration (https://github.com/Mixeway/MixewayFrontend/issues/57)
+* Fixed bug related with not opened vulnerability details
 
 <a name="1.3.0"></a>
 ## 1.3.0 (2020-05-31)

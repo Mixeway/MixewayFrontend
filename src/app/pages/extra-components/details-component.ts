@@ -142,11 +142,11 @@ export class DetailsComponent implements ViewCell, OnInit {
       if (data.vulnerabilitySource.name === 'Network') {
         this.asset = data.anInterface.asset.name + ' / ' + data.anInterface.privateip;
       } else if (data.vulnerabilitySource.name === 'SourceCode') {
-        this.asset = data.codeProject.codeGroup.name + ' / ' + data.codeProject.name;
+        this.asset = data.codeProject.name;
       } else if (data.vulnerabilitySource.name === 'WebApplication') {
         this.asset = data.webApp.url;
       } else if (data.vulnerabilitySource.name === 'OpenSource') {
-        this.asset = data.codeProject.codeGroup.name + ' / ' + data.codeProject.name;
+        this.asset =  data.codeProject.name;
       } else if (data.vulnerabilitySource.name === 'CISBenchmark') {
         this.asset = data.location;
       }
