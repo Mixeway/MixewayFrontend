@@ -9,7 +9,7 @@ export class VulnsConstants {
   VULNS_BUTTON_CODE = 'Source Code';
   VULNS_PER_VULN = 'Most common vulnerabilities ( > High)';
   VULNS_NODATA = 'No data';
-  VULNS_PER_CODE = 'Most endangered objects';
+  VULNS_PER_CODE = 'Repos with most vulnerabilities detected';
   VULNS_BUTTON_TOOLTIP_OPENSOURCE = 'TOP 10 OpenSorce vulnerabilities within namespace';
   VULNS_BUTTON_OPENSOURCE = 'OpenSource';
 }
