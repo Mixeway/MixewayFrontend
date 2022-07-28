@@ -13,6 +13,7 @@ import {VulnAnalyzeComponent} from './vuln-analyze/vuln-analyze.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';
 import {KnowlegeBaseComponent} from './knowlege-base/knowlege-base.component';
 import {ScansComponent} from './scans/scans.component';
+import {GlobalStatisticComponent} from './global-statistic/global-statistic.component';
 
 const routes: Routes = [{
   path: '',
@@ -29,6 +30,10 @@ const routes: Routes = [{
     {
       path: 'vulns',
       component: VulnsComponent,
+    },
+    {
+      path: 'global-statistics',
+      component: GlobalStatisticComponent,
     },
     {
       path: 'cicd',
