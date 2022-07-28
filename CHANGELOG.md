@@ -1,3 +1,9 @@
+## 1.6.3 (2022-07-28)
+
+#### New Features
+* Adding global statistics for admin acceess
+
+
 ## 1.6.1 (2022-05-07)
 
 #### Bug Fixes

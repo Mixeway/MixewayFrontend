@@ -30,6 +30,8 @@ import { VulnerabilitiesComponent } from './knowlege-base/vulnerabilities/vulner
 import { CisRequirementsComponent } from './knowlege-base/cis-requirements/cis-requirements.component';
 import { ScansComponent } from './scans/scans.component';
 import {ExtraComponentsModule} from './extra-components/extra-components.module';
+import { GlobalStatisticComponent } from './global-statistic/global-statistic.component';
+import {NgxEchartsModule} from "ngx-echarts";
 
 @NgModule({
     imports: [
@@ -54,6 +56,7 @@ import {ExtraComponentsModule} from './extra-components/extra-components.module'
         NbSelectModule,
         ReactiveFormsModule,
         ExtraComponentsModule,
+        NgxEchartsModule,
     ],
   declarations: [
     PagesComponent,
@@ -64,6 +67,7 @@ import {ExtraComponentsModule} from './extra-components/extra-components.module'
     VulnerabilitiesComponent,
     CisRequirementsComponent,
     ScansComponent,
+    GlobalStatisticComponent,
   ],
   providers: [
     {

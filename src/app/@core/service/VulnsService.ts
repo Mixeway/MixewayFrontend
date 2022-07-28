@@ -72,6 +72,13 @@ export class VulnsService {
         catchError(this.errorHandl),
       );
   }
+  getGlobalStatistics(): Observable<GlobalStatistic[]> {
+    return this.http.get<GlobalStatistic[]>(environment.backend + '/vulns/global/statistic')
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
 
   errorHandl(error) {
     if (error.status === 403) {

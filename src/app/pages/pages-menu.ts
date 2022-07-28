@@ -35,6 +35,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     group: true,
   },
   {
+    title: 'Global Statistics',
+    icon: 'pie-chart-outline',
+    link: '/pages/global-statistics',
+  },
+  {
     title: 'Admin Zone',
     icon: 'people-outline',
     link: '/pages/admin',
