@@ -5,7 +5,32 @@
 
   <nb-card-body>
     <div style="padding-top: 20px;padding-bottom: 20px;" *ngIf="loading" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="giant">Loading Please Wait..</div>
-    <ng2-smart-table *ngIf="!loading" [settings]="settings" [source]="projects" (userRowSelect)="onCustom($event)" (deleteConfirm)="onDeleteConfirm($event)" (createConfirm)="onCreateConfirm($event)" (editConfirm)="onEditConfirm($event)">
+    <ng2-smart-table *ngIf="!loading" [settings]="settings" [source]="projects" (userRowSelect)="onCustom($event)" (custom)="open(merge, $event)" (deleteConfirm)="onDeleteConfirm($event)" (createConfirm)="onCreateConfirm($event)" (editConfirm)="onEditConfirm($event)">
     </ng2-smart-table>
   </nb-card-body>
 </nb-card>
+
+<ng-template #merge let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Mering selected project {{ data.event.name }}</nb-card-header>
+    <nb-card-body>
+      Be careful!! <br/>
+      Running this utility will cause project <b>{{data.event.name}}</b> to be deleted and all resources moved to the project selected. <br/>
+      If You want to proceed select destination process and save. <br/><br/>
+      <form [formGroup]="mergeProjectsForm" (ngSubmit)="saveMerge(mergeProjectsForm.value,ref)" >
+        <input [ngModel]="data.event.id" type="hidden" formControlName="source">
+        <nb-select fullWidth formControlName="destination">
+          <nb-option *ngFor="let project of projects" [value]="project.id">
+            {{project.name}}
+          </nb-option>
+
+        </nb-select>
+        <br/> <br/>
+        <button type="submit" nbButton status="danger">Merge projects</button>
+      </form>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton (click)="ref.close()" style="float:right" >Close</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
