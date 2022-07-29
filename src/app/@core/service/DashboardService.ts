@@ -92,6 +92,14 @@ export class DashboardService {
         catchError(this.showErrorOnDelete),
       );
   }
+  moergeProjects(source, destination) {
+    return this.http.get<null>(environment.backend + '/dashboard/merge/project/source/'
+      + source + '/destination/' + destination)
+      .pipe(
+        retry(1),
+        catchError(this.showErrorOnDelete),
+      );
+  }
   showErrorOnDelete() {
     return throwError(null);
   }
