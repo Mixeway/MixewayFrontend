@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core';
 import {ShowProjectService} from '../../../@core/service/ShowProjectService';
 import {Toast} from '../../../@core/utils/Toast';
 import {ExtraConstants} from '../../../@core/constants/ExtraConstants';
@@ -13,7 +13,7 @@ import {Router} from '@angular/router';
   templateUrl: './configure-code.component.html',
   styleUrls: ['./configure-code.component.scss'],
 })
-export class ConfigureCodeComponent implements OnInit, ViewCell {
+export class ConfigureCodeComponent implements OnInit, ViewCell, AfterViewInit {
     value: string;
   @Input() rowData: any;
   showOS: boolean = false;
@@ -34,8 +34,7 @@ export class ConfigureCodeComponent implements OnInit, ViewCell {
       repoPassword: '',
     });
   }
-
-  ngOnInit() {
+  ngAfterViewInit() {
     this.codeProjectForm.patchValue({
       dTrackUuid: this.rowData.dtrackUuid,
       sastProject: this.rowData.versionId,
@@ -57,7 +56,14 @@ export class ConfigureCodeComponent implements OnInit, ViewCell {
     if (this.codeHelperModel.scannerTypes
       .filter(scannerType => scannerType.name === this.constants.SCANNER_DTRACK).length > 0) {
       this.showOS = true;
+    } else  if (this.codeHelperModel.scannerTypes
+      .filter(scannerType => scannerType.name === this.constants.SCANNER_NEXUSIQ).length > 0) {
+      this.showOS = true;
     }
+  }
+
+  ngOnInit() {
+
   }
   playOnceScan() {
     return this.showProjectService.runCodeScanForSingle(this.rowData.id).subscribe(() => {
@@ -86,6 +92,10 @@ export class ConfigureCodeComponent implements OnInit, ViewCell {
 
 
   saveCodeProject(ref) {
+    if (this.codeProjectForm.value.dTrackUuid) {
+      this.codeProjectForm.value.remoteName = this.codeHelperModel.dTrackProjects.filter(code => code.uuid ===
+        this.codeProjectForm.value.dTrackUuid)[0].name;
+    }
     return this.showProjectService.editCodeProject(this.rowData.id, this.codeProjectForm.value).subscribe(() => {
         this.toast.showToast('success', this.constants.SUCCESS,
           this.constants.CODE_OPERATION_CODE_DELETE);
