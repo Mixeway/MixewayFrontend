@@ -120,7 +120,7 @@ export class ShowProjectService {
       );
   }
   getDTrackProjects(): Observable<DTrackProject[]> {
-    return this.http.get<DTrackProject[]>(environment.backend + this.showProjectPath + '/dtrackprojects')
+    return this.http.get<DTrackProject[]>(environment.backend + this.showProjectPath + '/opensourceprojects')
       .pipe(
         retry(1),
         catchError(this.errorHandl),
