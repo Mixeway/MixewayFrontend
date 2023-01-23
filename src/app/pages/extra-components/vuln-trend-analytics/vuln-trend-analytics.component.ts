@@ -4,7 +4,6 @@ import { NbThemeService } from '@nebular/theme';
 import { OutlineData } from '../../../@core/data/trend-analytics';
 import { forkJoin } from 'rxjs';
 import {TrendDataService} from '../../../@core/service/trend-data.service';
-import {DashboardService} from '../../../@core/service/DashboardService';
 import {AllVulnTrendData} from '../../../@core/Model/AllVulnTrendData';
 
 

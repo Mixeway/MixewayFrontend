@@ -1,0 +1,77 @@
+<div class="row">
+  <nb-card class="col-md-4 crit">
+    <nb-card-body>
+      <div class="stat"> {{ dashboardStat.critical }} </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <div class="desc">High & Critical</div>
+    </nb-card-footer>
+  </nb-card>
+
+  <nb-card class="col-md-4 medium">
+    <nb-card-body>
+      <div class="stat">{{ dashboardStat.medium }}</div>
+    </nb-card-body>
+    <nb-card-footer>
+      <div class="desc">Medium</div>
+    </nb-card-footer>
+  </nb-card>
+
+  <nb-card class="col-md-4 low">
+    <nb-card-body>
+      <div class="stat">{{ dashboardStat.low }}</div>
+    </nb-card-body>
+    <nb-card-footer>
+      <div class="desc">Low</div>
+    </nb-card-footer>
+  </nb-card>
+
+</div>
+
+<div class="row" *ngIf="trendResponse?.length > 0">
+  <nb-card class="col-md-12">
+    <nb-card-body>
+      <ngx-dashboard-vuln-trend-analytics [trendResponse]="trendResponse" [trendType]="'Linear'" [pieTitle]="'Vulnerability source'"></ngx-dashboard-vuln-trend-analytics>
+    </nb-card-body>
+  </nb-card>
+</div>
+<br/>
+
+
+<div class="row">
+  <nb-card class="col-md-6">
+    <nb-card-header>
+      Top 10 projects with Highest Risk score
+    </nb-card-header>
+    <nb-card-body>
+      <div echarts
+           [options]="projectOptions"
+           class="echart">
+      </div>
+    </nb-card-body>
+  </nb-card>
+
+  <nb-card class="col-md-6">
+    <nb-card-header>
+      Top 10 most common Critical Vulnerabilities
+    </nb-card-header>
+    <nb-card-body>
+      <div echarts
+           [options]="vulnOptions"
+           class="echart">
+      </div>
+    </nb-card-body>
+  </nb-card>
+</div>
+
+<div class="row">
+  <nb-card class="col-md-12">
+    <nb-card-header>
+      Project Vulnerabilities data
+    </nb-card-header>
+    <nb-card-body>
+      <ng2-smart-table [settings]="settings" [source]="projects" (custom)="open($event)"></ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+
+</div>

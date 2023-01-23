@@ -10,6 +10,7 @@ import {SessionOwner} from '../Model/SessionOwner';
 // @ts-ignore
 import {SearchResponse} from '../Model/SearchResponse';
 import {DashboardTopStatistics} from '../Model/DashboardTopStatistics';
+import {DashboardStat} from '../Model/DashboardStat';
 
 
 @Injectable({
@@ -30,6 +31,13 @@ export class DashboardService {
   // GET
   search(search): Observable<SearchResponse> {
     return this.http.post<SearchResponse>(environment.backend + '/dashboard/search', search, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  stats(): Observable<DashboardStat> {
+    return this.http.get<DashboardStat>(environment.backend + '/dashboard/stat')
       .pipe(
         retry(1),
         catchError(this.errorHandl),

@@ -1,3 +1,9 @@
+## 1.7.1 (2023-01-23)
+
+#### New Features
+* Simplified statistics page
+
+
 ## 1.7.0 (2023-01-23)
 
 #### Bug Fixes
