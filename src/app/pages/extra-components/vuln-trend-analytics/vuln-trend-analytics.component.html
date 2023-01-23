@@ -12,7 +12,7 @@
     </div>
   </nb-card-body>
 
-  <ngx-slide-out [showVisitorsStatistics]="true">
+  <ngx-slide-out [showVisitorsStatistics]="true" *ngIf="sourceData">
     <ngx-vuln-trend-statistics [chartData]="sourceData" [pieTitle]="pieTitle"></ngx-vuln-trend-statistics>
   </ngx-slide-out>
 </nb-card>

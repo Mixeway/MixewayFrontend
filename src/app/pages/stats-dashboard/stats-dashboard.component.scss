@@ -1,0 +1,39 @@
+@import '../../@theme/styles/themes';
+
+@include nb-install-component() {
+  ngx-trend-chart-line,
+  ngx-vuln-type-chart-pie {
+    display: block;
+    height: nb-theme(card-height-small);
+    width: 100%;
+
+    ::ng-deep chart {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  }
+  .stat {
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bold;
+  }
+  .desc {
+    text-align: center;
+    font-size: small;
+    font-style: italic;
+  }
+  .crit {
+    color: red;
+  }
+  .medium {
+    color: darkorange;
+  }
+  .low {
+    color: cornflowerblue;
+  }
+  canvas {
+    padding: 0px;
+    margin: 0px;
+  }
+}

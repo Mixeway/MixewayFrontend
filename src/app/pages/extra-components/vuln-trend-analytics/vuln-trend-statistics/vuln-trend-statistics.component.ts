@@ -2,7 +2,6 @@ import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 import { delay, takeWhile } from 'rxjs/operators';
 import { LayoutService } from '../../../../@core/utils';
-import {DashboardService} from '../../../../@core/service/DashboardService';
 import {AllSourceDataChart} from '../../../../@core/Model/AllSourceDataChart';
 
 

@@ -32,6 +32,7 @@ import { ScansComponent } from './scans/scans.component';
 import {ExtraComponentsModule} from './extra-components/extra-components.module';
 import { GlobalStatisticComponent } from './global-statistic/global-statistic.component';
 import {NgxEchartsModule} from "ngx-echarts";
+import { StatsDashboardComponent } from './stats-dashboard/stats-dashboard.component';
 
 @NgModule({
     imports: [
@@ -68,6 +69,7 @@ import {NgxEchartsModule} from "ngx-echarts";
     CisRequirementsComponent,
     ScansComponent,
     GlobalStatisticComponent,
+    StatsDashboardComponent,
   ],
   providers: [
     {
