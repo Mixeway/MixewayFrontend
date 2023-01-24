@@ -26,7 +26,7 @@ export class ConfigureCodeComponent implements OnInit, ViewCell, AfterViewInit {
   constructor(private dialogService: NbDialogService, private showProjectService: ShowProjectService,
               private toast: Toast, private formBuilder: FormBuilder, private router: Router) {
     this.codeProjectForm = this.formBuilder.group({
-      dTrackUuid: '',
+      remoteId: '',
       sastProject: 0,
       branch: '',
       repoUrl: '',
@@ -36,7 +36,7 @@ export class ConfigureCodeComponent implements OnInit, ViewCell, AfterViewInit {
   }
   ngAfterViewInit() {
     this.codeProjectForm.patchValue({
-      dTrackUuid: this.rowData.dtrackUuid,
+      remoteId: this.rowData.dtrackUuid,
       sastProject: this.rowData.versionId,
       repoUrl: this.rowData.repoUrl,
       repoUsername: this.rowData.repoUsername,
@@ -92,9 +92,9 @@ export class ConfigureCodeComponent implements OnInit, ViewCell, AfterViewInit {
 
 
   saveCodeProject(ref) {
-    if (this.codeProjectForm.value.dTrackUuid) {
+    if (this.codeProjectForm.value.remoteId) {
       this.codeProjectForm.value.remoteName = this.codeHelperModel.dTrackProjects.filter(code => code.uuid ===
-        this.codeProjectForm.value.dTrackUuid)[0].name;
+        this.codeProjectForm.value.remoteId)[0].name;
     }
     return this.showProjectService.editCodeProject(this.rowData.id, this.codeProjectForm.value).subscribe(() => {
         this.toast.showToast('success', this.constants.SUCCESS,

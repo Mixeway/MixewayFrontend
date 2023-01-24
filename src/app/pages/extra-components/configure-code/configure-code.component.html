@@ -49,13 +49,13 @@
           <div class="col-sm-6">
             <div class="form-group">
               <label for="codeProjectName" class="label">{{constants.PROJECT_CODE_PROJECT_DTRACK}}</label>
-              <nb-select id="codeProjectName" fullWidth formControlName="dTrackUuid">
+              <nb-select id="codeProjectName" fullWidth formControlName="remoteId">
                 <nb-option *ngIf="!codeHelperModel.dTrackProjects">{{constants.PROJECT_DTRAC_PROJECT_EMPTY}}</nb-option>
                 <nb-option *ngFor="let dTrackProject of codeHelperModel.dTrackProjects" [value]="dTrackProject.uuid">{{ dTrackProject.name }}</nb-option>
               </nb-select>
             </div>
           </div>
-          <div class="col-sm-6" *ngIf="!rowData.dTrackUuid">
+          <div class="col-sm-6" *ngIf="!rowData.remoteId">
             <div class="form-group">
               <label for="dTrackCreateBtn" class="label">OR Create it now</label><br/>
               <button id="dTrackCreateBtn"  type="button" nbButton status="primary" (click)="createDTrack(ref)">{{constants.CREATE_DTRACK_PROJECT}}</button>
