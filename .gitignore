@@ -5,7 +5,9 @@
 
 # dependencies
 /node_modules
-
+.angular
+/.angular
+/.vscode
 # IDEs and editors
 /.idea
 .project
