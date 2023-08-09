@@ -1,4 +1,4 @@
-    <p-timeline *ngIf="events.length>0" [value]="events">
+    <p-timeline *ngIf="events.length>0" [value]="events" style="overflow-y: auto">
       <ng-template pTemplate="content" let-event>
         <small class="p-text-secondary">{{ event.date }}</small>
       </ng-template>

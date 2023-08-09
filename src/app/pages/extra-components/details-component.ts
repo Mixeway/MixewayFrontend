@@ -8,11 +8,11 @@ import {ProjectAudit} from '../../@core/Model/ProjectAudit';
 import {VulnerabilityHistoryRequest} from '../../@core/Model/VulnerabilityHistoryRequest';
 
 interface EventItem {
-  status?: String;
-  date?: String;
-  icon?: String;
-  color?: String;
-  image?: String;
+  status?: 'Asset Created' | 'Vulnerability Added' | 'Vuln re-detected' | 'Resolved';
+  date?: string;
+  icon?: string;
+  color?: string;
+  image?: string;
 }
 
 @Component({
@@ -190,6 +190,20 @@ export class DetailsComponent implements ViewCell, OnInit {
           );
         }
       }
+      const eventTypeOrder = { 'Vulnerability Added': 0, 'Vuln re-detected': 1, 'Resolved': 2 };
+
+      this.events.sort((a, b) => {
+        if (a.date === '') return -1;
+        if (b.date === '') return 1;
+
+        const dateA = new Date(a.date.split(', ')[0]);
+        const dateB = new Date(b.date.split(', ')[0]);
+
+        if (dateA < dateB) return -1;
+        if (dateA > dateB) return 1;
+
+        return eventTypeOrder[a.status] - eventTypeOrder[b.status];
+      });
     });
   }
 

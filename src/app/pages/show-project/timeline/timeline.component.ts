@@ -5,11 +5,11 @@ import {ProjectAudit} from '../../../@core/Model/ProjectAudit';
 
 
 interface EventItem {
-  status?: String;
-  date?: String;
-  icon?: String;
-  color?: String;
-  image?: String;
+  status?: 'Project Created' | 'Vulnerabilities Added' | 'Vulns re-detected' | 'Resolved Vulns';
+  date?: string;
+  icon?: string;
+  color?: string;
+  image?: string;
 }
 
 @Component({
@@ -62,6 +62,20 @@ export class TimelineComponent implements OnInit, AfterViewInit {
           );
         }
       }
+      const eventTypeOrder = { 'Vulnerabilities Added': 0, 'Vulns re-detected': 1, 'Resolved Vulns': 2 };
+
+      this.events.sort((a, b) => {
+        if (a.date === '') return -1;
+        if (b.date === '') return 1;
+
+        const dateA = new Date(a.date.split(', ')[0]);
+        const dateB = new Date(b.date.split(', ')[0]);
+
+        if (dateA < dateB) return -1;
+        if (dateA > dateB) return 1;
+
+        return eventTypeOrder[a.status] - eventTypeOrder[b.status];
+      });
     });
   }
 }
