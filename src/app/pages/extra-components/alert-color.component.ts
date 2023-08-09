@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {ViewCell} from 'ng2-smart-table';
 
 @Component({
@@ -6,12 +6,19 @@ import {ViewCell} from 'ng2-smart-table';
     <span [class]="'badge ' + class" style="display: block; margin-left: auto; margin-right: auto;">{{ severity }}</span>
   `,
 })
-export class AlertColorComponent implements ViewCell, OnInit {
+export class AlertColorComponent implements ViewCell, OnInit, AfterViewInit {
   @Input() value: any;
   @Input() rowData: any;
   severity: string;
   class: string;
+  ngAfterViewInit() {
+    this.loadData();
+  }
+
   ngOnInit(): void {
+    this.loadData();
+  }
+  loadData() {
     if (this.rowData.hasOwnProperty('severity')) {
       this.severity = this.rowData.severity;
     } else if ( this.rowData.hasOwnProperty('softwarePacketVulnerability') ) {
@@ -19,7 +26,7 @@ export class AlertColorComponent implements ViewCell, OnInit {
     } else if (this.rowData.hasOwnProperty('threat')) {
       this.severity = this.rowData.threat;
     }
-    if (this.severity.toLowerCase() === 'critical' || this.severity.toLowerCase() === 'high' ) {
+    if (this.severity?.toLowerCase() === 'critical' || this.severity.toLowerCase() === 'high' ) {
       this.class = 'badge-danger';
     } else if (this.severity.toLowerCase() === 'medium' ) {
       this.class = 'badge-warning';

@@ -45,7 +45,7 @@ export class ProjectTableComponent {
         custom: [
           {
             name: 'swap',
-            title: '<i class="nb-arrow-retweet"></i>',
+            title: '&nbsp;&nbsp;<i class="nb-arrow-retweet"></i>&nbsp;&nbsp;',
           },
         ],
       },
@@ -57,13 +57,13 @@ export class ProjectTableComponent {
         confirmCreate: true,
       },
       edit: {
-        editButtonContent: '<i class="nb-edit"></i>',
+        editButtonContent: '<i class="nb-edit"></i>&nbsp;&nbsp;&nbsp;',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
         confirmSave: true,
       },
       delete: {
-        deleteButtonContent: '<i class="nb-trash"></i>',
+        deleteButtonContent: '&nbsp;&nbsp;<i class="nb-trash"></i>',
         confirmDelete: true,
       },
       columns: {

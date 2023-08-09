@@ -23,16 +23,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   themes = [
     {
-      value: 'material-dark',
-      name: 'Material Dark',
+      value: 'default',
+      name: 'Light',
     },
     {
-      value: 'material-light',
-      name: 'Material Light',
+      value: 'dark',
+      name: 'Dark',
+    },
+    {
+      value: 'cosmic',
+      name: 'Cosmic',
+    },
+    {
+      value: 'corporate',
+      name: 'Corporate',
     },
   ];
 
-  currentTheme = 'material-light';
+  currentTheme = 'default';
 
   userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
 
@@ -78,7 +86,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   getUserName() {
     return this.dashboardService.getSessionOwner().subscribe(data => {
       this.user = data;
-      });
+    });
   }
 
 

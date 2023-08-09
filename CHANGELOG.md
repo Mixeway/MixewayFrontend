@@ -1,3 +1,17 @@
+## 1.8.0 (2023-08-08)
+
+#### New Features
+* Refreshed show project page with additional statistic
+* Project vulnerability timeline
+* Vulnerability timeline
+* More other stats like average time to fix vulnerability
+
+#### Updates
+* Updated to angular 14 and ngx-admin 10
+
+#### Bug Fixes
+* fixed problem with not refreshed gauge chart with project threat rating
+
 ## 1.7.1 (2023-01-23)
 
 #### New Features

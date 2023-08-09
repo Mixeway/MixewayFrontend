@@ -3,5 +3,5 @@ export const environment = {
   jwtSource: '/api/v2/auth/x509',
   passwordSource: '/api/v2/auth/pass',
   auth: '/api/v2/auth',
-  backend: '/api/v2/api',
+  backend: '/v2/api',
 };

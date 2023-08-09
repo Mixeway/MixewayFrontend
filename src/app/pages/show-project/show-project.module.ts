@@ -48,6 +48,11 @@ import { ProjectDetailsComponent } from './project-details/project-details.compo
 import {ChartModule} from 'angular2-chartjs';
 import {ProjectRiskChartComponent} from './project-details/project-risk-chart';
 import {Ng2PageScrollModule} from 'ng2-page-scroll';
+import {DetailsCartsComponent} from './details-carts/details-carts.component';
+import {ProgressChartComponent} from './progress-chart/progress-chart.component';
+import {TimelineComponent} from './timeline/timeline.component';
+import {TimelineModule} from 'primeng/timeline';
+import {CardModule} from 'primeng/card';
 
 @NgModule({
   declarations: [
@@ -74,33 +79,38 @@ import {Ng2PageScrollModule} from 'ng2-page-scroll';
     DetailsComponent,
     ProjectDetailsComponent,
     ProjectRiskChartComponent,
+    DetailsCartsComponent,
+    ProgressChartComponent,
+    TimelineComponent,
   ],
-    imports: [
-        CommonModule,
-        NbCardModule,
-        NgxEchartsModule,
-        NbButtonModule,
-        NbTableModule,
-        NbTabsetModule,
-        Ng2SmartTableModule,
-        NbInputModule,
-        NbSelectModule,
-        NbAlertModule,
-        NbAccordionModule,
-        NbTreeGridModule,
-        NbCheckboxModule,
-        NbPopoverModule,
-        NbSpinnerModule,
-        ReactiveFormsModule,
-        NbIconModule,
-        NbTooltipModule,
-        NbListModule,
-        ExtraComponentsModule,
-        NbRadioModule,
-        FormsModule,
-        ChartModule,
-        Ng2PageScrollModule,
-    ],
+  imports: [
+    CommonModule,
+    NbCardModule,
+    NgxEchartsModule,
+    NbButtonModule,
+    NbTableModule,
+    NbTabsetModule,
+    Ng2SmartTableModule,
+    NbInputModule,
+    NbSelectModule,
+    NbAlertModule,
+    NbAccordionModule,
+    NbTreeGridModule,
+    NbCheckboxModule,
+    NbPopoverModule,
+    NbSpinnerModule,
+    ReactiveFormsModule,
+    NbIconModule,
+    NbTooltipModule,
+    NbListModule,
+    ExtraComponentsModule,
+    NbRadioModule,
+    FormsModule,
+    ChartModule,
+    Ng2PageScrollModule,
+    TimelineModule,
+    CardModule,
+  ],
   providers: [
     ShowProjectService,
     ReactiveFormsModule,

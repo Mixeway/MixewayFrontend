@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md-5">
+    <nb-card>
+      <nb-card-header>
+        Detected Vulnerabilities
+      </nb-card-header>
+      <nb-card-body>
+        {{details?.createdVulnerabilities}}
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-5">
+    <nb-card>
+      <nb-card-header>
+        Resolved Vulnerabilities
+      </nb-card-header>
+      <nb-card-body>
+        {{details?.resolvedVulnerabilities}}
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <nb-card>
+      <nb-card-header>
+        Avg. Time to Fix [days]
+      </nb-card-header>
+      <nb-card-body>
+        {{details?.averageTimeToResolve}}
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-5">
+    <nb-card>
+      <nb-card-header>
+        Resolved Criticals
+      </nb-card-header>
+      <nb-card-body>
+        {{details?.percentCriticalsSolved}}
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

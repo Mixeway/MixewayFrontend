@@ -1,8 +1,10 @@
-import {AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ProjectStats} from '../../../@core/Model/ProjectStats';
 import {ProjectInfo} from '../../../@core/Model/ProjectInfo';
 import {delay} from 'rxjs/operators';
 import {NbThemeService} from '@nebular/theme';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 
 @Component({
@@ -10,9 +12,9 @@ import {NbThemeService} from '@nebular/theme';
   templateUrl: './project-details.component.html',
   styleUrls: ['./project-details.component.scss'],
 })
-export class ProjectDetailsComponent implements OnInit, AfterViewInit, OnDestroy, AfterViewChecked {
+export class ProjectDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
   options: any;
-  grade: any;
+  grade: any = 'A';
   gradeColor: any;
   @Input()
   projectStats: ProjectStats;
@@ -27,28 +29,40 @@ export class ProjectDetailsComponent implements OnInit, AfterViewInit, OnDestroy
 
     if (this.option.series) {
       this.option.series[0].data[0].value = value;
-      this.option.series[0].data[1].value = 100 - value;
-      this.option.series[1].data[0].value = value;
+      if (this.option.series[0].data[1]) {
+        this.option.series[0].data[1].value = 100 - value;
+      }
+      if (this.option.series[1]) {
+        this.option.series[1].data[0].value = value;
+      }
+
     }
   }
 
-  constructor(private theme: NbThemeService) {
+  constructor(private theme: NbThemeService, private cdr: ChangeDetectorRef) {
+  }
+  ngAfterViewInit() {
+    this.cdr.detectChanges();
+
   }
 
   ngOnInit(): void {
+    this.drawOptions();
+    this.calculateGrade();
+    this.cdr.detectChanges();
   }
 
-  ngAfterViewChecked() {
-    if (this.projectInfo.risk === 0) {
+  calculateGrade() {
+    if (this.projectInfo?.risk === 0) {
       this.grade = 'A+';
       this.gradeColor = '#88f151';
-    } else if (this.projectInfo.risk < 20) {
+    } else if (this.projectInfo?.risk < 20) {
       this.grade = 'A';
       this.gradeColor = '#31730f';
-    } else if (this.projectInfo.risk < 40) {
+    } else if (this.projectInfo?.risk < 40) {
       this.grade = 'B';
       this.gradeColor = '#ead680';
-    } else if (this.projectInfo.risk < 70) {
+    } else if (this.projectInfo?.risk < 70) {
       this.grade = 'C';
       this.gradeColor = '#f3751d';
     } else {
@@ -57,145 +71,98 @@ export class ProjectDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     }
   }
 
-  ngAfterViewInit() {
+  ngOnDestroy() {
+    this.themeSubscription.unsubscribe();
+  }
+  drawOptions() {
     this.themeSubscription = this.theme.getJsTheme().pipe(delay(1)).subscribe(config => {
       const solarTheme: any = config.variables.solar;
-
-      this.option = Object.assign({}, {
-        tooltip: {
-          trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d}%)',
-        },
+      this.option = {
         series: [
           {
-            name: ' ',
-            clockWise: true,
-            hoverAnimation: false,
-            type: 'pie',
-            center: ['45%', '50%'],
-            radius: solarTheme.radius,
+            type: 'gauge',
+            startAngle: 180,
+            endAngle: 0,
+            center: ['50%', '95%'],
+            radius: '190%',
+            min: 0,
+            max: 1,
+            splitNumber: 8,
+            axisLine: {
+              lineStyle: {
+                width: 6,
+                color: [
+                  [0.25, '#7CFFB2'],
+                  [0.5, '#58D9F9'],
+                  [0.75, '#FDDD60'],
+                  [1, '#FF6E76'],
+                ],
+              },
+            },
+            pointer: {
+              icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
+              length: '42%',
+              width: 10,
+              offsetCenter: [0, '-60%'],
+              itemStyle: {
+                color: 'auto',
+              },
+            },
+            axisTick: {
+              length: 12,
+              lineStyle: {
+                color: 'auto',
+                width: 2,
+              },
+            },
+            splitLine: {
+              length: 20,
+              lineStyle: {
+                color: 'auto',
+                width: 5,
+              },
+            },
+            axisLabel: {
+              color: '#464646',
+              fontSize: 12,
+              distance: -60,
+              rotate: 'tangential',
+              formatter: function (value: number) {
+                if (value === 0.875) {
+                  return '';
+                } else if (value === 0.625) {
+                  return '';
+                } else if (value === 0.375) {
+                  return '';
+                } else if (value === 0.125) {
+                  return '';
+                }
+                return '';
+              },
+            },
+            title: {
+              offsetCenter: [0, '-35%'],
+              fontSize: 12,
+            },
+            detail: {
+              fontSize: 30,
+              offsetCenter: [0, '-35%'],
+              valueAnimation: true,
+              formatter: function (value: number) {
+                return Math.round(value * 100) + '';
+              },
+              color: 'inherit',
+            },
             data: [
               {
-                value: this.value,
-                name: ' ',
-                label: {
-                  normal: {
-                    position: 'center',
-                    formatter: this.grade + '\n grade',
-                    textStyle: {
-                      fontSize: '20',
-                      fontFamily: config.variables.fontSecondary,
-                      fontWeight: '600',
-                      color: this.gradeColor,
-                    },
-                  },
-                },
-                tooltip: {
-                  show: false,
-                },
-                itemStyle: {
-                  normal: {
-                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                      {
-                        offset: 0,
-                        color: solarTheme.gradientLeft,
-                      },
-                      {
-                        offset: 1,
-                        color: solarTheme.gradientRight,
-                      },
-                    ]),
-                    shadowColor: solarTheme.shadowColor,
-                    shadowBlur: 0,
-                    shadowOffsetX: 0,
-                    shadowOffsetY: 3,
-                  },
-                },
-                hoverAnimation: false,
-              },
-              {
-                value: 100 - this.value,
-                name: ' ',
-                tooltip: {
-                  show: false,
-                },
-                label: {
-                  normal: {
-                    position: 'inner',
-                  },
-                },
-                itemStyle: {
-                  normal: {
-                    color: solarTheme.secondSeriesFill,
-                  },
-                },
-              },
-            ],
-          },
-          {
-            name: ' ',
-            clockWise: true,
-            hoverAnimation: false,
-            type: 'pie',
-            center: ['45%', '50%'],
-            radius: solarTheme.radius,
-            data: [
-              {
-                value: this.value,
-                name: ' ',
-                label: {
-                  normal: {
-                    position: 'inner',
-                    show: false,
-                  },
-                },
-                tooltip: {
-                  show: false,
-                },
-                itemStyle: {
-                  normal: {
-                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                      {
-                        offset: 0,
-                        color: solarTheme.gradientLeft,
-                      },
-                      {
-                        offset: 1,
-                        color: solarTheme.gradientRight,
-                      },
-                    ]),
-                    shadowColor: solarTheme.shadowColor,
-                    shadowBlur: 7,
-                  },
-                },
-                hoverAnimation: false,
-              },
-              {
-                value: 28,
-                name: ' ',
-                tooltip: {
-                  show: false,
-                },
-                label: {
-                  normal: {
-                    position: 'inner',
-                  },
-                },
-                itemStyle: {
-                  normal: {
-                    color: 'none',
-                  },
-                },
+                value: (this.projectInfo.risk / 100) ,
+                name: 'Threat Rating: ' + this.grade ,
               },
             ],
           },
         ],
-      });
+      };
     });
-  }
-
-  ngOnDestroy() {
-    this.themeSubscription.unsubscribe();
   }
 
 }

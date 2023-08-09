@@ -16,6 +16,7 @@ export class InfraVuln {
   ticketId: number;
 }
 export class Interface {
+  id: number;
   privateip: string;
   asset: Asset;
 }
