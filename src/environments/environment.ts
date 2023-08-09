@@ -9,9 +9,9 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false,
-  jwtSource: '',
-  passwordSource: '',
-  auth: '',
-  backend: '',
+  production: true,
+  jwtSource: '/v2/auth/x509',
+  passwordSource: '/v2/auth/pass',
+  auth: '/v2/auth',
+  backend: '/v2/api',
 };
