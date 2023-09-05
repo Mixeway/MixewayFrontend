@@ -26,6 +26,8 @@ import {Vulnerability} from '../Model/Vulnerability';
 import {ProjectInfo} from '../Model/ProjectInfo';
 import {IaasApiType} from '../Model/IaasApiType';
 import {ProjectStats} from '../Model/ProjectStats';
+import {ProjectAudit} from '../Model/ProjectAudit';
+import {ProjectDetailsAudit} from '../Model/ProjectDetailsAudit';
 
 @Injectable({
   providedIn: 'root',
@@ -473,6 +475,31 @@ export class ShowProjectService {
         catchError(this.errorHandl),
       );
   }
+  getProjectVulnAudit(projectid): Observable<ProjectAudit[]> {
+    return this.http.get<ProjectAudit[]>(environment.backend + '/show/project/audit/project/' + projectid )
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+  getProjectVulnDetailsAudit(projectid): Observable<ProjectDetailsAudit> {
+    return this.http.get<ProjectDetailsAudit>(environment.backend +
+      '/show/project/audit/project/stats/' + projectid )
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+
+  getHistoryForVuln(id, body, source): Observable<ProjectAudit[]> {
+    return this.http.post<ProjectAudit[]>(environment.backend + '/show/project/audit/' + source + '/' + id, body)
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+
+
   getIaasApiTypes(): Observable<IaasApiType[]> {
     return this.http.get<IaasApiType[]>(environment.backend + this.showProjectPath + '/iaasapitype')
       .pipe(

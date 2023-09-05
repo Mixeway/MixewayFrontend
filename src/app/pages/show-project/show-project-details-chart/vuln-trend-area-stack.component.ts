@@ -1,4 +1,4 @@
-import {  Component, OnDestroy } from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 import {ShowProjectService} from '../../../@core/service/ShowProjectService';
 import {VulnTrendChart} from '../../../@core/Model/VulnTrendChart';
@@ -13,7 +13,7 @@ import {ProjectConstants} from '../../../@core/constants/ProjectConstants';
         {{constants.PROJECT_CHARTS_TREND_NODATA}}</nb-alert>
   `,
 })
-export class VulnTrendAreaStackComponent implements OnDestroy {
+export class VulnTrendAreaStackComponent implements OnDestroy, OnInit, AfterViewInit {
   options: any = {};
   themeSubscription: any;
   vulnTrendChart: VulnTrendChart;
@@ -29,6 +29,14 @@ export class VulnTrendAreaStackComponent implements OnDestroy {
     }
     this.loadChartData();
   }
+  ngAfterViewInit() {
+    this.loadChartData();
+  }
+
+  ngOnInit() {
+    this.loadChartData();
+  }
+
   loadChartData() {
     return this.showProjectService.getVulnTrendChart(this._entityId).subscribe(data => {
       this.vulnTrendChart = data;
@@ -46,7 +54,7 @@ export class VulnTrendAreaStackComponent implements OnDestroy {
 
       this.options = {
         backgroundColor: echarts.bg,
-        color: [colors.warningLight, colors.infoLight, colors.dangerLight, colors.successLight, colors.primaryLight],
+        color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -116,6 +124,13 @@ export class VulnTrendAreaStackComponent implements OnDestroy {
     const array: any = [];
     for (const entry of this.vulnTrendChart.series) {
       array.push({
+        emphasis: {
+          focus: 'series',
+        },
+        lineStyle: {
+          width: 0,
+        },
+        smooth: true,
         name: entry.name,
         type: 'line',
         stack: 'Total amount',

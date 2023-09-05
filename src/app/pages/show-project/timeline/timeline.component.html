@@ -1,0 +1,11 @@
+    <p-timeline *ngIf="events.length>0" [value]="events" style="overflow-y: auto">
+      <ng-template pTemplate="content" let-event>
+        <small class="p-text-secondary">{{ event.date }}</small>
+      </ng-template>
+      <ng-template pTemplate="opposite" let-event>
+        {{ event.status }}
+      </ng-template>
+      <ng-template pTemplate="marker" let-event>
+        <nb-icon  [icon]="event.icon" pack="eva" [style.backgroundColor]="event.color" style="border-radius: 7px"></nb-icon>
+      </ng-template>
+    </p-timeline>

@@ -10,7 +10,6 @@ import {NbDialogService, NbWindowService} from '@nebular/theme';
 import {FormBuilder} from '@angular/forms';
 import {Toast} from '../../@core/utils/Toast';
 import {ProjectInfo} from '../../@core/Model/ProjectInfo';
-import {Template} from '@angular/compiler/src/render3/r3_ast';
 import {VulnTrendChart} from '../../@core/Model/VulnTrendChart';
 import {Severities} from '../../@core/Model/Severities';
 import {ProjectStats} from '../../@core/Model/ProjectStats';
@@ -59,7 +58,6 @@ export class ShowProjectComponent implements OnInit {
     this.loadProjectInfo();
     this.loadCiOperations();
     this.loadTrendChartData();
-    this.loadSeveritiesChart();
     this.loadProjectStats();
     this.vulnAuditorForm = this.formBuilder.group({
       enableVulnAuditor: this.projectInfo.vulnAuditorEnable,
@@ -147,6 +145,7 @@ export class ShowProjectComponent implements OnInit {
     });
   }
   ngOnInit() {
+    this.loadSeveritiesChart();
     this.role = this.cookieService.get('role');
     this.showConfigTemplate = this.role !== 'ROLE_ADMIN' && this.role !== 'ROLE_EDITOR_RUNNER';
     this.showVulnAuditor = true;
@@ -192,5 +191,11 @@ export class ShowProjectComponent implements OnInit {
         this.toast.showToast('danger', this.constants.PROJECT_OPERATION_FAILURE,
           this.constants.PROJECT_OPERATION_FAILURES);
       });
+  }
+
+  flipped = false;
+
+  toggleView() {
+    this.flipped = !this.flipped;
   }
 }

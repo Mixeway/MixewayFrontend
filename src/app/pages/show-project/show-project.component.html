@@ -28,10 +28,92 @@
     <ngx-ci-operations [ciOperations]="ciOperations" [chartValue]="ciOperationSuccessRate"></ngx-ci-operations>
   </div>
 </div>
+
 <ngx-configure-tables *ngIf="showConfigTableTemplate" [scannerTypes]="scannerTypes"></ngx-configure-tables>
-<ngx-show-project-details-chart *ngIf="showDetailsTemplate"></ngx-show-project-details-chart>
+
+
+<div class="row">
+  <div class="col-md-8">
+    <nb-flip-card [showToggleButton]="false" [flipped]="flipped">
+      <nb-card-front>
+        <nb-card size="large">
+          <nb-card-header>Vulnerability Trend</nb-card-header>
+          <ngx-show-project-details-chart *ngIf="showDetailsTemplate" style="height:100%"></ngx-show-project-details-chart>
+          <nb-icon icon="chevron-right-outline" pack="eva" class="flip-icon" (click)="toggleView()" nbTooltip="More Statistics..." ></nb-icon>
+        </nb-card>
+      </nb-card-front>
+      <nb-card-back>
+        <nb-card size="large">
+          <nb-card-header>Other Stats [Beta]</nb-card-header>
+          <nb-card-header>
+            <div class="row">
+              <div class="col-md-6" >
+                <ngx-vuln-trend-pie [severities]="severities" style="margin-left:10px"></ngx-vuln-trend-pie>
+              </div>
+
+              <div class="col-md-6" >
+                <br/><br/><br/><br/>
+                <ngx-details-carts></ngx-details-carts>
+              </div>
+            </div>
+          </nb-card-header>
+          <nb-icon icon="chevron-right-outline" pack="eva" class="flip-icon" (click)="toggleView()"></nb-icon>
+        </nb-card>
+      </nb-card-back>
+    </nb-flip-card>
+  </div>
+  <div class="col-md-4">
+    <nb-card size="large">
+      <nb-card-header>
+        Timeline
+      </nb-card-header>
+      <nb-card-body>
+        <ngx-timeline style="width:100%; display: flex; justify-content: center;" ></ngx-timeline>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<!--<nb-card size="large">-->
+<!--  <nb-tabset fullWidth>-->
+
+
+<!--    <nb-tab tabTitle="Trend">-->
+<!--      <div class="chart-container">-->
+<!--        <ngx-show-project-details-chart *ngIf="showDetailsTemplate"></ngx-show-project-details-chart>-->
+<!--      </div>-->
+<!--    </nb-tab>-->
+
+<!--    <nb-tab tabTitle="Timeline [Beta]" [lazyLoad]="true" size="large"  >-->
+<!--      <div class="chart-container" style="height:420px;padding-top:50px" >-->
+<!--        <div class="row">-->
+<!--          <div class="col-md-12 " >-->
+<!--            <ngx-timeline ></ngx-timeline>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </nb-tab>-->
+<!--    <nb-tab  tabTitle="Other stats [Beta]"  *ngIf="severities" size="large">-->
+<!--      <div class="chart-container" >-->
+<!--        <div class="row">-->
+<!--          <div class="col-md-6" ><br/><br/>-->
+<!--            <ngx-vuln-trend-pie [severities]="severities"></ngx-vuln-trend-pie>-->
+<!--          </div>-->
+
+<!--          <div class="col-md-6" >-->
+<!--            <br/><br/>-->
+<!--            <ngx-details-carts></ngx-details-carts>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </nb-tab>-->
+
+<!--  </nb-tabset>-->
+<!--</nb-card>-->
+
 
 <ngx-details-tables id="detailsTables" *ngIf="showDetailsTemplate"></ngx-details-tables>
+
 <ng-template #vulnAuditorSettings let-data let-ref="dialogRef">
   <nb-card>
     <nb-card-header>Global settings, would be applied if object doesn't have setting specified</nb-card-header>

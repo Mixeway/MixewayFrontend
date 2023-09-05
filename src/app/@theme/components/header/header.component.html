@@ -12,6 +12,11 @@
 <div class="header-container">
   <nb-actions size="small">
     <nb-action class="control-item">
+      <nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
+        <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
+      </nb-select>
+    </nb-action>
+    <nb-action class="control-item">
       <nb-icon icon="book-open-outline" pack="eva" [options]="{ animation: { type: 'pulse' } }" (click)="showSwaggerDoc()"
                nbTooltip="Swagger API REST"></nb-icon>
     </nb-action>
@@ -29,7 +34,7 @@
     <nb-action class="user-action" *nbIsGranted="['view', 'user','admin']" >
       <nb-user [nbContextMenu]="userMenu"
                [name]="user?.name"
-               >
+      >
       </nb-user>
     </nb-action>
   </nb-actions>
