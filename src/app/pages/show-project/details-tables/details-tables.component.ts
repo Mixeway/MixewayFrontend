@@ -10,7 +10,7 @@ import {AnalysisColorComponent} from '../../extra-components/analysis-color.comp
 import {Angular5Csv} from 'angular5-csv/dist/Angular5-csv';
 import {ProjectConstants} from '../../../@core/constants/ProjectConstants';
 import {BugComponent} from '../../extra-components/bug-component';
-import {Vulnerability} from '../../../@core/Model/Vulnerability';
+import {ExtendedVulnerability, Vulnerability} from '../../../@core/Model/Vulnerability';
 import {LocalDataSource} from 'ng2-smart-table';
 import {VulnerabilitySourceComponent} from '../../extra-components/vulnerability-source-component';
 import {StatusComponent} from '../../extra-components/status-component';
@@ -78,7 +78,7 @@ export class DetailsTablesComponent implements OnInit {
         } else {
           location = vulnerability.location;
         }
-        const vuln = {
+        const vuln1 = {
           projectId: this._entityId,
           id: vulnerability.id,
           name: vulnerability.vulnerability ? vulnerability.vulnerability.name : vulnerability.cisRequirement.name,
@@ -95,9 +95,30 @@ export class DetailsTablesComponent implements OnInit {
           codeBug: this.codeBugTracker,
           networkBug: this.networkBugTracker,
           codeProject: vulnerability.codeProject?.name,
+          codeProjectBranch: vulnerability.codeProjectBranch,
         };
-        this.vulnerabilitiesPojo.push(vuln);
-        this.source = new LocalDataSource(this.vulnerabilitiesPojo);
+        this.vulnerabilitiesPojo.push(vuln1);
+        const groupedVulnerabilities: { [key: string]: ExtendedVulnerability } = {};
+
+        this.vulnerabilitiesPojo.forEach((vuln) => {
+          // Tworzenie klucza na podstawie wybranych atrybutów
+          const key = `${vuln.name}-${vuln.description}-${vuln.location}`;
+
+          if (!groupedVulnerabilities[key]) {
+            // Jeżeli nie ma jeszcze takiego klucza, tworzymy nowy obiekt ExtendedVulnerability
+            const extendedVuln = new ExtendedVulnerability();
+            Object.assign(extendedVuln, vuln);
+            extendedVuln.codeProjectBranches = [vuln.codeProjectBranch];
+            groupedVulnerabilities[key] = extendedVuln;
+          } else {
+            // Jeżeli klucz już istnieje, dodajemy tylko codeProjectBranch do listy
+            groupedVulnerabilities[key].codeProjectBranches.push(vuln.codeProjectBranch);
+          }
+        });
+
+        // Konwersja do tablicy
+        const extendedVulnerabilities: ExtendedVulnerability[] = Object.values(groupedVulnerabilities);
+        this.source = new LocalDataSource(extendedVulnerabilities);
       }
     });
   }

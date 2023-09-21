@@ -1,3 +1,8 @@
+## 1.8.1 (2023-09-21)
+
+#### New Features
+* Grouping vulnerabilities via branch (affect only vulnerabilities in code)
+
 ## 1.8.0 (2023-08-08)
 
 #### New Features
