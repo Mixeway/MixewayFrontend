@@ -1,3 +1,12 @@
+## 1.8.2 (2023-11-08)
+
+#### New Features
+* Additional statistics such as average time to fix, percent of solved critical vulnerabilities
+* New widgets in show-project tabs replacing bugable gauge chart
+
+#### Bug Fixes
+* removing trend area in configuration of the project space 
+
 ## 1.8.1 (2023-09-21)
 
 #### New Features

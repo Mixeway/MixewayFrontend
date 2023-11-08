@@ -155,7 +155,6 @@ export class ShowProjectComponent implements OnInit {
   }
 
   showConfig() {
-    alert('test');
     this.showConfigTableTemplate = true;
     this.showConfigTemplate = true;
     this.showDetailsTemplate = false;
