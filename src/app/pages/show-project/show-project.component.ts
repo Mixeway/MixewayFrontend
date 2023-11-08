@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {Risk} from '../../@core/Model/Risk';
 import {ShowProjectService} from '../../@core/service/ShowProjectService';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -48,7 +48,8 @@ export class ShowProjectComponent implements OnInit {
   private vulnAuditorForm: any;
   constructor(private showProjectService: ShowProjectService, private _route: ActivatedRoute, private router: Router,
               private cookieService: CookieService, private dialogService: NbDialogService,
-              private formBuilder: FormBuilder, private toast: Toast, private windowService: NbWindowService) {
+              private formBuilder: FormBuilder, private toast: Toast, private windowService: NbWindowService,
+              private cdRef: ChangeDetectorRef) {
     this._entityId = +this._route.snapshot.paramMap.get('projectid');
     if (!this._entityId) {
       this.router.navigate(['/pages/dashboard']);
@@ -150,17 +151,21 @@ export class ShowProjectComponent implements OnInit {
     this.showConfigTemplate = this.role !== 'ROLE_ADMIN' && this.role !== 'ROLE_EDITOR_RUNNER';
     this.showVulnAuditor = true;
     this.showDetailsTemplate = true;
+    this.cdRef.detectChanges();
   }
 
   showConfig() {
+    alert('test');
     this.showConfigTableTemplate = true;
     this.showConfigTemplate = true;
     this.showDetailsTemplate = false;
+    this.cdRef.detectChanges();
   }
   showDetails() {
     this.showConfigTableTemplate = false;
     this.showDetailsTemplate = true;
     this.showConfigTemplate = false;
+    this.cdRef.detectChanges();
   }
   riskCardBuilder (name, inventoryName, inventoryCount, risk) {
     return {

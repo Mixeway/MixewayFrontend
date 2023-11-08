@@ -5,7 +5,7 @@
         Detected Vulnerabilities
       </nb-card-header>
       <nb-card-body>
-        {{details?.createdVulnerabilities}}
+        {{details?.detectedVulnerabilities}}
       </nb-card-body>
     </nb-card>
   </div>
@@ -27,18 +27,19 @@
         Avg. Time to Fix [days]
       </nb-card-header>
       <nb-card-body>
-        {{details?.averageTimeToResolve}}
+        {{details?.avgTimeToFix == 0 ? 'n/a' : details?.avgTimeToFix}}
       </nb-card-body>
     </nb-card>
   </div>
   <div class="col-md-5">
     <nb-card>
       <nb-card-header>
-        Resolved Criticals
+        Resolved Criticals [%]
       </nb-card-header>
       <nb-card-body>
-        {{details?.percentCriticalsSolved}}
+        {{details?.resolvedCriticals}} %
       </nb-card-body>
     </nb-card>
   </div>
 </div>
+

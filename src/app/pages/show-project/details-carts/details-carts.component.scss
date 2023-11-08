@@ -1,0 +1,13 @@
+
+@import '../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  div{
+    margin-top:0px;
+    padding-top:0;
+  }
+  nb-card-body {
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+}

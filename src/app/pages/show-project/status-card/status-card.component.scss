@@ -1,0 +1,172 @@
+@import '../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  .row {
+    display: flex;
+    align-items: stretch; // Ensure cards stretch to the maximum height of the tallest card
+  }
+
+  // Update for nb-card
+  nb-card {
+    flex: 1; // Allows the cards to take up equal width
+    display: flex;
+    flex-direction: column; // Stack contents vertically
+    justify-content: space-between; // Distribute space evenly between children
+
+    // ... (other styles for nb-card)
+
+    .details, .centrize {
+      flex: 1; // Ensure both details and centrize take up equal space
+    }
+  }
+  ngx-project-risk-chart {
+    display: block;
+    height: nb-theme(card-height-medium);
+    width: 60%;
+    margin-top: 0;
+    padding-left: 0;
+  }
+  nb-card {
+    width: 100%;
+  }
+
+  ::ng-deep .echart {
+    margin-top:0;
+    height: 100%;
+    width: 100%;
+  }
+  ::ng-deep nb-alert {
+    padding: 0;
+    width: 100%;
+    display: inline;
+  }
+  ::ng-deep .p_name, .p_value {
+    display: inline-block;
+    margin-top: 0px;
+    margin-bottom: 2px;
+  }
+  ::ng-deep .p_name {
+    font-size: 12pt;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    font-weight: bold;
+    width: 120px;
+  }
+  ::ng-deep .p_value {
+    margin-left: 10px;
+    font-size: 12pt;
+    border: 2px solid #2d8ac7;
+    border-radius: 10px;
+    padding: 2px;
+  }
+  ::ng-deep .centrize {
+    text-align: center;
+  }
+  ::ng-deep nb-alert {
+    font-size: 18pt;
+    padding: 1px 5px;
+  }
+  table {
+    margin: 0 auto;
+  }
+  table td:nth-child(2) {
+    text-align: right;
+  }
+  ::ng-deep .project_details {
+    margin-top: 30px;
+    display: inline-block;
+  }
+  ::ng-deep .project_grade {
+  }
+
+  .echart {
+    position: absolute;
+    left: 1em;
+    height: calc(100% - 2 * 1rem);
+    width: 40%;
+  }
+
+  .info {
+    margin-left: 45%;
+    padding-top: 1rem;
+  }
+
+  .value {
+    margin: 0;
+  }
+
+  .details {
+    color: nb-theme(text-hint-color);
+  }
+  nb-card {
+    flex-direction: row;
+    align-items: center;
+    height: 6rem;
+    overflow: visible;
+
+    .icon-container {
+      height: 100%;
+      padding: 0.625rem;
+    }
+
+    .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 5.75rem;
+      height: 4.75rem;
+      font-size: 3.75rem;
+      border-radius: nb-theme(card-border-radius);
+      transition: width 0.4s ease;
+      transform: translate3d(0, 0, 0);
+      -webkit-transform-style: preserve-3d;
+      -webkit-backface-visibility: hidden;
+      color: nb-theme(text-control-color);
+
+      @each $status in nb-get-statuses() {
+        &.status-#{$status} {
+          $left-color: nb-theme(button-hero-#{$status}-left-background-color);
+          $right-color: nb-theme(button-hero-#{$status}-right-background-color);
+          background-image: linear-gradient(to right, $left-color, $right-color);
+
+
+        }
+      }
+    }
+
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      @include nb-ltr(padding, 0 0.5rem 0 0.75rem);
+      @include nb-rtl(padding, 0 0.75rem 0 0.5rem);
+      border-left: 1px solid transparent;
+    }
+
+    .title {
+      margin: 0;
+    }
+    nb-icon{
+      width: 100%;
+      height: 50%;
+    }
+  }
+  .right-aligned {
+    text-align: right; /* Justowanie tekstu do prawej */
+    padding-left: 20px;
+    font-size: 1.3rem;
+  }
+  .grade {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Aby układać dzieci jedno pod drugim */
+    text-align: center; /* Centrowanie tekstu dla dzieci */
+  }
+
+  .icon-container {
+    margin-left: 30%;
+  }
+}

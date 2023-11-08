@@ -28,6 +28,17 @@ export class VulnTrendPieComponent implements OnDestroy, OnInit, AfterViewInit, 
 
   }
   ngOnChanges(changes: SimpleChanges) {
+    if (changes['severities']) {
+      this.drawChart();
+    }
+  }
+
+  ngOnInit() {
+  }
+  ngAfterViewInit() {
+    this.cdr.detectChanges();
+  }
+  drawChart() {
     this.options = {
       xAxis: {
         type: 'category',
@@ -51,78 +62,10 @@ export class VulnTrendPieComponent implements OnDestroy, OnInit, AfterViewInit, 
     };
   }
 
-  ngOnInit() {
-  }
-  ngAfterViewInit() {
-  }
-  drawChart() {
-    if (this.severities) {
-      this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
-        const colors = config.variables;
-        const echarts: any = config.variables.echarts;
-        this.options = {
-          tooltip: {
-            trigger: 'item',
-          },
-          legend: {
-            // Try 'horizontal'
-            orient: 'vertical',
-            left: 10,
-            top: 'center',
-          },
-          color: [colors.successLight, colors.primaryLight, colors.warningLight, colors.dangerLight].reverse(),
-          series: [
-            {
-              name: 'Access From',
-              type: 'pie',
-              radius: ['40%', '90%'],
-              avoidLabelOverlap: false,
-              itemStyle: {
-                borderRadius: 10,
-                borderColor: '#fff',
-                borderWidth: 2,
-              },
-              label: {
-                show: false,
-                position: 'center',
-              },
-              emphasis: {
-                label: {
-                  show: true,
-                  fontSize: 40,
-                  fontWeight: 'bold',
-                },
-              },
-              labelLine: {
-                show: false,
-              },
-              data: [
-                {
-                  'name': 'Critic',
-                  'value': this.severities?.Critical,
-                },
-                {
-                  'name': 'High',
-                  'value': this.severities?.High,
-                },
-                {
-                  'name': 'Medium',
-                  'value': this.severities?.Medium,
-                },
-                {
-                  'name': 'Low',
-                  'value': this.severities?.Low,
-                },
-              ],
-            },
-          ],
-        };
-      });
-    }
-  }
-
   ngOnDestroy(): void {
-    this.themeSubscription.unsubscribe();
+    if (this.themeSubscription) {
+      this.themeSubscription.unsubscribe();
+    }
   }
 
 }
