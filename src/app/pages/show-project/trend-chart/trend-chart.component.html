@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card size="large">
+      <nb-tabset fullWidth (changeTab)="onTabChange()">
+        <nb-tab tabTitle="Vulnerability Trend">
+          <ngx-show-project-details-chart *ngIf="showDetailsTemplate" style="height:100%"></ngx-show-project-details-chart>
+        </nb-tab>
+        <nb-tab tabTitle="Other Stats [Beta]">
+          <div class="row" *ngIf="flipped">
+            <div class="col-md-6" >
+              <ngx-vuln-trend-pie  #pieChart [severities]="severities" style="margin-left:10px"></ngx-vuln-trend-pie>
+            </div>
+
+            <div class="col-md-6" >
+              <br/><br/>
+              <ngx-details-carts></ngx-details-carts>
+            </div>
+          </div>
+        </nb-tab>
+
+      </nb-tabset>
+    </nb-card>
+  </div>
+
+</div>

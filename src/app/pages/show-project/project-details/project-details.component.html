@@ -1,25 +1,38 @@
-<nb-card size="tiny" xmlns="http://www.w3.org/1999/html">
-  <nb-card-header>Project summary</nb-card-header>
-  <nb-card-body >
-    <div class="col-md-4" >
-      <div echarts [options]="option" class="echart" style="width: 100%; height: 100%"></div>
+<!--<nb-card size="tiny" xmlns="http://www.w3.org/1999/html">-->
+<!--  <nb-card-header>Project summary</nb-card-header>-->
+<!--  <nb-card-body >-->
+<!--    <div class="col-md-4" >-->
+<!--      <div echarts [options]="option" class="echart" style="width: 100%; height: 100%"></div>-->
+<!--    </div>-->
+<!--    <div class="col-md-4 centrize">-->
+<!--      <p class="p_name">Assets:</p> <p class="p_value">{{projectStats?.assets}}</p> <br/>-->
+<!--      <p class="p_name">Code Repos:</p> <p class="p_value">{{projectStats?.repos}}</p> <br/>-->
+<!--      <p class="p_name">WebApps:</p> <p class="p_value">{{projectStats?.webApps}}</p> <br/>-->
+<!--      <p class="p_name">Dependencies:</p> <p class="p_value">{{projectStats?.libs}}</p> <br/>-->
+<!--    </div>-->
+<!--    <div class="col-md-4">-->
+<!--      <div class="centrize">-->
+<!--        <h6>Vulnerabilities detected</h6> <br/>-->
+<!--        <nb-alert status="danger" nbTooltip="Critical or High Severity">{{projectStats?.vulnCrit}}</nb-alert>&nbsp;&nbsp;-->
+<!--        <nb-alert status="warning" nbTooltip="Medium Severity">{{projectStats?.vulnMedium}}</nb-alert>&nbsp;&nbsp;-->
+<!--        <nb-alert status="primary" nbTooltip="Low Severity">{{projectStats?.vulnLow}}</nb-alert>&nbsp;&nbsp;<br/><br/>-->
+<!--        <a pageScroll href="#detailsTables">View more info</a>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </nb-card-body>-->
+<!--</nb-card>-->
+
+<nb-card >
+  <div class="icon-container">
+    <div class="icon status-danger">
+      <ng-content></ng-content>
     </div>
-    <div class="col-md-4 centrize">
-      <p class="p_name">Assets:</p> <p class="p_value">{{projectStats?.assets}}</p> <br/>
-      <p class="p_name">Code Repos:</p> <p class="p_value">{{projectStats?.repos}}</p> <br/>
-      <p class="p_name">WebApps:</p> <p class="p_value">{{projectStats?.webApps}}</p> <br/>
-      <p class="p_name">Dependencies:</p> <p class="p_value">{{projectStats?.libs}}</p> <br/>
-    </div>
-    <div class="col-md-4">
-      <div class="centrize">
-        <h6>Vulnerabilities detected</h6> <br/>
-        <nb-alert status="danger" nbTooltip="Critical or High Severity">{{projectStats?.vulnCrit}}</nb-alert>&nbsp;&nbsp;
-        <nb-alert status="warning" nbTooltip="Medium Severity">{{projectStats?.vulnMedium}}</nb-alert>&nbsp;&nbsp;
-        <nb-alert status="primary" nbTooltip="Low Severity">{{projectStats?.vulnLow}}</nb-alert>&nbsp;&nbsp;<br/><br/>
-        <a pageScroll href="#detailsTables">View more info</a>
-      </div>
-    </div>
-  </nb-card-body>
+  </div>
+
+  <div class="details">
+    <div class="title h5">LIGHT</div>
+    <div class="status paragraph-2">ON</div>
+  </div>
 </nb-card>
 
 <!--    <nb-card size="medium">-->

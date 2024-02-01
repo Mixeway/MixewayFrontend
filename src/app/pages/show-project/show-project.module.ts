@@ -53,6 +53,8 @@ import {ProgressChartComponent} from './progress-chart/progress-chart.component'
 import {TimelineComponent} from './timeline/timeline.component';
 import {TimelineModule} from 'primeng/timeline';
 import {CardModule} from 'primeng/card';
+import { StatusCardComponent } from './status-card/status-card.component';
+import { TrendChartComponent } from './trend-chart/trend-chart.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +84,8 @@ import {CardModule} from 'primeng/card';
     DetailsCartsComponent,
     ProgressChartComponent,
     TimelineComponent,
+    StatusCardComponent,
+    TrendChartComponent,
   ],
   imports: [
     CommonModule,

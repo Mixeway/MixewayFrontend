@@ -29,6 +29,7 @@ import {ProjectStats} from '../Model/ProjectStats';
 import {ProjectAudit} from '../Model/ProjectAudit';
 import {ProjectDetailsAudit} from '../Model/ProjectDetailsAudit';
 import {ProjectUser} from '../Model/ProjectUser';
+import {DetailStats} from '../Model/DetailStats';
 
 @Injectable({
   providedIn: 'root',
@@ -503,6 +504,14 @@ export class ShowProjectService {
 
   getIaasApiTypes(): Observable<IaasApiType[]> {
     return this.http.get<IaasApiType[]>(environment.backend + this.showProjectPath + '/iaasapitype')
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+
+  getDetailStats(projectid): Observable<DetailStats> {
+    return this.http.get<DetailStats>(environment.backend + '/show/project/' + projectid + '/detailstats' )
       .pipe(
         retry(1),
         catchError(this.errorHandl),
