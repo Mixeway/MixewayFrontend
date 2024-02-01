@@ -28,6 +28,7 @@ import {IaasApiType} from '../Model/IaasApiType';
 import {ProjectStats} from '../Model/ProjectStats';
 import {ProjectAudit} from '../Model/ProjectAudit';
 import {ProjectDetailsAudit} from '../Model/ProjectDetailsAudit';
+import {ProjectUser} from '../Model/ProjectUser';
 
 @Injectable({
   providedIn: 'root',
@@ -502,6 +503,14 @@ export class ShowProjectService {
 
   getIaasApiTypes(): Observable<IaasApiType[]> {
     return this.http.get<IaasApiType[]>(environment.backend + this.showProjectPath + '/iaasapitype')
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+
+  saveProjectUser(id, settings) {
+    return this.http.post<ProjectUser[]>(environment.backend + '/show/project/' + id + '/user/add', settings)
       .pipe(
         retry(1),
         catchError(this.errorHandl),
