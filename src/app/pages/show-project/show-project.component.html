@@ -62,8 +62,19 @@
         </div>
         <button type="submit" nbButton status="danger">{{constants.PROJECT_SAVE}}</button>
       </form>
+
+      <form [formGroup]="projectUserForm" (ngSubmit)="saveProjectUser(ref)">
+
+
+        <div class="form-group">
+          <label for="userProject" class="label">Who grant access to?</label>
+          <input type="text" nbInput fullWidth id="userProject" placeholder="username" formControlName="user">
+        </div>
+        <button type="submit" nbButton status="danger">{{constants.PROJECT_SAVE}}</button>
+      </form>
     </nb-card-body>
   </nb-card>
+
 </ng-template>
 <ng-template #showInstructions let-data let-ref="showInstructions">
   <nb-card>

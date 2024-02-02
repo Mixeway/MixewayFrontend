@@ -45,6 +45,10 @@ export class AdminConstants {
       'id': 'ROLE_USER',
     },
     {
+      'name': 'Project Owner',
+      'id': 'ROLE_PROJECT_OWNER',
+    },
+    {
       'name': 'Editor',
       'id': 'ROLE_EDITOR_RUNNER',
     },
@@ -152,6 +156,7 @@ export class AdminConstants {
   ADMIN_FORM_PROJECTS = 'Permissions for projects';
   ADMIN_FORM_PROJECTS2 = 'Select projects...';
   ADMIN_ROLE_USER = 'ROLE_USER';
+  ADMIN_ROLE_PROJECT_OWNER = 'ROLE_PROJECT_OWNER';
   ADMIN_ROLE_USER2 = 'ROLE_EDITOR_RUNNER';
   ADMIN_FORM_EDIT = 'Edit';
   ADMIN_EDIT_USER = 'Editing user';

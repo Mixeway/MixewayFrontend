@@ -167,7 +167,7 @@ export class UserComponent implements OnInit {
   }
 
   changedRole($event: any) {
-    if ($event === 'ROLE_USER' || $event === 'ROLE_ADMIN' || $event === 'ROLE_AUDITOR' || $event === 'ROLE_EDITOR_RUNNER') {
+    if ($event === 'ROLE_USER' || $event === 'ROLE_ADMIN' || $event === 'ROLE_AUDITOR' || $event === 'ROLE_EDITOR_RUNNER' || $event === 'ROLE_PROJECT_OWNER') {
       this.showUsername = true;
       this.showOptions = true;
     } else if ($event === 'ROLE_API') {

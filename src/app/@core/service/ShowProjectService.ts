@@ -28,6 +28,7 @@ import {IaasApiType} from '../Model/IaasApiType';
 import {ProjectStats} from '../Model/ProjectStats';
 import {ProjectAudit} from '../Model/ProjectAudit';
 import {ProjectDetailsAudit} from '../Model/ProjectDetailsAudit';
+import {ProjectUser} from '../Model/ProjectUser';
 import {DetailStats} from '../Model/DetailStats';
 
 @Injectable({
@@ -511,6 +512,14 @@ export class ShowProjectService {
 
   getDetailStats(projectid): Observable<DetailStats> {
     return this.http.get<DetailStats>(environment.backend + '/show/project/' + projectid + '/detailstats' )
+      .pipe(
+        retry(1),
+        catchError(this.errorHandl),
+      );
+  }
+
+  saveProjectUser(id, settings) {
+    return this.http.post<ProjectUser[]>(environment.backend + '/show/project/' + id + '/user/add', settings)
       .pipe(
         retry(1),
         catchError(this.errorHandl),

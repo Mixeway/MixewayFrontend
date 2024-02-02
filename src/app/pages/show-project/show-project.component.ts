@@ -13,6 +13,8 @@ import {ProjectInfo} from '../../@core/Model/ProjectInfo';
 import {VulnTrendChart} from '../../@core/Model/VulnTrendChart';
 import {Severities} from '../../@core/Model/Severities';
 import {ProjectStats} from '../../@core/Model/ProjectStats';
+import {ProjectUser} from '../../@core/Model/ProjectUser';
+
 
 @Component({
   selector: 'ngx-show-project',
@@ -45,7 +47,10 @@ export class ShowProjectComponent implements OnInit {
   severities: Severities;
   severitiesChartData: any = [];
   projectStats: ProjectStats;
+
   private vulnAuditorForm: any;
+  private projectUserForm: any;
+  projectUser: ProjectUser = new ProjectUser;
   constructor(private showProjectService: ShowProjectService, private _route: ActivatedRoute, private router: Router,
               private cookieService: CookieService, private dialogService: NbDialogService,
               private formBuilder: FormBuilder, private toast: Toast, private windowService: NbWindowService,
@@ -64,6 +69,9 @@ export class ShowProjectComponent implements OnInit {
       enableVulnAuditor: this.projectInfo.vulnAuditorEnable,
       dclocation: this.projectInfo.networkdc,
       appClient: this.projectInfo.appClient,
+    });
+    this.projectUserForm = this.formBuilder.group({
+      user: this.projectUser.user,
     });
     this.updateShowDockerInfo();
   }
@@ -196,6 +204,22 @@ export class ShowProjectComponent implements OnInit {
           this.constants.PROJECT_OPERATION_FAILURES);
       });
   }
+
+
+  saveProjectUser(ref) {
+      return this.showProjectService.saveProjectUser(this._entityId, this.projectUserForm.value).subscribe(() => {
+        this.toast.showToast('success', this.constants.PROJECT_OPERATION_SUCCESS,
+          'Project Settings saved successfully.');
+        this.loadProjectInfo();
+        ref.close();
+      },
+      () => {
+        this.toast.showToast('danger', this.constants.PROJECT_OPERATION_FAILURE,
+          this.constants.PROJECT_OPERATION_FAILURES);
+      });
+  }
+
+
 
   flipped = false;
 
