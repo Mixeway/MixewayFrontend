@@ -219,8 +219,6 @@ export class ShowProjectComponent implements OnInit {
       });
   }
 
-
-
   flipped = false;
 
   toggleView() {
